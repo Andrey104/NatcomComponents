@@ -1,0 +1,45 @@
+import axios from 'axios';
+
+// export const baseUrl = 'http://components.nextf.ru/api/';
+export const baseUrl = 'http://127.0.0.1:8000/api/';
+
+export class BaseApi {
+    baseUrl = baseUrl;
+    headers = {'Authorization': 'token ' + this.getToken()};
+
+    getUrl(url) {
+        return this.baseUrl + url;
+    }
+
+    post(url, data) {
+        return axios
+            .post(this.getUrl(url), data, {
+                headers: this.headers
+            });
+    }
+
+    get(url) {
+        return axios
+            .get(this.getUrl(url), {
+                headers: this.headers
+            });
+    }
+
+    put(url, data) {
+        return axios
+            .put(this.getUrl(url), data, {
+                headers: this.headers
+            });
+    }
+
+    delete(url) {
+        return axios
+            .delete(this.getUrl(url), {
+                headers: this.headers
+            });
+    }
+
+    getToken() {
+        return localStorage.getItem('token');
+    }
+}

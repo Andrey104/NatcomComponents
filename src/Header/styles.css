@@ -1,0 +1,18 @@
+@media screen and (max-width: 768px) {
+    .navbar-brand {
+        display: none;
+    }
+}
+.menu-icon-container {
+    padding: 4px 25px 4px 15px;
+    color: white;
+}
+
+.menu-icon {
+    color: white;
+}
+
+.navbar {
+    background-color: #2a56c6;
+    margin: 0;
+}

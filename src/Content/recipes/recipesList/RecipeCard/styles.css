@@ -1,0 +1,20 @@
+.recipes-list__card {
+    cursor: pointer;
+}
+
+.recipes-list__card_selected-recipe {
+    background-color: #007bff;
+    color: white;
+}
+
+.recipes-list__card_selected-recipe:hover {
+    background-color: #007bff !important;
+}
+
+.recipes-list__card__td__id_fixed-width {
+    width: 10%;
+}
+
+.recipes-list__card__td__name_fixed-width {
+    width: 90%;
+}

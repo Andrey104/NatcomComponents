@@ -1,0 +1,19 @@
+.services-list__card {
+    cursor: pointer;
+}
+
+.services-list__card__td__id_fixed-width {
+    width: 10%;
+}
+
+.services-list__card__td__name_fixed-width {
+    width: 20%;
+}
+
+.services-list__card__td__type_fixed-width {
+    width: 19%;
+}
+
+.services-list__card__td__prices_fixed_width {
+    width: 17%;
+}

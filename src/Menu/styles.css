@@ -1,0 +1,77 @@
+@media screen and (max-width: 768px) {
+    .menu-container {
+        position: absolute;
+        top: 0;
+        min-width: 250px;
+        min-height: 100vh;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.mobile-visible {
+    animation: show 250ms;
+    display: block;
+}
+.mobile-hidden {
+    animation: hide 250ms;
+    left: -250px;
+}
+
+.menu-container {
+    z-index: 100;
+    height: calc(100vh - 56px);
+    background-color: white;
+    border-right: 1px solid lightgrey;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: scroll;
+}
+
+.menu-container::-webkit-scrollbar { width: 0 !important }
+
+.hovered:hover {
+    background: lightgrey;
+}
+.nav-item {
+    padding: 0;
+    margin: 0;
+}
+.nav-link {
+    color: black;
+}
+.active-item {
+    background: #e9ecef;
+}
+.menu-header {
+    padding: 10px 5px 5px 0;
+    border-bottom: 1px solid lightgrey;
+}
+.icon {
+    height: 40px;
+    width: 40px;
+    float: left;
+    padding: 0px 5px 15px 5px;
+    margin: 0;
+}
+.title {
+    padding: 5px;
+}
+.subtitle {
+    padding: 5px;
+}
+@keyframes show {
+    from {left: -250px;}
+    to {left: -0px;}
+}
+
+@keyframes hide {
+    from {left: -0px; display: block}
+    to {left: -250px; display: none}
+}

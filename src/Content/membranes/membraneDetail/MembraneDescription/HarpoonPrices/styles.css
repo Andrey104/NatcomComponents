@@ -1,0 +1,13 @@
+.prices-container {
+    margin: 15px 5px;
+}
+
+.prices-names {
+    display: inline-block;
+    float: left;
+}
+
+.prices {
+    overflow: hidden;
+    padding-left: 20px;
+}

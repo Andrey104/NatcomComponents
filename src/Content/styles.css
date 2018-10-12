@@ -1,0 +1,27 @@
+.breadcrumbs {
+    height: 40px;
+    font-size: 24px;
+    border-bottom: 2px solid gray;
+    margin: 10px 0;
+}
+
+.pre-loader-container {
+    margin-top: calc(50vh - 85px);
+}
+
+.detail-btn {
+    margin: 30px 0 0 10px;
+}
+
+.error-text {
+    color: red;
+}
+
+.result-price-td {
+    min-width: 120px;
+}
+
+.required-area::after {
+    color: red;
+    content: ' *';
+}

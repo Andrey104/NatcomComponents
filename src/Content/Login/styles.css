@@ -1,0 +1,30 @@
+.auth-form {
+    max-width: 440px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 15px;
+    border: 1px solid;
+}
+.logo {
+    max-width: 408px;
+}
+
+@media (min-width: 576px) {
+    .auth-form {
+        top: calc(50% - 107px);
+    }
+}
+
+@media (max-width: 576px) {
+    .auth-form {
+        height: 100%;
+        overflow: auto;
+        border-radius: 0;
+    }
+    .logo {
+        visibility: hidden;
+    }
+}

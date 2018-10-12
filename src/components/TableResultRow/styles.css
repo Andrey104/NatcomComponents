@@ -1,0 +1,8 @@
+.result-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.result-price:hover {
+    background-color: white;
+}

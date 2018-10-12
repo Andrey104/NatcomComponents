@@ -1,0 +1,19 @@
+.cars-list__card {
+    cursor: pointer;
+}
+
+.cars-list__card__td__id_fixed-width {
+    width: 10%;
+}
+
+.cars-list__card__td__name_fixed-width {
+    width: 40%;
+}
+
+.cars-list__card__td__number_fixed-width {
+    width: 20%;
+}
+
+.cars-list__card__td__driver_fixed-width {
+    width: 30%;
+}

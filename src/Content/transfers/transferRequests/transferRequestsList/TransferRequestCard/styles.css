@@ -1,0 +1,23 @@
+.transfer-requests-list__card {
+    cursor: pointer;
+}
+
+.transfer-requests-list__card__td__id_fixed-width {
+    width: 10%;
+}
+
+.transfer-requests-list__card__td__type_fixed-width {
+    width: 20%;
+}
+
+.transfer-requests-list__card__td__item_fixed-width {
+    width: 30%;
+}
+
+.transfer-requests-list__card__td__count_fixed_width {
+    width: 15%;
+}
+
+.transfer-requests-list__card__td__stock_fixed_width {
+    width: 25%;
+}

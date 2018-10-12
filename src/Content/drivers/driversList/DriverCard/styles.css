@@ -1,0 +1,29 @@
+.drivers-list__card_selected-driver {
+    background-color: #007bff;
+    color: white;
+}
+
+.drivers-list__card_selected-driver:hover {
+    background-color: #007bff !important;
+}
+
+.drivers-list__card {
+    cursor: pointer;
+}
+
+.drivers-list__card__td__id_fixed-width {
+    width: 10%;
+}
+
+.drivers-list__card__td__last-name_fixed-width {
+    width: 30%;
+}
+
+.drivers-list__card__td__first-name_fixed-width {
+    width: 30%;
+}
+
+.drivers-list__card__td__phone_fixed-width {
+    width: 30%;
+    min-width: 160px;
+}

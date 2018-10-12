@@ -1,0 +1,11 @@
+.custom-file-label {
+    margin-right: 15px;
+}
+
+.custom-file-input {
+    cursor: pointer;
+}
+
+.custom-file-label::after {
+    content: 'Просмотр';
+}

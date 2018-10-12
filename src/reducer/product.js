@@ -1,0 +1,75 @@
+import {OrderedMap, Record} from 'immutable';
+import {
+    GET_ALL_PRODUCTS,
+    GET_NEXT_PRODUCTS,
+    GET_PRODUCT,
+    DELETE_PRODUCTS_FROM_STORE,
+    START, SUCCESS,
+    SAVE_PRODUCTS_FILTERS
+} from '../constans';
+import {arrToMap} from '../helpers';
+
+const ProductRecord = Record({
+    id: undefined,
+    main_image: undefined,
+    stocks: undefined,
+    name: undefined,
+    vendor_code: undefined,
+    unit: undefined,
+    price: undefined,
+    price_standard: undefined,
+    price_good: undefined,
+    price_best: undefined,
+    item: undefined,
+    requires_prepayment: undefined
+});
+
+const ReducerState = Record({
+    isLoading: true,
+    loaded: false,
+    hasMoreProducts: false,
+    filters: null,
+    product: {},
+    products: new OrderedMap({})
+});
+
+const defaultState = new ReducerState();
+
+export default (productState = defaultState, actionTypeResponse) => {
+
+    const {type, response, data} = actionTypeResponse;
+
+    switch (type) {
+        case GET_ALL_PRODUCTS + START: {
+            return productState.set('isLoading', true);
+        }
+        case GET_ALL_PRODUCTS + SUCCESS: {
+            let nextPage, products = response.data.results;
+            response.data.next === null ? nextPage = false : nextPage = true;
+            products = arrToMap(products, ProductRecord);
+            return productState.set('products', products)
+                .set('hasMoreProducts', nextPage)
+                .set('loaded', true)
+                .set('isLoading', false);
+        }
+        case GET_NEXT_PRODUCTS + SUCCESS: {
+            let nextPage, newProducts;
+            response.data.next === null ? nextPage = false : nextPage = true;
+            newProducts = arrToMap(response.data.results, ProductRecord);
+            newProducts = productState.products.merge(newProducts);
+            return productState.set('products', newProducts)
+                .set('hasMoreProducts', nextPage)
+                .set('loaded', true);
+        }
+        case GET_PRODUCT + SUCCESS: {
+            return productState.set('product', response.data);
+        }
+        case SAVE_PRODUCTS_FILTERS: {
+            return productState.set('filters', data);
+        }
+        case DELETE_PRODUCTS_FROM_STORE: {
+            return defaultState;
+        }
+    }
+    return productState;
+}

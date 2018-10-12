@@ -1,0 +1,86 @@
+import React from 'react';
+import {connect} from 'react-redux';
+
+import Loader from '../../../../components/Loader/index';
+import AddButton from '../../../../components/AddButton/index';
+import MembraneCard from './MembraneCard/index';
+import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
+import {getAllMembranes, getNextMembranes} from '../../../../AC/membranes';
+import {mapToArr} from '../../../../helpers';
+import history from '../../../../history';
+import './styles.css';
+
+class MembranesList extends React.Component {
+
+    componentWillMount = () => this.props.getAllMembranes();
+
+    loadMembranes = page => this.props.getNextMembranes(page);
+
+    addNewMembrane = () => history.push('/membranes/add_membrane');
+
+    getBody(membranes) {
+        if (!membranes.length) {
+            return (
+                <tr>
+                    <td colSpan='5'>Вы еще не добавили ни одного полотна</td>
+                </tr>
+            );
+        }
+        return membranes.map((membrane, index) => (
+                <MembraneCard key={membrane.id}
+                              number={++index}
+                              membrane={membrane}/>
+            )
+        );
+    }
+
+    render() {
+        const {isLoading, membranes, hasMoreMembranes} = this.props;
+        if (isLoading && membranes.length === 0) {
+            return (
+                <div className="pre-loader-container">
+                    <Loader/>
+                </div>
+            );
+        }
+        const loader = hasMoreMembranes ? <Loader/> : false;
+        return (
+            <div className="row">
+                <div className="col-12">
+                    <InfiniteScrollOverride
+                        pageStart={1}
+                        loadMore={this.loadMembranes}
+                        hasMore={hasMoreMembranes}
+                        useWindow={false}>
+                        <div className="row">
+                            <div className="col-12">
+                                <table className="table table-hover table-bordered">
+                                    <thead className="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Название</th>
+                                        <th scope="col">Артикул</th>
+                                        <th scope="col">Цвет</th>
+                                        <th scope="col">Фактура</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.getBody(membranes)}
+                                    {loader}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <AddButton openAdd={this.addNewMembrane}/>
+                        </div>
+                    </InfiniteScrollOverride>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default connect((state) => ({
+    membranes: mapToArr(state.membranes.entries),
+    isLoading: state.membranes.isLoading,
+    hasMoreMembranes: state.membranes.hasMoreEntries
+}), {getAllMembranes, getNextMembranes})(MembranesList);

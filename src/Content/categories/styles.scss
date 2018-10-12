@@ -1,0 +1,10 @@
+.categories-page {
+  overflow: auto;
+  height: calc(100vh - 40px);
+  border-right: 1px solid gray;
+}
+
+.subcategories-page {
+  overflow: auto;
+  height: calc(100vh - 40px);
+}
