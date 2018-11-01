@@ -25,7 +25,7 @@ class AddItemForOrder extends React.Component {
 
     getItems = () => {
         this.isProducts = !this.isProducts;
-        const btnText = this.isProducts ? 'Пленки' : 'Товары';
+        const btnText = this.isProducts ? 'К полотнам' : 'К товарам';
         this.setState({btnText})
     };
 

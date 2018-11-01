@@ -36,6 +36,7 @@ export default (categoryState = defaultState, actionTypeResponse) => {
             return categoryState.set('isLoading', true);
         }
         case GET_ALL_CATEGORIES + SUCCESS: {
+            response.data.unshift({id: -1, name: 'Все'});
             const categoriesMap = arrToMap(response.data, CategoryRecord);
             return categoryState.set('entries', categoriesMap)
                 .set('isLoading', false);
@@ -44,6 +45,7 @@ export default (categoryState = defaultState, actionTypeResponse) => {
             return categoryState.set('isLoadingSubcategories', true);
         }
         case GET_SUBCATEGORIES + SUCCESS: {
+            response.data.unshift({id: -1, name: 'Все'});
             const subcategoriesMap = arrToMap(response.data, CategoryRecord);
             return categoryState.set('subcategories', subcategoriesMap)
                 .set('isLoadingSubcategories', false);

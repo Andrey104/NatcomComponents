@@ -8,7 +8,12 @@ import {
     getFilterByCategories,
     getSubcategories,
     removeSubcategoriesFromStorage
+
 } from '../../AC/categories';
+import {
+    getAllProducts
+
+} from '../../AC/products';
 
 class ProductsFilters extends React.Component {
     searchText = '';
@@ -27,7 +32,7 @@ class ProductsFilters extends React.Component {
 
     searchProducts = text => {
         this.searchText = text;
-        this.getFilterProducts();
+        this.updateFilters()
     };
 
     selectCategory = categoryId => {
@@ -35,66 +40,57 @@ class ProductsFilters extends React.Component {
             this.props.removeSubcategoriesFromStorage();
             this.category = null;
             this.subcategory = null;
-            this.getFilterProducts();
+            this.updateFilters()
         } else {
             this.category = categoryId;
             this.subcategory = null;
-            const url = this.getUrl();
-            this.props.getFilterByCategories(categoryId, url, this.props.action);
+            this.props.getSubcategories(categoryId);
+            this.updateFilters();
         }
     };
 
     selectSubcategory = subcategoryId => {
         this.subcategory = subcategoryId;
-        this.getFilterProducts();
-    };
-
-    getFilterProducts = () => {
-        const url = this.getUrl();
-        this.props.getFilterParams(url);
-    };
-
-    getUrl = () => {
-        let url = '';
-        if (this.searchText) url += `text=${this.searchText}&`;
-        if (this.category) url += `category=${this.category}&`;
-        if (this.subcategory) url += `subcategory=${this.subcategory}&`;
-        if (this.props.client) url += `client=${this.props.client.id}&`;
-        if (url) {
-            url = '?' + url.slice(0, url.length - 1);
-        }
-        return url;
+        this.updateFilters();
     };
 
     render() {
         const {categories, subcategories} = this.props;
         if (!categories.length) return null;
         return (
-            <div className="row align-items-center">
-                <div className="col-6">
-                    <SearchInput search={this.searchProducts}
-                                 defaultValue={this.searchText}/>
+            <div>
+                <div className="row">
+                    <div className="col-md-8">
+                        <SearchInput search={this.searchProducts}
+                                     defaultValue={this.searchText}/>
+                    </div>
                 </div>
-                <div className="col-6">
-                    <SelectCategories categories={categories}
-                                      subcategories={subcategories}
-                                      defaultCategory={this.category}
-                                      defaultSubcategory={this.subcategory}
-                                      selectCategory={this.selectCategory}
-                                      selectSubcategory={this.selectSubcategory}
-                                      notSelected={true}/>
+                <div className="row">
+                    <div className="col-md-8">
+                        <SelectCategories categories={categories}
+                                          subcategories={subcategories}
+                                          defaultCategory={this.category}
+                                          defaultSubcategory={this.subcategory}
+                                          selectCategory={this.selectCategory}
+                                          selectSubcategory={this.selectSubcategory}
+                                          notSelected={true}/>
+                    </div>
                 </div>
             </div>
         )
     }
 
-    componentWillUnmount() {
+    updateFilters() {
         const filters = {
             searchText: this.searchText,
             category: this.category,
             subcategory: this.subcategory
         };
+        if (filters.subcategory === '-1') {
+            filters.subcategory = null;
+        }
         this.props.saveProductsFilters(filters);
+        this.props.getAllProducts(filters);
     }
 }
 
@@ -104,5 +100,6 @@ export default connect(state => ({
     getSubcategories,
     removeSubcategoriesFromStorage,
     getFilterByCategories,
-    saveProductsFilters
+    saveProductsFilters,
+    getAllProducts
 })(ProductsFilters);

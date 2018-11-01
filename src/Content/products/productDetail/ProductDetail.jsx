@@ -62,6 +62,7 @@ class ProductDetail extends React.Component {
                     </div>
                 </div>
                 <div className="row">
+                    <h5>Остатки</h5>
                     <ItemStocks stocks={product.stocks}/>
                 </div>
                 <div className="row">

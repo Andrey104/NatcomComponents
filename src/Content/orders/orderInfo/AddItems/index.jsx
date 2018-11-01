@@ -108,6 +108,7 @@ export default class extends React.Component {
         this.props.addItems(this.items, this.resultPrice, this.resultPrepayment);
     };
 
+    // Этот код отвечает за модалку с товарами
     getDialogWindow() {
         let dialogWindow = null;
         if (this.openAddItemDialog) {

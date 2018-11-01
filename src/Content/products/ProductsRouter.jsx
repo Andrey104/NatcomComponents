@@ -3,13 +3,14 @@ import Switch from 'react-router-dom/es/Switch';
 import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
+import NavigationBar from '../../components/NavigationBar';
 
 import ProductsPage from './productsPage/ProductsPage';
 import AddNewProduct from './addNewProduct/AddNewProduct';
 import ComponentMenu from '../../components/ComponentMenu'
 import ProductDetail from './productDetail/ProductDetail';
 import {deleteProductsFromStore} from '../../AC/products';
-import styles from './styles.scss';
+import styles from './styles.css';
 
 class ProductsRouter extends React.Component {
 
@@ -36,12 +37,9 @@ class ProductsRouter extends React.Component {
     }
 
     render() {
-        const menu = this.getMenu();
         return (
             <div>
-                <div className={styles["suppliers-menu"]}>
-                    {menu}
-                </div>
+                {this.getMenu()}
                 <Switch>
                     <Route exact path='/products' component={ProductsPage}/>
                     <Route exact path='/products/add' component={AddNewProduct}/>
@@ -50,7 +48,6 @@ class ProductsRouter extends React.Component {
             </div>
         )
     }
-
     componentWillUnmount = () => this.props.deleteProductsFromStore();
 }
 

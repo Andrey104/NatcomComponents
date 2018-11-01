@@ -47,24 +47,30 @@ class AddClient extends React.Component {
     getCurrentClient() {
         if (this.client) {
             const {first_name, last_name} = this.client;
-            return <h3 className="current-client">Клиент: {first_name} {last_name}</h3>;
+            return <div>{first_name} {last_name}</div>;
+        } else {
+            return <div>Нажмите для выбора</div>
         }
     };
 
     render() {
         return (
-            <div className="add-client">
+            <tr>
                 {this.getDialogWindow()}
-                <button type="button"
-                        onClick={() => this.props.openModalWindow(OPEN_ADD_CLIENT)}
-                        className="btn btn-primary btn-sm">Выбрать клиента
-                </button>
-                <button type="button"
-                        onClick={() => this.props.openModalWindow(ADD_NEW_CLIENT)}
-                        className="btn btn-success btn-sm">Новый клиент
-                </button>
-                {this.getCurrentClient()}
-            </div>
+                <th scope="row">Клиент</th>
+                <td className="add-client-cell"
+                    onClick={() => this.props.openModalWindow(OPEN_ADD_CLIENT)}>
+                    {this.getCurrentClient()}
+                    {/*<button type="button"*/}
+                            {/*onClick={() => this.props.openModalWindow(OPEN_ADD_CLIENT)}*/}
+                            {/*className="btn btn-outline-dark btn-sm">..*/}
+                    {/*</button>*/}
+                    {/*<button type="button"*/}
+                            {/*onClick={() => this.props.openModalWindow(ADD_NEW_CLIENT)}*/}
+                            {/*className="btn btn-success btn-sm">Новый клиент*/}
+                    {/*</button>*/}
+                </td>
+            </tr>
         )
     }
 }

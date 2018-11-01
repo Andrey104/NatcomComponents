@@ -208,3 +208,29 @@ export function changeItemsStocks(items, serverItems, stock) {
         }
     });
 }
+
+export function getUrl(filters, page) {
+    let url = '';
+    if (filters.searchText) url += `text=${filters.searchText}&`;
+    if (filters.category) url += `category=${filters.category}&`;
+    if (filters.subcategory) url += `subcategory=${filters.subcategory}&`;
+    if (page) url += `page=${page}&`;
+    if (url!== '') {
+        url = '?' + url.slice(0, url.length - 1);
+    }
+    return url;
+}
+
+export function getUrlMembranes(filters, page) {
+    let url = '';
+    if (filters.searchText) url += `text=${filters.searchText}&`;
+    if (filters.color) url += `color=${filters.color}&`;
+    if (filters.texture) url += `texture=${filters.texture}&`;
+    if (filters.harpoon) url += `harpoon=${filters.harpoon}&`;
+    // if (filters.props.client) url += `client=${filters.props.client.id}&`;
+    if (page) url += `page=${page}&`;
+    if (url!== '') {
+        url = '?' + url.slice(0, url.length - 1);
+    }
+    return url;
+}

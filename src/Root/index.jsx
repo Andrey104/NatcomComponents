@@ -4,7 +4,7 @@ import Switch from "react-router-dom/es/Switch";
 import Route from "react-router-dom/es/Route";
 import Redirect from "react-router-dom/es/Redirect";
 
-import System from '../System';
+import System from '../Main';
 import Login from '../Content/Login';
 
 

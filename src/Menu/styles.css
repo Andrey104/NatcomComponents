@@ -4,6 +4,7 @@
         top: 0;
         min-width: 250px;
         min-height: 100vh;
+        z-index: 100;
     }
 }
 
@@ -25,7 +26,6 @@
 }
 
 .menu-container {
-    z-index: 100;
     height: calc(100vh - 56px);
     background-color: white;
     border-right: 1px solid lightgrey;

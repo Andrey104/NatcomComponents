@@ -7,25 +7,20 @@ import {getAllProducts} from '../../../AC/products';
 import {getAllCategories} from '../../../AC/categories';
 import {mapToArr} from '../../../helpers';
 
+import styles from './styles.css';
+
 class ProductsPage extends React.Component {
 
     componentWillMount = () => this.props.getAllCategories();
-
-    getFilterParams = params => this.props.getAllProducts(params);
 
     render() {
         const {categories, subcategories} = this.props;
         return (
             <div>
-                <div className="row">
-                    <div className="col-12">
-                        <ProductsFilters categories={categories}
-                                         subcategories={subcategories}
-                                         getFilterParams={this.getFilterParams}
-                                         action={this.props.getAllProducts}/>
-                    </div>
-                </div>
-                <ProductsList/>
+                    <ProductsFilters categories={categories}
+                                     subcategories={subcategories}
+                                     action={this.props.getAllProducts}/>
+                    <ProductsList/>
             </div>
         )
     }

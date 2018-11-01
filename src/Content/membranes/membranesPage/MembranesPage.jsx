@@ -16,8 +16,6 @@ class MembranesPage extends React.Component {
         this.props.getAllTextures();
     };
 
-    getParams = params => this.props.getAllMembranes(params);
-
     render() {
         const {colors, textures} = this.props;
         return (
@@ -25,8 +23,7 @@ class MembranesPage extends React.Component {
                 <div className="row">
                     <div className="col-12">
                         <MembranesFilters colors={colors}
-                                          textures={textures}
-                                          getParams={this.getParams}/>
+                                          textures={textures}/>
                     </div>
                 </div>
                 <MembranesList/>

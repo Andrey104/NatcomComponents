@@ -8,12 +8,18 @@ import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride'
 import {mapToArr} from '../../../../helpers';
 import {getAllProducts, getNextProducts} from '../../../../AC/products';
 import history from '../../../../history';
+import {getCurrentUser} from "../../../../AC/currentUser";
 
 class ProductsList extends React.Component {
 
-    componentWillMount = () => this.props.getAllProducts();
+    componentWillMount = () => {
+        this.props.getAllProducts(this.props.filters);
+        //this.props.getCurrentUser();
+    };
 
-    loadProducts = page => this.props.getNextProducts(page);
+    loadProducts = page => {
+        this.props.getNextProducts(this.props.filters, this.props.nextPageNumber);
+    };
 
     openAddProduct = () => history.push('/products/add');
 
@@ -21,13 +27,12 @@ class ProductsList extends React.Component {
         if (!products.length) {
             return (
                 <tr>
-                    <td colSpan='5'>Вы еще не добавили ни одного товара</td>
+                    <td colSpan='5'>Товары не найдены</td>
                 </tr>
             );
         }
-        return products.map((product, index) => (
+        return products.map((product) => (
             <ProductCard key={product.id}
-                         number={++index}
                          product={product}/>
         ));
     }
@@ -43,8 +48,6 @@ class ProductsList extends React.Component {
         }
         const loader = hasMoreProducts ? <Loader/> : false;
         return (
-            <div className="row">
-                <div className="col-12">
                     <InfiniteScrollOverride
                         pageStart={1}
                         loadMore={this.loadProducts}
@@ -55,11 +58,10 @@ class ProductsList extends React.Component {
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead-light">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Название</th>
                                         <th scope="col">Артикул</th>
-                                        <th scope="col">Ед. измерения</th>
-                                        <th scope="col">Предоплата</th>
+                                        <th scope="col">Наименование</th>
+                                        <th scope="col">В наличии</th>
+                                        <th scope="col">Цена по ум.</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -71,14 +73,15 @@ class ProductsList extends React.Component {
                             <AddButton openAdd={this.openAddProduct}/>
                         </div>
                     </InfiniteScrollOverride>
-                </div>
-            </div>
         )
     }
 }
 
 export default connect((state) => ({
     products: mapToArr(state.products.products),
+    currentStockId: state.currentUser.stock,
     isLoading: state.products.isLoading,
+    filters: state.products.filters,
+    nextPageNumber: state.products.nextPageNumber,
     hasMoreProducts: state.products.hasMoreProducts
-}), {getAllProducts, getNextProducts})(ProductsList);
+}), {getCurrentUser, getAllProducts, getNextProducts})(ProductsList);

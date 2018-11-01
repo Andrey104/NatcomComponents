@@ -1,14 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './styles.css';
-import classNames from 'classnames/bind';
 
 import Header from '../Header';
 import Menu from '../Menu';
 import Content from '../Content';
 import {MOBILE_DISPLAY, PC_DISPLAY, TABLET_DISPLAY_WIGHT} from '../services/utils';
+import {getCurrentUser} from "../AC/currentUser";
 
-export default class extends React.Component {
+class Main extends React.Component {
 
     constructor(props) {
         super(props);
@@ -50,6 +51,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
+        this.props.getCurrentUser();
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
@@ -75,3 +77,7 @@ export default class extends React.Component {
         )
     }
 }
+
+export default connect((state) => ({
+    user: state.currentUser,
+}), {getCurrentUser})(Main)

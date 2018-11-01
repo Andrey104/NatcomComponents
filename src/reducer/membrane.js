@@ -37,8 +37,14 @@ const ReducerState = Record({
     isLoading: false,
     loaded: false,
     hasMoreEntries: false,
-    filters: undefined,
+    filters: {
+        searchText: null,
+        color: null,
+        texture: null,
+        harpoon: null
+    },
     membrane: {},
+    nextPageNumber: null,
     entries: new OrderedMap({})
 });
 
@@ -58,14 +64,17 @@ export default (membraneState = defaultState, actionTypeResponse) => {
             return membraneState.set('entries', arrToMap(membranes, MembraneRecord))
                 .set('hasMoreEntries', nextPage)
                 .set('loaded', true)
-                .set('isLoading', false);
+                .set('isLoading', false)
+                .set('nextPageNumber', 2)
         }
         case GET_NEXT_MEMBRANES + SUCCESS: {
             let nextPage, newMembranes;
             response.data.next === null ? nextPage = false : nextPage = true;
             newMembranes = arrToMap(response.data.results, MembraneRecord);
+            let nextPageNumber = membraneState.get('nextPageNumber');
             return membraneState.update('entries', membranes => membranes.concat(newMembranes))
                 .set('hasMoreEntries', nextPage)
+                .set('nextPageNumber', nextPageNumber += 1)
                 .set('loaded', true);
         }
         case GET_MEMBRANE + START: {

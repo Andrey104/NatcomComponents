@@ -7,13 +7,9 @@ export default class extends React.Component {
 
     constructor(props) {
         super(props);
-        const {categories, notSelected, defaultCategory, defaultSubcategory} = this.props;
+        const {categories, defaultCategory, defaultSubcategory} = this.props;
         this.categories = categories;
         this.category = categories[0].id;
-        if (notSelected) {
-            this.categories.push({id: -1, name: 'Категория не выбрана'});
-            this.category = categories[categories.length -1].id;
-        }
         if (defaultCategory) this.category = defaultCategory;
         if (defaultSubcategory) this.defaultSubcategory = defaultSubcategory;
     }
@@ -25,12 +21,12 @@ export default class extends React.Component {
 
     selectSubcategory = event => this.props.selectSubcategory(event.target.value);
 
-    render () {
+    render() {
         const {subcategories} = this.props;
         let subs = null;
         if (subcategories.length && Number(this.category) !== -1) {
             subs = (
-                <div className="col-6 form-group">
+                <div>
                     <label>Подкатегория</label>
                     <select className="form-control"
                             onChange={this.selectSubcategory}
@@ -45,7 +41,7 @@ export default class extends React.Component {
         }
         return (
             <div className="row">
-                <div className="col-6 form-group">
+                <div className="col-md-6 mb-3 form-group">
                     <label>Категория</label>
                     <select className="form-control"
                             onChange={this.selectCategory}
@@ -56,7 +52,9 @@ export default class extends React.Component {
                         ))}
                     </select>
                 </div>
-                {subs}
+                <div className="col-md-6 mb-3 form-group">
+                    {subs}
+                </div>
             </div>
         )
     }

@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 
 import stocks from './stock';
 import suppliers from './supplier';
-import categories from './category';
+import categories from './categories';
 import products from './product';
 import clients from './client';
 import customPrices from './customPrice';
@@ -21,6 +21,7 @@ import harpoons from './harpoon';
 import modal from './modal';
 import transferRequests from './transferRequest';
 import items from './item';
+import currentUser from "./currentUser";
 
 export default combineReducers({
     stocks,
@@ -43,5 +44,6 @@ export default combineReducers({
     harpoons,
     modal,
     transferRequests,
-    items
+    items,
+    currentUser
 });

@@ -6,7 +6,7 @@ export default class extends React.Component {
         return (
             <span>
                 {menu}
-                <span> => </span>
+                <span>> </span>
                 <span>{name}</span>
             </span>
         )

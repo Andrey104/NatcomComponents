@@ -162,7 +162,7 @@ class AddNewProduct extends React.Component {
                            className="form-check-input"
                            id="harpoon"/>
                     <label className="form-check-label"
-                           htmlFor="harpoon">Гарпун</label>
+                           htmlFor="harpoon">Гарпун (Ставим, если товар представляет собой гарпун и им можно огарпунить полотно. Для 99% товаров НЕ ставим)</label>
                 </div>
                 <div className="form-group form-check">
                     <input type="checkbox"

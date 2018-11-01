@@ -5,10 +5,11 @@ import {
     DELETE_PRODUCTS_FROM_STORE,
     SAVE_PRODUCTS_FILTERS
 } from '../constans';
+import {getUrl} from "../services/utils";
 
-export function getAllProducts(params) {
+export function getAllProducts(filters) {
     let callAPI = 'items/products/';
-    callAPI += params ? params : '';
+    callAPI += getUrl(filters);
     return {
         type: GET_ALL_PRODUCTS,
         requestType: 'GET',
@@ -16,11 +17,13 @@ export function getAllProducts(params) {
     }
 }
 
-export function getNextProducts(page) {
+export function getNextProducts(filters, page) {
+    let callAPI = `items/products/`;
+    callAPI += getUrl(filters, page);
     return {
         type: GET_NEXT_PRODUCTS,
         requestType: 'GET',
-        callAPI: `items/products/?page=${page}`
+        callAPI
     }
 }
 

@@ -28,7 +28,12 @@ const ReducerState = Record({
     isLoading: true,
     loaded: false,
     hasMoreProducts: false,
-    filters: null,
+    filters: {
+        searchText: null,
+        category: null,
+        subcategory: null,
+    },
+    nextPageNumber: null,
     product: {},
     products: new OrderedMap({})
 });
@@ -50,6 +55,7 @@ export default (productState = defaultState, actionTypeResponse) => {
             return productState.set('products', products)
                 .set('hasMoreProducts', nextPage)
                 .set('loaded', true)
+                .set('nextPageNumber', 2)
                 .set('isLoading', false);
         }
         case GET_NEXT_PRODUCTS + SUCCESS: {
@@ -57,8 +63,10 @@ export default (productState = defaultState, actionTypeResponse) => {
             response.data.next === null ? nextPage = false : nextPage = true;
             newProducts = arrToMap(response.data.results, ProductRecord);
             newProducts = productState.products.merge(newProducts);
+            let nextPageNumber = productState.get('nextPageNumber');
             return productState.set('products', newProducts)
                 .set('hasMoreProducts', nextPage)
+                .set('nextPageNumber', nextPageNumber += 1)
                 .set('loaded', true);
         }
         case GET_PRODUCT + SUCCESS: {

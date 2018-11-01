@@ -12,9 +12,9 @@ import './styles.css';
 
 class MembranesList extends React.Component {
 
-    componentWillMount = () => this.props.getAllMembranes();
+    componentWillMount = () => this.props.getAllMembranes(this.props.filters);
 
-    loadMembranes = page => this.props.getNextMembranes(page);
+    loadMembranes = page => this.props.getNextMembranes(this.props.filters, this.props.nextPageNumber);
 
     addNewMembrane = () => history.push('/membranes/add_membrane');
 
@@ -22,7 +22,7 @@ class MembranesList extends React.Component {
         if (!membranes.length) {
             return (
                 <tr>
-                    <td colSpan='5'>Вы еще не добавили ни одного полотна</td>
+                    <td colSpan='5'>Полотна не найдены</td>
                 </tr>
             );
         }
@@ -57,11 +57,11 @@ class MembranesList extends React.Component {
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead-light">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Название</th>
                                         <th scope="col">Артикул</th>
-                                        <th scope="col">Цвет</th>
-                                        <th scope="col">Фактура</th>
+                                        <th scope="col">Название</th>
+                                        <th scope="col">В наличии</th>
+                                        <th scope="col">Цена</th>
+                                        <th scope="col">Цена в гарпуне</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -82,5 +82,7 @@ class MembranesList extends React.Component {
 export default connect((state) => ({
     membranes: mapToArr(state.membranes.entries),
     isLoading: state.membranes.isLoading,
-    hasMoreMembranes: state.membranes.hasMoreEntries
+    hasMoreMembranes: state.membranes.hasMoreEntries,
+    filters: state.membranes.filters,
+    nextPageNumber: state.membranes.nextPageNumber,
 }), {getAllMembranes, getNextMembranes})(MembranesList);

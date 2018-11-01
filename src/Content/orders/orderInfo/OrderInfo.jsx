@@ -217,17 +217,27 @@ class OrderInfo extends React.Component {
         return (
             <div className="row">
                 <div className="col-6">
-                    <AddClient addClient={this.addClient}
-                               dialogWindowState={this.dialogWindowState}
-                               client={this.state.client}/>
-                    <StocksSelect stocks={stocks}
-                                  stock={this.state.stock}
-                                  addStock={this.addStock}/>
-                    <CommentField comment={this.comment}
-                                  commentName={'заказу'}
-                                  addComment={this.addComment}/>
+                    <table className="table table-bordered">
+                        <tbody>
+
+                        <AddClient addClient={this.addClient}
+                                   dialogWindowState={this.dialogWindowState}
+                                   client={this.state.client}/>
+
+                        <tr>
+                            <th scope="row">Склад</th>
+                            <td>Jacob</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {/*<StocksSelect stocks={stocks}*/}
+                    {/*stock={this.state.stock}*/}
+                    {/*addStock={this.addStock}/>*/}
+                    {/*<CommentField comment={this.comment}*/}
+                    {/*commentName={'заказу'}*/}
+                    {/*addComment={this.addComment}/>*/}
                 </div>
-                <div className="col-6">
+                <div className="col-6 md-6">
                     <DatePicker selectDate={this.addDate}
                                 date={this.state.date}/>
                 </div>
@@ -238,7 +248,7 @@ class OrderInfo extends React.Component {
                               editHarpoon={this.editHarpoon}
                               removeHarpoonFromList={this.removeHarpoonFromList}/>
                 {this.getResultPrices()}
-                <div className="col-sm-12 text-right">
+                <div className="col-sm-12">
                     <button type="submit"
                             onClick={this.handleSubmit}
                             disabled={this.checkForm()}
