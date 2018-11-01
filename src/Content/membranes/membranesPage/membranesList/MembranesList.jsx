@@ -9,6 +9,7 @@ import {getAllMembranes, getNextMembranes} from '../../../../AC/membranes';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 import './styles.css';
+import {UsersService} from "../../../../services/users.service";
 
 class MembranesList extends React.Component {
 
@@ -35,6 +36,11 @@ class MembranesList extends React.Component {
     }
 
     render() {
+        let buttonBlock = null;
+        if (UsersService.adminPermission()) {
+            buttonBlock = <AddButton openAdd={this.addNewMembrane}/>
+        }
+
         const {isLoading, membranes, hasMoreMembranes} = this.props;
         if (isLoading && membranes.length === 0) {
             return (
@@ -70,7 +76,7 @@ class MembranesList extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <AddButton openAdd={this.addNewMembrane}/>
+                            {buttonBlock}
                         </div>
                     </InfiniteScrollOverride>
                 </div>

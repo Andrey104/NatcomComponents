@@ -9,6 +9,7 @@ import {mapToArr} from '../../../../helpers';
 import {getAllProducts, getNextProducts} from '../../../../AC/products';
 import history from '../../../../history';
 import {getCurrentUser} from "../../../../AC/currentUser";
+import {UsersService} from "../../../../services/users.service";
 
 class ProductsList extends React.Component {
 
@@ -38,6 +39,11 @@ class ProductsList extends React.Component {
     }
 
     render() {
+        let buttonBlock = null;
+        if (UsersService.adminPermission()) {
+            buttonBlock = <AddButton openAdd={this.openAddProduct}/>
+        }
+
         const {isLoading, products, hasMoreProducts} = this.props;
         if (isLoading && products.length === 0) {
             return (
@@ -70,7 +76,7 @@ class ProductsList extends React.Component {
                                 </table>
                                 {loader}
                             </div>
-                            <AddButton openAdd={this.openAddProduct}/>
+                            {buttonBlock}
                         </div>
                     </InfiniteScrollOverride>
         )
