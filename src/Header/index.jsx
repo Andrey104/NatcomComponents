@@ -14,7 +14,7 @@ export default class Header extends React.Component {
                 <div onClick= {onMenuOpen} className="menu-icon-container">
                     <img className='menu-icon' src = "/public/menu.svg"/>
                 </div>
-                <NavLink className="navbar-brand" to='/'>Все полтна</NavLink>
+                <NavLink className="navbar-brand" to='/'>Все полотна</NavLink>
                 <div className="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul className="navbar-nav mr-auto">
                     </ul>

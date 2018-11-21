@@ -43,12 +43,13 @@ class MembranesFilters extends React.Component {
             return null;
         }
         return (
-            <div className="row align-items-center">
-                <div className="col-6">
+            <div>
+
+                <div className="row">
                     <SearchInput search={this.searchMembranes}
                                  defaultValue={this.searchText}/>
                 </div>
-                <div className="col-6">
+                <div className="row">
                     <SelectParameters colors={colors}
                                       textures={textures}
                                       defaultColor={this.color}

@@ -21,9 +21,9 @@ export default class extends React.Component {
     render() {
         const {stocks} = this.props;
         return (
-            <div className="form-group row">
-                <label className="col-sm-2 col-form-label">Склад</label>
-                <div className="col-sm-10">
+            <tr>
+                <th scope="row">Склад</th>
+                <td>
                     <select className="form-control"
                             onChange={this.selectStock}
                             defaultValue={this.state.stock}>
@@ -32,8 +32,8 @@ export default class extends React.Component {
                                     key={stock.id}>{stock.name}</option>
                         ))}
                     </select>
-                </div>
-            </div>
+                </td>
+            </tr>
         )
     }
 }

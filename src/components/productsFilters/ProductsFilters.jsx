@@ -60,13 +60,13 @@ class ProductsFilters extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-8">
+                    <div className="col">
                         <SearchInput search={this.searchProducts}
                                      defaultValue={this.searchText}/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-8">
+                    <div className="col">
                         <SelectCategories categories={categories}
                                           subcategories={subcategories}
                                           defaultCategory={this.category}
@@ -89,13 +89,14 @@ class ProductsFilters extends React.Component {
         if (filters.subcategory === '-1') {
             filters.subcategory = null;
         }
-        this.props.saveProductsFilters(filters);
-        this.props.getAllProducts(filters);
+        this.props.getAllProducts(filters, this.storeClient);
+
     }
 }
 
 export default connect(state => ({
-    filters: state.products.filters
+    filters: state.products.filters,
+    storeClient: state.products.client
 }), {
     getSubcategories,
     removeSubcategoriesFromStorage,

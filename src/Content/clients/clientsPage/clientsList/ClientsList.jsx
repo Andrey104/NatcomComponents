@@ -37,13 +37,11 @@ class ClientsList extends React.Component {
 
     getAddClientButton() {
         let addButton = null;
-        if (!this.props.addClient) {
+
             addButton = (
-                <div className="col-2">
-                    <AddButton openAdd={() => this.props.openModalWindow(ADD_NEW_CLIENT)}/>
-                </div>
+                <AddButton openAdd={() => this.props.openModalWindow(ADD_NEW_CLIENT)}/>
             );
-        }
+
         return addButton;
     }
 
@@ -59,7 +57,6 @@ class ClientsList extends React.Component {
         }
         return (clients.map((client, index) => (
                 <ClientCard key={client.id}
-                            number={++index}
                             addClient={this.props.addClient}
                             client={client}/>
             )
@@ -94,13 +91,12 @@ class ClientsList extends React.Component {
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead-light">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">ФИО</th>
-                                        <th scope="col">Телефон</th>
+                                        <th scope="col name-column">ФИО</th>
+                                        <th scope="col phone-column">Телефон</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {this.getBody(clients)}
+                                        {this.getBody(clients)}
                                     </tbody>
                                 </table>
                                 {loader}

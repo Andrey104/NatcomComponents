@@ -30,14 +30,15 @@ export default class extends React.Component {
                     formatDate={formatDate}
                     parseDate={parseDate}
                     format="LL"
-                    placeholder={`${formatDate(new Date(), 'LL', 'ru')}`}
+                    placeholder={`Нажмите для выбора`}
                     onDayChange={this.handleDayChange}
                     dayPickerProps={{
                         locale: 'ru',
                         localeUtils: MomentLocaleUtils,
                     }}/>
                 <button type="button"
-                        onClick={this.clearDatePicker}>Clear
+                        className="btn-sm btn-primary"
+                        onClick={this.clearDatePicker}>Сброс
                 </button>
             </div>
         );

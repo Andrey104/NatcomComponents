@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import Loader from '../../../components/Loader';
 import AddClient from './addClient/AddClient';
 import StocksSelect from '../../../components/StocksSelect';
-import DatePicker from '../../../components/datePickers/DatePicker';
-import AddItems from './AddItems';
+import DatePickerInput from '../../../components/datePickers/DatePickerInput';
+import Items from './Items';
 import HarpoonsList from './HarpoonsList';
 import CommentField from '../../../components/CommentField';
 import ResultPrices from './ResultPrices';
@@ -22,7 +22,7 @@ import {
 import history from '../../../history';
 import './styles.css';
 
-class OrderInfo extends React.Component {
+class OrderCreate extends React.Component {
     baseApi = new BaseApi();
     comment = null;
     defaultStock = null;
@@ -61,7 +61,9 @@ class OrderInfo extends React.Component {
         }
     }
 
-    addClient = client => this.setState({client});
+    addClient = client => {
+        this.setState({client});
+    };
 
     addStock = stock => {
         let items = this.state.items;
@@ -168,31 +170,41 @@ class OrderInfo extends React.Component {
         return false;
     }
 
-    getAddItems() {
+    getItemsAndHarpoonsBlock() {
+        let block;
         if (this.state.client) {
-            return (
-                <AddItems client={this.state.client}
-                          stock={this.state.stock || this.defaultStock}
-                          addItems={this.addItems}
-                          items={this.state.items}
-                          itemsResultPrice={this.itemsResultPrice}
-                          dialogWindowState={this.dialogWindowState}/>
-            )
+            block = (
+                <div className="row tables-block">
+                    <div className="items col-12">
+                        <Items client={this.state.client}
+                               stock={this.state.stock || this.defaultStock}
+                               addItems={this.addItems}
+                               items={this.state.items}
+                               itemsResultPrice={this.itemsResultPrice}
+                               dialogWindowState={this.dialogWindowState}/>
+                    </div>
+                    <div className="harpoons col-12">
+                        <HarpoonsList harpoons={this.state.harpoons}
+                                      harpoonsResultPrice={this.harpoonsResultPrice}
+                                      editHarpoon={this.editHarpoon}
+                                      removeHarpoonFromList={this.removeHarpoonFromList}/>
+                        <div className="col-sm-12">
+                            <button type="button"
+                                    onClick={this.handleAddHarpoon}
+                                    className="btn btn-primary btn-sm">Добавить гарпун
+                            </button>
+                        </div>
+                    </div>
+                    {this.getResultPrices()}
+                </div>
+            );
+        } else {
+            block = null;
         }
+
+        return block;
     }
 
-    getAddHarpoon() {
-        if (this.state.client) {
-            return (
-                <div className="col-sm-12">
-                    <button type="button"
-                            onClick={this.handleAddHarpoon}
-                            className="btn btn-primary btn-sm">Добавить гарпун
-                    </button>
-                </div>
-            )
-        }
-    }
 
     getResultPrices() {
         if (this.state.items.length || this.state.harpoons.length) {
@@ -215,45 +227,44 @@ class OrderInfo extends React.Component {
         }
         this.defaultStock = this.state.stock ? null : stocks[0];
         return (
-            <div className="row">
-                <div className="col-6">
-                    <table className="table table-bordered">
-                        <tbody>
+            <div>
+                <div className="row">
+                    <div className="col-12 col-md-6">
+                        <table className="table table-hover table-bordered">
+                            <tbody>
 
-                        <AddClient addClient={this.addClient}
-                                   dialogWindowState={this.dialogWindowState}
-                                   client={this.state.client}/>
+                            <AddClient addClient={this.addClient}
+                                       dialogWindowState={this.dialogWindowState}
+                                       client={this.state.client}/>
+                            <StocksSelect stocks={stocks}
+                                          stock={this.state.stock}
+                                          addStock={this.addStock}/>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <label>Дата выдачи</label>
+                        <DatePickerInput selectDate={this.addDate}
+                                         defaultDate={this.state.date}/>
+                    </div>
 
-                        <tr>
-                            <th scope="row">Склад</th>
-                            <td>Jacob</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    {/*<StocksSelect stocks={stocks}*/}
-                    {/*stock={this.state.stock}*/}
-                    {/*addStock={this.addStock}/>*/}
-                    {/*<CommentField comment={this.comment}*/}
-                    {/*commentName={'заказу'}*/}
-                    {/*addComment={this.addComment}/>*/}
                 </div>
-                <div className="col-6 md-6">
-                    <DatePicker selectDate={this.addDate}
-                                date={this.state.date}/>
+                <div className="row">
+                    <div className="col-12 col-mb-6">
+                        <CommentField comment={this.comment}
+                                      commentName={'заказу'}
+                                      addComment={this.addComment}/>
+                    </div>
                 </div>
-                {this.getAddItems()}
-                {this.getAddHarpoon()}
-                <HarpoonsList harpoons={this.state.harpoons}
-                              harpoonsResultPrice={this.harpoonsResultPrice}
-                              editHarpoon={this.editHarpoon}
-                              removeHarpoonFromList={this.removeHarpoonFromList}/>
-                {this.getResultPrices()}
-                <div className="col-sm-12">
-                    <button type="submit"
-                            onClick={this.handleSubmit}
-                            disabled={this.checkForm()}
-                            className="btn btn-primary pull-right">{this.btnText}
-                    </button>
+                {this.getItemsAndHarpoonsBlock()}
+                <div className="row">
+                    <div className="col-sm-12">
+                        <button type="submit"
+                                onClick={this.handleSubmit}
+                                disabled={this.checkForm()}
+                                className="btn btn-primary btn-lg btn-block">{this.btnText}
+                        </button>
+                    </div>
                 </div>
             </div>
         )
@@ -285,4 +296,4 @@ class OrderInfo extends React.Component {
 
 export default connect((state) => ({
     orderSave: state.orders.orderSave,
-}), {saveOrderInfoInStore, saveHarpoon, deleteItemsFromStore})(OrderInfo);
+}), {saveOrderInfoInStore, saveHarpoon, deleteItemsFromStore})(OrderCreate);

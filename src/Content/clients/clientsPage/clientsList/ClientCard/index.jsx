@@ -18,9 +18,8 @@ export default class extends React.Component {
         return (
             <tr onClick={this.handleClick(client)}
                 className="hover-element">
-                <td>{number}</td>
-                <td>{client.first_name} {client.last_name}</td>
-                <td>{getPhoneWithMask(client.phone1)}</td>
+                <td className="name-column">{client.first_name} {client.last_name}</td>
+                <td className="phone-column">{getPhoneWithMask(client.phone1)}</td>
             </tr>
         )
     }

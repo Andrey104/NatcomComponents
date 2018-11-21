@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import OrderInfo from '../orderInfo/OrderInfo';
+import OrderInfo from '../orderInfo/OrderCreate';
 import {getAllStocks} from '../../../AC/stocks';
 import {addNewOrder} from '../../../AC/orders';
 import {mapToArr} from '../../../helpers';

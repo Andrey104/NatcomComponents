@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import ProductsList from './productsList/ProductsList';
+import ProductsList from '../../../components/ItemList/ItemList';
 import ProductsFilters from '../../../components/productsFilters/ProductsFilters';
 import {getAllProducts} from '../../../AC/products';
 import {getAllCategories} from '../../../AC/categories';

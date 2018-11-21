@@ -2,8 +2,8 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 class InfiniteScrollOverride extends InfiniteScroll {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.element = document.getElementById('mainContent')
     }
 

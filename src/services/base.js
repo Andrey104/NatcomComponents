@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {displayError} from "./utils";
 
 // export const baseUrl = 'http://components.nextf.ru/api/';
 export const baseUrl = 'http://127.0.0.1:8000/api/';
@@ -15,7 +16,10 @@ export class BaseApi {
         return axios
             .post(this.getUrl(url), data, {
                 headers: this.headers
-            });
+            })
+            .catch(error => {
+                displayError(error.message, 'SERVER')
+            })
     }
 
     get(url) {

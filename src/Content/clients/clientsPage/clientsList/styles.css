@@ -4,11 +4,19 @@
 }
 
 .dialog {
-  height: 400px;
-  overflow: auto;
-  margin-right: 1px;
+  /*height: 400px;*/
+  height: 70%;
+  /*overflow: auto;*/
+  /*margin-right: 1px;*/
 }
 
 .pre-loader-container {
   margin-top: calc(50vh - 85px);
+}
+
+.name-column{
+  width: 70%;
+}
+.phone-column{
+  width: 40%;
 }

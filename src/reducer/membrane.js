@@ -37,6 +37,7 @@ const ReducerState = Record({
     isLoading: false,
     loaded: false,
     hasMoreEntries: false,
+    client: null,
     filters: {
         searchText: null,
         color: null,

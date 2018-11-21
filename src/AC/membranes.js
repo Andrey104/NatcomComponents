@@ -7,9 +7,9 @@ import {
 } from '../constans';
 import {getUrl, getUrlMembranes} from "../services/utils";
 
-export function getAllMembranes(filters) {
+export function getAllMembranes(filters, client) {
     let callAPI = 'items/membranes/';
-    callAPI += getUrlMembranes(filters);
+    callAPI += getUrlMembranes(filters, client);
     return {
         type: GET_ALL_MEMBRANES,
         requestType: 'GET',
@@ -17,9 +17,9 @@ export function getAllMembranes(filters) {
     }
 }
 
-export function getNextMembranes(filters, page) {
+export function getNextMembranes(filters, page, client) {
     let callAPI = 'items/membranes/';
-    callAPI += getUrlMembranes(filters, page);
+    callAPI += getUrlMembranes(filters, page, client);
     return {
         type: GET_NEXT_MEMBRANES,
         requestType: 'GET',
@@ -32,16 +32,6 @@ export function getMembrane(membraneId) {
         type: GET_MEMBRANE,
         requestType: 'GET',
         callAPI: `items/membranes/${membraneId}/`
-    }
-}
-
-export function getAllClientMembranesWithStocks(params) {
-    let callAPI = `items/membranes/stocks/`;
-    callAPI += params ? params : '';
-    return {
-        type: GET_ALL_MEMBRANES,
-        requestType: 'GET',
-        callAPI
     }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
@@ -11,7 +12,13 @@ import history from '../../../../history';
 import './styles.css';
 import {UsersService} from "../../../../services/users.service";
 
+
 class MembranesList extends React.Component {
+    static propTypes = {
+        client: PropTypes.object,
+        selectMode: PropTypes.bool,
+        handleSubmit: PropTypes.func
+    };
 
     componentWillMount = () => this.props.getAllMembranes(this.props.filters);
 

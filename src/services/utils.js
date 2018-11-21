@@ -209,8 +209,13 @@ export function changeItemsStocks(items, serverItems, stock) {
     });
 }
 
-export function getUrl(filters, page) {
+export function getUrl(filters, page, client) {
+    let url_prefix = '';
     let url = '';
+    if (client) {
+        url_prefix += `stocks/`;
+        url += `client=${client.id}&`;
+    }
     if (filters.searchText) url += `text=${filters.searchText}&`;
     if (filters.category) url += `category=${filters.category}&`;
     if (filters.subcategory) url += `subcategory=${filters.subcategory}&`;
@@ -218,19 +223,33 @@ export function getUrl(filters, page) {
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
     }
-    return url;
+    return url_prefix + url;
 }
 
-export function getUrlMembranes(filters, page) {
+export function getUrlMembranes(filters, page, client) {
+    let url_prefix = '';
     let url = '';
+    if (client) {
+        url_prefix += `stocks/`;
+        url += `client=${client.id}&`;
+    }
     if (filters.searchText) url += `text=${filters.searchText}&`;
     if (filters.color) url += `color=${filters.color}&`;
     if (filters.texture) url += `texture=${filters.texture}&`;
     if (filters.harpoon) url += `harpoon=${filters.harpoon}&`;
-    // if (filters.props.client) url += `client=${filters.props.client.id}&`;
     if (page) url += `page=${page}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
     }
-    return url;
+    return url_prefix + url;
+}
+
+export function displayError(text, type){
+    let errText = 'Что-то пошло не так :(';
+    if (type === 'SERVER') {
+        errText = 'Ошибка запроса к серверу: ' + text;
+    } else {
+        if (text) errText = text;
+    }
+    alert(errText);
 }

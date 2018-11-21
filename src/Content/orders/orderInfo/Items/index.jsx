@@ -167,29 +167,39 @@ export default class extends React.Component {
 
     getItemsTable() {
         let itemsTable;
+        let tableBody;
         if (this.items.length > 0) {
-            itemsTable = (
-                <table className="table table-bordered">
-                    <thead className="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Склад</th>
-                        <th scope="col">Цена</th>
-                        <th scope="col">Количество на складе</th>
-                        <th scope="col">Количество</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.getItems()}
-                    <TableResultRow columnCount={6}
-                                    resultPrice={this.resultPrice}/>
-                    </tbody>
-                </table>
-            )
+            tableBody = (
+                <tbody>
+                {this.getItems()}
+                <TableResultRow columnCount={6}
+                                resultPrice={this.resultPrice}/>
+                </tbody>
+            );
         } else {
-            itemsTable = <h3 className="text-center">Товары не выбраны</h3>;
+            tableBody = (
+                <tbody>
+                <tr>
+                    <td colSpan='6'>Товары не выбранны</td>
+                </tr>
+                </tbody>
+            );
         }
+        itemsTable = (
+            <table className="table table-bordered">
+                <thead className="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Склад</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Количество на складе</th>
+                    <th scope="col">Количество</th>
+                </tr>
+                </thead>
+                {tableBody}
+            </table>
+        );
         return itemsTable;
     }
 
@@ -199,11 +209,11 @@ export default class extends React.Component {
         return (
             <div className="col-12">
                 {dialogWindow}
+                {itemsTable}
                 <button type="button"
                         onClick={this.addProductsState}
                         className="btn btn-primary btn-sm">Добавить товар
                 </button>
-                {itemsTable}
             </div>
         )
     }

@@ -29,8 +29,23 @@ export default class extends React.Component {
 
     render() {
         const {harpoons} = this.props;
+        let tableBody;
         if (harpoons.length === 0) {
-            return null;
+            tableBody = (
+                <tbody>
+                <tr>
+                    <td colSpan='3'>Гарпуны не добавлены</td>
+                </tr>
+                </tbody>
+            )
+        } else {
+            tableBody = (
+                <tbody>
+                {this.getHarpoons(harpoons)}
+                <TableResultRow columnCount={5}
+                                resultPrice={this.props.harpoonsResultPrice}/>
+                </tbody>
+            )
         }
         return (
             <div className="col-12">
@@ -42,11 +57,7 @@ export default class extends React.Component {
                         <th scope="col">Цена</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {this.getHarpoons(harpoons)}
-                    <TableResultRow columnCount={5}
-                                    resultPrice={this.props.harpoonsResultPrice}/>
-                    </tbody>
+                    {tableBody}
                 </table>
             </div>
         )

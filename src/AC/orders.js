@@ -8,6 +8,7 @@ import {
 import {BaseApi} from '../services/base';
 import {closeModalWindow} from './modal';
 import history from '../history';
+import {displayError} from "../services/utils";
 
 export function getAllOrders(params) {
     let callAPI = 'orders/';

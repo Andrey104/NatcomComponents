@@ -57,18 +57,10 @@ class AddClient extends React.Component {
         return (
             <tr>
                 {this.getDialogWindow()}
-                <th scope="row">Клиент</th>
+                <th>Клиент</th>
                 <td className="add-client-cell"
                     onClick={() => this.props.openModalWindow(OPEN_ADD_CLIENT)}>
                     {this.getCurrentClient()}
-                    {/*<button type="button"*/}
-                            {/*onClick={() => this.props.openModalWindow(OPEN_ADD_CLIENT)}*/}
-                            {/*className="btn btn-outline-dark btn-sm">..*/}
-                    {/*</button>*/}
-                    {/*<button type="button"*/}
-                            {/*onClick={() => this.props.openModalWindow(ADD_NEW_CLIENT)}*/}
-                            {/*className="btn btn-success btn-sm">Новый клиент*/}
-                    {/*</button>*/}
                 </td>
             </tr>
         )
