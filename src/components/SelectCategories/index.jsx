@@ -41,7 +41,7 @@ export default class extends React.Component {
         }
         return (
             <div className="row">
-                <div className="col-md-6 mb-3 form-group">
+                <div className="col-12 form-group">
                     <label>Категория</label>
                     <select className="form-control"
                             onChange={this.selectCategory}
@@ -52,7 +52,7 @@ export default class extends React.Component {
                         ))}
                     </select>
                 </div>
-                <div className="col-md-6 mb-3 form-group">
+                <div className="col-12 form-group">
                     {subs}
                 </div>
             </div>

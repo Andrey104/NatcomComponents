@@ -29,7 +29,7 @@ class OrderCreate extends React.Component {
     itemsResultPrice = 0;
     itemsPrepayment = 0;
     harpoonsResultPrice = 0;
-    btnText = 'Добавить';
+    btnText = 'Сохранить';
 
     constructor(props) {
         super(props);

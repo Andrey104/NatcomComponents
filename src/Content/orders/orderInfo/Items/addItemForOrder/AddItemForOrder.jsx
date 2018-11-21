@@ -5,19 +5,10 @@ import MembranesFilters from '../../../../../components/MembranesFilters';
 import {countFormat, displayError} from '../../../../../services/utils';
 import styles from './styles.css';
 import ProductsFilters from "../../../../../components/productsFilters/ProductsFilters";
-import StockForOrder from './StockForOrder';
-import connect from "react-redux/es/connect/connect";
-import {mapToArr} from "../../../../../helpers";
-import {getAllClientProductsWithStocks} from "../../../../../AC/products";
-import {getCategoriesAndSubcategories} from "../../../../../AC/categories";
-import {getAllColors, getAllTextures} from "../../../../../AC/parameters";
-import {getAllClientMembranesWithStocks} from "../../../../../AC/membranes";
 import ProductsList from "../../../../../components/ItemList/ItemList";
 
 class AddItemForOrder extends React.Component {
     stockId;
-    client;
-
     constructor(props) {
         super(props);
         const {stock} = this.props;
@@ -56,10 +47,10 @@ class AddItemForOrder extends React.Component {
         this.props.selectedProducts(item, stocks, currentStock);
     };
 
-    getItemCount = item => {
-        const count = item.stocks.find(stock => stock.stock.id === this.stockId).count;
-        return countFormat(count);
-    };
+    // getItemCount = item => {
+    //     const count = item.stocks.find(stock => stock.stock.id === this.stockId).count;
+    //     return countFormat(count);
+    // };
 
     getItemsList() {
         return this.state.isProducts ? this.getProductsInfo() : this.getMembranesInfo();
@@ -84,25 +75,24 @@ class AddItemForOrder extends React.Component {
     }
 
     getFilters() {
+        let filters = null;
         if (this.state.isProducts) {
-            return (
+            filters = (
                 <div>
-                    <StockForOrder products={this.props.products}
-                                   stock={this.props.stock.id}
-                                   selectStock={this.selectStock}/>
-                    <ProductsFilters categories={this.props.categories}
-                                     subcategories={this.props.subcategories}/>
+                    {/*<StockForOrder products={this.props.products}*/}
+                                   {/*stock={this.stockId}*/}
+                                   {/*selectStock={this.selectStock}/>*/}
+                    <ProductsFilters/>
                 </div>
-            )
+            );
         } else {
-            return (
+            filters = (
                 <div>
-                    <MembranesFilters client={this.props.client}
-                                      colors={this.props.colors}
-                                      textures={this.props.textures}/>
+                    <MembranesFilters/>
                 </div>
-            )
+            );
         }
+        return filters;
     }
 
     render() {
@@ -117,6 +107,7 @@ class AddItemForOrder extends React.Component {
                                 <option value="products">Товары</option>
                                 <option value="membranes">Полотна</option>
                             </select>
+                            <hr/>
                             {this.getFilters()}
                         </div>
                         <div className="col-12 col-md-9 list-container">
@@ -130,19 +121,4 @@ class AddItemForOrder extends React.Component {
 }
 
 
-export default connect(state => ({
-    products: mapToArr(state.products.products),
-    categories: mapToArr(state.categories.entries),
-    subcategories: mapToArr(state.categories.subcategories),
-    productsFilters: state.products.filters,
-    membranes: mapToArr(state.membranes.entries),
-    colors: mapToArr(state.parameters.colors),
-    textures: mapToArr(state.parameters.textures),
-    membranesFilters: state.membranes.filters
-}), {
-    getAllClientProductsWithStocks,
-    getCategoriesAndSubcategories,
-    getAllTextures,
-    getAllColors,
-    getAllClientMembranesWithStocks
-})(DialogWindow(AddItemForOrder));
+export default DialogWindow(AddItemForOrder);

@@ -29,8 +29,8 @@ export default class extends React.Component {
         return (
             <div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Цвет</label>
-                    <div className="col-sm-10">
+                    <div className="col-12">
+                        <label>Цвет</label>
                         <select className="form-control"
                                 onChange={this.selectColor}
                                 defaultValue={this.defaultColor}>
@@ -42,8 +42,8 @@ export default class extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Фактура</label>
-                    <div className="col-sm-10">
+                    <div className="col-12">
+                        <label>Фактура</label>
                         <select className="form-control"
                                 onChange={this.selectTexture}
                                 defaultValue={this.defaultTexture}>

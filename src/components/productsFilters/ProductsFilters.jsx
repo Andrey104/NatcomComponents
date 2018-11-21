@@ -5,6 +5,7 @@ import SearchInput from '../SearchInput';
 import SelectCategories from '../SelectCategories';
 import {saveProductsFilters} from '../../AC/products';
 import {
+    getCategoriesAndSubcategories,
     getFilterByCategories,
     getSubcategories,
     removeSubcategoriesFromStorage
@@ -14,6 +15,7 @@ import {
     getAllProducts
 
 } from '../../AC/products';
+import {mapToArr} from "../../helpers";
 
 class ProductsFilters extends React.Component {
     searchText = '';
@@ -28,6 +30,10 @@ class ProductsFilters extends React.Component {
             this.category = filters.category;
             this.subcategory = filters.subcategory;
         }
+    }
+
+    componentDidMount() {
+        this.props.getCategoriesAndSubcategories();
     }
 
     searchProducts = text => {
@@ -89,18 +95,21 @@ class ProductsFilters extends React.Component {
         if (filters.subcategory === '-1') {
             filters.subcategory = null;
         }
-        this.props.getAllProducts(filters, this.storeClient);
-
+        this.props.getAllProducts(filters, this.props.storeClient);
+        this.props.saveProductsFilters(filters);
     }
 }
 
 export default connect(state => ({
     filters: state.products.filters,
-    storeClient: state.products.client
+    storeClient: state.products.client,
+    categories: mapToArr(state.categories.entries),
+    subcategories: mapToArr(state.categories.subcategories)
 }), {
     getSubcategories,
     removeSubcategoriesFromStorage,
     getFilterByCategories,
     saveProductsFilters,
-    getAllProducts
+    getAllProducts,
+    getCategoriesAndSubcategories
 })(ProductsFilters);

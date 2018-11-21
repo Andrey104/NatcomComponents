@@ -3,9 +3,6 @@ import React from 'react';
 import history from '../../../history';
 
 export default class extends React.Component {
-
-    handleClick = membrane => () => history.push(`/membranes/${membrane.id}`);
-
     getSecondPrice() {
         const {membrane, selectMode, harpoonMode} = this.props;
         let price = null;
@@ -21,8 +18,6 @@ export default class extends React.Component {
         } else {
             return price
         }
-
-
     }
 
     getMainPrice() {
@@ -41,12 +36,12 @@ export default class extends React.Component {
     }
 
     render() {
-        const {membrane, selectMode, harpoonMode} = this.props;
+        const {membrane, selectMode, harpoonMode, handleClick} = this.props;
 
         return (
-            <tr onClick={this.handleClick(membrane)}>
+            <tr onClick={handleClick(membrane)}>
                 <td>{membrane.vendor_code}</td>
-                <td>{membrane.texture.description} {membrane.color.description} {membrane.name}</td>
+                <td>{membrane.texture.description} {membrane.color.description} {membrane.name} ({membrane.width})</td>
                 <td>{membrane.stocks[0].count}</td>
                 <td>{this.getMainPrice()}</td>
                 {this.getSecondPrice()}

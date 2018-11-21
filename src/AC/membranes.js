@@ -9,7 +9,7 @@ import {getUrl, getUrlMembranes} from "../services/utils";
 
 export function getAllMembranes(filters, client) {
     let callAPI = 'items/membranes/';
-    callAPI += getUrlMembranes(filters, client);
+    callAPI += getUrlMembranes(filters, null, client);
     return {
         type: GET_ALL_MEMBRANES,
         requestType: 'GET',

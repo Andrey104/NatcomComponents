@@ -15,7 +15,7 @@ import {UsersService} from "../../services/users.service";
 import {getAllMembranes, getNextMembranes} from "../../AC/membranes";
 
 
-class ProductsList extends React.Component {
+class ItemList extends React.Component {
     // Архитектура этого компонента больше похожа на полную жесть, но как есть :)
     static propTypes = {
         client: PropTypes.object,
@@ -37,11 +37,12 @@ class ProductsList extends React.Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.load();
     };
 
     componentDidUpdate(prevProps) {
+        // Здесь можно выполнять сайд эффекты
         if (this.props.membraneMode !== prevProps.membraneMode) {
             this.load();
         }
@@ -49,17 +50,17 @@ class ProductsList extends React.Component {
 
     load = () => {
         if (this.props.membraneMode) {
-            this.props.getAllMembranes(this.props.filters, this.props.client);
+            this.props.getAllMembranes(this.props.filtersMembranes, this.props.client);
         } else {
-            this.props.getAllProducts(this.props.filters, this.props.client);
+            this.props.getAllProducts(this.props.filtersProducts, this.props.client);
         }
     };
 
     loadNext = () => {
         if (this.props.membraneMode) {
-            this.props.getNextMembranes(this.props.filters, this.props.nextPageNumberMembranes, this.props.client);
+            this.props.getNextMembranes(this.props.filtersMembranes, this.props.nextPageNumberMembranes, this.props.client);
         } else {
-            this.props.getNextProducts(this.props.filters, this.props.nextPageNumberProducts, this.props.client);
+            this.props.getNextProducts(this.props.filtersProducts, this.props.nextPageNumberProducts, this.props.client);
         }
     };
 
@@ -198,7 +199,7 @@ class ProductsList extends React.Component {
                             {this.getBody()}
                             </tbody>
                         </table>
-                        {loader}
+                        {/*{loader}*/}
                     </div>
                     {this.getAddButton()}
                 </div>
@@ -213,7 +214,8 @@ export default connect((state) => ({
     membranes: mapToArr(state.membranes.entries),
     currentStockId: state.currentUser.stock,
     isLoading: state.products.isLoading,
-    filters: state.products.filters,
+    filtersProducts: state.products.filters,
+    filtersMembranes: state.membranes.filters,
     storeClient: state.products.client,
     nextPageNumberProducts: state.products.nextPageNumber,
     nextPageNumberMembranes: state.membranes.nextPageNumber,
@@ -226,4 +228,4 @@ export default connect((state) => ({
     setProductsClient,
     getNextMembranes,
     getAllMembranes
-})(ProductsList);
+})(ItemList);

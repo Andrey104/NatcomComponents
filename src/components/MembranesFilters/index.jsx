@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import SearchInput from '../SearchInput';
 import SelectParameters from '../SelectParameters';
 import {getAllMembranes, saveMembranesFilters} from '../../AC/membranes';
+import {mapToArr} from "../../helpers";
+import {getAllColors, getAllTextures} from "../../AC/parameters";
 
 class MembranesFilters extends React.Component {
     searchText = '';
@@ -20,6 +22,11 @@ class MembranesFilters extends React.Component {
             this.texture = filters.texture;
             this.harpoon = filters.harpoon;
         }
+    }
+
+    componentDidMount() {
+        this.props.getAllColors();
+        this.props.getAllTextures();
     }
 
     searchMembranes = text => {
@@ -39,23 +46,24 @@ class MembranesFilters extends React.Component {
 
     render() {
         const {textures, colors} = this.props;
-        if (!colors.length || !textures.length) {
-            return null;
-        }
         return (
             <div>
 
                 <div className="row">
-                    <SearchInput search={this.searchMembranes}
-                                 defaultValue={this.searchText}/>
+                    <div className="col">
+                        <SearchInput search={this.searchMembranes}
+                                     defaultValue={this.searchText}/>
+                    </div>
                 </div>
                 <div className="row">
-                    <SelectParameters colors={colors}
-                                      textures={textures}
-                                      defaultColor={this.color}
-                                      defaultTexture={this.texture}
-                                      selectColor={this.selectColor}
-                                      selectTexture={this.selectTexture}/>
+                    <div className="col">
+                        <SelectParameters colors={colors}
+                                          textures={textures}
+                                          defaultColor={this.color}
+                                          defaultTexture={this.texture}
+                                          selectColor={this.selectColor}
+                                          selectTexture={this.selectTexture}/>
+                    </div>
                 </div>
             </div>
         )
@@ -69,10 +77,18 @@ class MembranesFilters extends React.Component {
             harpoon: this.harpoon
         };
         this.props.saveMembranesFilters(filters);
-        this.props.getAllMembranes(filters);
+        this.props.getAllMembranes(filters, this.props.storeClient);
     }
 }
 
 export default connect(state => ({
-    filters: state.membranes.filters
-}), {saveMembranesFilters, getAllMembranes})(MembranesFilters)
+    filters: state.membranes.filters,
+    colors: mapToArr(state.parameters.colors),
+    textures: mapToArr(state.parameters.textures),
+    storeClient: state.products.client,
+}), {
+    saveMembranesFilters,
+    getAllMembranes,
+    getAllTextures,
+    getAllColors
+})(MembranesFilters)
