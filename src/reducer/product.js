@@ -22,7 +22,8 @@ const ProductRecord = Record({
     price_good: undefined,
     price_best: undefined,
     item: undefined,
-    requires_prepayment: undefined
+    requires_prepayment: undefined,
+    type: undefined
 });
 
 const ReducerState = Record({

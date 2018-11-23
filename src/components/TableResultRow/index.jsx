@@ -9,7 +9,7 @@ export default class extends React.Component {
         return (
             <tr>
                 <td colSpan={columnCount}
-                    className="result-price">Итоговая цена: {moneyFormat(resultPrice)}
+                    className="result-price text-right">Итоговая цена: {moneyFormat(resultPrice)}
                 </td>
             </tr>
         )

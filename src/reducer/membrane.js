@@ -30,7 +30,8 @@ const MembraneRecord = Record({
     can_harpoon: undefined,
     images: undefined,
     stocks: undefined,
-    price: undefined
+    price: undefined,
+    type: undefined
 });
 
 const ReducerState = Record({

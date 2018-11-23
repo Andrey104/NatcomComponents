@@ -110,6 +110,8 @@ export const OPEN_ADD_SUPPLIER = 'OPEN_ADD_SUPPLIER';
 
 export const SAVE_ITEMS_INFO = 'SAVE_ITEMS_INFO';
 
+export const SET_ITEM_DIALOG_STATE = 'SET_ITEM_DIALOG_STATE';
+
 export const START = '_START';
 export const SUCCESS = '_SUCCESS';
 export const FAIL = '_FAIL';
@@ -121,3 +123,6 @@ export const transferRequestType = ['Заказ', 'Недостаток', 'Га�
 export const TRANSFER_REQUEST_ORDER = 0;
 export const TRANSFER_REQUEST_LACK = 1;
 export const TRANSFER_REQUEST_HARPOON = 2;
+
+export const ITEM_PRODUCT = 0;
+export const ITEM_MEMBRANE = 1;

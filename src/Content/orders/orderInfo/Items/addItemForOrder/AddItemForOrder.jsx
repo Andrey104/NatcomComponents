@@ -5,23 +5,24 @@ import MembranesFilters from '../../../../../components/MembranesFilters';
 import {countFormat, displayError} from '../../../../../services/utils';
 import styles from './styles.css';
 import ProductsFilters from "../../../../../components/productsFilters/ProductsFilters";
-import ProductsList from "../../../../../components/ItemList/ItemList";
+import ItemsList from "../../../../../components/ItemList/ItemList";
+import connect from "react-redux/es/connect/connect";
+import {setItemDialogState} from "../../../../../AC/orders";
 
 class AddItemForOrder extends React.Component {
     stockId;
+
     constructor(props) {
         super(props);
         const {stock} = this.props;
         this.stockId = stock.id;
-        this.state = {
-            isProducts: true
-        };
     }
 
     selectChange = (event) => {
-        this.setState({
-            isProducts: event.target.value === "products"
-        });
+        // this.setState({
+        //     isProducts: event.target.value === "products"
+        // });
+        this.props.setItemDialogState(event.target.value === "products");
     };
 
     selectStock = stockId => this.stockId = stockId;
@@ -53,35 +54,22 @@ class AddItemForOrder extends React.Component {
     // };
 
     getItemsList() {
-        return this.state.isProducts ? this.getProductsInfo() : this.getMembranesInfo();
-    }
-
-    getProductsInfo() {
         return (
-            <ProductsList client={this.props.client}
-                          handleSubmit={this.handleSubmit}
-                          membraneMode={false}
-                          selectMode={true}/>
-        )
-    }
-
-    getMembranesInfo() {
-        return (
-            <ProductsList client={this.props.client}
-                          handleSubmit={this.handleSubmit}
-                          membraneMode={true}
-                          selectMode={true}/>
+            <ItemsList client={this.props.client}
+                       handleSubmit={this.handleSubmit}
+                       membraneMode={!this.props.itemDialogIsProducts}
+                       selectMode={true}/>
         )
     }
 
     getFilters() {
         let filters = null;
-        if (this.state.isProducts) {
+        if (this.props.itemDialogIsProducts) {
             filters = (
                 <div>
                     {/*<StockForOrder products={this.props.products}*/}
-                                   {/*stock={this.stockId}*/}
-                                   {/*selectStock={this.selectStock}/>*/}
+                    {/*stock={this.stockId}*/}
+                    {/*selectStock={this.selectStock}/>*/}
                     <ProductsFilters/>
                 </div>
             );
@@ -120,5 +108,7 @@ class AddItemForOrder extends React.Component {
     }
 }
 
-
-export default DialogWindow(AddItemForOrder);
+export default connect(state => ({
+        itemDialogIsProducts: state.orders.itemDialogIsProducts
+    }),
+    {setItemDialogState})(DialogWindow(AddItemForOrder));

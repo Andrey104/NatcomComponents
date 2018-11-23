@@ -3,7 +3,8 @@ import {
     GET_NEXT_ORDERS,
     GET_ORDER,
     SAVE_ORDER_INFO_IN_STORE,
-    EDIT_HARPOON_IN_ORDER
+    EDIT_HARPOON_IN_ORDER,
+    SET_ITEM_DIALOG_STATE
 } from '../constans';
 import {BaseApi} from '../services/base';
 import {closeModalWindow} from './modal';
@@ -102,5 +103,13 @@ export function editOrderHarpoon(harpoonId, newHarpoon) {
     return {
         type: EDIT_HARPOON_IN_ORDER,
         data: {harpoonId, newHarpoon}
+    }
+}
+
+
+export function setItemDialogState(isProducts) {
+    return {
+        type: SET_ITEM_DIALOG_STATE,
+        data: {isProducts}
     }
 }

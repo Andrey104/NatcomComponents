@@ -31,6 +31,7 @@ class OrderCreate extends React.Component {
     harpoonsResultPrice = 0;
     btnText = 'Сохранить';
 
+
     constructor(props) {
         super(props);
         const {orderSave} = this.props;
@@ -228,7 +229,7 @@ class OrderCreate extends React.Component {
         this.defaultStock = this.state.stock ? null : stocks[0];
         return (
             <div>
-                <div className="row">
+                <div className="row order-head">
                     <div className="col-12 col-md-6">
                         <table className="table table-hover table-bordered">
                             <tbody>

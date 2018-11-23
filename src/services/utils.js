@@ -105,7 +105,7 @@ export function moneyFormat(money) {
             formattedMoney = formattedMoney.slice(0, i) + ' ' + formattedMoney.slice(i);
         }
     }
-    return formattedMoney + ' руб.';
+    return formattedMoney;
 }
 
 export function countFormat(count) {

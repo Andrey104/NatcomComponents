@@ -7,7 +7,7 @@ import {
     SUCCESS,
     START,
     SAVE_HARPOON_IN_ORDER,
-    EDIT_HARPOON_IN_ORDER
+    EDIT_HARPOON_IN_ORDER, SET_ITEM_DIALOG_STATE
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -35,6 +35,7 @@ const ReducerState = Record({
     hasMoreOrders: false,
     order: {},
     orderSave: undefined,
+    itemDialogIsProducts: true,
     orders: new OrderedMap({})
 });
 
@@ -91,6 +92,10 @@ export default (orderState = defaultState, actionTypeResponse) => {
             });
             orderState.orderSave.harpoons = arr;
             return orderState.set('orderSave', orderState.orderSave);
+        }
+        case SET_ITEM_DIALOG_STATE: {
+            const {isProducts} = data;
+            return orderState.set('itemDialogIsProducts', isProducts);
         }
     }
 

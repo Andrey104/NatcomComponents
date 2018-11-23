@@ -5,6 +5,7 @@ import AddItemForOrder from './addItemForOrder/AddItemForOrder';
 import TableResultRow from '../../../../components/TableResultRow/index';
 import {moneyFormat, countFormat} from '../../../../services/utils';
 import styles from './styles.css';
+import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../../../constans";
 
 let cx = classNames.bind(styles);
 
@@ -130,39 +131,81 @@ export default class extends React.Component {
             return 'is-valid';
     }
 
+    getProductRow(item) {
+    }
+
+    getMembraneRow() {
+
+    }
+
+    getItemName(inItem) {
+        let item = inItem.item;
+        console.log(item);
+        if (item.type === ITEM_PRODUCT) {
+            return (<td>{item.name}</td>);
+        }
+        if (item.type === ITEM_MEMBRANE){
+            return (<td>{item.texture.description} {item.color.description} {item.name} ({item.width})</td>);
+        }
+    }
+
+    getSelectStock(item, index) {
+        return (
+            <td>
+                <select className="form-control"
+                        onChange={e => this.handleChangeStock(e, index)}
+                        defaultValue={item.currentStock.stock.id}>
+                    {item.stocks.map(stock => (
+                        <option key={stock.stock.id}
+                                value={stock.stock.id}>{stock.stock.name}</option>
+                    ))}
+                </select>
+            </td>
+        )
+    }
+
+    getArea(inItem, index) {
+        let item = inItem.item;
+        console.log(item);
+        if (item.type === ITEM_PRODUCT) {
+            return null;
+        }
+        if (item.type === ITEM_MEMBRANE){
+            // Тут вычисления производятся с некоторыми странными погрешностями,
+            // но т.к. эти значения мы не отправляем на сервер, нам этого достаточно.
+            return (<div>({(inItem.count * item.width).toFixed(2)})</div>);
+        }
+    }
+
     getItems() {
         const {items} = this.props;
         this.items = items;
         return (this.items.map((item, index) => (
-            <tr key={item.item.item + item.currentStock.stock.name}>
-                <th scope="row">{index + 1}</th>
-                <td>{item.item.name}</td>
-                <td>{
-                    <select className="form-control"
-                            onChange={e => this.handleChangeStock(e, index)}
-                            defaultValue={item.currentStock.stock.id}>
-                        {item.stocks.map(stock => (
-                            <option key={stock.stock.id}
-                                    value={stock.stock.id}>{stock.stock.name}</option>
-                        ))}
-                    </select>
-                }</td>
-                <td>{moneyFormat(item.item.price)}</td>
-                <td>{countFormat(item.currentStock.count)}</td>
-                <td><input type="text"
-                           name="name"
-                           value={item.count || 0}
-                           className={cx('form-control', this.getCheckMaxCount(index))}
-                           onChange={e => this.handleChangeCount(e, index)}/>
-                </td>
-                <td>
-                    <button type="button"
-                            onClick={() => this.removeItemFromList(item)}
-                            className="btn btn-danger btn-sm">Удалить
-                    </button>
-                </td>
-            </tr>
-        )));
+                <tr key={item.item.item + item.currentStock.stock.name}>
+                    <th scope="row">
+                        <button type="button"
+                                onClick={() => this.removeItemFromList(item)}
+                                className="btn btn-danger btn-sm">-
+                        </button>
+                        {index + 1}
+                    </th>
+                    <td>{item.item.vendor_code}</td>
+                    {this.getSelectStock(item, index)}
+                    {this.getItemName(item)}
+                    <td>{item.currentStock.count}</td>
+                    <td>{moneyFormat(item.item.price)} р</td>
+                    <td>
+                        <input type="text"
+                               name="name"
+                               value={item.count || 0}
+                               className={cx('form-control', this.getCheckMaxCount(index))}
+                               onChange={e => this.handleChangeCount(e, index)}/>
+                        {this.getArea(item, index)}
+                    </td>
+                    <td>123!</td>
+                </tr>
+            )
+        ));
     }
 
     getItemsTable() {
@@ -172,7 +215,7 @@ export default class extends React.Component {
             tableBody = (
                 <tbody>
                 {this.getItems()}
-                <TableResultRow columnCount={6}
+                <TableResultRow columnCount={8}
                                 resultPrice={this.resultPrice}/>
                 </tbody>
             );
@@ -180,7 +223,7 @@ export default class extends React.Component {
             tableBody = (
                 <tbody>
                 <tr>
-                    <td colSpan='6'>Товары не выбранны</td>
+                    <td colSpan='8'>Товары не выбранны</td>
                 </tr>
                 </tbody>
             );
@@ -189,12 +232,14 @@ export default class extends React.Component {
             <table className="table table-bordered">
                 <thead className="thead-light">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Название</th>
+                    <th scope="col">№</th>
+                    <th scope="col">Артикул</th>
                     <th scope="col">Склад</th>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">В наличии</th>
                     <th scope="col">Цена</th>
-                    <th scope="col">Количество на складе</th>
-                    <th scope="col">Количество</th>
+                    <th scope="col">Кол-во</th>
+                    <th scope="col">Стоимость</th>
                 </tr>
                 </thead>
                 {tableBody}
@@ -209,10 +254,11 @@ export default class extends React.Component {
         return (
             <div className="col-12">
                 {dialogWindow}
+                <h6>Товары и полотна</h6>
                 {itemsTable}
                 <button type="button"
                         onClick={this.addProductsState}
-                        className="btn btn-primary btn-sm">Добавить товар
+                        className="btn btn-primary btn-sm">Добавить
                 </button>
             </div>
         )
