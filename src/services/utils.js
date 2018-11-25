@@ -1,3 +1,5 @@
+import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../constans";
+
 export const phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
 export const paymentTypes = ['Наличный', 'Безналичный', 'Терминал'];
@@ -252,4 +254,14 @@ export function displayError(text, type){
         if (text) errText = text;
     }
     alert(errText);
+}
+
+export function getUnit(item) {
+    if (item.item.type === ITEM_PRODUCT) {
+        return (units[item.item.unit - 1]);
+    }
+    if (item.item.type === ITEM_MEMBRANE) {
+        // Полотна измеряются в БД в метрах погонных, для клиента мы расчитываем м.кв
+        return ('м');
+    }
 }

@@ -100,6 +100,8 @@ export function getCategoriesAndSubcategories() {
             })
             .then(response => {
                 const subcategories = response.data;
+                categories.unshift({id: -1, name: 'Все'});
+                subcategories.unshift({id: -1, name: 'Все'});
                 dispatch(saveCategories(categories, subcategories));
             });
     }

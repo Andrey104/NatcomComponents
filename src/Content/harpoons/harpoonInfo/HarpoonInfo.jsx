@@ -90,14 +90,14 @@ class HarpoonInfo extends React.Component {
     };
 
     checkForm() {
-        const {membranes, services} = this.state;
-        if (!membranes.length) {
-            return true;
-        } else if (membranes.length > 1) {
-            const seam = services.find(service => service.service.type === 1);
-            if (!seam)
-                return true;
-        }
+        // const {membranes, services} = this.state;
+        // if (!membranes.length) {
+        //     return true;
+        // } else if (membranes.length > 1) {
+        //     const seam = services.find(service => service.service.type === 1);
+        //     if (!seam)
+        //         return true;
+        // }
         return false;
     }
 

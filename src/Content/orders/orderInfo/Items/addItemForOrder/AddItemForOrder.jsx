@@ -83,6 +83,14 @@ class AddItemForOrder extends React.Component {
         return filters;
     }
 
+    getProductsMembraneSelectorValue() {
+        if (this.props.itemDialogIsProducts) {
+            return 'products'
+        } else {
+            return 'membranes'
+        }
+    }
+
     render() {
         return (
             <div>
@@ -91,6 +99,7 @@ class AddItemForOrder extends React.Component {
                         <div className="col-12 col-md-3">
                             <label>Раздел</label>
                             <select className="form-control"
+                                    defaultValue={this.getProductsMembraneSelectorValue()}
                                     onChange={this.selectChange}>
                                 <option value="products">Товары</option>
                                 <option value="membranes">Полотна</option>

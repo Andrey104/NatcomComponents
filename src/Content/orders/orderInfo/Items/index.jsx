@@ -3,9 +3,9 @@ import classNames from 'classnames/bind';
 
 import AddItemForOrder from './addItemForOrder/AddItemForOrder';
 import TableResultRow from '../../../../components/TableResultRow/index';
-import {moneyFormat, countFormat} from '../../../../services/utils';
+import {moneyFormat, countFormat, getUnit} from '../../../../services/utils';
 import styles from './styles.css';
-import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../../../constans";
+import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../../../../constans";
 
 let cx = classNames.bind(styles);
 
@@ -52,7 +52,7 @@ export default class extends React.Component {
     };
 
     handleChangeCount = (event, index) => {
-        const inputValue = Number(event.target.value);
+        const inputValue = (event.target.value);
         if (!isFinite(inputValue)) return;
         this.items[index].count = inputValue;
         this.getResultPrice();
@@ -74,9 +74,15 @@ export default class extends React.Component {
     getResultPrice = () => {
         this.resultPrice = 0;
         this.resultPrepayment = 0;
+        let itemPrice;
         for (const item of this.items) {
             if (item.count) {
-                const itemPrice = item.item.price * item.count;
+                if (item.item.type === ITEM_PRODUCT) {
+                    itemPrice = item.item.price * item.count;
+                }
+                if (item.item.type === ITEM_MEMBRANE) {
+                    itemPrice = item.item.price * item.count * item.item.width;
+                }
                 this.resultPrice += itemPrice;
                 if (item.item.requires_prepayment)
                     this.resultPrepayment += itemPrice;
@@ -131,20 +137,12 @@ export default class extends React.Component {
             return 'is-valid';
     }
 
-    getProductRow(item) {
-    }
-
-    getMembraneRow() {
-
-    }
-
     getItemName(inItem) {
         let item = inItem.item;
-        console.log(item);
         if (item.type === ITEM_PRODUCT) {
             return (<td>{item.name}</td>);
         }
-        if (item.type === ITEM_MEMBRANE){
+        if (item.type === ITEM_MEMBRANE) {
             return (<td>{item.texture.description} {item.color.description} {item.name} ({item.width})</td>);
         }
     }
@@ -152,8 +150,7 @@ export default class extends React.Component {
     getSelectStock(item, index) {
         return (
             <td>
-                <select className="form-control"
-                        onChange={e => this.handleChangeStock(e, index)}
+                <select onChange={e => this.handleChangeStock(e, index)}
                         defaultValue={item.currentStock.stock.id}>
                     {item.stocks.map(stock => (
                         <option key={stock.stock.id}
@@ -166,16 +163,48 @@ export default class extends React.Component {
 
     getArea(inItem, index) {
         let item = inItem.item;
-        console.log(item);
         if (item.type === ITEM_PRODUCT) {
             return null;
         }
-        if (item.type === ITEM_MEMBRANE){
+        if (item.type === ITEM_MEMBRANE) {
             // Тут вычисления производятся с некоторыми странными погрешностями,
             // но т.к. эти значения мы не отправляем на сервер, нам этого достаточно.
-            return (<div>({(inItem.count * item.width).toFixed(2)})</div>);
+            if (inItem.count) {
+                return (<div>({(inItem.count * item.width).toFixed(2)}) м²</div>);
+            } else {
+                return <div>({(0).toFixed(2)}) м²</div>;
+            }
         }
     }
+
+    getPositionSum(inItem, index) {
+        let item = inItem.item;
+        if (item.type === ITEM_PRODUCT) {
+            if (inItem.count) {
+                return (<div>{(inItem.count * item.price).toFixed(2)} руб</div>);
+            } else {
+                return <div>{(0).toFixed(2)} руб</div>;
+            }
+        }
+        if (item.type === ITEM_MEMBRANE) {
+            if (inItem.count) {
+                return (<div>{(inItem.count * item.width * item.price).toFixed(2)} руб</div>);
+            } else {
+                return <div>{(0).toFixed(2)} руб</div>;
+            }
+        }
+    }
+
+    getItemPrice(inItem) {
+        let item = inItem.item;
+        if (item.type === ITEM_PRODUCT) {
+            return (<td>{item.price} руб/{getUnit(inItem)}</td>);
+        }
+        if (item.type === ITEM_MEMBRANE) {
+            return (<td>{item.price} руб/м²</td>);
+        }
+    }
+
 
     getItems() {
         const {items} = this.props;
@@ -183,26 +212,30 @@ export default class extends React.Component {
         return (this.items.map((item, index) => (
                 <tr key={item.item.item + item.currentStock.stock.name}>
                     <th scope="row">
-                        <button type="button"
-                                onClick={() => this.removeItemFromList(item)}
-                                className="btn btn-danger btn-sm">-
-                        </button>
-                        {index + 1}
+                        <div className="number-block">
+                            <img className="del-button"
+                                 src="/public/remove.svg"
+                                 onClick={() => this.removeItemFromList(item)}>
+                            </img>
+                            {index + 1}
+                        </div>
                     </th>
                     <td>{item.item.vendor_code}</td>
                     {this.getSelectStock(item, index)}
                     {this.getItemName(item)}
                     <td>{item.currentStock.count}</td>
-                    <td>{moneyFormat(item.item.price)} р</td>
+                    {this.getItemPrice(item)}
                     <td>
-                        <input type="text"
-                               name="name"
-                               value={item.count || 0}
-                               className={cx('form-control', this.getCheckMaxCount(index))}
-                               onChange={e => this.handleChangeCount(e, index)}/>
+                        <div className="input-count">
+                            <input type="text"
+                                   name="name"
+                                   value={item.count}
+                                   className={cx('count-input', this.getCheckMaxCount(index))}
+                                   onChange={e => this.handleChangeCount(e, index)}/>{getUnit(item)}
+                        </div>
                         {this.getArea(item, index)}
                     </td>
-                    <td>123!</td>
+                    <td>{this.getPositionSum(item, index)}</td>
                 </tr>
             )
         ));
@@ -229,21 +262,23 @@ export default class extends React.Component {
             );
         }
         itemsTable = (
-            <table className="table table-bordered">
-                <thead className="thead-light">
-                <tr>
-                    <th scope="col">№</th>
-                    <th scope="col">Артикул</th>
-                    <th scope="col">Склад</th>
-                    <th scope="col">Наименование</th>
-                    <th scope="col">В наличии</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Кол-во</th>
-                    <th scope="col">Стоимость</th>
-                </tr>
-                </thead>
-                {tableBody}
-            </table>
+            <div className="table-responsive">
+                <table className="table table-bordered">
+                    <thead className="thead-light">
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Склад</th>
+                        <th scope="col">Наименование</th>
+                        <th scope="col">В наличии</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Кол-во</th>
+                        <th scope="col">Стоимость</th>
+                    </tr>
+                    </thead>
+                    {tableBody}
+                </table>
+            </div>
         );
         return itemsTable;
     }
