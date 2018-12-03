@@ -2,7 +2,7 @@ import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../constans";
 
 export const phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-export const paymentTypes = ['Наличный', 'Безналичный', 'Терминал'];
+export const paymentTypes = ['Наличные', 'Безнал', 'Терминал'];
 
 export const orderStatuses = [
     'Черновик',
@@ -12,6 +12,13 @@ export const orderStatuses = [
     'Продан',
     'Не выбран'
 ];
+
+export const orderPaymentStatuses = [
+    'Не оплачен',
+    'Предоплата',
+    'Оплачен'
+];
+
 
 export const userTypes = [
     'Продавец',
@@ -95,19 +102,14 @@ export const checkSubcategory = subcategory => {
     return subcategory ? subcategory.name : 'Подкатегория отсутвует';
 };
 
-export function moneyFormat(money) {
-    let formattedMoney;
-    if (typeof money === 'string') {
-        formattedMoney = money.slice(0, money.length - 3);
+export function priceFormat(price) {
+    let formattedPrice;
+    if (price){
+        formattedPrice = Number(price).toFixed(2);
     } else {
-        formattedMoney = String(money);
+        formattedPrice = "0.00";
     }
-    if (formattedMoney.length > 3) {
-        for (let i = formattedMoney.length - 3; i > -1; i -= 3) {
-            formattedMoney = formattedMoney.slice(0, i) + ' ' + formattedMoney.slice(i);
-        }
-    }
-    return formattedMoney;
+    return formattedPrice;
 }
 
 export function countFormat(count) {
@@ -221,6 +223,7 @@ export function getUrl(filters, page, client) {
     if (filters.searchText) url += `text=${filters.searchText}&`;
     if (filters.category) url += `category=${filters.category}&`;
     if (filters.subcategory) url += `subcategory=${filters.subcategory}&`;
+    if (filters.harpoon) url += `harpoon=True&`;
     if (page) url += `page=${page}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
@@ -238,7 +241,7 @@ export function getUrlMembranes(filters, page, client) {
     if (filters.searchText) url += `text=${filters.searchText}&`;
     if (filters.color) url += `color=${filters.color}&`;
     if (filters.texture) url += `texture=${filters.texture}&`;
-    if (filters.harpoon) url += `harpoon=${filters.harpoon}&`;
+    if (filters.harpoon) url += `harpoon=True&`;
     if (page) url += `page=${page}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
@@ -262,6 +265,63 @@ export function getUnit(item) {
     }
     if (item.item.type === ITEM_MEMBRANE) {
         // Полотна измеряются в БД в метрах погонных, для клиента мы расчитываем м.кв
-        return ('м');
+        return ('м.');
+    }
+}
+
+export function dimensionsFormat(d) {
+    let formatted;
+    if (d){
+        if (typeof d === 'string') {
+            formatted = d;
+        } else {
+            formatted = d.toFixed(2);
+        }
+    } else {
+        formatted = null;
+    }
+    return formatted;
+}
+
+export function getMembraneName(inMembrane) {
+    const membrane = inMembrane.membrane;
+    return (membrane.texture.description + ' ' +
+        membrane.color.description + ' ' +
+        membrane.name + ' (' + membrane.width +')');
+}
+
+export function getPositionSum(inItem, index) {
+    let item = inItem.item;
+    if (item.type === ITEM_PRODUCT) {
+        if (inItem.count) {
+            return (<div>{(inItem.count * item.price).toFixed(2)} руб</div>);
+        } else {
+            return <div>{(0).toFixed(2)} руб</div>;
+        }
+    }
+    if (item.type === ITEM_MEMBRANE) {
+        if (inItem.count) {
+            return (<div>{(inItem.count * item.width * item.price).toFixed(2)} руб</div>);
+        } else {
+            return <div>{(0).toFixed(2)} руб</div>;
+        }
+    }
+}
+
+export function getPositionSumPriceNotInItem(inItem, index) {
+    let item = inItem.item;
+    if (item.type === ITEM_PRODUCT) {
+        if (inItem.count) {
+            return (<div>{(inItem.count * inItem.price).toFixed(2)} руб</div>);
+        } else {
+            return <div>{(0).toFixed(2)} руб</div>;
+        }
+    }
+    if (item.type === ITEM_MEMBRANE) {
+        if (inItem.count) {
+            return (<div>{(inItem.count * item.width * inItem.price).toFixed(2)} руб</div>);
+        } else {
+            return <div>{(0).toFixed(2)} руб</div>;
+        }
     }
 }

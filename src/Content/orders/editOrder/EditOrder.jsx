@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import OrderInfo from '../orderInfo/OrderCreate';
+import OrderInfo from '../orderCreate/OrderCreate';
 import Loader from '../../../components/Loader';
 import {getAllStocks} from '../../../AC/stocks';
 import {saveOrderInfoInStore, editOrder} from '../../../AC/orders';

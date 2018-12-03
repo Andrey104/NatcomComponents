@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 
 import AddItemForOrder from './addItemForOrder/AddItemForOrder';
 import TableResultRow from '../../../../components/TableResultRow/index';
-import {moneyFormat, countFormat, getUnit} from '../../../../services/utils';
+import {priceFormat, countFormat, getUnit, getPositionSum} from '../../../../services/utils';
 import styles from './styles.css';
 import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../../../../constans";
 
@@ -177,24 +177,6 @@ export default class extends React.Component {
         }
     }
 
-    getPositionSum(inItem, index) {
-        let item = inItem.item;
-        if (item.type === ITEM_PRODUCT) {
-            if (inItem.count) {
-                return (<div>{(inItem.count * item.price).toFixed(2)} руб</div>);
-            } else {
-                return <div>{(0).toFixed(2)} руб</div>;
-            }
-        }
-        if (item.type === ITEM_MEMBRANE) {
-            if (inItem.count) {
-                return (<div>{(inItem.count * item.width * item.price).toFixed(2)} руб</div>);
-            } else {
-                return <div>{(0).toFixed(2)} руб</div>;
-            }
-        }
-    }
-
     getItemPrice(inItem) {
         let item = inItem.item;
         if (item.type === ITEM_PRODUCT) {
@@ -235,7 +217,7 @@ export default class extends React.Component {
                         </div>
                         {this.getArea(item, index)}
                     </td>
-                    <td>{this.getPositionSum(item, index)}</td>
+                    <td>{getPositionSum(item, index)}</td>
                 </tr>
             )
         ));

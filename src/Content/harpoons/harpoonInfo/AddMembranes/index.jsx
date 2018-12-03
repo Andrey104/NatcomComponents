@@ -2,7 +2,7 @@ import React from 'react';
 
 import AddMembranes from '../../../../components/addMembranesDialog/AddMembranesDialog';
 import TableResultRow from '../../../../components/TableResultRow/index';
-import {moneyFormat, getUniqueElementsArr} from '../../../../services/utils';
+import {priceFormat, getUniqueElementsArr, getUnit, dimensionsFormat} from '../../../../services/utils';
 
 export default class extends React.Component {
     membranes = [];
@@ -23,15 +23,15 @@ export default class extends React.Component {
         this.props.dialogWindowState();
     };
 
-    selectedMembranes = membranes => {
-        let newMembranes = getUniqueElementsArr(membranes, this.membranes);
-        newMembranes = newMembranes.map(membrane => ({
+    selectedMembranes = membrane => {
+        let newMembrane;
+        newMembrane = {
             membrane: membrane,
             membraneLength: 0,
             square: 0,
             membranePrice: 0
-        }));
-        this.membranes = this.membranes.concat(newMembranes);
+        };
+        this.membranes = this.membranes.concat(newMembrane);
         this.addMembranesState();
     };
 
@@ -74,27 +74,37 @@ export default class extends React.Component {
         return dialogWindow;
     }
 
+    getArea(membrane) {
+        return <div>({(membrane.square).toFixed(2)}) м²</div>;
+    }
+
     getMembranes() {
         return (this.membranes.map((membrane, index) => (
-            <tr key={membrane.membrane.item}>
-                <th scope="row">{index + 1}</th>
+            <tr key={membrane.membrane.item + index}>
+                <th scope="row">
+                    <div className="number-block">
+                        <img className="del-button"
+                             src="/public/remove.svg"
+                             onClick={() => this.removeMembraneFromList(membrane)}>
+                        </img>
+                        {index + 1}
+                    </div>
+                </th>
                 <td>{membrane.membrane.vendor_code}</td>
-                <td>{membrane.membrane.name}</td>
-                <td>{moneyFormat(membrane.membrane.price)}</td>
-                <td><input type="text"
-                           name="name"
-                           value={membrane.membraneLength}
-                           className="form-control"
-                           onChange={e => this.handleChangeLength(e, index)}/>
-                </td>
-                <td>{membrane.square} м2</td>
-                <td className="result-price-td">{moneyFormat(membrane.membranePrice)}</td>
+                <td>{membrane.membrane.texture.description} {membrane.membrane.color.description} {membrane.membrane.name} ({membrane.membrane.width})</td>
+                <td>{membrane.membrane.stocks[0].count}</td>
+                <td>{membrane.membrane.price} руб/м²</td>
                 <td>
-                    <button type="button"
-                            onClick={() => this.removeMembraneFromList(membrane)}
-                            className="btn btn-danger btn-sm">Удалить
-                    </button>
+                    <div className="input-count">
+                        <input type="text"
+                               name="name"
+                               value={membrane.count}
+                               className="сount-input"
+                               onChange={e => this.handleChangeLength(e, index)}/> м
+                    </div>
+                    <div>({dimensionsFormat(membrane.square)}) м²</div>
                 </td>
+                <td className="result-price-td">{priceFormat(membrane.membranePrice)}</td>
             </tr>
         )));
     }
@@ -109,10 +119,10 @@ export default class extends React.Component {
                         <th scope="col">#</th>
                         <th scope="col">Артикул</th>
                         <th scope="col">Название</th>
-                        <th scope="col">Цена за гарпун</th>
-                        <th scope="col">Длина</th>
-                        <th scope="col">Площадь</th>
-                        <th scope="col">Итог</th>
+                        <th scope="col">В наличии</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Кол-во</th>
+                        <th scope="col">Стоимость</th>
                     </tr>
                     </thead>
                     <tbody>

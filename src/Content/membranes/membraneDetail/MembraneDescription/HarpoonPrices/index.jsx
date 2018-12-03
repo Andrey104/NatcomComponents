@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat} from '../../../../../services/utils';
+import {priceFormat} from '../../../../../services/utils';
 import './styles.css';
 
 export default class extends React.Component {
@@ -16,9 +16,9 @@ export default class extends React.Component {
                     <div>Цена лучшая</div>
                 </div>
                 <div className="prices">
-                    <div>{moneyFormat(membrane.price_standard_harpoon)}</div>
-                    <div>{moneyFormat(membrane.price_good_harpoon)}</div>
-                    <div>{moneyFormat(membrane.price_best_harpoon)}</div>
+                    <div>{priceFormat(membrane.price_standard_harpoon)}</div>
+                    <div>{priceFormat(membrane.price_good_harpoon)}</div>
+                    <div>{priceFormat(membrane.price_best_harpoon)}</div>
                 </div>
             </div>
         )

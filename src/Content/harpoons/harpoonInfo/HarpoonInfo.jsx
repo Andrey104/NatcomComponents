@@ -51,8 +51,13 @@ class HarpoonInfo extends React.Component {
     componentDidMount = () => {
         const {harpoonSave, getAllProducts} = this.props;
         if (harpoonSave) {
-            const params = `?client=${harpoonSave.client.id}&harpoon=True`;
-            getAllProducts(params);
+            const filters = {
+                searchText: null,
+                category: null,
+                subcategory: null,
+                harpoon: true
+            };
+            getAllProducts(filters, harpoonSave.client);
         }
     };
 
@@ -102,14 +107,12 @@ class HarpoonInfo extends React.Component {
     }
 
     getAddServices(harpoonSave) {
-        if (this.state.membranes.length) {
-            return (
-                <AddServices dialogWindowState={this.dialogWindowState}
-                             harpoon={harpoonSave.harpoon}
-                             addServices={this.addServices}
-                             client={harpoonSave.client}/>
-            );
-        }
+        return (
+            <AddServices dialogWindowState={this.dialogWindowState}
+                         harpoon={harpoonSave.harpoon}
+                         addServices={this.addServices}
+                         client={harpoonSave.client}/>
+        );
     }
 
     getResultParameters() {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TableResultRow from '../../../../components/TableResultRow';
-import {moneyFormat, countFormat} from '../../../../services/utils';
+import {priceFormat, countFormat} from '../../../../services/utils';
 import {serviceTypes} from '../../../../constans';
 import history from '../../../../history';
 
@@ -16,8 +16,8 @@ export default class extends React.Component {
                 <td>{countFormat(membrane.membrane.width)}</td>
                 <td>{countFormat(membrane.count)}</td>
                 <td>{countFormat(membrane.square)}</td>
-                <td>{moneyFormat(membrane.price)}</td>
-                <td>{moneyFormat(membrane.price * membrane.square)}</td>
+                <td>{priceFormat(membrane.price)}</td>
+                <td>{priceFormat(membrane.price * membrane.square)}</td>
             </tr>
         ));
     }
@@ -59,8 +59,8 @@ export default class extends React.Component {
                 <td>{service.service.name}</td>
                 <td>{serviceTypes[service.service.type - 1]}</td>
                 <td>{countFormat(service.count)}</td>
-                <td>{moneyFormat(service.price)}</td>
-                <td>{moneyFormat(service.price * service.count)}</td>
+                <td>{priceFormat(service.price)}</td>
+                <td>{priceFormat(service.price * service.count)}</td>
             </tr>
         ));
     }

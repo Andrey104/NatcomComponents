@@ -33,7 +33,7 @@ class OrdersList extends React.Component {
         } else {
             ordersList = (
                 <tr>
-                    <td colSpan='5'>Нет заказов</td>
+                    <td colSpan='6'>Нет заказов</td>
                 </tr>
             )
         }
@@ -67,8 +67,9 @@ class OrdersList extends React.Component {
                                         <th scope="col">#</th>
                                         <th scope="col">Клиент</th>
                                         <th scope="col">Склад</th>
-                                        <th scope="col">Дата</th>
+                                        <th scope="col">Дата выдачи</th>
                                         <th scope="col">Статус</th>
+                                        <th scope="col">Оплата</th>
                                     </tr>
                                     </thead>
                                     <tbody>

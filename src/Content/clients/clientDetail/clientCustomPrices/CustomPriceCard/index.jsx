@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat} from '../../../../../services/utils';
+import {priceFormat} from '../../../../../services/utils';
 
 export default class extends React.Component {
     render() {
@@ -9,7 +9,7 @@ export default class extends React.Component {
             <tr>
                 <td>{number}</td>
                 <td>{item.item.name}</td>
-                <td>{moneyFormat(item.price)}</td>
+                <td>{priceFormat(item.price)}</td>
                 <td>
                     <button type="button"
                             onClick={() => this.props.openEditDialog(item)}

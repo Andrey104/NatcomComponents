@@ -1,10 +1,10 @@
 import React from 'react';
 
-import TableResultRow from '../../../../components/TableResultRow';
-import HarpoonName from '../../../../components/HarpoonName';
-import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem} from '../../../../services/utils';
-import history from '../../../../history';
-import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../../../constans";
+import TableResultRow from '../../components/TableResultRow';
+import HarpoonName from '../../components/HarpoonName';
+import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem} from '../../services/utils';
+import history from '../../history';
+import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../constans";
 
 export default class extends React.Component {
     orderList;
@@ -27,8 +27,7 @@ export default class extends React.Component {
                         ? `/membranes/${item.item.id}`
                         : `/products/${item.item.id}`;
                     return (
-                        <tr key={item.item.item}
-                            onClick={() => history.push(itemUrl)}>
+                        <tr key={item.item.item}>
                             <th scope="row">{index + orderListLength}</th>
                             <td>{item.item.vendor_code}</td>
                             {this.getItemName(item)}
@@ -47,8 +46,7 @@ export default class extends React.Component {
         if (order.harpoons) {
             const orderListLength = this.orderList.length + 1;
             const harpoons = order.harpoons.map((harpoon, index) => (
-                <tr key={harpoon.id}
-                    onClick={() => history.push(`/harpoons/${harpoon.id}`)}>
+                <tr key={harpoon.id}>
                     <th scope="row">{index + orderListLength}</th>
                     <td>Г {harpoon.id}</td>
                     <HarpoonName harpoon={harpoon}/>
@@ -73,7 +71,7 @@ export default class extends React.Component {
         return (
             <div className="col-12">
                 <h5>Содержимое заказа</h5>
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered">
                     <thead className="thead-light">
                     <tr>
                         <th scope="col">#</th>
@@ -89,6 +87,11 @@ export default class extends React.Component {
                     {this.orderList}
                     <TableResultRow columnCount={6}
                                     resultPrice={order.sum}/>
+                    <tr>
+                        <td colSpan={6}
+                            className="result-price text-right">Предоплата: {priceFormat(order.prepayment)} руб
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

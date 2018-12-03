@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat, countFormat} from '../../../../services/utils';
+import {priceFormat, countFormat} from '../../../../services/utils';
 import history from '../../../../history';
 
 export default class extends React.Component {
@@ -14,8 +14,8 @@ export default class extends React.Component {
                <td>{number}</td>
                <td>{item.item.name}</td>
                <td>{countFormat(item.count)}</td>
-               <td>{moneyFormat(item.purchase_price)}</td>
-               <td>{moneyFormat(itemPrice)}</td>
+               <td>{priceFormat(item.purchase_price)}</td>
+               <td>{priceFormat(itemPrice)}</td>
             </tr>
         )
     }

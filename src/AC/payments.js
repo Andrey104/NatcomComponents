@@ -25,6 +25,5 @@ export function addNewPayment(payment) {
     return () => {
         baseApi
             .post(`external_payments/`, payment)
-            .then(() => history.replace(`/clients/${payment.client}`))
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import history from '../../../../../history';
-import {harpoonStatuses, moneyFormat, getDate} from '../../../../../services/utils';
+import {harpoonStatuses, priceFormat, getDate} from '../../../../../services/utils';
 
 export default class extends React.Component {
 
@@ -13,7 +13,7 @@ export default class extends React.Component {
             <tr onClick={this.handleClick(harpoon)}>
                 <td scope="row">{number}</td>
                 <td>{harpoon.client.first_name} {harpoon.client.last_name}</td>
-                <td>{moneyFormat(harpoon.sum)}</td>
+                <td>{priceFormat(harpoon.sum)}</td>
                 <td>{getDate(harpoon.auto_date)}</td>
                 <td>{harpoonStatuses[harpoon.status]}</td>
             </tr>

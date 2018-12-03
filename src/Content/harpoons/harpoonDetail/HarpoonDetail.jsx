@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Loader from '../../../components/Loader';
 import HarpoonName from '../../../components/HarpoonName';
 import HarpoonMaterials from './HarpoonMaterials';
-import {moneyFormat, harpoonStatuses, countFormat} from '../../../services/utils';
+import {priceFormat, harpoonStatuses, countFormat} from '../../../services/utils';
 import {getHarpoon} from '../../../AC/harpoons';
 import history from '../../../history';
 
@@ -60,10 +60,10 @@ class HarpoonDetail extends React.Component {
                 <tbody>
                 <tr>
                     <HarpoonName harpoon={this.harpoon}/>
-                    <td>{this.harpoon.stock.name}</td>
+                    <td>{this.harpoon.name}</td>
                     <td>{this.harpoon.harpoon_product.name}</td>
                     <td>{countFormat(this.harpoon.harpoon_count)}</td>
-                    <td>{moneyFormat(this.harpoon.sum)}</td>
+                    <td>{priceFormat(this.harpoon.sum)}</td>
                     <td>{harpoonStatuses[this.harpoon.status]}</td>
                 </tr>
                 </tbody>

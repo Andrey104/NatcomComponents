@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat} from '../../../services/utils';
+import {priceFormat} from '../../../services/utils';
 import './styles.css';
 
 export default class extends React.Component {
@@ -15,9 +15,9 @@ export default class extends React.Component {
                     <div>Цена лучшая</div>
                 </div>
                 <div className="prices">
-                    <div>{moneyFormat(item.price_standard)}</div>
-                    <div>{moneyFormat(item.price_good)}</div>
-                    <div>{moneyFormat(item.price_best)}</div>
+                    <div>{priceFormat(item.price_standard)}</div>
+                    <div>{priceFormat(item.price_good)}</div>
+                    <div>{priceFormat(item.price_best)}</div>
                 </div>
             </div>
         )

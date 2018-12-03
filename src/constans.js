@@ -126,3 +126,22 @@ export const TRANSFER_REQUEST_HARPOON = 2;
 
 export const ITEM_PRODUCT = 0;
 export const ITEM_MEMBRANE = 1;
+
+// export const orderStatuses = [
+//     'Черновик',
+//     'Подтвержден',
+//     'Сборка',
+//     'Готов',
+//     'Продан',
+//     'Не выбран'
+// ];
+
+export const ORDER_DRAFT_STATUS = 0;
+export const ORDER_CONFIRM_STATUS = 1;
+export const ORDER_ASSEMBLE_STATUS = 2;
+export const ORDER_READY_STATUS = 3;
+export const ORDER_FINAL_STATUS = 4;
+
+export const ORDER_PAYMENT_NO_PAYMENT_STATUS = 0;
+export const ORDER_PAYMENT_PREPAYMENT_STATUS = 1;
+export const ORDER_PAYMENT_FULL_STATUS = 2;

@@ -6,7 +6,7 @@ import CustomPrices from './clientCustomPrices/CustomPrices';
 import ClientInfo from '../clientInfo/ClientInfo';
 import {getClient, editClient} from '../../../AC/clients';
 import {openModalWindow, closeModalWindow} from '../../../AC/modal';
-import {getPhoneWithMask, moneyFormat} from '../../../services/utils';
+import {getPhoneWithMask, priceFormat} from '../../../services/utils';
 import {EDIT_CLIENT} from '../../../constans';
 
 class ClientDetail extends React.Component {
@@ -48,7 +48,7 @@ class ClientDetail extends React.Component {
                 <div>Телефон 1: {getPhoneWithMask(client.phone1)}</div>
                 <div>Телефон 2: {getPhoneWithMask(client.phone2)}</div>
                 <div>{client.email}</div>
-                <div>Баланс: {moneyFormat(client.balance)}</div>
+                <div>Баланс: {priceFormat(client.balance)}</div>
                 <button type="button"
                         onClick={() => this.props.openModalWindow(EDIT_CLIENT)}
                         className="btn btn-primary btn-sm">Редактировать

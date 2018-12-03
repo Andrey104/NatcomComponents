@@ -74,7 +74,7 @@ class MembranesFilters extends React.Component {
             searchText: this.searchText,
             color: this.color,
             texture: this.texture,
-            harpoon: this.harpoon
+            harpoon: this.props.filters.harpoon
         };
         this.props.saveMembranesFilters(filters);
         this.props.getAllMembranes(filters, this.props.storeClient);
@@ -85,7 +85,7 @@ export default connect(state => ({
     filters: state.membranes.filters,
     colors: mapToArr(state.parameters.colors),
     textures: mapToArr(state.parameters.textures),
-    storeClient: state.products.client,
+    storeClient: state.products.client
 }), {
     saveMembranesFilters,
     getAllMembranes,

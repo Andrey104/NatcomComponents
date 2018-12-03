@@ -2,9 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import OrderInfo from './OrderInfo';
+import OrderClientCard from '../../../components/OrderClientCard'
 import TableOrderInfo from './TableOrderInfo';
 import ChangeOrderStatus from './changeOrderStatus/ChangeOrderStatus';
-import OrderPayments from './OrderPayments';
+import OrderPayments from './OrderPaymentsCard';
 import RejectOrder from './rejectOrder/RejectOrder';
 import Loader from '../../../components/Loader';
 import {getOrder, saveOrderInfoInStore} from '../../../AC/orders';
@@ -12,9 +13,17 @@ import {getItemsInfo} from '../../../AC/items';
 import {getItemsInfoParams} from '../../../services/utils';
 import history from '../../../history';
 import './styles.css';
+import AddPaymentDialog from "./addPaymentDialog/AddPaymentDialog";
 
 class OrderDetail extends React.Component {
     urlId;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            balancePayDialogIsOpen: false,
+        };
+    }
 
     componentWillMount = () => {
         this.urlId = this.props.match.params.orderId;
@@ -42,6 +51,37 @@ class OrderDetail extends React.Component {
         }
     }
 
+    updateOrder = () => {
+        this.props.getOrder(this.urlId);
+    };
+
+    openBalancePayDialog = () => {
+        this.setState({
+            balancePayDialogIsOpen: true
+        });
+    };
+
+    closeBalancePayDialog = () => {
+        this.setState({
+            balancePayDialogIsOpen: false
+        });
+    };
+
+    getBalancePayDialog() {
+        if (this.state.balancePayDialogIsOpen) {
+            return (
+                <AddPaymentDialog header={'Списать с баланса клиента'}
+                                  order={this.props.order}
+                                  update={this.updateOrder}
+                                  close={this.closeBalancePayDialog}/>
+            )
+        }
+    }
+
+    handlePrintButtonClick = () => {
+        history.push(`/print/${this.props.order.id}`);
+    };
+
     render() {
         const {order} = this.props;
         if (order.id !== Number(this.urlId)) {
@@ -52,12 +92,24 @@ class OrderDetail extends React.Component {
             );
         }
         return (
-            <div className="col-12">
-                <OrderInfo order={order}/>
-                <TableOrderInfo order={order}/>
-                <OrderPayments order={order}/>
+            <div className="row">
+                {this.getBalancePayDialog()}
+                <div className="col-md-6">
+                    <button onClick={this.handlePrintButtonClick}>На печать</button>
+                    <OrderInfo order={order}/>
+                </div>
+                <div className="col-md-6">
+                    <OrderClientCard client={order.client}
+                                     update={this.updateOrder}/>
+                    <OrderPayments order={order}
+                                   addBalancePay={this.openBalancePayDialog}/>
+                </div>
+                <div className="col-12">
+                    <TableOrderInfo order={order}/>
+                </div>
                 <div className="col-12 text-right">
-                    <ChangeOrderStatus order={order}/>
+                    <ChangeOrderStatus order={order}
+                                       update={this.updateOrder}/>
                     <RejectOrder order={order}/>
                     {this.getEditOrderBtn(order)}
                 </div>

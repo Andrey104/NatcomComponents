@@ -1,30 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import {moneyFormat} from '../../services/utils';
+import {getMembraneName, priceFormat} from '../../services/utils';
+import {getMembrane} from "../../AC/membranes";
 
 export default class extends React.Component {
 
-    getMembranePrice = membrane => {
-        const membranePrice = Number(membrane.price || membrane.membrane.price);
-        const membraneSquare = Number(membrane.square);
-        return moneyFormat(membranePrice * membraneSquare);
+    static propTypes = {
+        harpoon: PropTypes.object
     };
 
-    getServicePrice = service => {
+    getMembranePositionSum = membrane => {
+        const membranePrice = Number(membrane.price || membrane.membrane.price);
+        const membraneSquare = Number(membrane.square);
+        return priceFormat(membranePrice * membraneSquare);
+    };
+
+    getServicePositionSum = service => {
         const servicePrice = Number(service.price || service.service.price);
         const serviceCount = Number(service.count);
-        return moneyFormat(servicePrice * serviceCount);
+        return priceFormat(servicePrice * serviceCount);
     };
 
     getHarpoonName(harpoon) {
         const harpoonsList = harpoon.membranes.map(membrane => (
             <div key={membrane.membrane.item}>
-                <span>{membrane.membrane.name} ({this.getMembranePrice(membrane)})</span>
+                <span>{getMembraneName(membrane)}*{membrane.count} [{membrane.square}м²] = {this.getMembranePositionSum(membrane)} руб</span>
             </div>
         ));
         const servicesList = harpoon.services.map(service => (
             <div key={service.service.id}>
-                <span>{service.service.name} ({this.getServicePrice(service)})</span>
+                <span>{service.service.name} [{service.count} {service.service.unit}] = {this.getServicePositionSum(service)} руб</span>
             </div>
         ));
         return harpoonsList.concat(servicesList);

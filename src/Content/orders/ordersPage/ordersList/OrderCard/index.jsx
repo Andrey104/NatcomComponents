@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getDate, orderStatuses} from '../../../../../services/utils';
+import {getDate, orderPaymentStatuses, orderStatuses} from '../../../../../services/utils';
 import history from '../../../../../history';
 
 export default class extends React.Component {
@@ -16,6 +16,7 @@ export default class extends React.Component {
                 <td>{order.stock.name}</td>
                 <td>{getDate(order.date)}</td>
                 <td>{orderStatuses[order.status]}</td>
+                <td>{orderPaymentStatuses[order.payment_status]}</td>
             </tr>
         );
     }

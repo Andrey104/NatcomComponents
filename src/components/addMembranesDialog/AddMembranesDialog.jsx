@@ -7,6 +7,8 @@ import Loader from '../Loader';
 import {getAllMembranes} from '../../AC/membranes';
 import {mapToArr} from '../../helpers';
 import styles from './styles.css';
+import ItemsList from "../../components/ItemList/ItemList";
+import MembranesFilters from '../../components/MembranesFilters';
 
 let cx = classNames.bind(styles);
 
@@ -14,86 +16,32 @@ class AddMembranesDialog extends React.Component {
     items = [];
 
     componentWillMount = () => {
-        const {client} = this.props;
-        if (client) this.props.getAllMembranes(`?client=${client.id}&harpoon=True`);
     };
 
-    getCheckBoxValue = (currentMembranes, membraneId) => {
-        const checkMembrane = currentMembranes.find(membrane => membrane.membrane.id === membraneId);
-        return !!checkMembrane;
+    handleSubmit = (item) => {
+        this.props.selectedMembranes(item);
     };
-
-    handleSelectMembrane = (event, membrane) => {
-        if (event.target.checked) {
-            this.items.push(membrane);
-        } else {
-            this.items = this.items.filter(
-                (arrMembrane) => arrMembrane.id !== membrane.id
-            )
-        }
-    };
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.selectedMembranes(this.items);
-    };
-
-    close = () => this.props.close();
-
-    getMembranes(membranes) {
-        const {currentMembranes} = this.props;
-        if (membranes.length > 0) {
-            return membranes.map(membrane => (
-                <tr key={membrane.item}>
-                    <td>{membrane.name}</td>
-                    <td>{membrane.vendor_code}</td>
-                    <td>
-                        <input type="checkbox"
-                               defaultChecked={this.getCheckBoxValue(currentMembranes, membrane.id)}
-                               onChange={e => this.handleSelectMembrane(e, membrane)}/>
-                    </td>
-                </tr>
-            ))
-        }
-    }
 
     render() {
-        const {membranes, isLoading} = this.props;
-        if (membranes.length === 0 || isLoading) {
-            return <Loader/>
-        }
         return (
             <div>
-                <div className={cx('modal-body', 'content')}>
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Название</th>
-                            <th scope="col">Артикул</th>
-                            <th scope="col">Выбрать</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.getMembranes(membranes)}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="modal-footer">
-                    <button type="button"
-                            onClick={this.close}
-                            className="btn btn-secondary">Закрыть
-                    </button>
-                    <button type="submit"
-                            onClick={this.handleSubmit}
-                            className="btn btn-primary">Добавить
-                    </button>
+                <div className='modal-body'>
+                    <div className="row">
+                        <div className="col-12 col-md-3">
+                            <MembranesFilters/>
+                        </div>
+                        <div className="col-12 col-md-9 list-container">
+                            <ItemsList client={this.props.client}
+                                       handleSubmit={this.handleSubmit}
+                                       membraneMode={true}
+                                       harpoonMode = {true}
+                                       selectMode={true}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
     }
 }
 
-export default DialogWindow(connect((state) => ({
-    membranes: mapToArr(state.membranes.entries),
-    isLoading: state.membranes.isLoading
-}), {getAllMembranes})(AddMembranesDialog));
+export default DialogWindow(AddMembranesDialog);

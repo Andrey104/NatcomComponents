@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {serviceTypes} from '../../../../../constans';
-import {moneyFormat} from '../../../../../services/utils';
+import {priceFormat} from '../../../../../services/utils';
 import history from '../../../../../history';
 import './styles.css'
 
@@ -15,13 +15,13 @@ export default class ServiceCard extends React.Component {
                 <td className='services-list__card__td__name_fixed-width'>{service.name}</td>
                 <td className='services-list__card__td__type_fixed-width'>{serviceTypes[service.type - 1]}</td>
                 <td className='services-list__card__td__prices_fixed_width'>
-                    {moneyFormat(service.price_standard)}
+                    {priceFormat(service.price_standard)}
                 </td>
                 <td className='services-list__card__td__prices_fixed_width'>
-                    {moneyFormat(service.price_good)}
+                    {priceFormat(service.price_good)}
                 </td>
                 <td className='services-list__card__td__prices_fixed_width'>
-                    {moneyFormat(service.price_best)}
+                    {priceFormat(service.price_best)}
                 </td>
             </tr>
         )

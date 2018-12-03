@@ -2,7 +2,7 @@ import React from 'react';
 
 import AddServiceDialog from '../../../../components/addServiceDialog/AddServiceDialog';
 import TableResultRow from '../../../../components/TableResultRow/index';
-import {moneyFormat} from '../../../../services/utils';
+import {priceFormat} from '../../../../services/utils';
 
 export default class extends React.Component {
     resultPrice = 0;
@@ -74,14 +74,14 @@ export default class extends React.Component {
             <tr key={arrService.service.id}>
                 <th scope="row">{index + 1}</th>
                 <td>{arrService.service.name}</td>
-                <td>{moneyFormat(arrService.service.price)}</td>
+                <td>{priceFormat(arrService.service.price)}</td>
                 <td><input type="text"
                            name="name"
                            value={arrService.count}
                            className="form-control"
                            onChange={e => this.handleChangeCount(e, index)}/>
                 </td>
-                <td className="result-price-td">{moneyFormat(arrService.servicePrice)}</td>
+                <td className="result-price-td">{priceFormat(arrService.servicePrice)}</td>
                 <td>
                     <button type="button"
                             onClick={() => this.removeServiceFromList(arrService)}

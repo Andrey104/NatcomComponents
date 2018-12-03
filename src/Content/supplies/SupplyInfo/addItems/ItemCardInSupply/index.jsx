@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat} from '../../../../../services/utils';
+import {priceFormat} from '../../../../../services/utils';
 
 export default class extends React.Component {
 
@@ -29,7 +29,7 @@ export default class extends React.Component {
                            className="form-control"
                            onChange={e => this.handleChangeItemParam(e, number, 'count')}/>
                 </td>
-                <td className="result-price-td">{moneyFormat(itemPrice)}</td>
+                <td className="result-price-td">{priceFormat(itemPrice)}</td>
                 <td>
                     <button type="button"
                             onClick={() => this.props.removeItemFromList(item)}

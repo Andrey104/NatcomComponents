@@ -12,7 +12,7 @@ import {getAllProducts, getNextProducts, setProductsClient} from '../../AC/produ
 import history from '../../history';
 import {getCurrentUser} from "../../AC/currentUser";
 import {UsersService} from "../../services/users.service";
-import {getAllMembranes, getNextMembranes} from "../../AC/membranes";
+import {getAllMembranes, getNextMembranes, saveMembranesFilters} from "../../AC/membranes";
 
 
 class ItemList extends React.Component {
@@ -31,6 +31,26 @@ class ItemList extends React.Component {
         // Можно позже это поправить и вынести клиенов в независимую часть в сторе.
         if (this.props.selectMode && this.props.client) {
             this.props.setProductsClient(this.props.client);
+            if (this.props.harpoonMode && this.props.membraneMode) {
+                // Если выбран режим гарпунных полтен, сохраняя значения фильтров, предаем harpoon = true
+                const filters = {
+                    searchText: this.props.filtersMembranes.searchText,
+                    color: this.props.filtersMembranes.color,
+                    texture: this.props.filtersMembranes.texture,
+                    harpoon: true
+                };
+                this.props.saveMembranesFilters(filters);
+            } else {
+                if (this.props.membraneMode) {
+                    const filters = {
+                        searchText: this.props.filtersMembranes.searchText,
+                        color: this.props.filtersMembranes.color,
+                        texture: this.props.filtersMembranes.texture,
+                        harpoon: false
+                    };
+                    this.props.saveMembranesFilters(filters);
+                }
+            }
         } else {
             // Сбрасываем в сторе клиента, если нам нужен общий вид
             this.props.setProductsClient(null);
@@ -227,5 +247,6 @@ export default connect((state) => ({
     getNextProducts,
     setProductsClient,
     getNextMembranes,
-    getAllMembranes
+    getAllMembranes,
+    saveMembranesFilters
 })(ItemList);

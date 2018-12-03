@@ -5,7 +5,7 @@ import Loader from '../../../components/Loader';
 import ItemCardInSupply from './ItemCardInSupply';
 import TableResultRow from '../../../components/TableResultRow';
 import {getSupply, fromDraft} from '../../../AC/supplies';
-import {moneyFormat, getDate} from '../../../services/utils';
+import {priceFormat, getDate} from '../../../services/utils';
 import history from '../../../history';
 
 export class SupplyDetail extends React.Component {
@@ -87,7 +87,7 @@ export class SupplyDetail extends React.Component {
             <div>
                 <div>Поставщик: {supply.supplier.name}</div>
                 <div>Новер договора: {supply.document}</div>
-                <div>Цена: {moneyFormat(supply.cost)}</div>
+                <div>Цена: {priceFormat(supply.cost)}</div>
                 <div>{this.getDraft(supply.draft)}</div>
                 <div>Дата: {getDate(supply.date)}</div>
                 <div>{this.getComment(supply.comment)}</div>

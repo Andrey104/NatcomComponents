@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat} from '../../services/utils';
+import {priceFormat} from '../../services/utils';
 import './styles.css';
 
 export default class extends React.Component {
@@ -9,7 +9,7 @@ export default class extends React.Component {
         return (
             <tr>
                 <td colSpan={columnCount}
-                    className="result-price text-right">Сумма: {(resultPrice)}руб!!!
+                    className="result-price text-right">Сумма: {priceFormat(resultPrice)} руб
                 </td>
             </tr>
         )

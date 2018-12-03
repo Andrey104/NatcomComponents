@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import ComponentMenu from '../../components/ComponentMenu';
 import OrdersPage from './ordersPage/OrdersPage';
 import AddNewOrder from './addNewOrder/AddNewOrder';
-import AddOrEditHarpoon from './orderInfo/addOrEditHarpoon/AddOrEditHarpoon';
+import AddOrEditHarpoon from './orderCreate/addOrEditHarpoon/AddOrEditHarpoon';
 import OrderDetail from './orderDetail/OrderDetail';
 import EditOrder from './editOrder/EditOrder';
 import {orderStatuses} from '../../services/utils';

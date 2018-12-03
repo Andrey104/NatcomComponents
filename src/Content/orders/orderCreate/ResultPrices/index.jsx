@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat} from '../../../../services/utils';
+import {priceFormat} from '../../../../services/utils';
 
 export default class extends React.Component {
 
@@ -17,8 +17,8 @@ export default class extends React.Component {
     render() {
         return (
             <div className="col-sm-12 text-right">
-                <h4>Предоплата: {moneyFormat(this.getPrepayment())}</h4>
-                <h4>Итог: {moneyFormat(this.getResultPrice())}</h4>
+                <h4>Предоплата: {priceFormat(this.getPrepayment())}</h4>
+                <h4>Итог: {priceFormat(this.getResultPrice())}</h4>
             </div>
         )
     }

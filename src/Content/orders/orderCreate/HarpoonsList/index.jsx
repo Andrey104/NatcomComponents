@@ -2,7 +2,7 @@ import React from 'react';
 
 import TableResultRow from '../../../../components/TableResultRow/index';
 import HarpoonName from '../../../../components/HarpoonName/index';
-import {moneyFormat} from '../../../../services/utils';
+import {priceFormat} from '../../../../services/utils';
 
 export default class extends React.Component {
 
@@ -11,7 +11,7 @@ export default class extends React.Component {
                 <tr key={harpoon.id}>
                     <th scope="row">{index + 1}</th>
                     <HarpoonName harpoon={harpoon}/>
-                    <td>{moneyFormat(harpoon.resultHarpoonPrice)}</td>
+                    <td>{priceFormat(harpoon.resultHarpoonPrice)}</td>
                     <td>
                         <button type="button"
                                 onClick={() => this.props.editHarpoon(harpoon)}

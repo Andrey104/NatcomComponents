@@ -6,6 +6,7 @@ import Redirect from "react-router-dom/es/Redirect";
 
 import System from '../Main';
 import Login from '../Content/Login';
+import OrderPrintPage from '../OrderPrintPage';
 
 
 const PrivateRoute = () => {
@@ -21,6 +22,7 @@ export default class extends React.Component {
         return (
             <Switch>
                 <Route path='/login' component={Login}/>
+                <Route path='/print/:orderId' component={OrderPrintPage}/>
                 <PrivateRoute path='' component={System}/>
             </Switch>
         )

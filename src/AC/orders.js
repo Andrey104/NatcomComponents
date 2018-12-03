@@ -62,9 +62,10 @@ export function addPaymentInOrder(data, orderId) {
     return dispatch => {
         baseApi
             .post(`orders/${orderId}/pay/`, data)
-            .then(() => {
-                dispatch(getOrder(orderId));
-                dispatch(closeModalWindow());
+            .then(response => {
+                if (response.status === 201) {
+                    dispatch(getOrder(orderId));
+                }
             });
     }
 }

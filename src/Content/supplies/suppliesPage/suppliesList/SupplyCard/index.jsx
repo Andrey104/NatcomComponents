@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getDate, moneyFormat} from '../../../../../services/utils';
+import {getDate, priceFormat} from '../../../../../services/utils';
 import history from '../../../../../history';
 
 export default class extends React.Component {
@@ -15,7 +15,7 @@ export default class extends React.Component {
                 <td>{supply.supplier.name}</td>
                 <td>{supply.document}</td>
                 <td>{getDate(supply.date)}</td>
-                <td>{moneyFormat(supply.cost)}</td>
+                <td>{priceFormat(supply.cost)}</td>
             </tr>
         );
     }

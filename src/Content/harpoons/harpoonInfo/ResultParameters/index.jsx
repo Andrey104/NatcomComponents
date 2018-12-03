@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {moneyFormat} from '../../../../services/utils';
+import {priceFormat} from '../../../../services/utils';
 
 export default class extends React.Component {
 
@@ -30,7 +30,7 @@ export default class extends React.Component {
                     <h4>Размер гарпуна: {this.getHarpoonSize()} м</h4>
                 </div>
                 <div className="text-right harpoon-result-price">
-                    <h4>Итог: {moneyFormat(resultHarpoonPrice)}</h4>
+                    <h4>Итог: {priceFormat(resultHarpoonPrice)}</h4>
                 </div>
             </div>
         )

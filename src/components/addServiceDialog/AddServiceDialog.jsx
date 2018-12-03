@@ -5,7 +5,7 @@ import DialogWindow from '../DialogWindow';
 import Loader from '../Loader';
 import {getAllServices} from '../../AC/services';
 import {mapToArr} from '../../helpers';
-import {moneyFormat} from '../../services/utils';
+import {priceFormat} from '../../services/utils';
 import {serviceTypes} from '../../constans';
 import './styles.css';
 
@@ -38,7 +38,7 @@ class AddServiceDialog extends React.Component {
                     onClick={this.handleClick(service)}>
                     <td>{service.name}</td>
                     <td>{serviceTypes[service.type - 1]}</td>
-                    <td>{moneyFormat(service.price)}</td>
+                    <td>{priceFormat(service.price)}</td>
                 </tr>
             )
         )

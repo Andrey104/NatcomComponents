@@ -9,31 +9,40 @@ import {ADD_PAYMENT_IN_ORDER} from '../../../../constans';
 class ChangeOrderStatus extends React.Component {
     changeUrl;
     buttonText;
+    buttonDisable = false;
 
-    getParams = (changeUrl, buttonText) => {
+    setParams = (changeUrl, buttonText, buttonDisable) => {
         this.changeUrl = changeUrl;
         this.buttonText = buttonText;
+        this.buttonDisable = buttonDisable;
     };
 
     getButtonParams = order => {
         const {status} = order;
         switch (status) {
             case 0: {
-                this.getParams('confirm', 'Подтвердить заказ');
+                this.setParams('confirm', 'Подтвердить заказ', false);
                 break;
             }
             case 1: {
                 if (order.payment_status > 0) {
-                    this.getParams('assembly', 'На сборку');
+                    this.setParams('assembly', 'На сборку', false);
+                } else {
+                    this.setParams('assembly', 'На сборку', true);
                 }
                 break;
             }
             case 2: {
-                this.getParams('complete', 'Готов');
+                this.setParams('complete', 'Готов', false);
                 break;
             }
             case 3: {
-                this.getParams('sale', 'Продан');
+                if (order.payment_status > 1) {
+                    this.setParams('sale', 'Продан', false);
+                } else {
+                    this.setParams('sale', 'Продан', true);
+                }
+
                 break;
             }
         }
@@ -47,32 +56,13 @@ class ChangeOrderStatus extends React.Component {
         this.props.changeOrderStatus(this.changeUrl, order.id);
     };
 
-    getDialogWindow(order) {
-        if (this.props.modal === ADD_PAYMENT_IN_ORDER) {
-            return (
-                <AddPaymentDialog header={'Новая оплата'}
-                                  order={order}
-                                  close={this.close}/>
-            )
-        }
-    }
-
-    getPaymentButton(order) {
-        if (order.status !== 0 && order.payment_status !== 2) {
-            return (
-                <button type="button"
-                        onClick={() => this.props.openModalWindow(ADD_PAYMENT_IN_ORDER)}
-                        className="btn btn-primary btn-sm detail-btn">Добавить оплату
-                </button>
-            )
-        }
-    }
 
     getStatusButton() {
         if (this.buttonText) {
             return (
                 <button type="submit"
                         onClick={this.handleSubmit}
+                        disabled={this.buttonDisable}
                         className="btn btn-success btn-sm detail-btn">{this.buttonText}
                 </button>
             )
@@ -84,9 +74,7 @@ class ChangeOrderStatus extends React.Component {
         this.getButtonParams(order);
         return (
             <span>
-                {this.getDialogWindow(order)}
                 {this.getStatusButton()}
-                {this.getPaymentButton(order)}
             </span>
         )
     }
