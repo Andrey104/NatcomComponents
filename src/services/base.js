@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {displayError} from "./utils";
 
-// export const baseUrl = 'http://components.nextf.ru/api/';
-export const baseUrl = 'http://176.57.220.89/api/';
+export const baseUrl = 'http://components.nextf.ru/api/';
+// export const baseUrl = 'http://127.0.0.1:8000/api/';
 
 export class BaseApi {
     baseUrl = baseUrl;

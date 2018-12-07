@@ -35,6 +35,7 @@ class OrderCreate extends React.Component {
 
     constructor(props) {
         super(props);
+        this.currentUrl = history.location.pathname;
         const {orderSave} = this.props;
         if (orderSave) {
             this.comment = orderSave.comment;
@@ -49,7 +50,6 @@ class OrderCreate extends React.Component {
                 harpoons: orderSave.harpoons,
                 openDialogWindow: false
             };
-            this.currentUrl = history.location.pathname;
             if (this.currentUrl.indexOf('edit') !== -1) this.btnText = 'Изменить';
         } else {
             this.state = {
@@ -139,7 +139,7 @@ class OrderCreate extends React.Component {
             items: this.getItems(),
             source: 1
         };
-        if (!this.currentUrl.indexOf('edit')) {
+        if (this.currentUrl.indexOf('edit') === -1) {
             newOrder.harpoons = this.state.harpoons.map(harpoon => {
                 return getNewHarpoon(harpoon);
             });
@@ -178,7 +178,7 @@ class OrderCreate extends React.Component {
 
 
     getHarpoonList() {
-        if (!this.currentUrl.indexOf('edit')) {
+        if (this.currentUrl.indexOf('edit') === -1) {
             return (
                 <div className="harpoons col-12">
                     <HarpoonsList harpoons={this.state.harpoons}
