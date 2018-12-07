@@ -42,8 +42,10 @@ class ChangeOrderStatus extends React.Component {
                 } else {
                     this.setParams('sale', 'Продан', true);
                 }
-
                 break;
+            }
+            case 4: {
+                this.setParams(null, null, true);
             }
         }
     };

@@ -30,8 +30,10 @@ export const userTypes = [
 
 export const harpoonStatuses = [
     'Черновик',
+    'Подтвержден',
     'Сборка',
-    'Готов'
+    'Готов',
+    'Продан'
 ];
 
 export const TABLET_DISPLAY_WIGHT = 768;
