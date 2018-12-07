@@ -15,7 +15,12 @@ export default class extends React.Component {
         if (harpoon) {
             this.services = harpoon.services;
             this.resultPrice = harpoon.servicesPrice;
+            this.calc();
         }
+    }
+
+    calc() {
+        this.resultPrice = this.getResultPrice();
     }
 
     addServiceState = () => {
@@ -37,7 +42,7 @@ export default class extends React.Component {
         if (!isFinite(event.target.value)) return;
         currentService.count = Number(event.target.value);
         currentService.servicePrice = currentService.count * currentService.service.price;
-        this.resultPrice = this.getResultPrice();
+        this.calc();
         this.props.addServices(this.services, this.resultPrice);
     };
 

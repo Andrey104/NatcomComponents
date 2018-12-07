@@ -13,6 +13,7 @@ import {deleteItemsFromStore} from '../../../AC/items';
 import {mapToArr} from '../../../helpers';
 import history from '../../../history';
 import './styles.css';
+import {getMembranePrice} from "../../../services/utils";
 
 class HarpoonInfo extends React.Component {
     comment = null;
@@ -46,6 +47,7 @@ class HarpoonInfo extends React.Component {
                 openDialogWindow: false
             };
         }
+        this.calc();
     }
 
     componentDidMount = () => {
@@ -106,6 +108,24 @@ class HarpoonInfo extends React.Component {
         return false;
     }
 
+
+    getHarpoonSize(membranes, services) {
+        let harpoonSize = 0;
+        for (const membrane of membranes) {
+            harpoonSize += (Number(membrane.membrane.width) + membrane.count) * 2;
+        }
+        if (services.length) {
+            for (const service of services) {
+                if (service.service.type === 1) {
+                    harpoonSize -= 2 * service.count;
+                } else if (service.service.type === 2) {
+                    harpoonSize += service.count;
+                }
+            }
+        }
+        return harpoonSize;
+    }
+
     getAddServices(harpoonSave) {
         return (
             <AddServices dialogWindowState={this.dialogWindowState}
@@ -119,12 +139,32 @@ class HarpoonInfo extends React.Component {
         if (this.state.membranes.length) {
             this.resultHarpoonPrice = this.membranesPrice + this.servicesPrice;
             return (
-                <ResultParameters membranes={this.state.membranes}
-                                  services={this.state.services}
-                                  resultHarpoonPrice={this.resultHarpoonPrice}/>
+                <ResultParameters resultHarpoonPrice={this.resultHarpoonPrice}/>
             )
         }
     };
+
+    getServiceResultPrice(services) {
+        let resultPrice = 0;
+        for (const service of services) {
+            resultPrice += service.price * services.count;
+        }
+        return resultPrice;
+    };
+
+    getMembraneResultPrice(membranes) {
+        let resultPrice = 0;
+        for (const membrane of membranes) {
+            resultPrice += getMembranePrice(membrane);
+        }
+        return resultPrice;
+    };
+
+    calc() {
+        this.membranesPrice = this.getMembraneResultPrice(this.state.membranes);
+        this.servicesPrice = this.getServiceResultPrice(this.state.services);
+        this.resultHarpoonPrice = this.membranesPrice + this.servicesPrice;
+    }
 
     render() {
         const {harpoonSave, isLoading, harpoonProducts} = this.props;
@@ -143,8 +183,11 @@ class HarpoonInfo extends React.Component {
                         {harpoonProducts.length && <AddProduct harpoonProducts={harpoonProducts}
                                                                product={this.product}
                                                                addProduct={this.addProduct}/>}
+                        <p>Длина гарпуна: {this.getHarpoonSize(this.state.membranes, this.state.services)}</p>
                     </div>
-                    <div className="col-6">
+                </div>
+                <div className="row">
+                    <div className="col-12">
                         <AddFiles addFiles={this.addFiles}
                                   files={this.state.files}/>
                     </div>

@@ -30,6 +30,7 @@ class OrderCreate extends React.Component {
     itemsPrepayment = 0;
     harpoonsResultPrice = 0;
     btnText = 'Сохранить';
+    currentUrl;
 
 
     constructor(props) {
@@ -48,8 +49,8 @@ class OrderCreate extends React.Component {
                 harpoons: orderSave.harpoons,
                 openDialogWindow: false
             };
-            const currentUrl = history.location.pathname;
-            if (currentUrl.indexOf('edit') !== -1) this.btnText = 'Изменить';
+            this.currentUrl = history.location.pathname;
+            if (this.currentUrl.indexOf('edit') !== -1) this.btnText = 'Изменить';
         } else {
             this.state = {
                 stock: null,
@@ -138,9 +139,13 @@ class OrderCreate extends React.Component {
             items: this.getItems(),
             source: 1
         };
-        newOrder.harpoons = this.state.harpoons.map(harpoon => {
-            return getNewHarpoon(harpoon);
-        });
+        if (!this.currentUrl.indexOf('edit')) {
+            newOrder.harpoons = this.state.harpoons.map(harpoon => {
+                return getNewHarpoon(harpoon);
+            });
+        } else {
+            newOrder.harpoons = [];
+        }
         return newOrder;
     };
 
@@ -171,6 +176,26 @@ class OrderCreate extends React.Component {
         return false;
     }
 
+
+    getHarpoonList() {
+        if (!this.currentUrl.indexOf('edit')) {
+            return (
+                <div className="harpoons col-12">
+                    <HarpoonsList harpoons={this.state.harpoons}
+                                  harpoonsResultPrice={this.harpoonsResultPrice}
+                                  editHarpoon={this.editHarpoon}
+                                  removeHarpoonFromList={this.removeHarpoonFromList}/>
+                    <div className="col-sm-12">
+                        <button type="button"
+                                onClick={this.handleAddHarpoon}
+                                className="btn btn-primary btn-sm">Добавить гарпун
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+    }
+
     getItemsAndHarpoonsBlock() {
         let block;
         if (this.state.client) {
@@ -184,18 +209,7 @@ class OrderCreate extends React.Component {
                                itemsResultPrice={this.itemsResultPrice}
                                dialogWindowState={this.dialogWindowState}/>
                     </div>
-                    <div className="harpoons col-12">
-                        <HarpoonsList harpoons={this.state.harpoons}
-                                      harpoonsResultPrice={this.harpoonsResultPrice}
-                                      editHarpoon={this.editHarpoon}
-                                      removeHarpoonFromList={this.removeHarpoonFromList}/>
-                        <div className="col-sm-12">
-                            <button type="button"
-                                    onClick={this.handleAddHarpoon}
-                                    className="btn btn-primary btn-sm">Добавить гарпун
-                            </button>
-                        </div>
-                    </div>
+                    {this.getHarpoonList()}
                     {this.getResultPrices()}
                 </div>
             );

@@ -121,11 +121,12 @@ export function countFormat(count) {
 
 // Получение нового гарпуна
 export const getNewHarpoon = harpoon => {
+    console.log(harpoon);
     return {
         files: getFilesForNewHarpoon(harpoon.files),
         services: getServicesForNewHarpoon(harpoon.services),
         membranes: getMembranesForNewHarpoon(harpoon.membranes),
-        harpoon_product: harpoon.product,
+        harpoon_product: harpoon.product || harpoon.harpoon_product.id,
         comment: harpoon.comment,
     }
 };
@@ -142,7 +143,7 @@ const getServicesForNewHarpoon = services => {
 const getMembranesForNewHarpoon = membranes => {
     return membranes.map(membrane => ({
         membrane: membrane.membrane.id,
-        count: membrane.membraneLength
+        count: membrane.count
     }));
 };
 
@@ -323,5 +324,13 @@ export function getPositionSumPriceNotInItem(inItem, index) {
         } else {
             return <div>{(0).toFixed(2)} руб</div>;
         }
+    }
+}
+
+export function getMembranePrice(membrane) {
+    if (membrane.price) {
+        return membrane.square * membrane.price;
+    } else {
+        return membrane.square * membrane.membrane.price;
     }
 }

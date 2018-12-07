@@ -18,7 +18,7 @@ class AddOrEditHarpoon extends React.Component {
     handleEditHarpoon = () => {
         const {harpoonSave} = this.props;
         this.props.editOrderHarpoon(harpoonSave.harpoon.id, this.harpoon);
-        history.replace(this.backUrl);
+        history.replace('/orders/' + harpoonSave.harpoon.order + '/edit');
     };
 
     handleSubmit = harpoon => {

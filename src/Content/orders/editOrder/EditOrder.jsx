@@ -85,7 +85,7 @@ class EditOrder extends React.Component {
         )
     }
 
-    componentWillUnmount = () => this.props.saveOrderInfoInStore(null);
+    //componentWillUnmount = () => this.props.saveOrderInfoInStore(null);
 }
 
 export default connect((state) => ({

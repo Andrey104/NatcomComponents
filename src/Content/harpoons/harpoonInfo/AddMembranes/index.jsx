@@ -2,7 +2,11 @@ import React from 'react';
 
 import AddMembranes from '../../../../components/addMembranesDialog/AddMembranesDialog';
 import TableResultRow from '../../../../components/TableResultRow/index';
-import {priceFormat, getUniqueElementsArr, getUnit, dimensionsFormat} from '../../../../services/utils';
+import {
+    priceFormat, getUniqueElementsArr, getUnit, dimensionsFormat,
+    getMembranePrice
+} from '../../../../services/utils';
+import {getMembrane} from "../../../../AC/membranes";
 
 export default class extends React.Component {
     membranes = [];
@@ -15,7 +19,12 @@ export default class extends React.Component {
         if (harpoon) {
             this.membranes = harpoon.membranes;
             this.resultPrice = harpoon.membranesPrice;
+            this.calc();
         }
+    }
+
+    calc() {
+        this.resultPrice = this.getResultPrice();
     }
 
     addMembranesState = () => {
@@ -36,20 +45,21 @@ export default class extends React.Component {
     };
 
     handleChangeLength = (event, index) => {
-        const length = Number(event.target.value);
+        const length = (event.target.value);
         if (!isFinite(length)) return;
         let currentMembrane = this.membranes[index];
+        this.membranes[index].count = length;
         currentMembrane.membraneLength = length;
         currentMembrane.square = currentMembrane.membrane.width * length;
         currentMembrane.membranePrice = currentMembrane.square * currentMembrane.membrane.price;
-        this.resultPrice = this.getResultPrice();
+        this.calc();
         this.props.addMembranes(this.membranes, this.resultPrice);
     };
 
     getResultPrice = () => {
         let resultPrice = 0;
         for (const membrane of this.membranes) {
-            resultPrice += membrane.membranePrice;
+            resultPrice += getMembranePrice(membrane);
         }
         return resultPrice;
     };
@@ -93,7 +103,7 @@ export default class extends React.Component {
                 <td>{membrane.membrane.vendor_code}</td>
                 <td>{membrane.membrane.texture.description} {membrane.membrane.color.description} {membrane.membrane.name} ({membrane.membrane.width})</td>
                 <td>{membrane.membrane.stocks[0].count}</td>
-                <td>{membrane.membrane.price} руб/м²</td>
+                <td>{membrane.membrane.price || membrane.price} руб/м²</td>
                 <td>
                     <div className="input-count">
                         <input type="text"
@@ -104,7 +114,7 @@ export default class extends React.Component {
                     </div>
                     <div>({dimensionsFormat(membrane.square)}) м²</div>
                 </td>
-                <td className="result-price-td">{priceFormat(membrane.membranePrice)}</td>
+                <td className="result-price-td">{priceFormat(getMembranePrice(membrane))}</td>
             </tr>
         )));
     }

@@ -5,7 +5,7 @@ import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
 import OrderCard from './OrderCard/index';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
-import {getAllOrders, getNextOrders} from '../../../../AC/orders';
+import {getAllOrders, getNextOrders, saveOrderInfoInStore} from '../../../../AC/orders';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 
@@ -18,7 +18,16 @@ class OrdersList extends React.Component {
 
     loadOrders = page => this.props.getNextOrders(page);
 
-    addNewOrder = () => history.push(`/orders/add_order`);
+    addNewOrder = () => {
+        if (this.props.orderSave !== null && this.props.orderSave !== undefined) {
+            let isContinue = confirm("Продолжить редактирование заказа?");
+            if (!isContinue) {
+                this.props.saveOrderInfoInStore(null);
+            }
+        }
+        history.push(`/orders/add_order`);
+    };
+
 
     getBody(orders) {
         let ordersList;
@@ -90,5 +99,6 @@ class OrdersList extends React.Component {
 export default connect((state) => ({
     orders: mapToArr(state.orders.orders),
     isLoading: state.orders.isLoading,
-    hasMoreOrders: state.orders.hasMoreOrders
-}), {getAllOrders, getNextOrders})(OrdersList);
+    hasMoreOrders: state.orders.hasMoreOrders,
+    orderSave: state.orders.orderSave
+}), {getAllOrders, getNextOrders, saveOrderInfoInStore})(OrdersList);
