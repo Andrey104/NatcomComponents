@@ -33,7 +33,15 @@ export default class extends React.Component {
                             <img className='icon' src='/public/stock.svg'/>
                             Настройка складов
                         </NavLink>
-                    </li>
+                    </li><li className="nav-item">
+                    <NavLink to='/admin'
+                             onClick={onMenuClose}
+                             activeClassName='active-item'
+                             className="nav-link hovered">
+                        <img className='icon' src='/public/stock.svg'/>
+                        Админка сервера
+                    </NavLink>
+                </li>
                     <li className="nav-item">
                         <NavLink to='/services'
                                  onClick={onMenuClose}

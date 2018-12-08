@@ -10,7 +10,7 @@ class EditUser extends React.Component {
         const baseApi = new BaseApi();
         const {user} = this.props;
         baseApi
-            .put(`users/${user.id}/`, newUser)
+            .put(`users/default/${user.id}/`, newUser)
             .then(() => this.props.history.push(`/users/${user.id}`));
     };
 
