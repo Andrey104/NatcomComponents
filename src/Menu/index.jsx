@@ -4,8 +4,13 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import {PC_DISPLAY} from "../services/utils";
 import {UsersService} from "../services/users.service";
+import history from '../history';
 
 export default class extends React.Component {
+
+    handlerDjangoAdminClick = ()  =>{
+        history.push(`/admin/`);
+    };
 
     render() {
         const {isOpen, onMenuClose, mobile} = this.props;
@@ -34,8 +39,8 @@ export default class extends React.Component {
                             Настройка складов
                         </NavLink>
                     </li><li className="nav-item">
-                    <NavLink to='/admin'
-                             onClick={onMenuClose}
+                    <NavLink onClick={this.handlerDjangoAdminClick}
+                             to = '/admin'
                              activeClassName='active-item'
                              className="nav-link hovered">
                         <img className='icon' src='/public/stock.svg'/>
