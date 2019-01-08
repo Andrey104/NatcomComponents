@@ -39,7 +39,7 @@ export default class extends React.Component {
                 localStorage.setItem('user_type', res.data.type);
                 localStorage.setItem('user_first_name', res.data.first_name);
                 localStorage.setItem('user_last_name', res.data.last_name);
-                this.props.history.push(`/stocks`)
+                this.props.history.push(`/orders`)
             }).catch(() => {
                 this.setState({errorMessage: 'Неверный логин или пароль'});
         })

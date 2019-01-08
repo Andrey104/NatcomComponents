@@ -36,7 +36,8 @@ class OrderPrintPage extends React.Component {
             );
         }
         return (
-            <div>
+            <div className="container">
+                {/*<img className='logo' src='/public/logo.jpg'/>*/}
                 <div className="d-print-none col-12">
                     <hr/>
                     <button onClick={this.handleBackButtonClick}

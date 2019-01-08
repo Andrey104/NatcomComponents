@@ -48,7 +48,7 @@ export default class extends React.Component {
     deleteImage = index => {
         const deleteImgId = this.productImages[index].image;
         this.baseApi
-            .delete(`items/images/${deleteImgId}/`)
+            .deleteRequest(`items/images/${deleteImgId}/`)
             .then(() => {
                 this.productImages = this.productImages.filter(image => (
                     image.image !== deleteImgId

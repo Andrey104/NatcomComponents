@@ -22,6 +22,7 @@ class OrderDetail extends React.Component {
         super(props);
         this.state = {
             balancePayDialogIsOpen: false,
+            balancePayReturnDialogIsOpen: false,
         };
     }
 
@@ -67,7 +68,30 @@ class OrderDetail extends React.Component {
         });
     };
 
+    openBalancePayReturnDialog = () => {
+        this.setState({
+            balancePayReturnDialogIsOpen: true
+        });
+    };
+
+    closeBalancePayReturnDialog = () => {
+        this.setState({
+            balancePayReturnDialogIsOpen: false
+        });
+    };
+
     getBalancePayDialog() {
+        if (this.state.balancePayDialogIsOpen) {
+            return (
+                <AddPaymentDialog header={'Списать с баланса клиента'}
+                                  order={this.props.order}
+                                  update={this.updateOrder}
+                                  close={this.closeBalancePayDialog}/>
+            )
+        }
+    }
+
+    getBalancePayReturnDialog() {
         if (this.state.balancePayDialogIsOpen) {
             return (
                 <AddPaymentDialog header={'Списать с баланса клиента'}
@@ -102,7 +126,8 @@ class OrderDetail extends React.Component {
                     <OrderClientCard client={order.client}
                                      update={this.updateOrder}/>
                     <OrderPayments order={order}
-                                   addBalancePay={this.openBalancePayDialog}/>
+                                   addBalancePay={this.openBalancePayDialog}
+                                   returnBalancePay={this.openBalancePayReturnDialog}/>
                 </div>
                 <div className="col-12">
                     <TableOrderInfo order={order}/>

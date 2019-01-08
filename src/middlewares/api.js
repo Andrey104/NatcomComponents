@@ -37,7 +37,7 @@ export default store => next => action => {
         }
         case 'DELETE': {
             baseApi
-                .delete(callAPI)
+                .deleteRequest(callAPI)
                 .then(response => next({type: type + SUCCESS, data}));
             break;
         }

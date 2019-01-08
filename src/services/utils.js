@@ -9,7 +9,7 @@ export const orderStatuses = [
     'Подтвержден',
     'Сборка',
     'Готов',
-    'Продан',
+    'Выдан',
     'Не выбран'
 ];
 
@@ -33,7 +33,7 @@ export const harpoonStatuses = [
     'Подтвержден',
     'Сборка',
     'Готов',
-    'Продан'
+    'Выдан'
 ];
 
 export const TABLET_DISPLAY_WIGHT = 768;

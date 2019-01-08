@@ -13,7 +13,8 @@ export default class extends React.Component {
 
     static propTypes = {
         order: PropTypes.object,
-        addBalancePay: PropTypes.func
+        addBalancePay: PropTypes.func,
+        returnBalancePay: PropTypes.func
     };
 
     constructor(props) {
@@ -123,6 +124,7 @@ export default class extends React.Component {
                 </div>
                 {this.getPaymentStatus()}
                 <button onClick={this.props.addBalancePay}>Оплатить с баланса клиента</button>
+                <button onClick={this.props.returnBalancePay}>Вернуть оплату на баланс</button>
                 <button onClick={this.historySwitch}>История списаний</button>
                 {history}
             </div>

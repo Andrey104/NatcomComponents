@@ -6,6 +6,12 @@ import './styles.css';
 export default class extends React.Component {
 
     handleChangeInputText = event => this.props.search(event.target.value);
+    handleKeyPress = event => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            this.props.search(event.target.value);
+        }
+    };
 
     render() {
         return (
@@ -14,6 +20,7 @@ export default class extends React.Component {
                 <input type="search"
                        defaultValue={this.props.defaultValue}
                        onChange={this.handleChangeInputText}
+                       onKeyPress={this.handleKeyPress}
                        className="form-control mr-sm-2 search-input"
                        placeholder="Поиск"/>
             </Debounce>

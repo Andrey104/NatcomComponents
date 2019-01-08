@@ -38,9 +38,9 @@ class ChangeOrderStatus extends React.Component {
             }
             case 3: {
                 if (order.payment_status > 1) {
-                    this.setParams('sale', 'Продан', false);
+                    this.setParams('sale', 'Выдан', false);
                 } else {
-                    this.setParams('sale', 'Продан', true);
+                    this.setParams('sale', 'Выдан', true);
                 }
                 break;
             }

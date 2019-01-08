@@ -33,7 +33,7 @@ class DeleteRecipe extends React.Component {
         const {recipe} = this.props;
         const baseApi = new BaseApi();
         baseApi
-            .delete(`recipes/${recipe.id}/`)
+            .deleteRequest(`recipes/${recipe.id}/`)
             .then(() => this.props.successDeleteRecipe())
             .catch(err => alert(err));
     }

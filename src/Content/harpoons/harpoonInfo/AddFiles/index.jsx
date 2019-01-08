@@ -29,7 +29,7 @@ export default class extends React.Component {
 
     handleClickDelete = fileId => () => {
         this.baseApi
-            .delete(`harpoons/files/${fileId}/`)
+            .deleteRequest(`harpoons/files/${fileId}/`)
             .then(() => {
                 this.files = this.files.filter(file => file.id !== fileId);
                 this.props.addFiles(this.files);

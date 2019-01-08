@@ -61,6 +61,9 @@ class HarpoonInfo extends React.Component {
             };
             getAllProducts(filters, harpoonSave.client);
         }
+        if (harpoonSave.client === null || harpoonSave.client === undefined) {
+            history.push(`/orders/add_order`);
+        }
     };
 
     addMembranes = (membranes, membranesPrice) => {

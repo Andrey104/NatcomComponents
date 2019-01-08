@@ -33,7 +33,7 @@ class DeleteService extends React.Component {
         const {service} = this.props;
         const baseApi = new BaseApi();
         baseApi
-            .delete(`services/${service.id}/`)
+            .deleteRequest(`services/${service.id}/`)
             .then(() => this.props.successDeleteService())
             .catch(err => alert(err));
     }
