@@ -32,7 +32,7 @@ export default class extends React.Component {
                             <th scope="row">{index + orderListLength}</th>
                             <td>{item.item.vendor_code}</td>
                             {this.getItemName(item)}
-                            <td>{countFormat(item.count)} {getUnit(item)}</td>
+                            <td>{priceFormat(item.count)} {getUnit(item)}</td>
                             <td>{priceFormat(item.price)} руб</td>
                             <td>{getPositionSumPriceNotInItem(item)} руб</td>
                         </tr>

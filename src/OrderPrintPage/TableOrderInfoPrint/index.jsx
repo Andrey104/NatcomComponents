@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TableResultRow from '../../components/TableResultRow';
-import HarpoonName from '../../components/HarpoonName';
+import HarpoonPrintName from '../HarpoonPrintName';
 import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem} from '../../services/utils';
 import history from '../../history';
 import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../constans";
@@ -31,7 +31,7 @@ export default class extends React.Component {
                             <th scope="row">{index + orderListLength}</th>
                             <td>{item.item.vendor_code}</td>
                             {this.getItemName(item)}
-                            <td>{countFormat(item.count)} {getUnit(item)}</td>
+                            <td>{priceFormat(item.count)} {getUnit(item)}</td>
                             <td>{priceFormat(item.price)} руб</td>
                             <td>{getPositionSumPriceNotInItem(item)} руб</td>
                         </tr>
@@ -49,7 +49,7 @@ export default class extends React.Component {
                 <tr key={harpoon.id}>
                     <th scope="row">{index + orderListLength}</th>
                     <td>Г {harpoon.id}</td>
-                    <HarpoonName harpoon={harpoon}/>
+                    <HarpoonPrintName harpoon={harpoon}/>
                     <td className="text-center">-</td>
                     <td className="text-center">-</td>
                     <td>{priceFormat(harpoon.sum)} руб</td>
@@ -87,11 +87,6 @@ export default class extends React.Component {
                     {this.orderList}
                     <TableResultRow columnCount={6}
                                     resultPrice={order.sum}/>
-                    <tr>
-                        <td colSpan={6}
-                            className="result-price text-right">Предоплата: {priceFormat(order.prepayment)} руб
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
