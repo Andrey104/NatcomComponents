@@ -12,7 +12,7 @@ export default class ProductCard extends React.Component {
         if (selectMode) {
             price = product.price
         } else {
-            price = product.price_standard
+            price = product.price_good
         }
         return (
             <tr onClick={handleClick(product)}>

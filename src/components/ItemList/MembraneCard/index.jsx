@@ -9,7 +9,7 @@ export default class extends React.Component {
         if (selectMode) {
             price = null;
         } else {
-            price = membrane.price_standard_harpoon
+            price = membrane.price_good_harpoon
         }
 
         if (price) {
@@ -25,7 +25,7 @@ export default class extends React.Component {
         if (selectMode) {
             price = membrane.price
         } else {
-            price = membrane.price_standard
+            price = membrane.price_good
         }
         return price
     }
