@@ -35,7 +35,7 @@ export default class extends React.Component {
             let arr = [];
             arr.push(coincidence.currentStock);
             coincidence.stocks = arr;
-            stocks = stocks.filter(stock => stock.stock.id !== coincidence.currentStock.stock.id);
+            stocks = stocks;
             currentStock = stocks[0];
         }
         this.items.push({item, stocks, currentStock});
@@ -151,7 +151,7 @@ export default class extends React.Component {
         return (
             <td>
                 <select onChange={e => this.handleChangeStock(e, index)}
-                        defaultValue={item.currentStock.stock.id}>
+                        defaultValue={1}>
                     {item.stocks.map(stock => (
                         <option key={stock.stock.id}
                                 value={stock.stock.id}>{stock.stock.name}</option>
@@ -192,7 +192,7 @@ export default class extends React.Component {
         const {items} = this.props;
         this.items = items;
         return (this.items.map((item, index) => (
-                <tr key={item.item.item + item.currentStock.stock.name}>
+                <tr key={item.item.item + index}>
                     <th scope="row">
                         <div className="number-block">
                             <img className="del-button"

@@ -32,19 +32,12 @@ class AddItemForOrder extends React.Component {
         const checkItems = currentItems.filter(itemArr => (
             itemArr.item.item === item.item
         ));
-        if (checkItems.length === 2 && !stock.main) {
-            displayError();
-            return;
-        }
-
-        if (checkItems.length === 1 && stock.main) {
-            displayError('Вы уже добавили этот товар!');
-            return;
-        }
-        const stocks = item.stocks.filter(stockArr => (
-            stock.id === stockArr.stock.id || stockArr.stock.main
-        ));
-        const currentStock = stocks.find(stockArr => this.stockId === stockArr.stock.id);
+        // if (checkItems.length === 2 && !stock.main) {
+        //     displayError();
+        //     return;
+        // }
+        const stocks = item.stocks;
+        const currentStock = stocks[0];
         this.props.selectedProducts(item, stocks, currentStock);
     };
 
