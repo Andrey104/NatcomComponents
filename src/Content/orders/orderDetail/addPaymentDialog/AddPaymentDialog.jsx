@@ -46,7 +46,8 @@ class AddPaymentDialog extends React.Component {
         event.preventDefault();
         const {order, addPaymentInOrder} = this.props;
         let payment = {
-            sum: this.getPaySum()
+            sum: this.getPaySum(),
+            return_pay: false
         };
         if (payment.sum !== "0.00" && !this.getError()) {
             addPaymentInOrder(payment, order.id);
