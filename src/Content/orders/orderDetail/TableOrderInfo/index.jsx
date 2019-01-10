@@ -27,7 +27,7 @@ export default class extends React.Component {
                         ? `/membranes/${item.item.id}`
                         : `/products/${item.item.id}`;
                     return (
-                        <tr key={item.item.item}
+                        <tr key={item.item.item + index}
                             onClick={() => history.push(itemUrl)}>
                             <th scope="row">{index + orderListLength}</th>
                             <td>{item.item.vendor_code}</td>

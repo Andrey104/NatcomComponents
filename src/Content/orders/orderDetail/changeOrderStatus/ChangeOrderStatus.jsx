@@ -28,7 +28,7 @@ class ChangeOrderStatus extends React.Component {
                 if (order.payment_status > 0) {
                     this.setParams('assembly', 'На сборку', false);
                 } else {
-                    this.setParams('assembly', 'На сборку', true);
+                    this.setParams('assembly', 'На сборку', false); // !fix
                 }
                 break;
             }
@@ -40,7 +40,7 @@ class ChangeOrderStatus extends React.Component {
                 if (order.payment_status > 1) {
                     this.setParams('sale', 'Выдан', false);
                 } else {
-                    this.setParams('sale', 'Выдан', true);
+                    this.setParams('sale', 'Выдан', false); // ! fix
                 }
                 break;
             }
