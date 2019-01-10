@@ -192,7 +192,7 @@ export default class extends React.Component {
         const {items} = this.props;
         this.items = items;
         return (this.items.map((item, index) => (
-                <tr key={item.item.item + index}>
+                <tr key={item.item.id + index + item.item.name}>
                     <th scope="row">
                         <div className="number-block">
                             <img className="del-button"
