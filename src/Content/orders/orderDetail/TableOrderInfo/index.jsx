@@ -27,7 +27,7 @@ export default class extends React.Component {
                         ? `/membranes/${item.item.id}`
                         : `/products/${item.item.id}`;
                     return (
-                        <tr key={item.item.id + index}
+                        <tr key={item.item.id + item.item.name + index}
                             onClick={() => history.push(itemUrl)}>
                             <th scope="row">{index + orderListLength}</th>
                             <td>{item.item.vendor_code}</td>
@@ -47,7 +47,7 @@ export default class extends React.Component {
         if (order.harpoons) {
             const orderListLength = this.orderList.length + 1;
             const harpoons = order.harpoons.map((harpoon, index) => (
-                <tr key={harpoon.id}
+                <tr key={harpoon.id + index}
                     onClick={() => history.push(`/harpoons/${harpoon.id}`)}>
                     <th scope="row">{index + orderListLength}</th>
                     <td>Г {harpoon.id}</td>
