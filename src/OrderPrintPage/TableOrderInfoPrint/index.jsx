@@ -2,7 +2,7 @@ import React from 'react';
 
 import TableResultRow from '../../components/TableResultRow';
 import HarpoonPrintName from '../HarpoonPrintName';
-import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem} from '../../services/utils';
+import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem, getArea} from '../../services/utils';
 import history from '../../history';
 import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../constans";
 
@@ -12,10 +12,10 @@ export default class extends React.Component {
     getItemName(inItem) {
         let item = inItem.item;
         if (item.type === ITEM_PRODUCT) {
-            return (<td>{item.name}</td>);
+            return (<td><p className="font-weight-bold">{item.name}</p></td>);
         }
         if (item.type === ITEM_MEMBRANE) {
-            return (<td>{item.texture.description} {item.color.description} {item.name} ({item.width})</td>);
+            return (<td><p className="font-weight-bold">{item.texture.description} {item.color.description} {item.name} ({item.width})</p></td>);
         }
     }
 
@@ -28,12 +28,12 @@ export default class extends React.Component {
                         : `/products/${item.item.id}`;
                     return (
                         <tr key={item.item.id +item.item.name+ index}>
-                            <th scope="row">{index + orderListLength}</th>
-                            <td>{item.item.vendor_code}</td>
+                            <th scope="row"><p className="font-weight-bold">{index + orderListLength}</p></th>
+                            <td><p className="font-weight-bold">{item.item.vendor_code}</p></td>
                             {this.getItemName(item)}
-                            <td>{priceFormat(item.count)} {getUnit(item)}</td>
-                            <td>{priceFormat(item.price)} руб</td>
-                            <td>{getPositionSumPriceNotInItem(item)} руб</td>
+                            <td><p className="font-weight-bold">{priceFormat(item.price)} руб</p></td>
+                            <td><p className="font-weight-bold">{priceFormat(item.count)} {getUnit(item)} {getArea(item)}</p></td>
+                            <td><p className="font-weight-bold">{getPositionSumPriceNotInItem(item)} руб</p></td>
                         </tr>
                     )
                 }
@@ -47,12 +47,12 @@ export default class extends React.Component {
             const orderListLength = this.orderList.length + 1;
             const harpoons = order.harpoons.map((harpoon, index) => (
                 <tr key={harpoon.id + index}>
-                    <th scope="row">{index + orderListLength}</th>
-                    <td>Г {harpoon.id}</td>
+                    <th scope="row"><p className="font-weight-bold">{index + orderListLength}</p></th>
+                    <td><p className="font-weight-bold">Г {harpoon.id}</p></td>
                     <HarpoonPrintName harpoon={harpoon}/>
                     <td className="text-center">-</td>
                     <td className="text-center">-</td>
-                    <td>{priceFormat(harpoon.sum)} руб</td>
+                    <td><p className="font-weight-bold">{priceFormat(harpoon.sum)} руб</p></td>
                 </tr>
             ));
             this.orderList = this.orderList.concat(harpoons);
@@ -77,8 +77,8 @@ export default class extends React.Component {
                         <th scope="col">#</th>
                         <th scope="col">Артикул</th>
                         <th scope="col">Название</th>
-                        <th scope="col">Количество</th>
                         <th scope="col">Цена</th>
+                        <th scope="col">Количество</th>
                         <th scope="col">Стоимость</th>
 
                     </tr>

@@ -336,3 +336,20 @@ export function getMembranePrice(membrane) {
         return membrane.square * membrane.membrane.price;
     }
 }
+
+
+export function getArea(inItem) {
+    let item = inItem.item;
+    if (item.type === ITEM_PRODUCT) {
+        return null;
+    }
+    if (item.type === ITEM_MEMBRANE) {
+        // Тут вычисления производятся с некоторыми странными погрешностями,
+        // но т.к. эти значения мы не отправляем на сервер, нам этого достаточно.
+        if (inItem.count) {
+            return (<div>({(inItem.count * item.width).toFixed(2)}) м²</div>);
+        } else {
+            return <div>({(0).toFixed(2)}) м²</div>;
+        }
+    }
+}
