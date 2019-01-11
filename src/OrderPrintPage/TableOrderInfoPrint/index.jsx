@@ -31,9 +31,9 @@ export default class extends React.Component {
                             <th scope="row"><p className="font-weight-bold">{index + orderListLength}</p></th>
                             <td><p className="font-weight-bold">{item.item.vendor_code}</p></td>
                             {this.getItemName(item)}
+                            <td><p className="font-weight-bold">{priceFormat(item.count)} {getUnit(item)} {getArea(item)}</p></td>
                             <td><p className="font-weight-bold">{priceFormat(item.price)} руб</p></td>
                             <td><p className="font-weight-bold">{getPositionSumPriceNotInItem(item)} руб</p></td>
-                            <td><p className="font-weight-bold">{priceFormat(item.count)} {getUnit(item)} {getArea(item)}</p></td>
                         </tr>
                     )
                 }
