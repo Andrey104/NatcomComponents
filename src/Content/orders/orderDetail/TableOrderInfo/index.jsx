@@ -32,8 +32,8 @@ export default class extends React.Component {
                             <th scope="row">{index + orderListLength}</th>
                             <td>{item.item.vendor_code}</td>
                             {this.getItemName(item)}
-                            <td>{priceFormat(item.price)} руб</td>
                             <td>{priceFormat(item.count)} {getUnit(item)}{getArea(item)}</td>
+                            <td>{priceFormat(item.price)} руб</td>
                             <td>{getPositionSumPriceNotInItem(item)} руб</td>
                         </tr>
                     )
@@ -79,8 +79,8 @@ export default class extends React.Component {
                         <th scope="col">#</th>
                         <th scope="col">Артикул</th>
                         <th scope="col">Название</th>
-                        <th scope="col">Цена</th>
                         <th scope="col">Количество</th>
+                        <th scope="col">Цена</th>
                         <th scope="col">Стоимость</th>
 
                     </tr>
