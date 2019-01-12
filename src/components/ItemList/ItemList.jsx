@@ -12,10 +12,13 @@ import {getAllProducts, getNextProducts, setProductsClient} from '../../AC/produ
 import history from '../../history';
 import {getCurrentUser} from "../../AC/currentUser";
 import {UsersService} from "../../services/users.service";
-import {getAllMembranes, getNextMembranes, saveMembranesFilters} from "../../AC/membranes";
+import {deleteMembranesFromStore, getAllMembranes, getNextMembranes, saveMembranesFilters} from "../../AC/membranes";
 
 
 class ItemList extends React.Component {
+
+    filtersMembranes;
+    filtersProducts;
     // Архитектура этого компонента больше похожа на полную жесть, но как есть :)
     static propTypes = {
         client: PropTypes.object,
@@ -33,22 +36,28 @@ class ItemList extends React.Component {
             this.props.setProductsClient(this.props.client);
             if (this.props.harpoonMode && this.props.membraneMode) {
                 // Если выбран режим гарпунных полтен, сохраняя значения фильтров, предаем harpoon = true
-                const filters = {
+                this.filtersMembranes = {
                     searchText: this.props.filtersMembranes.searchText,
                     color: this.props.filtersMembranes.color,
                     texture: this.props.filtersMembranes.texture,
                     harpoon: true
                 };
-                this.props.saveMembranesFilters(filters);
+                this.props.saveMembranesFilters(this.filtersMembranes);
             } else {
                 if (this.props.membraneMode) {
-                    const filters = {
+                    this.filtersMembranes = {
                         searchText: this.props.filtersMembranes.searchText,
                         color: this.props.filtersMembranes.color,
                         texture: this.props.filtersMembranes.texture,
                         harpoon: false
                     };
-                    this.props.saveMembranesFilters(filters);
+                    this.props.saveMembranesFilters(this.filtersMembranes);
+                } else {
+                    this.filtersProducts = {
+                        searchText: this.props.filtersProducts,
+                        category: this.props.filtersProducts,
+                        subcategory: this.props.filtersProducts
+                    }
                 }
             }
         } else {
@@ -61,6 +70,10 @@ class ItemList extends React.Component {
         this.load();
     };
 
+    componentWillUnmount() {
+        this.props.deleteMembranesFromStore();
+    }
+
     componentDidUpdate(prevProps) {
         // Здесь можно выполнять сайд эффекты
         if (this.props.membraneMode !== prevProps.membraneMode) {
@@ -70,9 +83,9 @@ class ItemList extends React.Component {
 
     load = () => {
         if (this.props.membraneMode) {
-            this.props.getAllMembranes(this.props.filtersMembranes, this.props.client);
+            this.props.getAllMembranes(this.filtersMembranes, this.props.client);
         } else {
-            this.props.getAllProducts(this.props.filtersProducts, this.props.client);
+            this.props.getAllProducts(this.filtersProducts, this.props.client);
         }
     };
 
@@ -248,5 +261,6 @@ export default connect((state) => ({
     setProductsClient,
     getNextMembranes,
     getAllMembranes,
-    saveMembranesFilters
+    saveMembranesFilters,
+    deleteMembranesFromStore
 })(ItemList);

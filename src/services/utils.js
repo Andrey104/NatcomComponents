@@ -2,7 +2,7 @@ import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../constans";
 
 export const phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-export const paymentTypes = ['Наличные', 'Безнал', 'Терминал'];
+export const paymentTypes = ['Наличные', 'Карта', 'Терминал'];
 
 export const orderStatuses = [
     'Черновик',

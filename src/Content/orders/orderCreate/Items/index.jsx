@@ -52,9 +52,10 @@ export default class extends React.Component {
     };
 
     handleChangeCount = (event, index) => {
-        const inputValue = (event.target.value);
-        if (!isFinite(inputValue)) return;
-        this.items[index].count = inputValue;
+        var inputValue = (event.target.value);
+        inputValue.replace(',', '.');
+        // if (!isFinite(inputValue)) return;
+        this.items[index].count = Number(inputValue);
         this.getResultPrice();
         this.addItems(index);
     };
@@ -209,7 +210,7 @@ export default class extends React.Component {
                     {this.getItemPrice(item)}
                     <td>
                         <div className="input-count">
-                            <input type="text"
+                            <input type="number"
                                    name="name"
                                    value={item.count}
                                    className={cx('count-input', this.getCheckMaxCount(index))}

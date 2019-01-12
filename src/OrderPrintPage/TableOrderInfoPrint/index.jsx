@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 
 import TableResultRow from '../../components/TableResultRow';
 import HarpoonPrintName from '../HarpoonPrintName';
@@ -69,8 +70,7 @@ export default class extends React.Component {
         const {order} = this.props;
         this.getTable(order);
         return (
-            <div className="col-12">
-                <h5>Содержимое заказа</h5>
+            <div className="row">
                 <table className="table table-bordered">
                     <thead className="thead-light">
                     <tr>

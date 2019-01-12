@@ -11,12 +11,16 @@ export default class extends React.Component {
     render() {
         const {order} = this.props;
         return (
-            <div>
-                <h4>№ {order.id}</h4>
-                <h4>{order.client.first_name} {order.client.last_name}</h4>
-                <div>Склад: {order.stock.name}</div>
-                <div>Дата выдачи: {getDate(order.date)}</div>
-                <div>Комментарий: {order.comment}</div>
+            <div className='row'>
+                <div className="col-md-6">
+                    <h4>№ {order.id}</h4>
+                    <h4>{order.client.first_name} {order.client.last_name}</h4>
+                </div>
+                <div className="col-md-6">
+                    {/*<div>Склад: {order.stock.name}</div>*/}
+                    <div>Дата выдачи: {getDate(order.date)}</div>
+                    <div>Комментарий: {order.comment}</div>
+                </div>
             </div>
         )
     }

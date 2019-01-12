@@ -42,7 +42,7 @@ class OrderDetail extends React.Component {
     };
 
     getEditOrderBtn(order) {
-        if (order.status < 3) {
+        if (order.status < 4) {
             return (
                 <button type="button"
                         onClick={this.openEditOrder}
