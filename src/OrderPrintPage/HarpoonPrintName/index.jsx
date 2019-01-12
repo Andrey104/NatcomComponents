@@ -22,10 +22,23 @@ export default class extends React.Component {
         return priceFormat(servicePrice * serviceCount);
     };
 
+    getMembraneNamePrint(inMembrane) {
+        const membrane = inMembrane.membrane;
+
+        return (
+            <p className="font-weight-bold">
+                <div className="membrane-params">{membrane.texture.description} {membrane.color.description}</div>
+                <div className="membrane-name"> {membrane.name} </div>
+                <div className="membrane-params"> ({membrane.width})</div>
+                <div className="membrane-params"> *{inMembrane.count} </div>
+            </p>
+        );
+    }
+
     getHarpoonName(harpoon) {
         const harpoonsList = harpoon.membranes.map((membrane, index) => (
             <div key={membrane.membrane.id + index + membrane.membrane.name}>
-                <span>{index+1}) {getMembraneName(membrane)}*{membrane.count} [{membrane.square}м²]</span>
+                <span>{this.getMembraneNamePrint(membrane)} == [{membrane.square}м²]</span>
             </div>
         ));
         const servicesList = harpoon.services.map(service => (
@@ -38,6 +51,8 @@ export default class extends React.Component {
 
     render() {
         const {harpoon} = this.props;
-        return <td><p className="font-weight-bold"><h5>Гарпун:</h5> {this.getHarpoonName(harpoon)}</p></td>
+        return <td>
+            <p className="font-weight-bold"><h5>Гарпун:</h5> {this.getHarpoonName(harpoon)}</p>
+        </td>
     }
 }

@@ -16,7 +16,15 @@ export default class extends React.Component {
             return (<td><p className="font-weight-bold">{item.name}</p></td>);
         }
         if (item.type === ITEM_MEMBRANE) {
-            return (<td><p className="font-weight-bold">{item.texture.description} {item.color.description} {item.name} ({item.width})</p></td>);
+            return (
+                <td>
+                    <p className="font-weight-bold">
+                        <div className="membrane-params">{item.texture.description} {item.color.description}</div>
+                        <div className="membrane-name"> {item.name} </div>
+                        <div className="membrane-params"> ({item.width}) </div>
+
+                    </p>
+                </td>);
         }
     }
 
@@ -28,7 +36,7 @@ export default class extends React.Component {
                         ? `/membranes/${item.item.id}`
                         : `/products/${item.item.id}`;
                     return (
-                        <tr key={item.item.id +item.item.name+ index}>
+                        <tr key={item.item.id + item.item.name + index}>
                             <th scope="row"><p className="font-weight-bold">{index + orderListLength}</p></th>
                             <td><p className="font-weight-bold">{item.item.vendor_code}</p></td>
                             {this.getItemName(item)}

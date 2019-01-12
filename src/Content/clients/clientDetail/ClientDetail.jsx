@@ -53,7 +53,7 @@ class ClientDetail extends React.Component {
                         onClick={() => this.props.openModalWindow(EDIT_CLIENT)}
                         className="btn btn-primary btn-sm">Редактировать
                 </button>
-                <CustomPrices clientId={client.id}/>
+                {/*<CustomPrices clientId={client.id}/>*/}
             </div>
         )
     }

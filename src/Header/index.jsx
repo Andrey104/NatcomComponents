@@ -4,10 +4,14 @@ import history from '../history';
 
 import './styles.css';
 import {UsersService} from "../services/users.service";
+import {saveOrderInfoInStore} from "../AC/orders";
+import connect from "react-redux/es/connect/connect";
+import {mapToArr} from "../helpers";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
 
     handleNewOrderButtonClick = () => {
+        this.props.saveOrderInfoInStore(null);
         history.push(`/orders/add_order`);
     };
 
@@ -30,3 +34,10 @@ export default class Header extends React.Component {
        )
     }
 }
+
+export default connect((state) => ({
+    orders: mapToArr(state.orders.orders),
+    isLoading: state.orders.isLoading,
+    hasMoreOrders: state.orders.hasMoreOrders,
+    orderSave: state.orders.orderSave
+}), {saveOrderInfoInStore})(Header);
