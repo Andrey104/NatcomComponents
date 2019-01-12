@@ -38,9 +38,14 @@ export default class extends React.Component {
     };
 
     handleChangeCount = (event, index) => {
+        // var inputValue = (event.target.value);
+        // inputValue.replace(',', '.');
+        // // if (!isFinite(inputValue)) return;
+        // this.items[index].count = Number(inputValue);
         const currentService = this.services[index];
-        if (!isFinite(event.target.value)) return;
-        currentService.count = Number(event.target.value);
+        var inputValue = (event.target.value);
+        inputValue.replace(',', '.');
+        currentService.count = Number(inputValue);
         currentService.servicePrice = currentService.count * currentService.service.price;
         this.calc();
         this.props.addServices(this.services, this.resultPrice);
@@ -74,15 +79,23 @@ export default class extends React.Component {
         return dialogWindow;
     }
 
+    getInputValue(arrService) {
+        if (arrService.count === 0) {
+            return '';
+        } else {
+            return arrService.count;
+        }
+    }
+
     getServices() {
         return (this.services.map((arrService, index) => (
             <tr key={arrService.service.id}>
                 <th scope="row">{index + 1}</th>
                 <td>{arrService.service.name}</td>
                 <td>{priceFormat(arrService.service.price)}</td>
-                <td><input type="text"
+                <td><input type="number"
                            name="name"
-                           value={arrService.count}
+                           value={this.getInputValue(arrService)}
                            className="form-control"
                            onChange={e => this.handleChangeCount(e, index)}/>
                 </td>

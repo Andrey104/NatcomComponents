@@ -45,10 +45,11 @@ export default class extends React.Component {
     };
 
     handleChangeLength = (event, index) => {
-        const length = (event.target.value);
-        if (!isFinite(length)) return;
+        var length = (event.target.value);
+        length.replace(',', '.');
+        // if (!isFinite(length)) return;
         let currentMembrane = this.membranes[index];
-        this.membranes[index].count = length;
+        this.membranes[index].count = Number(length);
         currentMembrane.membraneLength = length;
         currentMembrane.square = currentMembrane.membrane.width * length;
         currentMembrane.membranePrice = currentMembrane.square * currentMembrane.membrane.price;
@@ -106,7 +107,7 @@ export default class extends React.Component {
                 <td>{membrane.membrane.price || membrane.price} руб/м²</td>
                 <td>
                     <div className="input-count">
-                        <input type="text"
+                        <input type="number"
                                name="name"
                                value={membrane.count}
                                className="сount-input"

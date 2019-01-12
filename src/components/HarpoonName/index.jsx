@@ -23,9 +23,9 @@ export default class extends React.Component {
     };
 
     getHarpoonName(harpoon) {
-        const harpoonsList = harpoon.membranes.map(membrane => (
-            <div key={membrane.membrane.item}>
-                <span>{getMembraneName(membrane)}*{membrane.count} [{membrane.square}м²] = {this.getMembranePositionSum(membrane)} руб</span>
+        const harpoonsList = harpoon.membranes.map((membrane, index) => (
+            <div key={membrane.membrane.id + index + membrane.membrane.name}>
+                <span>{index+1}) {getMembraneName(membrane)}*{membrane.count} [{membrane.square}м²] = {this.getMembranePositionSum(membrane)} руб</span>
             </div>
         ));
         const servicesList = harpoon.services.map(service => (

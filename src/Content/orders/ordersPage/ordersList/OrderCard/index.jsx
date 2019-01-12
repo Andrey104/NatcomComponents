@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getDate, orderPaymentStatuses, orderStatuses} from '../../../../../services/utils';
+import {getDate, orderPaymentStatuses, orderStatuses, priceFormat} from '../../../../../services/utils';
 import history from '../../../../../history';
 
 export default class extends React.Component {
@@ -11,12 +11,13 @@ export default class extends React.Component {
         const {order, number} = this.props;
         return (
             <tr onClick={this.handleClick(order.id)}>
-                <td scope="row">{number}</td>
+                <td scope="row">{order.id}</td>
                 <td>{order.client.first_name} {order.client.last_name}</td>
                 <td>{order.stock.name}</td>
                 <td>{getDate(order.date)}</td>
                 <td>{orderStatuses[order.status]}</td>
                 <td>{orderPaymentStatuses[order.payment_status]}</td>
+                <td>{priceFormat(order.sum)}</td>
             </tr>
         );
     }
