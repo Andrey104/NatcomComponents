@@ -166,12 +166,12 @@ class OrderCreate extends React.Component {
         if ((!items.length && !harpoons.length) || !date) {
             return true;
         } else if (items.length) {
-            for (const item of items) {
-                if (item.count && !item.error) {
-                    if (item.count === 0) return true;
-                } else
-                    return true;
-            }
+            // for (const item of items) {
+            //     if (item.count && !item.error) {
+            //         if (item.count === 0) return true;
+            //     } else
+            //         return true;
+            // }
         }
         return false;
     }

@@ -7,6 +7,7 @@ import HarpoonMaterials from './HarpoonMaterials';
 import {priceFormat, harpoonStatuses, countFormat} from '../../../services/utils';
 import {getHarpoon} from '../../../AC/harpoons';
 import history from '../../../history';
+import {UsersService} from "../../../services/users.service";
 
 class HarpoonDetail extends React.Component {
     urlId;
@@ -83,13 +84,18 @@ class HarpoonDetail extends React.Component {
     }
 
     getEditButton() {
-        if (this.harpoon.status === 0) {
-            return (
-                <button type="button"
-                        onClick={this.handleEditHarpoon}
-                        className="btn btn-primary btn-sm">Редактировать
-                </button>
-            )
+        var button = (
+            <button type="button"
+                    onClick={this.handleEditHarpoon}
+                    className="btn btn-primary btn-sm">Редактировать
+            </button>
+        );
+        if (UsersService.adminPermission()) {
+            return (button)
+        } else {
+            if (this.harpoon.status === 0) {
+                return (button)
+            }
         }
     }
 
