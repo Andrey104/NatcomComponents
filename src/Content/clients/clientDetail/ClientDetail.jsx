@@ -8,6 +8,7 @@ import {getClient, editClient} from '../../../AC/clients';
 import {openModalWindow, closeModalWindow} from '../../../AC/modal';
 import {getPhoneWithMask, priceFormat} from '../../../services/utils';
 import {EDIT_CLIENT} from '../../../constans';
+import OrdersList from "../../orders/ordersPage/ordersList/OrdersList";
 
 class ClientDetail extends React.Component {
     urlId;
@@ -54,6 +55,7 @@ class ClientDetail extends React.Component {
                         className="btn btn-primary btn-sm">Редактировать
                 </button>
                 {/*<CustomPrices clientId={client.id}/>*/}
+                <OrdersList client={client}/>
             </div>
         )
     }

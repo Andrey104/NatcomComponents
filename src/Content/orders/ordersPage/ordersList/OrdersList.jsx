@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
@@ -11,9 +12,18 @@ import history from '../../../../history';
 
 class OrdersList extends React.Component {
 
+    static propTypes = {
+        client: PropTypes.object,
+    };
+
     componentWillMount = () => {
         const {date, getAllOrders} = this.props;
-        getAllOrders(`?date=${date}`);
+        if (this.props.client) {
+            getAllOrders(`?client=${this.props.client.id}`);
+        } else {
+            getAllOrders(`?date=${date}`);
+        }
+
     };
 
     loadOrders = page => this.props.getNextOrders(page);
