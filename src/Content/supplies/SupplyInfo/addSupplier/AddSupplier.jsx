@@ -27,7 +27,7 @@ class AddSupplier extends React.Component {
         const {modal} = this.props;
         if (modal === OPEN_ADD_SUPPLIER) {
             return (
-                <AddSupplierDialog header={'Добавить поставщика'}
+                <AddSupplierDialog header={'Выбрать поставщика'}
                                    supplierForSupply={this.selectedSupplier}
                                    close={this.closeDialog}/>
             )
@@ -36,7 +36,7 @@ class AddSupplier extends React.Component {
 
     getCurrentSupplier() {
         if (this.supplier) {
-            return <h3>Сейчас выбран: {this.supplier.name}</h3>
+            return <h3>Поставщик: {this.supplier.name}</h3>
         }
     };
 
@@ -46,7 +46,7 @@ class AddSupplier extends React.Component {
                 {this.getDialogWindow()}
                 <button type="button"
                         onClick={() => this.props.openModalWindow(OPEN_ADD_SUPPLIER)}
-                        className="btn btn-success btn-sm">Добавить поставщика
+                        className="btn btn-success btn-sm">Выбрать поставщика
                 </button>
                 {this.getCurrentSupplier()}
             </div>

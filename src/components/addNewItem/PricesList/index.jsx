@@ -5,7 +5,8 @@ export default class extends React.Component {
     state = {
         priceStandard: '',
         priceGood: '',
-        priceBest: ''
+        priceBest: '',
+        priceIn: ''
     };
 
     handleChangePricesState = event => {
@@ -49,6 +50,17 @@ export default class extends React.Component {
                            onChange={this.handleChangePricesState}
                            className="form-control"
                            id="priceBest"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="priceIn"
+                           className="required-area">Закупочная цена</label>
+                    <input type="text"
+                           placeholder=""
+                           defaultValue={this.state.priceIn}
+                           name="priceIn"
+                           onChange={this.handleChangePricesState}
+                           className="form-control"
+                           id="priceIn"/>
                 </div>
             </div>
         )

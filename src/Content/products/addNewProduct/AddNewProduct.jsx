@@ -91,6 +91,7 @@ class AddNewProduct extends React.Component {
             price_good: this.prices.priceGood,
             price_standard: this.prices.priceStandard,
             price_best: this.prices.priceBest,
+            price_in: this.prices.priceIn,
             category: this.category,
             subcategory: this.subcategory,
             stocks: this.stocks,
@@ -200,7 +201,7 @@ class AddNewProduct extends React.Component {
             );
         }
         const dialogWindow = this.getDialogWindow();
-        this.getDefaultValues();
+        //this.getDefaultValues();
         const body = this.getBody(categories, subcategories);
         return (
             <div>
