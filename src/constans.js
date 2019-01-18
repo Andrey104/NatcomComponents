@@ -112,8 +112,7 @@ export const SAVE_ITEMS_INFO = 'SAVE_ITEMS_INFO';
 
 export const SET_ITEM_DIALOG_STATE = 'SET_ITEM_DIALOG_STATE';
 
-export const RESET_ORDERS_PAGE = 'RESET_ORDERS_PAGE';
-export const INCREMENT_ORDERS_PAGE = 'RESET_ORDERS_PAGE';
+export const SET_ORDERS_DATE = 'SET_ORDERS_DATE';
 
 export const START = '_START';
 export const SUCCESS = '_SUCCESS';

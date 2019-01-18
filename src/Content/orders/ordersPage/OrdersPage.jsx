@@ -6,7 +6,7 @@ import OrdersList from './ordersList/OrdersList';
 import OrderStatusSelect from './OrderStatusSelect';
 import DatePickerInput from '../../../components/datePickers/DatePickerInput';
 import {getDateForServer} from '../../../services/utils';
-import {getAllOrders} from '../../../AC/orders';
+import {getAllOrders, setOrdersDate} from '../../../AC/orders';
 
 class OrdersPage extends React.Component {
     searchText;
@@ -36,7 +36,14 @@ class OrdersPage extends React.Component {
         if (url) {
             url = '?' + url.slice(0, url.length - 1);
         }
+        if (this.date) {
+            this.props.setOrdersDate(getDateForServer(this.date));
+        } else {
+            this.props.setOrdersDate(null);
+        }
+
         this.props.getAllOrders(url);
+
     };
 
     render() {
@@ -50,8 +57,7 @@ class OrdersPage extends React.Component {
                                 <OrderStatusSelect selectStatus={this.selectStatus}/>
                             </div>
                             <div className="col-6">
-                                <DatePickerInput selectDate={this.selectDate}
-                                                 defaultDate={this.date}/>
+                                <DatePickerInput selectDate={this.selectDate}/>
                             </div>
                         </div>
                     </div>
@@ -62,4 +68,4 @@ class OrdersPage extends React.Component {
     }
 }
 
-export default connect(null, {getAllOrders})(OrdersPage)
+export default connect(null, {getAllOrders, setOrdersDate})(OrdersPage)

@@ -6,7 +6,10 @@ import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
 import OrderCard from './OrderCard/index';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
-import {getAllOrders, getNextOrders, incrementOrdersPage, resetPage, saveOrderInfoInStore} from '../../../../AC/orders';
+import {
+    getAllOrders, getNextOrders, incrementOrdersPage, resetPage, saveOrderInfoInStore,
+    setOrdersDate
+} from '../../../../AC/orders';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 
@@ -22,24 +25,21 @@ class OrdersList extends React.Component {
     }
 
     componentWillMount = () => {
-        const {date, getAllOrders} = this.props;
+        const {getAllOrders} = this.props;
         if (this.props.client) {
+            setOrdersDate(null);
             getAllOrders(`?client=${this.props.client.id}`);
         } else {
-            getAllOrders(`?date=${date}`);
+            if (this.props.ordersDate){
+                getAllOrders(`?date=${this.props.ordersDate}`);
+            } else {
+                getAllOrders();
+            }
         }
     };
-
-    componentDidUpdate(prevProps) {
-        // Здесь можно выполнять сайд эффекты
-        if ((this.props.date !== prevProps.date) || (this.props.client !== prevProps.client)) {
-            this.page = 1;
-        }
-    };
-
 
     loadOrders = () => {
-        this.props.getNextOrders(this.props.nextPage, this.props.client, this.props.date);
+        this.props.getNextOrders(this.props.nextPage, this.props.client, this.props.ordersDate);
     };
 
     addNewOrder = () => {
@@ -126,5 +126,6 @@ export default connect((state) => ({
     isLoading: state.orders.isLoading,
     hasMoreOrders: state.orders.hasMoreOrders,
     orderSave: state.orders.orderSave,
-    nextPage: state.orders.nextPageNumber
-}), {getAllOrders, getNextOrders, saveOrderInfoInStore})(OrdersList);
+    nextPage: state.orders.nextPageNumber,
+    ordersDate: state.orders.date,
+}), {getAllOrders, getNextOrders, saveOrderInfoInStore, setOrdersDate})(OrdersList);

@@ -7,7 +7,7 @@ import {
     SUCCESS,
     START,
     SAVE_HARPOON_IN_ORDER,
-    EDIT_HARPOON_IN_ORDER, SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE, INCREMENT_ORDERS_PAGE
+    EDIT_HARPOON_IN_ORDER, SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE, INCREMENT_ORDERS_PAGE, SET_ORDERS_DATE
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -37,6 +37,7 @@ const ReducerState = Record({
     orderSave: undefined,
     itemDialogIsProducts: true,
     nextPageNumber: null,
+    date: null,
     orders: new OrderedMap({})
 });
 
@@ -100,6 +101,11 @@ export default (orderState = defaultState, actionTypeResponse) => {
         case SET_ITEM_DIALOG_STATE: {
             const {isProducts} = data;
             return orderState.set('itemDialogIsProducts', isProducts);
+        }
+
+        case SET_ORDERS_DATE: {
+            const {date} = data;
+            return orderState.set('date', date);
         }
     }
 

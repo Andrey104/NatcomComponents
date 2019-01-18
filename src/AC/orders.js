@@ -4,7 +4,7 @@ import {
     GET_ORDER,
     SAVE_ORDER_INFO_IN_STORE,
     EDIT_HARPOON_IN_ORDER,
-    SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE
+    SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE, SET_ORDERS_DATE
 } from '../constans';
 import {BaseApi} from '../services/base';
 import {closeModalWindow} from './modal';
@@ -114,5 +114,13 @@ export function setItemDialogState(isProducts) {
     return {
         type: SET_ITEM_DIALOG_STATE,
         data: {isProducts}
+    }
+}
+
+
+export function setOrdersDate(date) {
+    return {
+        type: SET_ORDERS_DATE,
+        data: {date}
     }
 }
