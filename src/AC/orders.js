@@ -4,12 +4,12 @@ import {
     GET_ORDER,
     SAVE_ORDER_INFO_IN_STORE,
     EDIT_HARPOON_IN_ORDER,
-    SET_ITEM_DIALOG_STATE
+    SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE
 } from '../constans';
 import {BaseApi} from '../services/base';
 import {closeModalWindow} from './modal';
 import history from '../history';
-import {displayError} from "../services/utils";
+import {displayError, getUrlOrders} from "../services/utils";
 
 export function getAllOrders(params) {
     let callAPI = 'orders/';
@@ -21,11 +21,13 @@ export function getAllOrders(params) {
     }
 }
 
-export function getNextOrders(page) {
+export function getNextOrders(page, client, date) {
+    let callAPI = 'orders/';
+    callAPI += getUrlOrders(page, client, date);
     return {
         type: GET_NEXT_ORDERS,
         requestType: 'GET',
-        callAPI: `orders/?page=${page}`
+        callAPI
     }
 }
 

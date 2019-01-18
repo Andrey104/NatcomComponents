@@ -66,6 +66,7 @@ export default class extends React.Component {
                                supply={this.state}/>
                 <AddItems items={this.state.items}
                           selectedItems={this.selectedItems}/>
+
                 <div className="col-sm-12 text-right">
                     <button type="button"
                             onClick={this.handleSubmit}

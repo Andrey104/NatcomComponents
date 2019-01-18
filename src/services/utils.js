@@ -252,6 +252,18 @@ export function getUrlMembranes(filters, page, client) {
     return url_prefix + url;
 }
 
+export function getUrlOrders(page, client, date) {
+    let url_prefix = '';
+    let url = '';
+    if (client) url += `client=${client.id}&`;
+    if (page) url += `page=${page}&`;
+    if (date) url += `date=${date}&`;
+    if (url!== '') {
+        url = '?' + url.slice(0, url.length - 1);
+    }
+    return url_prefix + url;
+}
+
 export function displayError(text, type){
     let errText = 'Что-то пошло не так :(';
     if (type === 'SERVER') {

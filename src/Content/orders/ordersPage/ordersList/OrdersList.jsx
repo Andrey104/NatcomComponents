@@ -6,15 +6,20 @@ import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
 import OrderCard from './OrderCard/index';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
-import {getAllOrders, getNextOrders, saveOrderInfoInStore} from '../../../../AC/orders';
+import {getAllOrders, getNextOrders, incrementOrdersPage, resetPage, saveOrderInfoInStore} from '../../../../AC/orders';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 
 class OrdersList extends React.Component {
-
+    page;
     static propTypes = {
         client: PropTypes.object,
     };
+
+    constructor(props) {
+        super(props);
+        this.page = 1;
+    }
 
     componentWillMount = () => {
         const {date, getAllOrders} = this.props;
@@ -23,10 +28,19 @@ class OrdersList extends React.Component {
         } else {
             getAllOrders(`?date=${date}`);
         }
-
     };
 
-    loadOrders = page => this.props.getNextOrders(page);
+    componentDidUpdate(prevProps) {
+        // Здесь можно выполнять сайд эффекты
+        if ((this.props.date !== prevProps.date) || (this.props.client !== prevProps.client)) {
+            this.page = 1;
+        }
+    };
+
+
+    loadOrders = () => {
+        this.props.getNextOrders(this.props.nextPage, this.props.client, this.props.date);
+    };
 
     addNewOrder = () => {
         if (this.props.orderSave !== null && this.props.orderSave !== undefined) {
@@ -111,5 +125,6 @@ export default connect((state) => ({
     orders: mapToArr(state.orders.orders),
     isLoading: state.orders.isLoading,
     hasMoreOrders: state.orders.hasMoreOrders,
-    orderSave: state.orders.orderSave
+    orderSave: state.orders.orderSave,
+    nextPage: state.orders.nextPageNumber
 }), {getAllOrders, getNextOrders, saveOrderInfoInStore})(OrdersList);

@@ -7,7 +7,7 @@ import {
     SUCCESS,
     START,
     SAVE_HARPOON_IN_ORDER,
-    EDIT_HARPOON_IN_ORDER, SET_ITEM_DIALOG_STATE
+    EDIT_HARPOON_IN_ORDER, SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE, INCREMENT_ORDERS_PAGE
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -36,6 +36,7 @@ const ReducerState = Record({
     order: {},
     orderSave: undefined,
     itemDialogIsProducts: true,
+    nextPageNumber: null,
     orders: new OrderedMap({})
 });
 
@@ -53,6 +54,7 @@ export default (orderState = defaultState, actionTypeResponse) => {
             let nextPage, orders = response.data.results;
             response.data.next === null ? nextPage = false : nextPage = true;
             return orderState.set('orders', arrToMap(orders, OrderRecord))
+                .set('nextPageNumber', 2)
                 .set('hasMoreOrders', nextPage)
                 .set('loaded', true)
                 .set('isLoading', false);
@@ -61,8 +63,10 @@ export default (orderState = defaultState, actionTypeResponse) => {
             let nextPage, newOrders;
             response.data.next === null ? nextPage = false : nextPage = true;
             newOrders = arrToMap(response.data.results, OrderRecord);
+            let nextPageNumber = orderState.get('nextPageNumber');
             return orderState.update('orders', orders => orders.concat(newOrders))
                 .set('hasMoreOrders', nextPage)
+                .set('nextPageNumber', nextPageNumber += 1)
                 .set('loaded', true);
         }
         case GET_ORDER + START: {

@@ -1,80 +1,117 @@
 import React from 'react';
 
 import DialogWindow from '../DialogWindow';
-import ProductsPage from './productsPage/ProductsPage';
-import MembranesPage from './membranesPage/MembranesPage';
+import MembranesFilters from '../MembranesFilters';
+import {countFormat, displayError} from '../../services/utils';
+import styles from './styles.css';
+import ProductsFilters from "../productsFilters/ProductsFilters";
+import ItemsList from "../ItemList/ItemList";
+
 import './styles.css';
+import {setItemDialogState} from "../../AC/orders";
+import connect from "react-redux/es/connect/connect";
 
 class AddItemsDialog extends React.Component {
-    items = [];
-    isProducts = true;
+    stockId;
 
     constructor(props) {
         super(props);
-        const {items} = props;
-        this.currentItems = items;
-        this.state = {
-            btnText: 'Пленки'
-        };
+        const {stock} = this.props;
+        this.stockId = 0; // Поставка пойдет на галвный склад
     }
 
-    handleSelectItems = (item, checkboxValue) => {
-        if (checkboxValue) {
-            this.items.push(item);
-        } else {
-            this.items = this.items.filter(arrItem => arrItem.item !== item.item);
-        }
+    selectChange = (event) => {
+        // this.setState({
+        //     isProducts: event.target.value === "products"
+        // });
+        this.props.setItemDialogState(event.target.value === "products");
     };
 
-    getItems = () => {
-        this.isProducts = !this.isProducts;
-        const btnText = this.isProducts ? 'Пленки' : 'Товары';
-        this.setState({btnText})
+    selectStock = stockId => this.stockId = stockId;
+
+    handleSubmit = (item) => {
+        const {currentItems} = this.props;
+        // const checkItems = currentItems.filter(itemArr => (
+        //     itemArr.item.item === item.item
+        // ));
+        // if (checkItems.length === 2 && !stock.main) {
+        //     displayError();
+        //     return;
+        // }
+        const stocks = item.stocks;
+        const currentStock = stocks[0];
+        this.props.selectedItems(item, stocks, currentStock);
     };
 
-    handleSubmit = event => {
-        event.preventDefault();
-        this.props.selectedItems(this.items);
-    };
+    // getItemCount = item => {
+    //     const count = item.stocks.find(stock => stock.stock.id === this.stockId).count;
+    //     return countFormat(count);
+    // };
 
     getItemsList() {
-        if (this.isProducts) {
-            return (
-                <ProductsPage currentItems={this.currentItems}
-                              handleSelectItems={this.handleSelectItems}/>
-            )
+        return (
+            <ItemsList handleSubmit={this.handleSubmit}
+                       membraneMode={!this.props.itemDialogIsProducts}
+                       selectMode={true}/>
+        )
+    }
+
+    getFilters() {
+        let filters = null;
+        if (this.props.itemDialogIsProducts) {
+            filters = (
+                <div>
+                    {/*<StockForOrder products={this.props.products}*/}
+                    {/*stock={this.stockId}*/}
+                    {/*selectStock={this.selectStock}/>*/}
+                    <ProductsFilters/>
+                </div>
+            );
         } else {
-            return (
-                <MembranesPage currentItems={this.currentItems}
-                               handleSelectItems={this.handleSelectItems}/>
-            )
+            filters = (
+                <div>
+                    <MembranesFilters/>
+                </div>
+            );
+        }
+        return filters;
+    }
+
+    getProductsMembraneSelectorValue() {
+        if (this.props.itemDialogIsProducts) {
+            return 'products'
+        } else {
+            return 'membranes'
         }
     }
 
     render() {
         return (
             <div>
-                <div className="modal-body content">
-                    <button type="button"
-                            className="btn-dark"
-                            onClick={this.getItems}>{this.state.btnText}
-                    </button>
-                    {this.getItemsList()}
-                </div>
-                <div className="modal-footer">
-                    <button type="button"
-                            onClick={this.props.close}
-                            className="btn btn-secondary">Отмена
-                    </button>
-                    <button type="submit"
-                            onClick={this.handleSubmit}
-                            className="btn btn-primary">Добавить
-                    </button>
+                <div className='modal-body'>
+                    <div className="row">
+                        <div className="col-12 col-md-3">
+                            <label>Раздел</label>
+                            <select className="form-control"
+                                    defaultValue={this.getProductsMembraneSelectorValue()}
+                                    onChange={this.selectChange}>
+                                <option value="products">Товары</option>
+                                <option value="membranes">Полотна</option>
+                            </select>
+                            <hr/>
+                            {this.getFilters()}
+                        </div>
+                        <div className="col-12 col-md-9 list-container">
+                            {this.getItemsList()}
+                        </div>
+                    </div>
                 </div>
             </div>
         )
     }
-
 }
 
-export default DialogWindow(AddItemsDialog);
+export default connect(state => ({
+        itemDialogIsProducts: state.orders.itemDialogIsProducts
+    }),
+    {setItemDialogState})(DialogWindow(AddItemsDialog));

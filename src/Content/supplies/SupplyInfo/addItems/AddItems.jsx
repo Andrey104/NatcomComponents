@@ -16,16 +16,15 @@ class AddItems extends React.Component {
         this.state = {items};
     }
 
-    selectedItems = items => {
-        let newItems = items.map(item => ({
+    selectedItems = item => {
+        let newItem = {
             item,
             count: 0,
             purchasePrice: 0
-        }));
-        newItems = newItems.concat(this.state.items);
-        this.setState({items: newItems}, () => {
-            this.props.selectedItems(this.state.items)
-        });
+        };
+
+        this.setState({items: this.state.items.push(newItem)});
+        this.props.selectedItems(this.state.items);
         this.closeDialog();
     };
 
