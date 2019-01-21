@@ -51,19 +51,15 @@ class HarpoonDetail extends React.Component {
                 <thead className="thead-light">
                 <tr>
                     <th scope="col">Название</th>
-                    <th scope="col">Склад</th>
-                    <th scope="col">Гарпунный товар</th>
-                    <th scope="col">Количество гарпуна</th>
-                    <th scope="col">Цена</th>
+                    <th scope="col">Длинна гарпуна</th>
+                    <th scope="col">Сумма</th>
                     <th scope="col">Статус</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <HarpoonName harpoon={this.harpoon}/>
-                    <td>{this.harpoon.name}</td>
-                    <td>{this.harpoon.harpoon_product.name}</td>
-                    <td>{countFormat(this.harpoon.harpoon_count)}</td>
+                    <td>{priceFormat(this.harpoon.harpoon_count)}</td>
                     <td>{priceFormat(this.harpoon.sum)}</td>
                     <td>{harpoonStatuses[this.harpoon.status]}</td>
                 </tr>
@@ -113,9 +109,10 @@ class HarpoonDetail extends React.Component {
             <div className="col-12">
                 <h5>Гарпун</h5>
                 {this.getHarpoonTable()}
-                <HarpoonMaterials harpoon={harpoon}/>
+                {/*<HarpoonMaterials harpoon={harpoon}/>*/}
                 {this.getFilesInfo()}
                 {this.getComment()}
+
                 <div className="col-12 text-right">
                     {this.getEditButton()}
                     <button type="button"

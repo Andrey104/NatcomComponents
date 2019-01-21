@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {countFormat} from '../../../../../services/utils';
+import {countFormat, priceFormat} from '../../../../../services/utils';
 
 export default class extends React.Component {
     render() {
@@ -18,7 +18,7 @@ export default class extends React.Component {
                 <tr>
                     <td>{membrane.color.description}</td>
                     <td>{membrane.texture.description}</td>
-                    <td>{countFormat(membrane.width)}</td>
+                    <td>{priceFormat(membrane.width)}</td>
                 </tr>
                 </tbody>
             </table>

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import SearchInput from '../../../components/SearchInput';
 import MembranesList from './membranesList/MembranesList';
 import Loader from '../../../components/Loader';
+import ItemList from '../../../components/ItemList/ItemList';
 import MembranesFilters from '../../../components/MembranesFilters';
 import {getAllMembranes} from '../../../AC/membranes';
 import {getAllColors, getAllTextures} from '../../../AC/parameters';
@@ -26,7 +27,7 @@ class MembranesPage extends React.Component {
                                           textures={textures}/>
                     </div>
                 </div>
-                <MembranesList/>
+                <ItemList membraneMode={true}/>
             </div>
         )
     }
