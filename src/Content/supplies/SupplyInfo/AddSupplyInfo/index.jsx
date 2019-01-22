@@ -30,15 +30,15 @@ export default class extends React.Component {
         return (
             <div className="row">
                 <div className="col-6">
-                    <div className="form-group">
-                        <label htmlFor="document">Номер договора</label>
-                        <input type="text"
-                               placeholder="Введите номер договора"
-                               defaultValue={this.document}
-                               onChange={this.handleChangeSupply}
-                               className="form-control"
-                               id="document"/>
-                    </div>
+                    {/*<div className="form-group">*/}
+                        {/*<label htmlFor="document">Номер договора</label>*/}
+                        {/*<input type="text"*/}
+                               {/*placeholder="Введите номер договора"*/}
+                               {/*defaultValue={this.document}*/}
+                               {/*onChange={this.handleChangeSupply}*/}
+                               {/*className="form-control"*/}
+                               {/*id="document"/>*/}
+                    {/*</div>*/}
                     <div className="form-group form-check">
                         <input type="checkbox"
                                className="form-check-input"

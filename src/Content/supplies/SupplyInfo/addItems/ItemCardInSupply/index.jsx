@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {priceFormat} from '../../../../../services/utils';
+import {getItemName, priceFormat} from '../../../../../services/utils';
 
 export default class extends React.Component {
 
     handleChangeItemParam = (event, index, state) => {
-        const value = Number(event.target.value);
-        if (!isFinite(value)) return;
+        var value = (event.target.value);
+        value.replace(',', '.');
+        // if (!isFinite(value)) return;
         index--;
         this.props.handleChangeItemParam(value, index, state);
     };
@@ -16,16 +17,16 @@ export default class extends React.Component {
         return (
             <tr>
                 <td>{number}</td>
-                <td>{item.item.name}</td>
+                <td>{getItemName(item)}</td>
                 <td>
-                    <input type="text"
-                           value={item.purchasePrice}
+                    <input type="number"
+                           value={item.purchasePrice || ''}
                            className="form-control"
                            onChange={e => this.handleChangeItemParam(e, number, 'purchasePrice')}/>
                 </td>
                 <td>
-                    <input type="text"
-                           value={item.count}
+                    <input type="number"
+                           value={item.count || ''}
                            className="form-control"
                            onChange={e => this.handleChangeItemParam(e, number, 'count')}/>
                 </td>

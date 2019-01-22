@@ -22,8 +22,10 @@ class AddItems extends React.Component {
             count: 0,
             purchasePrice: 0
         };
+        var items = this.state.items;
+        items.push(newItem);
 
-        this.setState({items: this.state.items.push(newItem)});
+        this.setState({items: items});
         this.props.selectedItems(this.state.items);
         this.closeDialog();
     };
@@ -32,7 +34,7 @@ class AddItems extends React.Component {
 
     handleChangeItemParam = (value, index, state) => {
         const currentItems = this.state.items;
-        currentItems[index][state] = value;
+        currentItems[index][state] = Number(value);
         this.setState({items: currentItems}, () => {
             this.props.selectedItems(this.state.items);
         });

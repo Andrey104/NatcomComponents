@@ -45,8 +45,8 @@ export default class extends React.Component {
     };
 
     getDisabledState() {
-        const {supplier, document, date, items} = this.state;
-        if (!supplier || !document || !date || !items.length) {
+        const {supplier, date, items} = this.state;
+        if (!supplier || !date || !items.length) {
             return true;
         } else if (items.length) {
             for (const item of items) {

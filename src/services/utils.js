@@ -365,3 +365,13 @@ export function getArea(inItem) {
         }
     }
 }
+
+export function getItemName(inItem) {
+    let item = inItem.item;
+    if (item.type === ITEM_PRODUCT) {
+        return (<div>{item.name}</div>);
+    }
+    if (item.type === ITEM_MEMBRANE) {
+        return (<div>{item.texture.description} {item.color.description} {item.name} ({item.width})</div>);
+    }
+}
