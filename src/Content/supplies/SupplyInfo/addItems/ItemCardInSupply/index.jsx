@@ -30,7 +30,7 @@ export default class extends React.Component {
                            className="form-control"
                            onChange={e => this.handleChangeItemParam(e, number, 'count')}/>
                 </td>
-                <td className="result-price-td">{priceFormat(itemPrice)}</td>
+                <td className="result-price-td">{priceFormat(itemPrice)} руб</td>
                 <td>
                     <button type="button"
                             onClick={() => this.props.removeItemFromList(item)}

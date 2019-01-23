@@ -32,8 +32,12 @@ class ItemList extends React.Component {
         super(props);
         // Клиента не зависимо от полотен или продуктов будем брать из продуктов.
         // Можно позже это поправить и вынести клиенов в независимую часть в сторе.
-        if (this.props.selectMode && this.props.client) {
-            this.props.setProductsClient(this.props.client);
+        if (this.props.selectMode) {
+            if (this.props.client) {
+                this.props.setProductsClient(this.props.client);
+            } else {
+                this.props.setProductsClient(null);
+            }
             if (this.props.harpoonMode && this.props.membraneMode) {
                 // Если выбран режим гарпунных полтен, сохраняя значения фильтров, предаем harpoon = true
                 this.filtersMembranes = {
@@ -60,9 +64,6 @@ class ItemList extends React.Component {
                     }
                 }
             }
-        } else {
-            // Сбрасываем в сторе клиента, если нам нужен общий вид
-            this.props.setProductsClient(null);
         }
     }
 

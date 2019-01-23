@@ -55,11 +55,11 @@ class SuppliesList extends React.Component {
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead-light">
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">№</th>
+                                        <th scope="col">Статус</th>
                                         <th scope="col">Поставщик</th>
-                                        <th scope="col">Документ</th>
                                         <th scope="col">Дата</th>
-                                        <th scope="col">Цена</th>
+                                        <th scope="col">Сумма</th>
                                     </tr>
                                     </thead>
                                     <tbody>

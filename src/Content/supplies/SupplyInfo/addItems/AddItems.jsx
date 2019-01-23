@@ -5,7 +5,7 @@ import AddItemsDialog from '../../../../components/addItemsDialog/AddItemsDialog
 import ItemCardInSupply from './ItemCardInSupply/index';
 import TableResultRow from '../../../../components/TableResultRow/index';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
-import {OPEN_ADD_ITEMS} from '../../../../constans';
+import {ITEM_MEMBRANE, ITEM_PRODUCT, OPEN_ADD_ITEMS} from '../../../../constans';
 
 class AddItems extends React.Component {
     resultPrice;
@@ -61,13 +61,23 @@ class AddItems extends React.Component {
         }
     };
 
+    getItemPrice(inItem) {
+        let item = inItem.item;
+        if (item.type === ITEM_PRODUCT) {
+            return inItem.count * inItem.purchasePrice;
+        }
+        if (item.type === ITEM_MEMBRANE) {
+            return inItem.count * inItem.purchasePrice * item.width;
+        }
+    }
+
     getItems() {
         this.resultPrice = 0;
         return this.state.items.map((item, index) => {
-            const itemPrice = item.count * item.purchasePrice;
+            const itemPrice = this.getItemPrice(item);
             this.resultPrice += itemPrice;
             return (
-                <ItemCardInSupply key={item.item.item}
+                <ItemCardInSupply key={item.item.id + item.item.name + index}
                                   item={item}
                                   number={++index}
                                   itemPrice={itemPrice}
