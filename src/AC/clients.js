@@ -2,7 +2,7 @@ import {
     GET_ALL_CLIENTS,
     GET_NEXT_CLIENTS,
     GET_CLIENT,
-    EDIT_CLIENT
+    EDIT_CLIENT, GET_CLIENT_CREDIT
 } from '../constans';
 import {closeModalWindow} from './modal';
 import {BaseApi} from '../services/base';
@@ -31,6 +31,14 @@ export function getClient(clientId) {
         type: GET_CLIENT,
         requestType: 'GET',
         callAPI: `clients/${clientId}/`
+    }
+}
+
+export function getClientCredit(clientId) {
+    return {
+        type: GET_CLIENT_CREDIT,
+        requestType: 'GET',
+        callAPI: `clients/${clientId}/credit/`
     }
 }
 

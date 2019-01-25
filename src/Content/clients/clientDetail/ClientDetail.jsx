@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import Loader from '../../../components/Loader';
-import CustomPrices from './clientCustomPrices/CustomPrices';
 import ClientInfo from '../clientInfo/ClientInfo';
+import CreditInfo from '../CreditInfo/';
 import {getClient, editClient} from '../../../AC/clients';
 import {openModalWindow, closeModalWindow} from '../../../AC/modal';
 import {getPhoneWithMask, priceFormat} from '../../../services/utils';
@@ -55,6 +55,7 @@ class ClientDetail extends React.Component {
                         className="btn btn-primary btn-sm">Редактировать
                 </button>
                 {/*<CustomPrices clientId={client.id}/>*/}
+                <CreditInfo client={client}/>
                 <OrdersList client={client}/>
             </div>
         )

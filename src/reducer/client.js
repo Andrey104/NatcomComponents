@@ -1,7 +1,7 @@
 import {OrderedMap, Record} from 'immutable';
 import {
     GET_ALL_CLIENTS, GET_CLIENT, GET_NEXT_CLIENTS,
-    EDIT_CLIENT, START, SUCCESS
+    EDIT_CLIENT, START, SUCCESS, GET_CLIENT_CREDIT
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -22,6 +22,7 @@ const ReducerState = Record({
     loaded: false,
     hasMoreClients: false,
     client: {},
+    credit: undefined,
     clients: new OrderedMap({})
 });
 
@@ -57,6 +58,9 @@ export default (clientState = defaultState, actionTypeResponse) => {
         }
         case EDIT_CLIENT: {
             return clientState.set('client', data);
+        }
+        case GET_CLIENT_CREDIT + SUCCESS: {
+            return clientState.set('credit', response.data);
         }
     }
     return clientState;
