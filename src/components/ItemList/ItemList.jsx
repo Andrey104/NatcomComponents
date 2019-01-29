@@ -30,7 +30,7 @@ class ItemList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.clearStore();
+        //this.clearStore();
         // Клиента не зависимо от полотен или продуктов будем брать из продуктов.
         // Можно позже это поправить и вынести клиенов в независимую часть в сторе.
         if (this.props.selectMode) {
@@ -73,7 +73,7 @@ class ItemList extends React.Component {
     };
 
     componentWillUnmount() {
-        this.clearStore();
+        //this.clearStore();
     }
 
     componentDidUpdate(prevProps) {
