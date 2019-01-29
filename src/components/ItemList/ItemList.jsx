@@ -8,7 +8,7 @@ import ProductCard from './ProductCard/index';
 import MembraneCard from './MembraneCard/index';
 import InfiniteScrollOverride from '../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../helpers';
-import {getAllProducts, getNextProducts, setProductsClient} from '../../AC/products';
+import {deleteProductsFromStore, getAllProducts, getNextProducts, setProductsClient} from '../../AC/products';
 import history from '../../history';
 import {getCurrentUser} from "../../AC/currentUser";
 import {UsersService} from "../../services/users.service";
@@ -30,6 +30,7 @@ class ItemList extends React.Component {
 
     constructor(props) {
         super(props);
+        this.clearStore();
         // Клиента не зависимо от полотен или продуктов будем брать из продуктов.
         // Можно позже это поправить и вынести клиенов в независимую часть в сторе.
         if (this.props.selectMode) {
@@ -72,7 +73,7 @@ class ItemList extends React.Component {
     };
 
     componentWillUnmount() {
-        this.props.deleteMembranesFromStore();
+        this.clearStore();
     }
 
     componentDidUpdate(prevProps) {
@@ -81,6 +82,11 @@ class ItemList extends React.Component {
             this.load();
         }
     };
+
+    clearStore() {
+        this.props.deleteMembranesFromStore();
+        this.props.deleteProductsFromStore();
+    }
 
     load = () => {
         if (this.props.membraneMode) {
@@ -140,6 +146,7 @@ class ItemList extends React.Component {
             <ProductCard key={product.id}
                          selectMode={this.props.selectMode}
                          handleClick={this.handleClick}
+                         client={this.props.client}
                          product={product}/>
         ));
     }
@@ -157,6 +164,7 @@ class ItemList extends React.Component {
                               selectMode={this.props.selectMode}
                               handleClick={this.handleClick}
                               harpoonMode={this.props.harpoonMode}
+                              client={this.props.client}
                               membrane={membrane}/>
             )
         );
@@ -263,5 +271,6 @@ export default connect((state) => ({
     getNextMembranes,
     getAllMembranes,
     saveMembranesFilters,
-    deleteMembranesFromStore
+    deleteMembranesFromStore,
+    deleteProductsFromStore
 })(ItemList);

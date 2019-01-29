@@ -7,10 +7,14 @@ import {units} from '../../../constans';
 export default class ProductCard extends React.Component {
 
     render() {
-        const {product, selectMode, handleClick} = this.props;
+        const {product, selectMode, client, handleClick} = this.props;
         let price = '';
         if (selectMode) {
-            price = product.price
+            if (client){
+                price = product.price
+            } else {
+                price = product.price_good
+            }
         } else {
             price = product.price_good
         }

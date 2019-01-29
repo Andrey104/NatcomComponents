@@ -21,6 +21,7 @@ const MembraneRecord = Record({
     price_standard_harpoon: undefined,
     price_good_harpoon: undefined,
     price_best_harpoon: undefined,
+    price_in: undefined,
     barcode: undefined,
     vendor_code: undefined,
     category: undefined,

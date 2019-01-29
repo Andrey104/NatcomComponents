@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import NavigationBar from '../../components/NavigationBar';
 
 import ProductsPage from './productsPage/ProductsPage';
-import AddNewProduct from './addNewProduct/AddNewProduct';
+import EditProduct from './addNewProduct/EditProduct';
 import ComponentMenu from '../../components/ComponentMenu'
 import ProductDetail from './productDetail/ProductDetail';
 import {deleteProductsFromStore} from '../../AC/products';
@@ -42,8 +42,9 @@ class ProductsRouter extends React.Component {
                 {this.getMenu()}
                 <Switch>
                     <Route exact path='/products' component={ProductsPage}/>
-                    <Route exact path='/products/add' component={AddNewProduct}/>
+                    <Route exact path='/products/add' component={EditProduct}/>
                     <Route exact path='/products/:productId' component={ProductDetail}/>
+                    <Route exact path='/products/:productId/edit' component={EditProduct}/>
                 </Switch>
             </div>
         )

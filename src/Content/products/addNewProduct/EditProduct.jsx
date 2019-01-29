@@ -16,7 +16,7 @@ import styles from './styles.scss';
 
 let cx = classNames.bind(styles);
 
-class AddNewProduct extends React.Component {
+class EditProduct extends React.Component {
     baseApi = new BaseApi();
     stocks = [];
     prices;
@@ -32,6 +32,43 @@ class AddNewProduct extends React.Component {
         images: [],
         openAddStocksDialog: false
     };
+
+    constructor(props) {
+        super(props);
+        const {product} = this.props;
+        // this.setEditProduct(product);
+    }
+
+    setEditProduct(product) {
+        this.setState({
+            name: product.name,
+            unit: product.unit,
+            harpoon: product.harpoon,
+            stocks: product.stocks,
+            prepayment: product.requires_prepayment,
+            images: product.images
+        });
+        this.prices.priceGood = product.price_good;
+        this.prices.priceStandard = product.price_standard;
+        this.prices.priceBest = product.price_best;
+        this.prices.priceIn = product.price_in;
+        this.category = product.category;
+        this.subcategory = product.subcategory;
+        this.stocks = product.stocks;
+
+        //     name: this.state.name,
+        //     unit: this.state.unit,
+        //     harpoon: this.state.harpoon,
+        //     requires_prepayment: this.state.prepayment,
+        //     price_good: this.prices.priceGood,
+        //     price_standard: this.prices.priceStandard,
+        //     price_best: this.prices.priceBest,
+        //     price_in: this.prices.priceIn,
+        //     category: this.category,
+        //     subcategory: this.subcategory,
+        //     stocks: this.stocks,
+        //     add_images: this.state.images
+    }
 
     componentWillMount = () => this.props.getCategoriesAndSubcategories();
 
@@ -114,7 +151,7 @@ class AddNewProduct extends React.Component {
     getDialogWindow() {
         let dialogWindow = null;
         if (this.state.openAddStocksDialog) {
-            dialogWindow = <AddStocksDialog header={'Добавить склады'}
+            dialogWindow = <AddStocksDialog header={'Указать ё склады'}
                                             addStocks={this.addStocks}
                                             close={this.addStocksState}/>
         }
@@ -176,7 +213,7 @@ class AddNewProduct extends React.Component {
                 </div>
                 <button type="button"
                         className="btn btn-primary"
-                        onClick={this.addStocksState}>Добавить склады
+                        onClick={this.addStocksState}>Указать склады
                 </button>
                 <ItemStocks stocks={this.state.stocks}
                             addItemStocks={this.addItemStocks}/>
@@ -184,7 +221,7 @@ class AddNewProduct extends React.Component {
                 <div className="col-12">
                     <button type="submit"
                             disabled={this.checkForm()}
-                            className={cx('btn', 'btn-primary', 'submit-btn')}>Добавить товар
+                            className={cx('btn', 'btn-primary', 'submit-btn')}>Сохранить
                     </button>
                 </div>
             </form>
@@ -216,4 +253,4 @@ export default connect((state) => ({
     categories: mapToArr(state.categories.entries),
     subcategories: mapToArr(state.categories.subcategories),
     isLoading: state.categories.isLoading
-}), {getCategoriesAndSubcategories, getSubcategories})(AddNewProduct);
+}), {getCategoriesAndSubcategories, getSubcategories})(EditProduct);

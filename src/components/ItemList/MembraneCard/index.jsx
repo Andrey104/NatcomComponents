@@ -20,10 +20,14 @@ export default class extends React.Component {
     }
 
     getMainPrice() {
-        const {membrane, selectMode, harpoonMode} = this.props;
+        const {membrane, selectMode, client,  harpoonMode} = this.props;
         let price = '';
         if (selectMode) {
-            price = membrane.price
+            if (client){
+                price = membrane.price
+            } else {
+                price = membrane.price_good
+            }
         } else {
             price = membrane.price_good
         }

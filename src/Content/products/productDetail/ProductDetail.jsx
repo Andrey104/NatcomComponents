@@ -19,6 +19,8 @@ class ProductDetail extends React.Component {
         this.props.getProduct(this.urlId);
     };
 
+    handleEditProduct = () => history.push(`/harpoons/${this.urlId}/edit`);
+
     getCategories(product) {
         return (
             <table className="table">
@@ -52,6 +54,7 @@ class ProductDetail extends React.Component {
                 <div className="row">
                     <div className="col-8">
                         <h3>{product.name}</h3>
+                        <button onClick={this.handleEditProduct}>Ред</button>
                         <h5>Артикул {product.vendor_code}</h5>
                         <div>Единица измерения: {units[product.unit - 1]}</div>
                         <ItemPrices item={product}/>

@@ -14,10 +14,12 @@ export default class extends React.Component {
 
     render() {
         const {item, number, itemPrice} = this.props;
+        console.log(item);
         return (
             <tr>
                 <td>{number}</td>
                 <td>{getItemName(item)}</td>
+                <td>{item.item.price_in} р</td>
                 <td>
                     <input type="number"
                            value={item.purchasePrice || ''}

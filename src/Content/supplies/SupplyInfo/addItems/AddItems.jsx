@@ -95,6 +95,7 @@ class AddItems extends React.Component {
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Название</th>
+                        <th scope="col">Пред. цена закупки</th>
                         <th scope="col">Закупочная цена</th>
                         <th scope="col">Количество</th>
                         <th scope="col">Итог</th>
@@ -102,7 +103,7 @@ class AddItems extends React.Component {
                     </thead>
                     <tbody>
                     {this.getItems()}
-                    <TableResultRow columnCount={5}
+                    <TableResultRow columnCount={6}
                                     resultPrice={this.resultPrice}/>
                     </tbody>
                 </table>

@@ -21,6 +21,7 @@ const ProductRecord = Record({
     price_standard: undefined,
     price_good: undefined,
     price_best: undefined,
+    price_in: undefined,
     item: undefined,
     requires_prepayment: undefined,
     type: undefined
