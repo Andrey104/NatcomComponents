@@ -10,11 +10,13 @@ export default class extends React.Component {
             <div className="prices-container">
                 <h6>Цены</h6>
                 <div className="prices-names">
+                    <div>Цена закупки</div>
                     <div>Цена стандартная</div>
                     <div>Цена средняя</div>
                     <div>Цена лучшая</div>
                 </div>
                 <div className="prices">
+                    <div>{priceFormat(item.price_in)}</div>
                     <div>{priceFormat(item.price_standard)}</div>
                     <div>{priceFormat(item.price_good)}</div>
                     <div>{priceFormat(item.price_best)}</div>
