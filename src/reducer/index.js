@@ -22,6 +22,7 @@ import modal from './modal';
 import transferRequests from './transferRequest';
 import items from './item';
 import currentUser from "./currentUser";
+import statistics from "./statistics";
 
 export default combineReducers({
     stocks,
@@ -45,5 +46,6 @@ export default combineReducers({
     modal,
     transferRequests,
     items,
-    currentUser
+    currentUser,
+    statistics
 });

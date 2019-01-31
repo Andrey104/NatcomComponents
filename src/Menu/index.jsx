@@ -56,6 +56,15 @@ export default class extends React.Component {
                             Услуги
                         </NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink to='/statistics'
+                                 onClick={onMenuClose}
+                                 activeClassName='active-item'
+                                 className="nav-link hovered">
+                            <img className='icon' src='/public/stock.svg'/>
+                            Статистика
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         }

@@ -19,6 +19,7 @@ import ServicesRouter from './services/ServicesRouter';
 import AssembliesRouter from './assemblies/AssembliesRouter';
 import HarpoonsRouter from './harpoons/HarpoonsRouter';
 import TransferRequestsRouter from './transfers/transferRequests/TransferRequestsRouter';
+import Statistics from "./statistics/statistics/Statistics";
 
 export default class extends React.Component {
     render() {
@@ -37,6 +38,7 @@ export default class extends React.Component {
                             <Route exact path='/products' component={ProductsRouter}/>
                             <Route exact path='/products/add' component={ProductsRouter}/>
                             <Route exact path='/products/:productId' component={ProductsRouter}/>
+                            <Route exact path='/products/:productId/edit' component={ProductsRouter}/>
                             <Route exact path='/clients' component={ClientsRouter}/>
                             <Route exact path='/clients/:clientId' component={ClientsRouter}/>
                             <Route exact path='/supplies/' component={SuppliesRouter}/>
@@ -57,6 +59,7 @@ export default class extends React.Component {
                             <Route exact path='/membranes' component={MembranesRouter}/>
                             <Route exact path='/membranes/add_membrane' component={MembranesRouter}/>
                             <Route exact path='/membranes/:membraneId' component={MembranesRouter}/>
+                            <Route exact path='/membranes/:membraneId/edit' component={MembranesRouter}/>
                             <Route exact path='/drivers' component={DriversPage}/>
                             <Route exact path='/drivers/:driverId' component={DriversPage}/>
                             <Route exact path='/cars' component={CarsPage}/>
@@ -75,6 +78,7 @@ export default class extends React.Component {
                             <Route exact path='/transfer_requests' component={TransferRequestsRouter}/>
                             <Route exact path='/transfer_requests/:transferRequestId'
                                    component={TransferRequestsRouter}/>
+                            <Route exact path='/statistics' component={Statistics}/>
                         </Switch>
                     </main>
                 </div>

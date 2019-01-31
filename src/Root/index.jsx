@@ -23,7 +23,7 @@ export default class extends React.Component {
             <Switch>
                 <Route path='/login' component={Login}/>
                 <Route path='/print/:orderId' component={OrderPrintPage}/>
-                <PrivateRoute path='' component={System}/>
+                <PrivateRoute exact path='' component={System}/>
             </Switch>
         )
     }
