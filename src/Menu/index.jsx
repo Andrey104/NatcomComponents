@@ -9,7 +9,7 @@ import history from '../history';
 export default class extends React.Component {
 
     handlerDjangoAdminClick = ()  =>{
-        history.push(`/admin/`);
+        document.location.replace(`http://components.nextf.ru/admin/`);
     };
 
     render() {
@@ -39,13 +39,11 @@ export default class extends React.Component {
                             Настройка складов
                         </NavLink>
                     </li><li className="nav-item">
-                    <NavLink onClick={this.handlerDjangoAdminClick}
-                             to = '/admin'
-                             activeClassName='active-item'
+                    <div onClick={this.handlerDjangoAdminClick}
                              className="nav-link hovered">
                         <img className='icon' src='/public/stock.svg'/>
                         Админка сервера
-                    </NavLink>
+                    </div>
                 </li>
                     <li className="nav-item">
                         <NavLink to='/services'

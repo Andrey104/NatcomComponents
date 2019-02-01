@@ -16,6 +16,10 @@ class MembraneDetail extends React.Component {
         this.props.getMembrane(this.urlId);
     };
 
+    handleEditMembrane = () => {
+        // history.push(`/products/${this.urlId}/edit`);
+        document.location.replace(`http://components.nextf.ru/admin/items/membrane/${this.urlId}/change/`);
+    };
 
     render() {
         const {membrane} = this.props;
@@ -30,6 +34,7 @@ class MembraneDetail extends React.Component {
             <div className="col-12">
                 <div className="row">
                     <div className="col-8">
+                        <button onClick={this.handleEditMembrane}>Ред</button>
                         <MembraneDescription membrane={membrane}/>
                     </div>
                     <div className="col-4">

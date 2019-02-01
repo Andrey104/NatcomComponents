@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import history from '../../../history';
 
 import Loader from '../../../components/Loader';
 import ItemPrices from '../../../components/itemDetail/ItemPrices';
@@ -19,7 +20,10 @@ class ProductDetail extends React.Component {
         this.props.getProduct(this.urlId);
     };
 
-    handleEditProduct = () => history.push(`/harpoons/${this.urlId}/edit`);
+    handleEditProduct = () => {
+        // history.push(`/products/${this.urlId}/edit`);
+        document.location.replace(`http://components.nextf.ru/admin/items/product/${this.urlId}/change/`);
+    };
 
     getCategories(product) {
         return (
