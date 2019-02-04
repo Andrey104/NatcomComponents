@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import {connect} from 'react-redux';
+import history from '../../../history';
 
 import Loader from '../../../components/Loader';
 import ItemImages from '../../../components/addNewItem/ItemImages';
@@ -13,13 +14,21 @@ import {getSubcategories, getCategoriesAndSubcategories} from '../../../AC/categ
 import {units} from '../../../constans';
 import {mapToArr} from '../../../helpers';
 import styles from './styles.scss';
+import {getProduct} from "../../../AC/products";
 
 let cx = classNames.bind(styles);
 
 class EditProduct extends React.Component {
+    urlId;
+
     baseApi = new BaseApi();
     stocks = [];
-    prices;
+    prices = {
+        priceGood: undefined,
+        priceBest: undefined,
+        priceStandard: undefined,
+        priceIn: undefined
+    };
     category;
     subcategory;
 
@@ -35,9 +44,16 @@ class EditProduct extends React.Component {
 
     constructor(props) {
         super(props);
-        const {product} = this.props;
         // this.setEditProduct(product);
     }
+
+    componentWillMount = () => {
+        this.props.getCategoriesAndSubcategories();
+
+        this.urlId = this.props.match.params.productId;
+        this.props.getProduct(this.urlId);
+        this.setEditProduct(this.props.product);
+    };
 
     setEditProduct(product) {
         this.setState({
@@ -69,8 +85,6 @@ class EditProduct extends React.Component {
         //     stocks: this.stocks,
         //     add_images: this.state.images
     }
-
-    componentWillMount = () => this.props.getCategoriesAndSubcategories();
 
     handleChangeProduct = event => {
         const name = event.target.name;
@@ -151,7 +165,7 @@ class EditProduct extends React.Component {
     getDialogWindow() {
         let dialogWindow = null;
         if (this.state.openAddStocksDialog) {
-            dialogWindow = <AddStocksDialog header={'Указать ё склады'}
+            dialogWindow = <AddStocksDialog header={'Указать склады'}
                                             addStocks={this.addStocks}
                                             close={this.addStocksState}/>
         }
@@ -170,7 +184,8 @@ class EditProduct extends React.Component {
                                onChange={this.handleChangeProduct}
                                className="form-control"
                                id="name"
-                               placeholder="Введите название товара"/>
+                               value={this.state.name}
+                               defaultValue={this.state.name}/>
                     </div>
                     <div className="col-6 form-group">
                         <label className="required-area">Единица измерений</label>
@@ -249,8 +264,10 @@ class EditProduct extends React.Component {
     }
 }
 
+
 export default connect((state) => ({
     categories: mapToArr(state.categories.entries),
     subcategories: mapToArr(state.categories.subcategories),
+    product: state.products.product,
     isLoading: state.categories.isLoading
-}), {getCategoriesAndSubcategories, getSubcategories})(EditProduct);
+}), {getCategoriesAndSubcategories, getSubcategories, getProduct})(EditProduct);
