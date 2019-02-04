@@ -31,22 +31,25 @@ export default class extends React.Component {
 
     getBody() {
         const {stocks} = this.props;
-        if (stocks.length) {
-            return (
-                <table className="table table-bordered">
-                    <thead className="thead-light">
-                    <tr>
-                        <th>Склад</th>
-                        <th>Минимальное количество</th>
-                        <th>Ожидаемое количество</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.getStocks(stocks)}
-                    </tbody>
-                </table>
-            )
+        if (stocks) {
+            if (stocks.length) {
+                return (
+                    <table className="table table-bordered">
+                        <thead className="thead-light">
+                        <tr>
+                            <th>Склад</th>
+                            <th>Минимальное количество</th>
+                            <th>Ожидаемое количество</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.getStocks(stocks)}
+                        </tbody>
+                    </table>
+                )
+            }
         }
+
     }
 
     render() {

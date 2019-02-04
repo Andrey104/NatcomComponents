@@ -44,8 +44,9 @@ class MembranesRouter extends React.Component {
                 </div>
                 <Switch>
                     <Route exact path='/membranes' component={MembranesPage}/>
-                    <Route exact path='/membranes/add_membrane' component={AddNewMembrane}/>
+                    <Route exact path='/membranes/add' component={AddNewMembrane}/>
                     <Route exact path='/membranes/:membraneId' component={MembraneDetail}/>
+                    <Route exact path='/membranes/:membraneId/edit' component={AddNewMembrane}/>
                 </Switch>
             </div>
         )

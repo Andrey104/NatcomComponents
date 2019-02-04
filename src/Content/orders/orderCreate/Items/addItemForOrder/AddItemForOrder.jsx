@@ -84,20 +84,31 @@ class AddItemForOrder extends React.Component {
         }
     }
 
+    getProductsMembranesSelector() {
+        const {returnChecked} = this.props;
+        if (!returnChecked) {
+            return(
+                <div>
+                    <label>Раздел</label>
+                    <select className="form-control"
+                            defaultValue={this.getProductsMembraneSelectorValue()}
+                            onChange={this.selectChange}>
+                        <option value="products">Товары</option>
+                        <option value="membranes">Полотна</option>
+                    </select>
+                    <hr/>
+                </div>
+            );
+        }
+    }
+
     render() {
         return (
             <div>
                 <div className='modal-body'>
                     <div className="row">
                         <div className="col-12 col-md-3">
-                            <label>Раздел</label>
-                            <select className="form-control"
-                                    defaultValue={this.getProductsMembraneSelectorValue()}
-                                    onChange={this.selectChange}>
-                                <option value="products">Товары</option>
-                                <option value="membranes">Полотна</option>
-                            </select>
-                            <hr/>
+                            {this.getProductsMembranesSelector()}
                             {this.getFilters()}
                         </div>
                         <div className="col-12 col-md-9 list-container">

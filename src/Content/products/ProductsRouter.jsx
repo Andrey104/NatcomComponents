@@ -6,11 +6,12 @@ import {connect} from 'react-redux';
 import NavigationBar from '../../components/NavigationBar';
 
 import ProductsPage from './productsPage/ProductsPage';
-import EditProduct from './addNewProduct/EditProduct';
+import EditProduct from './editProduct/EditProduct';
 import ComponentMenu from '../../components/ComponentMenu'
 import ProductDetail from './productDetail/ProductDetail';
 import {deleteProductsFromStore} from '../../AC/products';
 import styles from './styles.css';
+import MembranesPage from "../../components/addItemsDialog/membranesPage/MembranesPage";
 
 class ProductsRouter extends React.Component {
 

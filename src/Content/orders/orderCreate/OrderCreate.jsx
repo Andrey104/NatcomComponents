@@ -55,10 +55,11 @@ class OrderCreate extends React.Component {
             this.state = {
                 stock: null,
                 client: null,
-                date: null,
+                date: Date(),
                 items: [],
                 harpoons: [],
-                openDialogWindow: false
+                openDialogWindow: false,
+                returnChecked: false
             };
         }
     }
@@ -137,7 +138,8 @@ class OrderCreate extends React.Component {
             stock: orderStock,
             comment: this.comment,
             items: this.getItems(),
-            source: 1
+            source: 1,
+            return_order: this.state.returnChecked
         };
         if (this.currentUrl.indexOf('edit') === -1) {
             newOrder.harpoons = this.state.harpoons.map(harpoon => {
@@ -154,7 +156,7 @@ class OrderCreate extends React.Component {
         for (const arrItem of this.state.items) {
             itemsArr.push({
                 item: arrItem.item.item,
-                count: arrItem.count,
+                count: -(arrItem.count),
                 stock: arrItem.currentStock.stock.id
             })
         }
@@ -176,9 +178,8 @@ class OrderCreate extends React.Component {
         return false;
     }
 
-
     getHarpoonList() {
-        if (this.currentUrl.indexOf('edit') === -1) {
+        if ((this.currentUrl.indexOf('edit') === -1)&&(!this.state.returnChecked)) {
             return (
                 <div className="harpoons col-12">
                     <HarpoonsList harpoons={this.state.harpoons}
@@ -207,6 +208,7 @@ class OrderCreate extends React.Component {
                                addItems={this.addItems}
                                items={this.state.items}
                                itemsResultPrice={this.itemsResultPrice}
+                               returnChecked = {this.state.returnChecked}
                                dialogWindowState={this.dialogWindowState}/>
                     </div>
                     {this.getHarpoonList()}
@@ -231,6 +233,43 @@ class OrderCreate extends React.Component {
         }
     }
 
+    getReturnConfirmModal() {
+        return(
+        <div className="modal">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Modal title</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>);
+    }
+
+    returnCheckBoxChangeHandler = () => {
+        this.setState({
+            returnChecked: !this.state.returnChecked
+        });
+    };
+
+    getReturnLabel() {
+        if (this.state.returnChecked) {
+            return (
+                <h5 className="return-label">ВОЗВРАТ!</h5>
+            )
+        }
+    }
+
     render() {
         const {isLoading, stocks} = this.props;
         if (stocks.length === 0 || isLoading) {
@@ -243,6 +282,7 @@ class OrderCreate extends React.Component {
         this.defaultStock = this.state.stock ? null : stocks[0];
         return (
             <div>
+                {this.getReturnConfirmModal()}
                 <div className="row order-head">
                     <div className="col-12 col-md-6">
                         <table className="table table-hover table-bordered">
@@ -261,6 +301,11 @@ class OrderCreate extends React.Component {
                         <label>Дата выдачи</label>
                         <DatePickerInput selectDate={this.addDate}
                                          defaultDate={this.state.date}/>
+                            <input type="checkbox"
+                                   checked={this.state.returnChecked}
+                                   className="check-input"
+                                   onChange={this.returnCheckBoxChangeHandler}/>
+                            <label className="check-label">Возврат</label>
                     </div>
 
                 </div>
@@ -271,6 +316,7 @@ class OrderCreate extends React.Component {
                                       addComment={this.addComment}/>
                     </div>
                 </div>
+                {this.getReturnLabel()}
                 {this.getItemsAndHarpoonsBlock()}
                 <div className="row">
                     <div className="col-sm-12">

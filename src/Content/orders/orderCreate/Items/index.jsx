@@ -125,6 +125,7 @@ export default class extends React.Component {
                                             client={this.props.client}
                                             currentItems={this.items}
                                             selectedProducts={this.selectedProducts}
+                                            returnChecked={this.props.returnChecked}
                                             close={this.addProductsState}/>
         }
         return dialogWindow;

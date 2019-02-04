@@ -35,6 +35,10 @@ export default class extends React.Component {
                 break;
             }
         }
+
+        if (order.return_order === true) {
+            s = (<div className="alert alert-danger">ВОЗВРАТ!</div>);
+        }
         return s;
     }
 

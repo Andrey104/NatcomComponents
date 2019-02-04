@@ -27,6 +27,7 @@ const OrderRecord = Record({
     comment: undefined,
     client: undefined,
     stock: undefined,
+    return_order: undefined
 });
 
 const ReducerState = Record({
