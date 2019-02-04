@@ -153,13 +153,24 @@ class OrderCreate extends React.Component {
 
     getItems = () => {
         let itemsArr = [];
-        for (const arrItem of this.state.items) {
-            itemsArr.push({
-                item: arrItem.item.item,
-                count: -(arrItem.count),
-                stock: arrItem.currentStock.stock.id
-            })
+        if (this.state.returnChecked) {
+            for (const arrItem of this.state.items) {
+                itemsArr.push({
+                    item: arrItem.item.item,
+                    count: -(arrItem.count),
+                    stock: arrItem.currentStock.stock.id
+                })
+            }
+        } else {
+            for (const arrItem of this.state.items) {
+                itemsArr.push({
+                    item: arrItem.item.item,
+                    count: (arrItem.count),
+                    stock: arrItem.currentStock.stock.id
+                })
+            }
         }
+
         return itemsArr;
     };
 
