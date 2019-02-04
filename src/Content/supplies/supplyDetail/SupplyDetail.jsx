@@ -7,6 +7,7 @@ import TableResultRow from '../../../components/TableResultRow';
 import {getSupply, fromDraft} from '../../../AC/supplies';
 import {priceFormat, getDate} from '../../../services/utils';
 import history from '../../../history';
+import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../../constans";
 
 export class SupplyDetail extends React.Component {
     urlId;
@@ -38,11 +39,21 @@ export class SupplyDetail extends React.Component {
         }
     };
 
+    getItemPrice(inItem) {
+        let item = inItem.item;
+        if (item.type === ITEM_PRODUCT) {
+            return inItem.count * inItem.purchase_price;
+        }
+        if (item.type === ITEM_MEMBRANE) {
+            return inItem.count * inItem.purchase_price * item.width;
+        }
+    }
+
     getItems() {
         const {items} = this.props.supply;
         this.resultSupplyPrice = 0;
         return items.map((item, index) => {
-            const itemPrice = item.purchase_price * item.count;
+            const itemPrice = this.getItemPrice(item);
             this.resultSupplyPrice += itemPrice;
             return (
                 <ItemCardInSupply key={item.item.item}
