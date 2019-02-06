@@ -11,16 +11,18 @@ export default class extends React.Component {
     getStocks(stocks) {
         return stocks.map((stock, index) => (
                 <tr key={stock.id}>
-                    <td>{stock.name}</td>
+                    <td>{stock.name || stock.stock.name}</td>
                     <td>
                         <input type="text"
                                name="min_count"
+                               defaultValue={stock.min_count}
                                onChange={e => this.handleChangeItemStocks(e, index)}
                                className="form-control"/>
                     </td>
                     <td>
                         <input type="text"
                                name="desired_count"
+                               defaultValue={stock.desired_count}
                                onChange={e => this.handleChangeItemStocks(e, index)}
                                className="form-control"/>
                     </td>

@@ -10,7 +10,7 @@ import AddStocksDialog from '../../../components/AddStocksDialog/AddStocksDialog
 import ItemStocks from '../../../components/addNewItem/ItemStocks';
 import PricesList from '../../../components/addNewItem/PricesList';
 import {BaseApi} from '../../../services/base';
-import {getSubcategories, getCategoriesAndSubcategories} from '../../../AC/categories';
+import {getSubcategories, getCategoriesAndSubcategories, saveCategories} from '../../../AC/categories';
 import {units} from '../../../constans';
 import {mapToArr} from '../../../helpers';
 import styles from './styles.scss';
@@ -29,8 +29,7 @@ class EditProduct extends React.Component {
         priceStandard: undefined,
         priceIn: undefined
     };
-    category;
-    subcategory;
+
 
     state = {
         name: null,
@@ -39,7 +38,10 @@ class EditProduct extends React.Component {
         stocks: [],
         prepayment: false,
         images: [],
-        openAddStocksDialog: false
+        openAddStocksDialog: false,
+        category: null,
+        subcategory: null,
+        editMode: false
     };
 
     constructor(props) {
@@ -51,26 +53,47 @@ class EditProduct extends React.Component {
         this.props.getCategoriesAndSubcategories();
 
         this.urlId = this.props.match.params.productId;
-        this.props.getProduct(this.urlId);
-        //this.setEditProduct(this.props.product);
+        if (this.urlId) {
+            this.loadProduct(this.urlId);
+        }
+
     };
 
+    loadProduct(productId) {
+        this.baseApi
+            .get(`items/products/${productId}/`)
+            .then(response => {
+                this.setEditProduct(response.data);
+            });
+    }
+
+    setCategoryAndSubcategory(category, subcategory) {
+        this.props.getSubcategories(category.id);
+        this.setState({
+            category: category,
+            subcategory: subcategory
+        });
+
+    }
+
     setEditProduct(product) {
+        console.log(product);
         this.setState({
             name: product.name,
             unit: product.unit,
             harpoon: product.harpoon,
             stocks: product.stocks,
             prepayment: product.requires_prepayment,
-            images: product.images
+            images: product.images,
+            editMode: true
         });
         this.prices.priceGood = product.price_good;
         this.prices.priceStandard = product.price_standard;
         this.prices.priceBest = product.price_best;
         this.prices.priceIn = product.price_in;
-        this.category = product.category;
-        this.subcategory = product.subcategory;
+        this.setCategoryAndSubcategory(product.category, product.subcategory);
         this.stocks = product.stocks;
+        console.log(this.prices);
 
         //     name: this.state.name,
         //     unit: this.state.unit,
@@ -101,11 +124,15 @@ class EditProduct extends React.Component {
     selectPrices = prices => this.prices = prices;
 
     selectCategory = categoryId => {
-        this.category = categoryId;
+        this.setState({
+            category: categoryId
+        });
         this.props.getSubcategories(categoryId);
     };
 
-    selectSubcategory = subcategoryId => this.subcategory = subcategoryId;
+    selectSubcategory = subcategoryId => {this.setState({
+        subcategory: subcategoryId
+    })};
 
     addStocks = stocks => {
         this.setState({
@@ -126,11 +153,19 @@ class EditProduct extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const newProduct = this.getNewProduct();
-        this.baseApi
-            .post(`items/products/`, newProduct)
-            .then(response => {
-                this.props.history.push(`/products/${response.data.id}`);
-            });
+        if (this.state.editMode) {
+            this.baseApi
+                .put(`items/products/${this.urlId}/`, newProduct)
+                .then(response => {
+                    this.props.history.push(`/products/${response.data.id}`);
+                });
+        } else {
+            this.baseApi
+                .post(`items/products/`, newProduct)
+                .then(response => {
+                    this.props.history.push(`/products/${response.data.id}`);
+                });
+        }
     };
 
     getNewProduct() {
@@ -143,12 +178,22 @@ class EditProduct extends React.Component {
             price_standard: this.prices.priceStandard,
             price_best: this.prices.priceBest,
             price_in: this.prices.priceIn,
-            category: this.category,
-            subcategory: this.subcategory,
-            stocks: this.stocks,
+            category: this.getDefaultCategory(),
+            subcategory: this.getDefaultSubcategory(),
+            stocks: this.getStocks(this.stocks),
             add_images: this.state.images
         };
     }
+
+    getStocks(stocks) {
+        var stocks = stocks.map(stock => ({
+            stock: stock.id,
+            min_count: stock.min_count,
+            desired_count: stock.desired_count
+        }));
+        return stocks;
+    }
+
 
     getDefaultValues() {
         const {categories, subcategories} = this.props;
@@ -170,6 +215,22 @@ class EditProduct extends React.Component {
                                             close={this.addStocksState}/>
         }
         return dialogWindow;
+    }
+
+    getDefaultCategory() {
+        if (this.state.category.id) {
+            return this.state.category.id;
+        } else {
+            return this.state.category;
+        }
+    }
+
+    getDefaultSubcategory() {
+        if (this.state.subcategory.id) {
+            return this.state.subcategory.id;
+        } else {
+            return this.state.subcategory;
+        }
     }
 
     getBody(categories, subcategories) {
@@ -201,11 +262,14 @@ class EditProduct extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-6">
-                        <PricesList selectPricesList={this.selectPrices}/>
+                        <PricesList prices={this.prices}
+                                    selectPricesList={this.selectPrices}/>
                     </div>
                 </div>
                 <SelectCategories categories={categories}
                                   subcategories={subcategories}
+                                  defaultCategory={this.getDefaultCategory()}
+                                  defaultSubcategory={this.getDefaultSubcategory()}
                                   selectCategory={this.selectCategory}
                                   selectSubcategory={this.selectSubcategory}/>
                 <div className="form-group form-check">
@@ -215,7 +279,8 @@ class EditProduct extends React.Component {
                            className="form-check-input"
                            id="harpoon"/>
                     <label className="form-check-label"
-                           htmlFor="harpoon">Гарпун (Ставим, если товар представляет собой гарпун и им можно огарпунить полотно. Для 99% товаров НЕ ставим)</label>
+                           htmlFor="harpoon">Гарпун (Ставим, если товар представляет собой гарпун и им можно огарпунить
+                        полотно. Для 99% товаров НЕ ставим)</label>
                 </div>
                 <div className="form-group form-check">
                     <input type="checkbox"
@@ -270,4 +335,4 @@ export default connect((state) => ({
     subcategories: mapToArr(state.categories.subcategories),
     product: state.products.product,
     isLoading: state.categories.isLoading
-}), {getCategoriesAndSubcategories, getSubcategories, getProduct})(EditProduct);
+}), {getCategoriesAndSubcategories, getSubcategories, getProduct, saveCategories})(EditProduct);

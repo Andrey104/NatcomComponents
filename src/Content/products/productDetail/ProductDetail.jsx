@@ -7,6 +7,7 @@ import ItemPrices from '../../../components/itemDetail/ItemPrices';
 import MainImage from '../../../components/itemDetail/MainImage';
 import ItemStocks from '../../../components/itemDetail/ItemStocks';
 import ItemImages from '../../../components/itemDetail/ItemImages';
+import ItemImagesAdd from '../../../components/addNewItem/ItemImages';
 import {getProduct} from '../../../AC/products';
 import {checkSubcategory} from '../../../services/utils';
 import {units} from '../../../constans';
