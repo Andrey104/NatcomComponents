@@ -52,7 +52,7 @@ class EditProduct extends React.Component {
 
         this.urlId = this.props.match.params.productId;
         this.props.getProduct(this.urlId);
-        this.setEditProduct(this.props.product);
+        //this.setEditProduct(this.props.product);
     };
 
     setEditProduct(product) {

@@ -180,7 +180,7 @@ class ItemList extends React.Component {
 
     getAddButton() {
         let addButton = null;
-        if (UsersService.mainManagerPermission()) {
+        if (UsersService.managerPermission()) {
             addButton = <AddButton openAdd={this.openAddItem}/>
         }
         return addButton;
