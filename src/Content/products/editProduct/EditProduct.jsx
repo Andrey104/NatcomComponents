@@ -187,11 +187,19 @@ class EditProduct extends React.Component {
 
     getStocks(stocks) {
         var stocks = stocks.map(stock => ({
-            stock: stock.id,
+            stock: this.getStockID(stock),
             min_count: stock.min_count,
             desired_count: stock.desired_count
         }));
         return stocks;
+    }
+
+    getStockID(stock) {
+        if (stock.stock) {
+            return stock.stock.id;
+        } else {
+            return stock.id;
+        }
     }
 
 
