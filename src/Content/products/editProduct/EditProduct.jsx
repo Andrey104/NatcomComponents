@@ -149,9 +149,16 @@ class EditProduct extends React.Component {
     };
 
     handleProductImages = images => {
+        console.log(this.state.images);
         var newImages = this.state.images;
-        newImages.push(images);
+        var nimages = images.map(img => ({
+            id: img.id,
+            main: img.main,
+        }));
+        newImages.push(nimages);
+        console.log(images);
         this.setState({images: newImages});
+        console.log(this.state.images);
     };
 
     handleSubmit = event => {
@@ -206,10 +213,15 @@ class EditProduct extends React.Component {
     }
 
     getStockID(stock) {
+        console.log(stock);
         if (stock.stock) {
-            return stock.stock.id;
+            if (stock.stock.id) {
+                return stock.stock.id;
+            } else {
+                return stock.stock
+            }
         } else {
-            return stock.id;
+            return stock.stock;
         }
     }
 

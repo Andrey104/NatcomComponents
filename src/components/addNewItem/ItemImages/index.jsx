@@ -33,7 +33,7 @@ export default class extends React.Component {
         this.baseApi
             .post(`items/images/`, formData)
             .then(response => {
-                this.productImages.push({id: response.data.id, main: false});
+                // this.productImages.push({id: response.data.id, main: false});
                 this.props.handleItemImages(this.productImages);
             });
     }
