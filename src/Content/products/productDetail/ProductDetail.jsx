@@ -22,7 +22,10 @@ class ProductDetail extends React.Component {
     };
 
     handleEditProduct = () => {
-        // history.push(`/products/${this.urlId}/edit`);
+        history.push(`/products/${this.urlId}/edit`);
+    };
+
+    handleEditProductServerAdmin = () => {
         document.location.replace(`http://components.nextf.ru/admin/items/product/${this.urlId}/change/`);
     };
 
@@ -60,6 +63,7 @@ class ProductDetail extends React.Component {
                     <div className="col-8">
                         <h3>{product.name}</h3>
                         <button onClick={this.handleEditProduct}>Ред</button>
+                        <button onClick={this.handleEditProductServerAdmin}>Ред(SERVER ADMIN)</button>
                         <h5>Артикул {product.vendor_code}</h5>
                         <div>Единица измерения: {units[product.unit - 1]}</div>
                         <ItemPrices item={product}/>

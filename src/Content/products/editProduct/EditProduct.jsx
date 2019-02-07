@@ -149,16 +149,11 @@ class EditProduct extends React.Component {
     };
 
     handleProductImages = images => {
-        console.log(this.state.images);
-        var newImages = this.state.images;
-        var nimages = images.map(img => ({
-            id: img.id,
-            main: img.main,
-        }));
-        newImages.push(nimages);
-        console.log(images);
-        this.setState({images: newImages});
-        console.log(this.state.images);
+        this.setState({
+           images: images
+        });
+        console.log('state.images',this.state.images);
+        console.log('images',images);
     };
 
     handleSubmit = event => {
@@ -208,6 +203,7 @@ class EditProduct extends React.Component {
     getImages(images) {
         var images = images.map(img => ({
             image: img.id,
+            main: img.main
         }));
         return images;
     }

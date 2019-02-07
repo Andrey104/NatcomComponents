@@ -12,9 +12,27 @@ export default class extends React.Component {
     imagesUrls = [];
     productImages = [];
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            imagesUrls: [],
+            productImages: []
+        };
+    }
+
+    updateState() {
+        this.setState({
+            imagesUrls: this.imagesUrls,
+            productImages: this.productImages
+        });
+    }
+
     componentWillMount(){
-        this.imagesUrls = this.props.images;
-        //this.productImages = this.props.images;
+        this.imagesUrls = this.props.images.map(img => {
+            return img.url;
+        });
+        this.productImages = this.props.images;
+        this.updateState();
     }
 
     handleChangeProductImage = event => {
@@ -22,6 +40,7 @@ export default class extends React.Component {
         let fr = new FileReader();
         fr.onload = ev => {
             this.imagesUrls.push(ev.target.result);
+            this.updateState();
             this.addImageOnServer(f);
         };
         fr.readAsDataURL(f);
@@ -33,7 +52,8 @@ export default class extends React.Component {
         this.baseApi
             .post(`items/images/`, formData)
             .then(response => {
-                // this.productImages.push({id: response.data.id, main: false});
+                this.productImages.push({id: response.data.id, main: false, url: response.data.url});
+                this.updateState();
                 this.props.handleItemImages(this.productImages);
             });
     }
@@ -47,41 +67,42 @@ export default class extends React.Component {
            productImage.main = false;
            return productImage;
         });
+        this.updateState();
         this.props.handleItemImages(this.productImages);
     };
 
     deleteImage = index => {
-        const deleteImgId = this.productImages[index].image;
+        const deleteImgId = this.productImages[index].id;
         this.baseApi
             .deleteRequest(`items/images/${deleteImgId}/`)
             .then(() => {
                 this.productImages = this.productImages.filter(image => (
-                    image.image !== deleteImgId
+                    image.id !== deleteImgId
                 ));
                 this.imagesUrls.splice(index, 1);
-                console.log(this.productImages);
-                console.log(this.imagesUrls);
+                this.updateState();
                 this.props.handleItemImages(this.productImages);
             });
     };
 
     getImages() {
-        if (this.imagesUrls.length) {
-            return this.imagesUrls.map((imageUrl, index) => {
-                const uniqueKey = String(this.productImages[index]) + String(this.productImages[index]);
+        console.log('getImages productImages', this.productImages);
+        if (this.state.productImages.length) {
+            return this.state.productImages.map((img, index) => {
+                const uniqueKey = String(img.id) + String(img.url);
                 return(
                     <div key={uniqueKey}
                          className="col-4">
                         <img className="col-12"
-                             src={imageUrl}/>
+                             src={img.url}/>
                         <div className="form-group form-check">
                             <input type="checkbox"
                                    className="form-check-input"
-                                   checked={this.productImages[index]}
+                                   checked={this.state.productImages[index]}
                                    onChange={e => this.addMainImage(e, index)}
-                                   id={imageUrl}/>
+                                   id={img}/>
                             <label className="form-check-label"
-                                   htmlFor={imageUrl}>Главная картинка</label>
+                                   htmlFor={img}>Главная картинка</label>
                         </div>
                         <button type="button"
                                 onClick={() => this.deleteImage(index)}
