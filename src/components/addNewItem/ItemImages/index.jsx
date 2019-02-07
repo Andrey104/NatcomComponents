@@ -12,6 +12,11 @@ export default class extends React.Component {
     imagesUrls = [];
     productImages = [];
 
+    componentWillMount(){
+        this.imagesUrls = this.props.images;
+        //this.productImages = this.props.images;
+    }
+
     handleChangeProductImage = event => {
         let f = event.target.files[0];
         let fr = new FileReader();
@@ -28,7 +33,7 @@ export default class extends React.Component {
         this.baseApi
             .post(`items/images/`, formData)
             .then(response => {
-                this.productImages.push({image: response.data.id, main: false});
+                this.productImages.push({id: response.data.id, main: false});
                 this.props.handleItemImages(this.productImages);
             });
     }
@@ -63,7 +68,7 @@ export default class extends React.Component {
     getImages() {
         if (this.imagesUrls.length) {
             return this.imagesUrls.map((imageUrl, index) => {
-                const uniqueKey = String(this.productImages[index].main) + String(this.productImages[index].image);
+                const uniqueKey = String(this.productImages[index]) + String(this.productImages[index]);
                 return(
                     <div key={uniqueKey}
                          className="col-4">
@@ -72,7 +77,7 @@ export default class extends React.Component {
                         <div className="form-group form-check">
                             <input type="checkbox"
                                    className="form-check-input"
-                                   checked={this.productImages[index].main}
+                                   checked={this.productImages[index]}
                                    onChange={e => this.addMainImage(e, index)}
                                    id={imageUrl}/>
                             <label className="form-check-label"

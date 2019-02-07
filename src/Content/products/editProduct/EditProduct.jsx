@@ -93,7 +93,7 @@ class EditProduct extends React.Component {
         this.prices.priceIn = product.price_in;
         this.setCategoryAndSubcategory(product.category, product.subcategory);
         this.stocks = product.stocks;
-        console.log(this.prices);
+        console.log(this.state);
 
         //     name: this.state.name,
         //     unit: this.state.unit,
@@ -148,7 +148,11 @@ class EditProduct extends React.Component {
         this.stocks[index][state] = Number(value);
     };
 
-    handleProductImages = images => this.setState({images});
+    handleProductImages = images => {
+        var newImages = this.state.images;
+        newImages.push(images);
+        this.setState({images: newImages});
+    };
 
     handleSubmit = event => {
         event.preventDefault();
@@ -181,7 +185,7 @@ class EditProduct extends React.Component {
             category: this.getDefaultCategory(),
             subcategory: this.getDefaultSubcategory(),
             stocks: this.getStocks(this.stocks),
-            add_images: this.state.images
+            add_images: this.getImages(this.state.images)
         };
     }
 
@@ -192,6 +196,13 @@ class EditProduct extends React.Component {
             desired_count: stock.desired_count
         }));
         return stocks;
+    }
+
+    getImages(images) {
+        var images = images.map(img => ({
+            image: img.id,
+        }));
+        return images;
     }
 
     getStockID(stock) {
@@ -226,18 +237,26 @@ class EditProduct extends React.Component {
     }
 
     getDefaultCategory() {
-        if (this.state.category.id) {
-            return this.state.category.id;
+        if (this.state.category) {
+            if (this.state.category.id){
+                return this.state.category.id;
+            } else {
+                return this.state.category;
+            }
         } else {
-            return this.state.category;
+            return null;
         }
     }
 
     getDefaultSubcategory() {
-        if (this.state.subcategory.id) {
-            return this.state.subcategory.id;
+        if (this.state.subcategory) {
+            if (this.state.subcategory.id){
+                return this.state.subcategory.id;
+            } else {
+                return this.state.subcategory;
+            }
         } else {
-            return this.state.subcategory;
+            return null;
         }
     }
 
@@ -305,7 +324,8 @@ class EditProduct extends React.Component {
                 </button>
                 <ItemStocks stocks={this.state.stocks}
                             addItemStocks={this.addItemStocks}/>
-                <ItemImages handleItemImages={this.handleProductImages}/>
+                <ItemImages images = {this.state.images}
+                            handleItemImages={this.handleProductImages}/>
                 <div className="col-12">
                     <button type="submit"
                             disabled={this.checkForm()}
