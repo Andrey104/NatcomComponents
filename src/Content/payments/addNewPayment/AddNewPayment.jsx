@@ -6,6 +6,7 @@ import {addNewPayment} from '../../../AC/payments';
 import {openModalWindow, closeModalWindow} from '../../../AC/modal';
 import {paymentTypes} from '../../../services/utils';
 import {OPEN_ADD_CLIENT, REJECT_ORDER} from '../../../constans';
+import history from '../../../history';
 
 class AddNewPayment extends React.Component {
     client = null;
@@ -19,11 +20,14 @@ class AddNewPayment extends React.Component {
         };
     }
 
+    backToPaymentList = () => {
+        history.push(`/payments/`);
+    };
+
     handleChangePayment = event => {
-        const value = Number(event.target.value);
-        const name = event.target.name;
-        if (!isFinite(value)) return;
-        this.setState({[name]: value});
+        var inputValue = (event.target.value);
+        inputValue.replace(',', '.');
+        this.setState({sum: Number(inputValue)});
     };
 
     closeDialog = () => this.props.closeModalWindow();
@@ -41,6 +45,7 @@ class AddNewPayment extends React.Component {
             payment_type: this.state.paymentType
         };
         this.props.addNewPayment(newPayment);
+        this.backToPaymentList();
     };
 
     getDialogWindow() {
@@ -62,7 +67,7 @@ class AddNewPayment extends React.Component {
     };
 
     getDisabledState() {
-        if (!this.client || !this.state.sum) {
+        if (!this.client) {
             return true;
         }
         return false;
@@ -99,10 +104,10 @@ class AddNewPayment extends React.Component {
                     <div className="col-6">
                         <div className="form-group">
                             <label htmlFor="sum">Сумма оплаты</label>
-                            <input type="text"
+                            <input type="number"
                                    placeholder="Введите сумму"
                                    name="sum"
-                                   value={this.state.sum}
+                                   value={this.state.sum || ''}
                                    onChange={this.handleChangePayment}
                                    className="form-control"
                                    id="sum"/>

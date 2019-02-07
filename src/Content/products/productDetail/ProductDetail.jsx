@@ -12,6 +12,7 @@ import {getProduct} from '../../../AC/products';
 import {checkSubcategory} from '../../../services/utils';
 import {units} from '../../../constans';
 import './styles.css';
+import {UsersService} from "../../../services/users.service";
 
 class ProductDetail extends React.Component {
     urlId;
@@ -48,6 +49,19 @@ class ProductDetail extends React.Component {
         );
     }
 
+    getEditButtons() {
+        if (UsersService.managerPermission()) {
+            return (
+                <div>
+                    <button onClick={this.handleEditProduct}>Редактировать</button>
+                    <br/>
+                    <br/>
+                    <button onClick={this.handleEditProductServerAdmin}>Редактировать(Через SERVER ADMIN)</button>
+                </div>
+            );
+        }
+    }
+
     render() {
         const {product} = this.props;
         if (product.id !== Number(this.urlId)) {
@@ -62,8 +76,7 @@ class ProductDetail extends React.Component {
                 <div className="row">
                     <div className="col-8">
                         <h3>{product.name}</h3>
-                        <button onClick={this.handleEditProduct}>Ред</button>
-                        <button onClick={this.handleEditProductServerAdmin}>Ред(SERVER ADMIN)</button>
+                        {this.getEditButtons()}
                         <h5>Артикул {product.vendor_code}</h5>
                         <div>Единица измерения: {units[product.unit - 1]}</div>
                         <ItemPrices item={product}/>
