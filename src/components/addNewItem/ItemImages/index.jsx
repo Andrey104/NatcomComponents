@@ -28,11 +28,13 @@ export default class extends React.Component {
     }
 
     componentWillMount(){
-        this.imagesUrls = this.props.images.map(img => {
-            return img.url;
-        });
-        this.productImages = this.props.images;
-        this.updateState();
+        if (this.props.images){
+            this.imagesUrls = this.props.images.map(img => {
+                return img.url;
+            });
+            this.productImages = this.props.images;
+            this.updateState();
+        }
     }
 
     handleChangeProductImage = event => {

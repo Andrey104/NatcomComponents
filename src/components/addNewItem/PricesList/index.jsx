@@ -7,12 +7,14 @@ export default class extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({
-            priceStandard: this.props.prices.priceStandard,
-            priceGood: this.props.prices.priceGood,
-            priceBest: this.props.prices.priceBest,
-            priceIn: this.props.prices.priceIn,
-        });
+        if (this.props.prices){
+            this.setState({
+                priceStandard: this.props.prices.priceStandard,
+                priceGood: this.props.prices.priceGood,
+                priceBest: this.props.prices.priceBest,
+                priceIn: this.props.prices.priceIn,
+            });
+        }
     }
 
     state = {
