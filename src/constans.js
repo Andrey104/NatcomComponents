@@ -116,6 +116,7 @@ export const SET_ITEM_DIALOG_STATE = 'SET_ITEM_DIALOG_STATE';
 export const SET_ORDERS_DATE = 'SET_ORDERS_DATE';
 
 export const GET_SUM = 'GET_SUM';
+export const GET_PROFIT = 'GET_PROFIT';
 
 export const START = '_START';
 export const SUCCESS = '_SUCCESS';

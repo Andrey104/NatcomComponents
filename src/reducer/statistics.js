@@ -1,4 +1,5 @@
 import {
+    GET_PROFIT,
     GET_SERVICE, GET_SUM, SUCCESS
 } from '../constans';
 import {Record} from 'immutable';
@@ -18,6 +19,7 @@ const ReducerState = Record({
     isLoading: false,
     loaded: false,
     sum: undefined,
+    profit: undefined,
 });
 
 const defaultState = new ReducerState();
@@ -27,6 +29,10 @@ export default (statisticsState = defaultState, actionTypeResponse) => {
     switch (type) {
         case GET_SUM + SUCCESS:
             return statisticsState.set('sum', response.data)
+                .set('isLoading', false);
+
+        case GET_PROFIT + SUCCESS:
+            return statisticsState.set('profit', response.data)
                 .set('isLoading', false);
 
     }
