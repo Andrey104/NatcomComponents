@@ -30,6 +30,12 @@ class AddNewPayment extends React.Component {
         this.setState({sum: Number(inputValue)});
     };
 
+    handleChangePaymentType = event => {
+        var inputValue = (event.target.value);
+        inputValue.replace(',', '.');
+        this.setState({paymentType: Number(inputValue)});
+    };
+
     closeDialog = () => this.props.closeModalWindow();
 
     selectedClient = client => {
@@ -79,7 +85,7 @@ class AddNewPayment extends React.Component {
                 <label>Способ оплаты</label>
                 <select className="form-control"
                         name="paymentType"
-                        onChange={this.handleChangePayment}
+                        onChange={this.handleChangePaymentType}
                         defaultValue={this.state.paymentType}>
                     {paymentTypes.map((payment, index) => (
                         <option value={index + 1}
