@@ -9,6 +9,7 @@ import {openModalWindow, closeModalWindow} from '../../../AC/modal';
 import {getPhoneWithMask, priceFormat} from '../../../services/utils';
 import {EDIT_CLIENT} from '../../../constans';
 import OrdersList from "../../orders/ordersPage/ordersList/OrdersList";
+import OrderClientCard from '../../../components/OrderClientCard'
 
 class ClientDetail extends React.Component {
     urlId;
@@ -33,6 +34,12 @@ class ClientDetail extends React.Component {
         }
     }
 
+    updateClient = () => {
+        console.log('---updateClient');
+        setTimeout( this.props.getClient, 100, this.urlId)
+       ;
+    };
+
     render() {
         const {client} = this.props;
         if (client.id !== Number(this.urlId)) {
@@ -43,20 +50,28 @@ class ClientDetail extends React.Component {
             );
         }
         return (
-            <div className="col-12">
+            <div className="row">
                 {this.getDialogWindow(client)}
-                <h3>{client.first_name} {client.last_name}</h3>
-                <div>Телефон 1: {getPhoneWithMask(client.phone1)}</div>
-                <div>Телефон 2: {getPhoneWithMask(client.phone2)}</div>
-                <div>{client.email}</div>
-                <div>Баланс: {priceFormat(client.balance)}</div>
-                <button type="button"
-                        onClick={() => this.props.openModalWindow(EDIT_CLIENT)}
-                        className="btn btn-primary btn-sm">Редактировать
-                </button>
-                {/*<CustomPrices clientId={client.id}/>*/}
-                <CreditInfo client={client}/>
-                <OrdersList client={client}/>
+                <div className="col-md-6">
+                    <h3>{client.first_name} {client.last_name}</h3>
+                    <div>Телефон 1: {getPhoneWithMask(client.phone1)}</div>
+                    <div>Телефон 2: {getPhoneWithMask(client.phone2)}</div>
+                    <div>{client.email}</div>
+                    <div>Баланс: {priceFormat(client.balance)}</div>
+                </div>
+                <div className="col-md-6">
+                    <OrderClientCard client={client}
+                                     update={this.updateClient}/>
+                </div>
+                <div className="col-12">
+                    <button type="button"
+                            onClick={() => this.props.openModalWindow(EDIT_CLIENT)}
+                            className="btn btn-primary btn-sm">Редактировать
+                    </button>
+                    {/*<CustomPrices clientId={client.id}/>*/}
+                    <CreditInfo client={client}/>
+                    <OrdersList client={client}/>
+                </div>
             </div>
         )
     }
