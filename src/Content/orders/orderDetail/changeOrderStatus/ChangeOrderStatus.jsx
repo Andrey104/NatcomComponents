@@ -5,6 +5,7 @@ import AddPaymentDialog from '../addPaymentDialog/AddPaymentDialog';
 import {changeOrderStatus} from '../../../../AC/orders';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {ADD_PAYMENT_IN_ORDER} from '../../../../constans';
+import history from '../../../../history';
 
 class ChangeOrderStatus extends React.Component {
     changeUrl;
@@ -55,6 +56,9 @@ class ChangeOrderStatus extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const {order} = this.props;
+        if (this.changeUrl === 'assembly'){
+            history.push(`/print/${order.id}`);
+        }
         this.props.changeOrderStatus(this.changeUrl, order.id);
     };
 
