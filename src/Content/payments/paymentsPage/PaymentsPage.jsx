@@ -3,18 +3,21 @@ import {connect} from 'react-redux';
 
 import PaymentsList from './paymentsList/PaymentsList';
 import SearchAndDateFilters from '../../../components/SearchAndDateFilters';
-import {getAllPayments} from '../../../AC/payments';
+import {getAllPayments, setFilterParams} from '../../../AC/payments';
 
 class PaymentsPage extends React.Component {
 
-    getFilterParams = params => this.props.getAllPayments(params);
+    setFilterParams = (date, searchText) => {
+        this.props.setFilterParams(date, searchText);
+        this.props.getAllPayments(date, searchText);
+    };
 
     render() {
         return (
             <div>
                 <div className="row">
                     <div className="col-12">
-                        <SearchAndDateFilters getFilterParams={this.getFilterParams}/>
+                        <SearchAndDateFilters setFilterParams={this.setFilterParams}/>
                     </div>
                     <div className="col-12">
                         <PaymentsList/>
@@ -25,4 +28,4 @@ class PaymentsPage extends React.Component {
     }
 }
 
-export default connect(null, {getAllPayments})(PaymentsPage)
+export default connect((state) => ({}), {getAllPayments, setFilterParams})(PaymentsPage);

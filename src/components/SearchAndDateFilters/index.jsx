@@ -10,22 +10,16 @@ export default class extends React.Component {
 
     searchSupplies = text => {
         this.searchText = text;
-        this.getFilterParams();
+        this.setFilterParams();
     };
 
     selectDate = date => {
         this.date = date ? date : null;
-        this.getFilterParams();
+        this.setFilterParams();
     };
 
-    getFilterParams = () => {
-        let url = '';
-        if (this.searchText) url += `text=${this.searchText}&`;
-        if (this.date) url += `date=${getDateForServer(this.date)}&`;
-        if (url) {
-            url = '?' + url.slice(0, url.length - 1);
-        }
-        this.props.getFilterParams(url);
+    setFilterParams = () => {
+        this.props.setFilterParams(this.date, this.searchText);
     };
 
     render() {

@@ -234,6 +234,18 @@ export function getUrl(filters, page, client) {
     return url_prefix + url;
 }
 
+export function getUrlPayments(date, searchText, page) {
+    let url_prefix = '';
+    let url = '';
+    if (date) url += `date=${date}&`;
+    if (searchText) url += `text=${searchText}&`;
+    if (page) url += `page=${page}&`;
+    if (url!== '') {
+        url = '?' + url.slice(0, url.length - 1);
+    }
+    return url_prefix + url;
+}
+
 export function getUrlMembranes(filters, page, client) {
     let url_prefix = '';
     let url = '';

@@ -1,6 +1,6 @@
 import {OrderedMap, Record} from 'immutable';
 import {
-    GET_ALL_PAYMENTS, GET_NEXT_PAYMENTS,
+    GET_ALL_PAYMENTS, GET_NEXT_PAYMENTS, SET_PAYMENT_FILTER_PARAMS,
     START, SUCCESS
 } from '../constans';
 import {arrToMap} from '../helpers';
@@ -19,6 +19,9 @@ const ReducerState = Record({
     loaded: false,
     hasMorePayments: false,
     payment: undefined,
+    nextPageNumber: null,
+    date: null,
+    searchText: null,
     payments: new OrderedMap({})
 });
 
@@ -38,15 +41,23 @@ export default (paymentState = defaultState, actionTypeResponse) => {
             return paymentState.set('payments', arrToMap(payments, PaymentRecord))
                 .set('hasMorePayments', nextPage)
                 .set('loaded', true)
+                .set('nextPageNumber', 2)
                 .set('isLoading', false);
         }
         case GET_NEXT_PAYMENTS + SUCCESS: {
             let nextPage, newPayments;
             response.data.next === null ? nextPage = false : nextPage = true;
             newPayments = arrToMap(response.data.results, PaymentRecord);
+            let nextPageNumber = paymentState.get('nextPageNumber');
             return paymentState.update('payments', payments => payments.concat(newPayments))
                 .set('hasMorePayments', nextPage)
+                .set('nextPageNumber', nextPageNumber += 1)
                 .set('loaded', true);
+        }
+        case SET_PAYMENT_FILTER_PARAMS: {
+            const {date, searchText} = data;
+            return paymentState.set('date', date)
+                .set('searchText', searchText)
         }
     }
 
