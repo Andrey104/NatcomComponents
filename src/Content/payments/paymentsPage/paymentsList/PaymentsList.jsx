@@ -12,9 +12,9 @@ import history from '../../../../history';
 
 class PaymentsList extends React.Component {
 
-    componentWillMount = () => this.props.getAllPayments(this.props.date, this.props.searchText);
+    componentWillMount = () => this.props.getAllPayments(this.props.date, this.props.searchText, this.props.paymentType);
 
-    loadPayments = page => this.props.getNextPayments(this.props.nextPage, this.props.date, this.props.searchText);
+    loadPayments = page => this.props.getNextPayments(this.props.nextPage, this.props.date, this.props.searchText, this.props.paymentType);
 
     addNewPayment = () => history.push('/payments/add_payment');
 
@@ -87,5 +87,6 @@ export default connect((state) => ({
     hasMorePayments: state.payments.hasMorePayments,
     nextPage: state.payments.nextPageNumber,
     date: state.payments.date,
-    searchText: state.payments.searchText
+    searchText: state.payments.searchText,
+    paymentType: state.payments.paymentType
 }), {getAllPayments, getNextPayments})(PaymentsList);

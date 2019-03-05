@@ -73,10 +73,15 @@ export function getDate(dateStr) {
 }
 
 export function getDateForServer(dateStr) {
-    const date = new Date(dateStr);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${date.getFullYear()}-${month}-${day}`;
+    if (dateStr){
+        const date = new Date(dateStr);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        return `${date.getFullYear()}-${month}-${day}`;
+    } else {
+        return null;
+    }
+
 }
 
 export function getDateTime(dateStr) {
@@ -234,12 +239,13 @@ export function getUrl(filters, page, client) {
     return url_prefix + url;
 }
 
-export function getUrlPayments(date, searchText, page) {
+export function getUrlPayments(date, searchText, paymentType, page) {
     let url_prefix = '';
     let url = '';
     if (date) url += `date=${date}&`;
     if (searchText) url += `text=${searchText}&`;
     if (page) url += `page=${page}&`;
+    if (paymentType) url += `type=${paymentType}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
     }
