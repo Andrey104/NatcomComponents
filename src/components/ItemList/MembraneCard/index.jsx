@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.css';
-import {priceFormat} from "../../../services/utils";
+import {countFormat, priceFormat} from "../../../services/utils";
 
 export default class extends React.Component {
     getSecondPrice() {
@@ -43,7 +43,7 @@ export default class extends React.Component {
                     <td>{membrane.vendor_code}</td>
                     <td>{membrane.texture.description} {membrane.color.description} {membrane.name} ({membrane.width})
                     </td>
-                    <td>{priceFormat(membrane.stocks[0].count - membrane.stocks[0].reserve)}</td>
+                    <td>{countFormat(membrane.stocks[0].count - membrane.stocks[0].reserve)}</td>
                     <td>{this.getMainPrice()}</td>
                     {this.getSecondPrice()}
                 </tr>
@@ -53,7 +53,7 @@ export default class extends React.Component {
             <tr onClick={handleClick(membrane)}>
                 <td>{membrane.vendor_code}</td>
                 <td>{membrane.texture.description} {membrane.color.description} {membrane.name} ({membrane.width})</td>
-                <td>{priceFormat(membrane.stocks[0].count - membrane.stocks[0].reserve)}</td>
+                <td>{countFormat(membrane.stocks[0].count - membrane.stocks[0].reserve)}</td>
                 <td>{this.getMainPrice()}</td>
                 {this.getSecondPrice()}
             </tr>

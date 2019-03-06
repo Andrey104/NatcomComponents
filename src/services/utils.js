@@ -120,10 +120,13 @@ export function priceFormat(price) {
 }
 
 export function countFormat(count) {
-    if (typeof count === 'string') {
-        return count.slice(0, count.length - 3);
+    let formattedCount;
+    if (count){
+        formattedCount = Number(count).toFixed(2);
+    } else {
+        formattedCount = "0.00";
     }
-    return count;
+    return formattedCount;
 }
 
 // Получение нового гарпуна

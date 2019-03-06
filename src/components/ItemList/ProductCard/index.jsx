@@ -2,6 +2,7 @@ import React from 'react';
 
 import history from '../../../history';
 import {units} from '../../../constans';
+import {countFormat} from "../../../services/utils";
 
 
 export default class ProductCard extends React.Component {
@@ -22,7 +23,7 @@ export default class ProductCard extends React.Component {
             <tr onClick={handleClick(product)}>
                 <td>{product.vendor_code}</td>
                 <td>{product.name}</td>
-                <td>{product.stocks[0].count - product.stocks[0].reserve} ({units[product.unit - 1]})</td>
+                <td>{countFormat(product.stocks[0].count - product.stocks[0].reserve)} ({units[product.unit - 1]})</td>
                 <td>{price}</td>
             </tr>
         )
