@@ -1,7 +1,7 @@
 import {BaseApi} from '../services/base';
 import history from '../history';
 import {
-    GET_ALL_PAYMENTS, GET_NEXT_PAYMENTS, GET_PAYMENT, SET_PAYMENT_FILTER_PARAMS,
+    GET_ALL_PAYMENTS, GET_NEXT_PAYMENTS, GET_PAYMENT, GET_PAYMENTS_SUM, SET_PAYMENT_FILTER_PARAMS,
     SET_PAYMENT_TYPE_FILTER_PARAMS
 } from '../constans';
 import {getUrlPayments} from "../services/utils";
@@ -39,5 +39,15 @@ export function setFilterParams(date, searchText, paymentType) {
     return {
         type: SET_PAYMENT_FILTER_PARAMS,
         data: {date, searchText, paymentType}
+    }
+}
+
+export function getPaymentsSum(date, paymentType) {
+    let callAPI = 'statistics/external_payments/sum';
+    callAPI += getUrlPayments(date, null, paymentType);
+    return {
+        type: GET_PAYMENTS_SUM,
+        requestType: 'GET',
+        callAPI
     }
 }

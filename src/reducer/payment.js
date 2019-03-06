@@ -1,6 +1,6 @@
 import {OrderedMap, Record} from 'immutable';
 import {
-    GET_ALL_PAYMENTS, GET_NEXT_PAYMENTS, SET_PAYMENT_FILTER_PARAMS, SET_PAYMENT_TYPE_FILTER_PARAMS,
+    GET_ALL_PAYMENTS, GET_NEXT_PAYMENTS, GET_PAYMENTS_SUM, SET_PAYMENT_FILTER_PARAMS, SET_PAYMENT_TYPE_FILTER_PARAMS,
     START, SUCCESS
 } from '../constans';
 import {arrToMap} from '../helpers';
@@ -23,6 +23,7 @@ const ReducerState = Record({
     date: null,
     searchText: null,
     paymentType: null,
+    paymentSum: null,
     payments: new OrderedMap({})
 });
 
@@ -61,6 +62,9 @@ export default (paymentState = defaultState, actionTypeResponse) => {
                 .set('searchText', searchText)
                 .set('paymentType', paymentType)
         }
+        case GET_PAYMENTS_SUM + SUCCESS:
+            return paymentState.set('paymentSum', response.data)
+                .set('isLoading', false);
     }
 
     return paymentState;
