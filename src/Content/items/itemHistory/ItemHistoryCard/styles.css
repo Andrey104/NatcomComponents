@@ -1,0 +1,11 @@
+.order {
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+.return-order {
+    background-color: rgba(200, 0, 0, 0.5);
+}
+
+.supply {
+    background-color: rgba(0, 200, 0, 0.5);
+}

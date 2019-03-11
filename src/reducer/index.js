@@ -23,6 +23,7 @@ import transferRequests from './transferRequest';
 import items from './item';
 import currentUser from "./currentUser";
 import statistics from "./statistics";
+import itemHistories from "./itemHistory";
 
 export default combineReducers({
     stocks,
@@ -47,5 +48,6 @@ export default combineReducers({
     transferRequests,
     items,
     currentUser,
-    statistics
+    statistics,
+    itemHistories
 });

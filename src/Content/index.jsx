@@ -20,6 +20,7 @@ import AssembliesRouter from './assemblies/AssembliesRouter';
 import HarpoonsRouter from './harpoons/HarpoonsRouter';
 import TransferRequestsRouter from './transfers/transferRequests/TransferRequestsRouter';
 import Statistics from "./statistics/statistics/Statistics";
+import ItemHistory from "./items/itemHistory/ItemHistory";
 
 export default class extends React.Component {
     render() {
@@ -79,6 +80,8 @@ export default class extends React.Component {
                             <Route exact path='/transfer_requests/:transferRequestId'
                                    component={TransferRequestsRouter}/>
                             <Route exact path='/statistics' component={Statistics}/>
+                            <Route exact path='/products/history/:itemId' component={ItemHistory}/>
+                            <Route exact path='/membrane/history/:itemId' component={ItemHistory}/>
                         </Switch>
                     </main>
                 </div>

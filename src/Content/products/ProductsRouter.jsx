@@ -12,6 +12,7 @@ import ProductDetail from './productDetail/ProductDetail';
 import {deleteProductsFromStore} from '../../AC/products';
 import styles from './styles.css';
 import MembranesPage from "../../components/addItemsDialog/membranesPage/MembranesPage";
+import ItemHistory from "../items/itemHistory/ItemHistory";
 
 class ProductsRouter extends React.Component {
 
@@ -46,6 +47,7 @@ class ProductsRouter extends React.Component {
                     <Route exact path='/products/add' component={EditProduct}/>
                     <Route exact path='/products/:productId' component={ProductDetail}/>
                     <Route exact path='/products/:productId/edit' component={EditProduct}/>
+                    <Route exact path='/products/history/:itemId' component={ItemHistory}/>
                 </Switch>
             </div>
         )

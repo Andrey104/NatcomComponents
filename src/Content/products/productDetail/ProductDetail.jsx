@@ -30,6 +30,10 @@ class ProductDetail extends React.Component {
         document.location.replace(`http://components.nextf.ru/admin/items/product/${this.urlId}/change/`);
     };
 
+    handleProductHistory = () => {
+        history.push(`/products/history/${this.urlId}`);
+    };
+
     getCategories(product) {
         return (
             <table className="table">
@@ -77,6 +81,7 @@ class ProductDetail extends React.Component {
                     <div className="col-8">
                         <h3>{product.name}</h3>
                         {this.getEditButtons()}
+                        <button onClick={this.handleProductHistory}>Движение</button>
                         <h5>Артикул {product.vendor_code}</h5>
                         <div>Единица измерения: {units[product.unit - 1]}</div>
                         <ItemPrices item={product}/>

@@ -10,6 +10,7 @@ import AddNewMembrane from './addNewMembrane/AddNewMembrane';
 import MembraneDetail from './membraneDetail/MembraneDetail';
 import {deleteMembranesFromStore} from '../../AC/membranes';
 import './styles.css';
+import ItemHistory from "../items/itemHistory/ItemHistory";
 
 class MembranesRouter extends React.Component {
 
@@ -47,6 +48,7 @@ class MembranesRouter extends React.Component {
                     <Route exact path='/membranes/add' component={AddNewMembrane}/>
                     <Route exact path='/membranes/:membraneId' component={MembraneDetail}/>
                     <Route exact path='/membranes/:membraneId/edit' component={AddNewMembrane}/>
+                    <Route exact path='/membranes/history/:itemId' component={ItemHistory}/>
                 </Switch>
             </div>
         )

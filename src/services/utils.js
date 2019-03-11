@@ -285,6 +285,16 @@ export function getUrlOrders(page, client, date) {
     return url_prefix + url;
 }
 
+export function getUrlItemHistory(itemId) {
+    let url_prefix = '';
+    let url = '';
+    if (itemId) url += `item=${itemId}&`;
+    if (url!== '') {
+        url = '?' + url.slice(0, url.length - 1);
+    }
+    return url_prefix + url;
+}
+
 export function displayError(text, type){
     let errText = 'Что-то пошло не так :(';
     if (type === 'SERVER') {
