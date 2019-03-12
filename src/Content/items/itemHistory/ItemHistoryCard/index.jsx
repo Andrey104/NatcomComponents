@@ -41,6 +41,7 @@ export default class ItemHistoryCard extends React.Component {
                 <td>{this.getHistoryType(itemHistory)}</td>
                 <td>{itemHistory.performer.first_name} {itemHistory.performer.last_name}</td>
                 <td>{countFormat(itemHistory.count)}</td>
+                <td>{countFormat(itemHistory.price)}</td>
                 <td>{priceFormat(itemHistory.sum)} р</td>
             </tr>
         );

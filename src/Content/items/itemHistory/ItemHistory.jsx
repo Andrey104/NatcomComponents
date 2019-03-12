@@ -15,6 +15,10 @@ class ItemHistory extends React.Component {
         this.props.getAllItemHistory(this.urlId);
     };
 
+    componentWillUnmount() {
+        //TODO: Очистить store
+    }
+
 
     getHistoryTableHead() {
         return (
@@ -23,6 +27,7 @@ class ItemHistory extends React.Component {
                 <th scope="col">Тип</th>
                 <th scope="col">Клиент/Поставщик</th>
                 <th scope="col">Кол-во</th>
+                <th scope="col">Цена</th>
                 <th scope="col">Сумма</th>
             </tr>
         );

@@ -31,7 +31,7 @@ class ProductDetail extends React.Component {
     };
 
     handleProductHistory = () => {
-        history.push(`/products/history/${this.urlId}`);
+        history.push(`/products/history/${this.props.product.item}`);
     };
 
     getCategories(product) {

@@ -10,7 +10,9 @@ const ItemHistoryRecord = Record({
     action_id: undefined,
     performer: undefined,
     count: undefined,
-    date: undefined
+    date: undefined,
+    sum: undefined,
+    price: undefined,
 });
 
 const ReducerState = Record({

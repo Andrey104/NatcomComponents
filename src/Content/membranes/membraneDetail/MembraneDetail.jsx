@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import history from '../../../history';
 
 import Loader from '../../../components/Loader';
 import MembraneDescription from './MembraneDescription';
@@ -22,7 +23,7 @@ class MembraneDetail extends React.Component {
     };
 
     handleMembraneHistory = () => {
-        history.push(`/membrane/history/${this.urlId}`);
+        history.push(`/membrane/history/${this.props.membrane.item}`);
     };
 
     render() {
