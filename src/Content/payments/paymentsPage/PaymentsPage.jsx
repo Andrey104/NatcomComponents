@@ -64,7 +64,11 @@ class PaymentsPage extends React.Component {
                 <div className="card-body">
                     <div className="row">
                         <div className="col-12">
-                            <p>Сумма: {priceFormat(this.props.paymentsSum)}</p>
+                            <p>Сумма: {priceFormat(this.props.paymentsStat.sum)}</p>
+                            <p>Наличные: {priceFormat(this.props.paymentsStat.cash)}</p>
+                            <p>Карта: {priceFormat(this.props.paymentsStat.no_cash)}</p>
+                            <p>Терминал: {priceFormat(this.props.paymentsStat.terminal)}</p>
+                            <p>Натком: {priceFormat(this.props.paymentsStat.natcom)}</p>
                         </div>
                     </div>
                 </div>
@@ -98,7 +102,7 @@ class PaymentsPage extends React.Component {
 }
 
 export default connect((state) => ({
-    paymentsSum: state.payments.paymentSum
+    paymentsStat: state.payments.paymentStatistics
 }), {
     getAllPayments,
     setFilterParams,

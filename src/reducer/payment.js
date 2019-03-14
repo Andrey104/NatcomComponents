@@ -23,7 +23,13 @@ const ReducerState = Record({
     date: null,
     searchText: null,
     paymentType: null,
-    paymentSum: null,
+    paymentStatistics: {
+        cash : null,
+        no_cahs: null,
+        terminal: null,
+        natcom: null,
+        sum: null
+    },
     payments: new OrderedMap({})
 });
 
@@ -63,7 +69,7 @@ export default (paymentState = defaultState, actionTypeResponse) => {
                 .set('paymentType', paymentType)
         }
         case GET_PAYMENTS_SUM + SUCCESS:
-            return paymentState.set('paymentSum', response.data)
+            return paymentState.set('paymentStatistics', response.data)
                 .set('isLoading', false);
     }
 
