@@ -14,6 +14,7 @@ import {arrToMap} from '../helpers';
 const OrderRecord = Record({
     id: undefined,
     items: undefined,
+    freePositions: undefined,
     services: undefined,
     harpoons: undefined,
     payments: undefined,
