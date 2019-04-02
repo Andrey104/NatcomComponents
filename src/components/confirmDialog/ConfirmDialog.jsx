@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DialogWindow from '../DialogWindow';
+import DialogWindow from '../ModalWindow';
 
 class ConfirmDialog extends React.Component {
 

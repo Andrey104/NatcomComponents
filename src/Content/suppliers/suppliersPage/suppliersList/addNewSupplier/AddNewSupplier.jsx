@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import DialogWindow from '../../../../../components/DialogWindow/index';
+import DialogWindow from '../../../../../components/ModalWindow/index';
 import {addNewSupplier} from '../../../../../AC/suppliers';
 import './styles.css';
 

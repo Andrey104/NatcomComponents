@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DialogWindow from '../../../../../../components/DialogWindow/index';
+import DialogWindow from '../../../../../../components/ModalWindow/index';
 import RecipesList from '../../../../../recipes/recipesList/RecipesList';
 import {BaseApi} from "../../../../../../services/base";
 

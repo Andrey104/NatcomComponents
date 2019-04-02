@@ -7,7 +7,7 @@ import StocksSelect from '../../../components/StocksSelect';
 import DatePickerInput from '../../../components/datePickers/DatePickerInput';
 import Items from './Items';
 import HarpoonsList from './HarpoonsList';
-import FreePositionsList from './freePositions/FreePositionsList';
+import FreePositions from './freePositions/freePositions';
 import CommentField from '../../../components/CommentField';
 import ResultPrices from './ResultPrices';
 import {BaseApi} from '../../../services/base';
@@ -215,38 +215,6 @@ class OrderCreate extends React.Component {
 
     /* ------------------------------- */
 
-    /* Free Positions ---------------- */
-
-    handleAddFreePosition = () => {
-
-    };
-
-    removeFreePositionFromList = freePosition => {
-        // this.harpoonsResultPrice -= harpoon.resultHarpoonPrice;
-        // const newHarpoonsList = this.state.harpoons.filter(harpoonArr => harpoonArr.id !== harpoon.id);
-        // this.setState({harpoons: newHarpoonsList});
-    };
-
-    getFreePositionsList() {
-        if ((this.currentUrl.indexOf('edit') === -1)&&(!this.state.returnChecked)) {
-            return (
-                <div className="harpoons col-12">
-                    <FreePositionsList freePositions={this.state.freePositions}
-                                       freePositionsResultPrice={this.harpoonsResultPrice}
-                                       editFreePositions={this.editHarpoon}
-                                       removeFreePositionsFromList={this.removeFreePositionFromList}/>
-                    <div className="col-sm-12">
-                        <button type="button"
-                                onClick={this.handleAddFreePosition}
-                                className="btn btn-primary btn-sm">Добавить позицию
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-    }
-
-    /* ------------------------------- */
 
     getItemsAndHarpoonsBlock() {
         let block;
@@ -263,7 +231,7 @@ class OrderCreate extends React.Component {
                                dialogWindowState={this.dialogWindowState}/>
                     </div>
                     {this.getHarpoonList()}
-                    {this.getFreePositionsList()}
+                    <FreePositions freePositions={this.state.freePositions}/>
                     {this.getResultPrices()}
                 </div>
             );
@@ -284,29 +252,6 @@ class OrderCreate extends React.Component {
             )
         }
     }
-
-    // getReturnConfirmModal() {
-    //     return(
-    //     <div className="modal">
-    //         <div className="modal-dialog">
-    //             <div className="modal-content">
-    //                 <div className="modal-header">
-    //                     <h5 className="modal-title">Modal title</h5>
-    //                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-    //                         <span aria-hidden="true">&times;</span>
-    //                     </button>
-    //                 </div>
-    //                 <div className="modal-body">
-    //                     <p>Modal body text goes here.</p>
-    //                 </div>
-    //                 <div className="modal-footer">
-    //                     <button type="button" className="btn btn-primary">Save changes</button>
-    //                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>);
-    // }
 
     returnCheckBoxChangeHandler = () => {
         this.setState({

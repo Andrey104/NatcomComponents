@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DialogWindow from '../../../../../components/DialogWindow/index';
+import DialogWindow from '../../../../../components/ModalWindow/index';
 import MembranesFilters from '../../../../../components/MembranesFilters';
 import {countFormat, displayError} from '../../../../../services/utils';
 import styles from './styles.css';

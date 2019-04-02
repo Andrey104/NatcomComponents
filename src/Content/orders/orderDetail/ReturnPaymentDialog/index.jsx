@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import DialogWindow from '../../../../components/DialogWindow';
+import DialogWindow from '../../../../components/ModalWindow';
 import {addPaymentInOrder} from '../../../../AC/orders';
 import {priceFormat} from "../../../../services/utils";
 import {ORDER_CONFIRM_STATUS} from "../../../../constans";

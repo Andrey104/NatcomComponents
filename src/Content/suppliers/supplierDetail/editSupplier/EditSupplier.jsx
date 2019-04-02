@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 
-import DialogWindow from '../../../../components/DialogWindow';
+import DialogWindow from '../../../../components/ModalWindow';
 import {BaseApi} from '../../../../services/base';
 import styles from './styles.scss';
 

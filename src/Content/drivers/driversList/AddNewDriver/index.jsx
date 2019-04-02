@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DialogWindow from '../../../../components/DialogWindow';
+import DialogWindow from '../../../../components/ModalWindow';
 import DriverInfo from '../../DriverInfo';
 import {BaseApi} from '../../../../services/base';
 

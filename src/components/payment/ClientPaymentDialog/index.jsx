@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import DialogWindow from '../../../components/DialogWindow/index';
+import DialogWindow from '../../ModalWindow/index';
 import {addNewPayment} from '../../../AC/payments';
 import {paymentTypes} from '../../../services/utils';
 

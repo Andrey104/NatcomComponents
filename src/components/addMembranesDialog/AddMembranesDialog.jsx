@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import {connect} from 'react-redux';
 
-import DialogWindow from '../DialogWindow';
+import DialogWindow from '../ModalWindow';
 import Loader from '../Loader';
 import {getAllMembranes} from '../../AC/membranes';
 import {mapToArr} from '../../helpers';

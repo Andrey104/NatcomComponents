@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 
-import DialogWindow from '../../../../../components/DialogWindow/index';
+import DialogWindow from '../../../../../components/ModalWindow/index';
 import SuppliersList from '../../../../suppliers/suppliersPage/suppliersList/SuppliersList';
 import styles from './styles.scss';
 

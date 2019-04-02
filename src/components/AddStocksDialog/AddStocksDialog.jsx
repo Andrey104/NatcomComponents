@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DialogWindow from '../DialogWindow';
+import DialogWindow from '../ModalWindow';
 import StocksList from '../../Content/stocks/stocksList/StocksList';
 
 class AddStocksDialog extends React.Component {

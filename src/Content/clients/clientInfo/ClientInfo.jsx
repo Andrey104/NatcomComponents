@@ -1,7 +1,7 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
 
-import DialogWindow from '../../../components/DialogWindow/index';
+import DialogWindow from '../../../components/ModalWindow/index';
 import {phoneMask, getPhoneWithoutMask, getPhoneWithMask} from '../../../services/utils';
 
 class ClientInfo extends React.Component {

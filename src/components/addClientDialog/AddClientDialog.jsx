@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import DialogWindow from '../DialogWindow';
+import DialogWindow from '../ModalWindow';
 import SearchInput from '../SearchInput';
 import ClientsList from '../../Content/clients/clientsPage/clientsList/ClientsList';
 import {getAllClients} from '../../AC/clients';

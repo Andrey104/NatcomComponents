@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import DialogWindow from '../DialogWindow';
+import DialogWindow from '../ModalWindow';
 import Loader from '../Loader';
 import {getAllServices} from '../../AC/services';
 import {mapToArr} from '../../helpers';

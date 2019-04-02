@@ -116,7 +116,6 @@ export default class extends React.Component {
         this.props.addItems(this.items, this.resultPrice, this.resultPrepayment);
     };
 
-    // Items list modal window
     getDialogWindow() {
         let dialogWindow = null;
         if (this.openAddItemDialog) {
