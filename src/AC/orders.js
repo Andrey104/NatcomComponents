@@ -124,3 +124,10 @@ export function setOrdersDate(date) {
         data: {date}
     }
 }
+
+export function createFreePosition(date) {
+    return {
+        type: SET_ORDERS_DATE,
+        data: {date}
+    }
+}

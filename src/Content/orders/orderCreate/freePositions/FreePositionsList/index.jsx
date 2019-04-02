@@ -1,8 +1,8 @@
 import React from 'react';
 
-import TableResultRow from '../../../../components/TableResultRow/index';
+import TableResultRow from '../../../../../components/TableResultRow/index';
 import PropTypes from 'prop-types';
-import {countFormat, priceFormat} from '../../../../services/utils';
+import {countFormat, priceFormat} from '../../../../../services/utils';
 
 export default class extends React.Component {
 
@@ -45,7 +45,7 @@ export default class extends React.Component {
             tableBody = (
                 <tbody>
                 <tr>
-                    <td colSpan='3'>Позиции не добавлены</td>
+                    <td colSpan='4'>Позиции не добавлены</td>
                 </tr>
                 </tbody>
             )

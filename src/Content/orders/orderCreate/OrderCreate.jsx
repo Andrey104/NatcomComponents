@@ -7,7 +7,7 @@ import StocksSelect from '../../../components/StocksSelect';
 import DatePickerInput from '../../../components/datePickers/DatePickerInput';
 import Items from './Items';
 import HarpoonsList from './HarpoonsList';
-import FreePositionsList from './FreePositionsList';
+import FreePositionsList from './freePositions/FreePositionsList';
 import CommentField from '../../../components/CommentField';
 import ResultPrices from './ResultPrices';
 import {BaseApi} from '../../../services/base';
@@ -100,36 +100,6 @@ class OrderCreate extends React.Component {
 
     dialogWindowState = () => this.setState({openDialogWindow: !this.state.openDialogWindow});
 
-    handleAddHarpoon = () => this.addOrEditHarpoon();
-
-    addOrEditHarpoon = (obj = {harpoon: null, client: this.state.client}) => {
-        this.saveOrderInfo();
-        this.props.saveHarpoon(obj);
-        history.push(`/orders/add_order/add_harpoon`);
-    };
-
-    handleAddFreePosition = () => {
-
-    };
-
-    getHarpoonsPrice = harpoons => {
-        let resultPrice = 0;
-        for (const harpoon of harpoons)
-            resultPrice += Number(harpoon.resultHarpoonPrice);
-        return resultPrice;
-    };
-
-    removeHarpoonFromList = harpoon => {
-        this.harpoonsResultPrice -= harpoon.resultHarpoonPrice;
-        const newHarpoonsList = this.state.harpoons.filter(harpoonArr => harpoonArr.id !== harpoon.id);
-        this.setState({harpoons: newHarpoonsList});
-    };
-
-    editHarpoon = harpoon => {
-        const obj = {harpoon, client: this.state.client};
-        this.addOrEditHarpoon(obj);
-    };
-
     handleSubmit = event => {
         event.preventDefault();
         const newOrder = this.getNewOrder();
@@ -196,6 +166,34 @@ class OrderCreate extends React.Component {
         return false;
     }
 
+    /* Harpoons ---------------------- */
+
+    handleAddHarpoon = () => this.addOrEditHarpoon();
+
+    addOrEditHarpoon = (obj = {harpoon: null, client: this.state.client}) => {
+        this.saveOrderInfo();
+        this.props.saveHarpoon(obj);
+        history.push(`/orders/add_order/add_harpoon`);
+    };
+
+    getHarpoonsPrice = harpoons => {
+        let resultPrice = 0;
+        for (const harpoon of harpoons)
+            resultPrice += Number(harpoon.resultHarpoonPrice);
+        return resultPrice;
+    };
+
+    removeHarpoonFromList = harpoon => {
+        this.harpoonsResultPrice -= harpoon.resultHarpoonPrice;
+        const newHarpoonsList = this.state.harpoons.filter(harpoonArr => harpoonArr.id !== harpoon.id);
+        this.setState({harpoons: newHarpoonsList});
+    };
+
+    editHarpoon = harpoon => {
+        const obj = {harpoon, client: this.state.client};
+        this.addOrEditHarpoon(obj);
+    };
+
     getHarpoonList() {
         if ((this.currentUrl.indexOf('edit') === -1)&&(!this.state.returnChecked)) {
             return (
@@ -215,6 +213,20 @@ class OrderCreate extends React.Component {
         }
     }
 
+    /* ------------------------------- */
+
+    /* Free Positions ---------------- */
+
+    handleAddFreePosition = () => {
+
+    };
+
+    removeFreePositionFromList = freePosition => {
+        // this.harpoonsResultPrice -= harpoon.resultHarpoonPrice;
+        // const newHarpoonsList = this.state.harpoons.filter(harpoonArr => harpoonArr.id !== harpoon.id);
+        // this.setState({harpoons: newHarpoonsList});
+    };
+
     getFreePositionsList() {
         if ((this.currentUrl.indexOf('edit') === -1)&&(!this.state.returnChecked)) {
             return (
@@ -222,7 +234,7 @@ class OrderCreate extends React.Component {
                     <FreePositionsList freePositions={this.state.freePositions}
                                        freePositionsResultPrice={this.harpoonsResultPrice}
                                        editFreePositions={this.editHarpoon}
-                                       removeFreePositionsFromList={this.removeHarpoonFromList}/>
+                                       removeFreePositionsFromList={this.removeFreePositionFromList}/>
                     <div className="col-sm-12">
                         <button type="button"
                                 onClick={this.handleAddFreePosition}
@@ -233,6 +245,8 @@ class OrderCreate extends React.Component {
             );
         }
     }
+
+    /* ------------------------------- */
 
     getItemsAndHarpoonsBlock() {
         let block;
@@ -333,7 +347,7 @@ class OrderCreate extends React.Component {
                                           addStock={this.addStock}/>
                             </tbody>
                         </table>
-                    </div>        с
+                    </div>
                     <div className="col-12 col-md-6">
                         <label>Дата выдачи</label>
                         <DatePickerInput selectDate={this.addDate}
