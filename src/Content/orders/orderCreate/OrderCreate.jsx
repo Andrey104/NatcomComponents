@@ -231,7 +231,7 @@ class OrderCreate extends React.Component {
                                dialogWindowState={this.dialogWindowState}/>
                     </div>
                     {this.getHarpoonList()}
-                    <FreePositions freePositions={this.state.freePositions}/>
+                    {/*<FreePositions freePositions={this.state.freePositions}/>*/}
                     {this.getResultPrices()}
                 </div>
             );

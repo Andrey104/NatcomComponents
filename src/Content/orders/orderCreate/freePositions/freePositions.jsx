@@ -2,6 +2,7 @@ import React from 'react';
 import connect from "react-redux/es/connect/connect";
 import {createFreePosition} from "../../../../AC/orders";
 import FreePositionsList from '../freePositions/FreePositionsList';
+import EditFreePositionModal from '../freePositions/EditFreePositionModal';
 import PropTypes from 'prop-types';
 
 
@@ -40,10 +41,16 @@ class FreePositions extends React.Component {
         // this.setState({harpoons: newHarpoonsList});
     };
 
+    createFreePosition = (name) => {
+        alert(name);
+    };
+
     getFreePositionEditDialogWindow() {
         let dialogWindow = null;
         if (this.state.freePositionsEditModalOpen) {
-            dialogWindow = <EditFreePositionModal/>
+            dialogWindow = <EditFreePositionModal createFreePosition = {this.createFreePosition}
+                                                  header = {'Добавить позицию'}
+                                                  close={this.closeFreePositionEditModal}/>
         }
         return dialogWindow;
     }
@@ -51,13 +58,12 @@ class FreePositions extends React.Component {
 
     getFreePositionsList() {
         const {freePositions} = this.props;
-
             return (
-                <div className="harpoons col-12">
-                    <FreePositionsList freePositions={[]}
+                <div>
+                    <FreePositionsList freePositions={freePositions}
                                        freePositionsResultPrice={0.00}
                                        removeFreePositionsFromList={this.removeFreePositionFromList}/>
-                    <div className="col-sm-12">
+                    <div className="">
                         <button type="button"
                                 onClick={this.handleAddFreePosition}
                                 className="btn btn-primary btn-sm">Добавить позицию
@@ -69,7 +75,7 @@ class FreePositions extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="col-12">
                 {this.getFreePositionsList()}
                 {this.getFreePositionEditDialogWindow()}
             </div>

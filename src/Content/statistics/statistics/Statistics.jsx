@@ -2,8 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getProfit, getSum} from "../../../AC/statistics";
 import DatePickerInput from '../../../components/datePickers/DatePickerInput';
-import {getDate, getDateForServer, priceFormat} from "../../../services/utils";
+import {getDateForServer, priceFormat} from "../../../services/utils";
 import ComponentHeader from '../../../components/ComponentHeader'
+
 
 class Statistics extends React.Component {
 

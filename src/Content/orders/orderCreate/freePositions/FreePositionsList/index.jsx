@@ -41,7 +41,7 @@ export default class extends React.Component {
     render() {
         const {freePositions} = this.props;
         let tableBody;
-        if (freePositions.length === 0) {
+        if ((!freePositions)||(freePositions.length === 0)) {
             tableBody = (
                 <tbody>
                 <tr>
@@ -59,7 +59,7 @@ export default class extends React.Component {
             )
         }
         return (
-            <div className="col-12">
+            <div>
                 <table className="table table-bordered">
                     <thead className="thead-light">
                     <tr>

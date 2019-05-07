@@ -14,6 +14,7 @@ export default class extends React.Component {
         }
     };
 
+
     render() {
         const {supplier, number} = this.props;
         return (
