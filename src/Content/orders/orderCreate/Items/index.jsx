@@ -93,18 +93,10 @@ export default class extends React.Component {
 
     removeItemFromList = (deleteItem) => {
         deleteItem.deleted = true;
-        console.log(1);
             const deleteItemCurrentStock = deleteItem.currentStock;
             this.items = this.items.filter(itemArr => {
                 if (itemArr.deleted === undefined)
                 {
-                    console.log(itemArr);
-                    itemArr.deleted = false;
-                    return itemArr;
-                }
-                else if (itemArr.deleted === false)
-                {
-                    console.log(itemArr);
                     return itemArr;
                 }
             });
