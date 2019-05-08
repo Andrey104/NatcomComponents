@@ -91,13 +91,20 @@ export default class extends React.Component {
         }
     };
 
-    removeItemFromList = deleteItem => {
-        if (deleteItem.stocks.length === 1) {
+    removeItemFromList = (deleteItem) => {
+        deleteItem.deleted = true;
+        console.log(1);
             const deleteItemCurrentStock = deleteItem.currentStock;
             this.items = this.items.filter(itemArr => {
-                const itemArrKey = itemArr.item.item + itemArr.currentStock.stock.name;
-                const deleteItemKey = deleteItem.item.item + deleteItemCurrentStock.stock.name;
-                if (itemArrKey !== deleteItemKey) {
+                if (itemArr.deleted === undefined)
+                {
+                    console.log(itemArr);
+                    itemArr.deleted = false;
+                    return itemArr;
+                }
+                else if (itemArr.deleted === false)
+                {
+                    console.log(itemArr);
                     return itemArr;
                 }
             });
@@ -107,11 +114,7 @@ export default class extends React.Component {
                 }
                 return itemArr;
             });
-        } else {
-            this.items = this.items.filter(item => (
-                item.item.item !== deleteItem.item.item)
-            );
-        }
+
         this.getResultPrice();
         this.props.addItems(this.items, this.resultPrice, this.resultPrepayment);
     };
@@ -196,7 +199,7 @@ export default class extends React.Component {
                         <div className="number-block">
                             <img className="del-button"
                                  src="/public/remove.svg"
-                                 onClick={() => this.removeItemFromList(item)}>
+                                 onClick={() => this.removeItemFromList(item, index)}>
                             </img>
                             {index + 1}
                         </div>
