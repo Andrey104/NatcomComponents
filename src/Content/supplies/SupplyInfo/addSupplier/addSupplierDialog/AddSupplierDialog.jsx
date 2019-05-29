@@ -10,7 +10,7 @@ class AddSupplierDialog extends React.Component {
 
     render() {
         return (
-            <div className = 'modal-body'>
+            <div className='modal-body'>
                 <SuppliersList match={this.props.match}
                                supplierForSupply={this.props.supplierForSupply}/>
             </div>
