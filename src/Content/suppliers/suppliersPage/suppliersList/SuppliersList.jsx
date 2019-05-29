@@ -78,7 +78,9 @@ class SuppliersList extends React.Component {
                         loadMore={this.loadSuppliers}
                         hasMore={hasMoreSuppliers}
                         useWindow={false}
-                        isDialog={this.props.supplierForSupply}>
+                        isDialog={this.props.supplierForSupply}
+                        className = 'scroll'>
+
                         <div className="row">
                             <div className="col-12">
                                 <table className="table table-hover table-bordered">
