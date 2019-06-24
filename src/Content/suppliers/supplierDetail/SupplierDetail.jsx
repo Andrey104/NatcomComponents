@@ -5,6 +5,7 @@ import EditSupplier from './editSupplier/EditSupplier';
 import Loader from '../../../components/Loader';
 import {editSupplier, getSupplierDetail} from '../../../AC/suppliers';
 import styles from './styles.css';
+import SuppliesList from "../../supplies/suppliesPage/suppliesList/SuppliesList";
 
 class SupplierDetail extends React.Component {
 
@@ -72,6 +73,8 @@ class SupplierDetail extends React.Component {
                         onClick={this.editSupplierState}
                         className="btn btn-primary btn-sm">Редактировать
                 </button>
+                <h1>Список поставок:</h1>
+                <SuppliesList supplierId={supplier.id}/>
             </div>
         )
     }

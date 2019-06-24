@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {priceFormat, countFormat, getItemName, getArea} from '../../../../services/utils';
+import {priceFormat, countFormat, getItemName, getArea, getItemArticle} from '../../../../services/utils';
 import history from '../../../../history';
 import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../../../constans";
 
@@ -20,10 +20,12 @@ export default class extends React.Component {
         const itemUrl = item.item.color
             ? `/membranes/${item.item.id}`
             : `/products/${item.item.id}`;
+        console.log(item);
         return (
             <tr onClick={() => history.push(itemUrl)}>
                <td>{number}</td>
                <td>{getItemName(item)}</td>
+               <td>{getItemArticle(item)}</td>
                <td>{countFormat(item.count)} {getArea(item)}</td>
                <td>{priceFormat(item.purchase_price)}</td>
                <td>{priceFormat(this.getItemPrice(item))}</td>
