@@ -23,7 +23,7 @@ class SuppliesList extends React.Component {
     getBody(supplies) {
         if (!supplies.length) return (
             <tr>
-                <td colSpan='5'>Вы еще не добавили ни одного поставки</td>
+                <td colSpan='5'>Вы еще не добавили ни одной поставки</td>
             </tr>
         );
         return supplies.map((supply, index) => (

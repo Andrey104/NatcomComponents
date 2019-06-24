@@ -70,8 +70,8 @@ export class SupplyDetail extends React.Component {
                 <thead className="thead-light">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Название</th>
                     <th scope="col">Артикул</th>
+                    <th scope="col">Название</th>
                     <th scope="col">Количество</th>
                     <th scope="col">Цена</th>
                     <th scope="col">Итог</th>
