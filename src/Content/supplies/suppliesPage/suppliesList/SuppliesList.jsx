@@ -11,7 +11,10 @@ import history from '../../../../history';
 
 class SuppliesList extends React.Component {
 
-    componentWillMount = () => this.props.getAllSupplies();
+    componentWillMount = () => {
+        const {supplierId} = this.props;
+        supplierId === undefined? this.props.getAllSupplies() : this.props.getAllSupplies(`?supplier=${supplierId}`);
+    };
 
     loadSupplies = page => this.props.getNextSupplies(page);
 
