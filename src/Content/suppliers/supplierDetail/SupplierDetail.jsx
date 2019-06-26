@@ -73,7 +73,7 @@ class SupplierDetail extends React.Component {
                         onClick={this.editSupplierState}
                         className="btn btn-primary btn-sm">Редактировать
                 </button>
-                <h1>Список поставок:</h1>
+                <h3>Список поставок:</h3>
                 <SuppliesList supplierId={supplier.id}/>
             </div>
         )

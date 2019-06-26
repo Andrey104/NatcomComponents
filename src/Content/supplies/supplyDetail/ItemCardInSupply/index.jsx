@@ -24,8 +24,8 @@ export default class extends React.Component {
         return (
             <tr onClick={() => history.push(itemUrl)}>
                <td>{number}</td>
+                <td>{getItemArticle(item)}</td>
                <td>{getItemName(item)}</td>
-               <td>{getItemArticle(item)}</td>
                <td>{countFormat(item.count)} {getArea(item)}</td>
                <td>{priceFormat(item.purchase_price)}</td>
                <td>{priceFormat(this.getItemPrice(item))}</td>
