@@ -11,7 +11,10 @@ import history from '../../../../history';
 
 class SuppliesList extends React.Component {
 
-    componentWillMount = () => this.props.getAllSupplies();
+    componentWillMount = () => {
+        const {supplierId} = this.props;
+        supplierId === undefined? this.props.getAllSupplies() : this.props.getAllSupplies(`?supplier=${supplierId}`);
+    };
 
     loadSupplies = page => this.props.getNextSupplies(page);
 
@@ -20,7 +23,7 @@ class SuppliesList extends React.Component {
     getBody(supplies) {
         if (!supplies.length) return (
             <tr>
-                <td colSpan='5'>Вы еще не добавили ни одного поставки</td>
+                <td colSpan='5'>Вы еще не добавили ни одной поставки</td>
             </tr>
         );
         return supplies.map((supply, index) => (
