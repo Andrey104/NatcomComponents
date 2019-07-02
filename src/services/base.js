@@ -3,7 +3,8 @@ import {displayError} from "./utils";
 
 // export const baseUrl = 'http://components.nextf.ru/api/';
 // export const baseUrl = 'http://127.0.0.1:8000/api/';
- export const baseUrl = 'http://92.53.124.133/api/';
+// export const baseUrl = 'http://92.53.124.133/api/';
+export const baseUrl = process.env.API_URL;
 
 export class BaseApi {
     baseUrl = baseUrl;
