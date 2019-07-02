@@ -70,6 +70,7 @@ export class SupplyDetail extends React.Component {
                 <thead className="thead-light">
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Артикул</th>
                     <th scope="col">Название</th>
                     <th scope="col">Количество</th>
                     <th scope="col">Цена</th>
@@ -78,7 +79,7 @@ export class SupplyDetail extends React.Component {
                 </thead>
                 <tbody>
                 {this.getItems()}
-                <TableResultRow columnCount={5}
+                <TableResultRow columnCount={6}
                                 resultPrice={this.resultSupplyPrice}/>
                 </tbody>
             </table>

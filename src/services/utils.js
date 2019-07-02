@@ -406,3 +406,13 @@ export function getItemName(inItem) {
         return (<div>{item.texture.description} {item.color.description} {item.name} ({item.width})</div>);
     }
 }
+
+export function getItemArticle(inItem) {
+    let item = inItem.item;
+    if (item.type === ITEM_PRODUCT) {
+        return (<div>{item.vendor_code}</div>);
+    }
+    if (item.type === ITEM_MEMBRANE) {
+        return (<div>{item.texture.description} {item.color.description} {item.vendor_code} ({item.width})</div>);
+    }
+}
