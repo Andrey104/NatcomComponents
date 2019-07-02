@@ -16,7 +16,10 @@ class SuppliesList extends React.Component {
         supplierId === undefined? this.props.getAllSupplies() : this.props.getAllSupplies(`?supplier=${supplierId}`);
     };
 
-    loadSupplies = page => this.props.getNextSupplies(page);
+    loadSupplies = page => {
+        const {supplierId} = this.props;
+        this.props.getNextSupplies(this.props.nextPage, supplierId);
+    };
 
     addNewSupply = () => history.push(`/supplies/add_supply`);
 
@@ -58,7 +61,7 @@ class SuppliesList extends React.Component {
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead-light">
                                     <tr>
-                                        <th scope="col">№</th>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Статус</th>
                                         <th scope="col">Поставщик</th>
                                         <th scope="col">Дата</th>
@@ -83,5 +86,6 @@ class SuppliesList extends React.Component {
 export default connect((state) => ({
     supplies: mapToArr(state.supplies.supplies),
     isLoading: state.supplies.isLoading,
+    nextPage: state.supplies.nextPageNumber,
     hasMoreSupplies: state.supplies.hasMoreSupplies
 }), {getAllSupplies, getNextSupplies})(SuppliesList);

@@ -285,6 +285,17 @@ export function getUrlOrders(page, client, date) {
     return url_prefix + url;
 }
 
+export function getUrlSupplies(page, supplier) {
+    let url_prefix = '';
+    let url = '';
+    if (supplier) url += `supplier=${supplier}&`;
+    if (page) url += `page=${page}&`;
+    if (url!== '') {
+        url = '?' + url.slice(0, url.length - 1);
+    }
+    return url_prefix + url;
+}
+
 export function getUrlItemHistory(itemId) {
     let url_prefix = '';
     let url = '';
