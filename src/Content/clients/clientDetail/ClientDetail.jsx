@@ -60,8 +60,10 @@ class ClientDetail extends React.Component {
                     <div>Баланс: {priceFormat(client.balance)}</div>
                 </div>
                 <div className="col-md-6">
-                    <OrderClientCard client={client}
-                                     update={this.updateClient}/>
+                    <OrderClientCard
+                        isClientsPage = {true}
+                        client={client}
+                        update={this.updateClient}/>
                 </div>
                 <div className="col-12">
                     <button type="button"
