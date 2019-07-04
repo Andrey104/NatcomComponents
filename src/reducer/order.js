@@ -7,14 +7,14 @@ import {
     SUCCESS,
     START,
     SAVE_HARPOON_IN_ORDER,
-    EDIT_HARPOON_IN_ORDER, SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE, INCREMENT_ORDERS_PAGE, SET_ORDERS_DATE
+    EDIT_HARPOON_IN_ORDER, SET_ITEM_DIALOG_STATE, SET_ORDERS_DATE,
 } from '../constans';
 import {arrToMap} from '../helpers';
 
 const OrderRecord = Record({
     id: undefined,
     items: undefined,
-    freePositions: undefined,
+    customPositions: undefined,
     services: undefined,
     harpoons: undefined,
     payments: undefined,
