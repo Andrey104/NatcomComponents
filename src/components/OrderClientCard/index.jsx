@@ -49,7 +49,7 @@ class OrderClientCard extends React.Component {
     }
 
     render() {
-        const {client} = this.props;
+        const {client, isClientsPage} = this.props;
         return (
             <div className="card">
                 {this.getDialogWindow()}
@@ -57,7 +57,7 @@ class OrderClientCard extends React.Component {
                 <div>{getPhoneWithMask(client.phone1)}</div>
                 <div>Баланс: {priceFormat(client.balance)}</div>
                 <button onClick={this.handleBalanceTopUpClick}>Пополить баланс</button>
-                <button onClick={this.handleAboutClientClick}>На страницу клиента</button>
+                {!isClientsPage ? <button onClick={this.handleAboutClientClick}>На страницу клиента</button> : null}
             </div>
         )
     }
