@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import autoprefixer from 'autoprefixer';
+const Dotenv = require('dotenv-webpack');
 
 
 const srcPath = path.join(__dirname, 'src');
@@ -14,7 +15,6 @@ const extractCSS = new ExtractTextPlugin({
 });
 export const port = 8888;
 export const host = '127.0.0.1';
-import packageJSON from './package.json';
 
 
 const plugins = [
@@ -30,6 +30,7 @@ const plugins = [
     new webpack.ProvidePlugin({
        'React': 'react',
     }),
+    new Dotenv(),
     extractCSS
 ];
 
@@ -44,6 +45,9 @@ export default {
             'babel-polyfill',
             path.join(srcPath, 'index.js'),
         ],
+    },
+    node: {
+        fs: 'empty'
     },
     devtool: isProd ? false : 'source-map',
     output: {
