@@ -56,7 +56,7 @@ class OrderClientCard extends React.Component {
                 <div>{client.first_name} {client.last_name}</div>
                 <div>{getPhoneWithMask(client.phone1)}</div>
                 <div>Баланс: {priceFormat(client.balance)}</div>
-                <button onClick={this.handleBalanceTopUpClick}>Пополить баланс</button>
+                <button onClick={this.handleBalanceTopUpClick}>Пополнить баланс</button>
                 {!isClientsPage ? <button onClick={this.handleAboutClientClick}>На страницу клиента</button> : null}
             </div>
         )
