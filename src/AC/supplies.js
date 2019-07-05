@@ -1,9 +1,10 @@
 import {
     GET_ALL_SUPPLIES, GET_SUPPLY, GET_NEXT_SUPPLIES,
-    SUPPLY_FROM_DRAFT
+    SUPPLY_FROM_DRAFT, SAVE_ORDER_INFO_IN_STORE, SAVE_SUPPLY_INFO_IN_STORE
 } from '../constans';
 import {BaseApi} from '../services/base';
 import history from '../history';
+import {getUrlSupplies} from "../services/utils";
 
 export function getAllSupplies(params) {
     let callAPI = 'supplies/';
@@ -15,13 +16,22 @@ export function getAllSupplies(params) {
     }
 }
 
-export function getNextSupplies(page) {
+export function getNextSupplies(page, supplier) {
+    let callAPI = 'supplies/';
+    callAPI += getUrlSupplies(page, supplier);
     return {
         type: GET_NEXT_SUPPLIES,
         requestType: 'GET',
-        callAPI: `supplies/?page=${page}`
+        callAPI
     }
 }
+
+// export function saveSupplyInfoInStore(supplyInfo) {
+//     return {
+//         type: SAVE_SUPPLY_INFO_IN_STORE,
+//         data: supplyInfo
+//     }
+// }
 
 export function getSupply(supplyId) {
     return {

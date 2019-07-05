@@ -1,7 +1,7 @@
 import {OrderedMap, Record} from 'immutable';
 import {
     GET_ALL_SUPPLIES, GET_NEXT_SUPPLIES, GET_SUPPLY,
-    SUPPLY_FROM_DRAFT, START, SUCCESS
+    SUPPLY_FROM_DRAFT, START, SUCCESS, SAVE_ORDER_INFO_IN_STORE
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -24,6 +24,7 @@ const ReducerState = Record({
     isLoading: false,
     loaded: false,
     hasMoreSupplies: false,
+    nextPageNumber: null,
     supply: {},
     supplies: new OrderedMap({})
 });
@@ -42,6 +43,7 @@ export default (supplyState = defaultState, actionTypeResponse) => {
             let nextPage, supplies = response.data.results;
             response.data.next === null ? nextPage = false : nextPage = true;
             return supplyState.set('supplies', arrToMap(supplies, SupplyRecord))
+                .set('nextPageNumber', 2)
                 .set('hasMoreSupplies', nextPage)
                 .set('loaded', true)
                 .set('isLoading', false);
@@ -50,8 +52,10 @@ export default (supplyState = defaultState, actionTypeResponse) => {
             let nextPage, newSupplies;
             response.data.next === null ? nextPage = false : nextPage = true;
             newSupplies = arrToMap(response.data.results, SupplyRecord);
+            let nextPageNumber = supplyState.get('nextPageNumber');
             return supplyState.update('supplies', supplies => supplies.concat(newSupplies))
                 .set('hasMoreSupplies', nextPage)
+                .set('nextPageNumber', nextPageNumber += 1)
                 .set('loaded', true);
         }
         case GET_SUPPLY + START: {
