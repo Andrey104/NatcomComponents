@@ -29,7 +29,7 @@ export default class extends React.Component {
                 <div className='content-container container'>
                     <main>
                         <Switch className="main-page">
-                            <Route exact path='/' component={ProductsRouter}/>
+                            <Route exact path='/' component={OrdersRouter}/>
                             <Route path='/stocks/:stockId' component={StocksPage}/>
                             <Route path='/stocks' component={StocksPage}/>
                             <Route path='/suppliers/:supplierId' component={SuppliersRouter}/>
