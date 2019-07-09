@@ -32,6 +32,7 @@ const MembraneRecord = Record({
     images: undefined,
     stocks: undefined,
     price: undefined,
+    real_area_calculation: undefined,
     type: undefined
 });
 
