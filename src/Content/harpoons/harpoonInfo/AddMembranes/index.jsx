@@ -45,14 +45,12 @@ export default class extends React.Component {
     };
 
     handleChangeLength = (event, index) => {
-        var length = (event.target.value);
+        let length = (event.target.value);
         length.replace(',', '.');
-        // if (!isFinite(length)) return;
-        let currentMembrane = this.membranes[index];
         this.membranes[index].count = Number(length);
-        currentMembrane.membraneLength = length;
-        currentMembrane.square = currentMembrane.membrane.width * length;
-        currentMembrane.membranePrice = currentMembrane.square * currentMembrane.membrane.price;
+        this.membranes[index].membraneLength = length;
+        this.membranes[index].square = this.membranes[index].membrane.width * length;
+        this.membranes[index].membranePrice = this.membranes[index].square * this.membranes[index].membrane.price;
         this.calc();
         this.props.addMembranes(this.membranes, this.resultPrice);
     };
@@ -65,9 +63,9 @@ export default class extends React.Component {
         return resultPrice;
     };
 
-    removeMembraneFromList = (currentMembrane) => {
-        this.membranes = this.membranes.filter(membrane => (
-            membrane.membrane.item !== currentMembrane.membrane.item
+    removeMembraneFromList = (currentMembrane, index_in) => {
+        this.membranes = this.membranes.filter((membrane, index) => (
+            index !== index_in
         ));
         this.resultPrice -= currentMembrane.membranePrice;
         this.props.addMembranes(this.membranes, this.resultPrice);
@@ -89,14 +87,37 @@ export default class extends React.Component {
         return <div>({(membrane.square).toFixed(2)}) м²</div>;
     }
 
+    handleChangeRealArea(event, index) {
+        let area = (event.target.value);
+        area.replace(',', '.');
+        this.membranes[index].real_area = Number(area);
+        this.calc();
+        this.props.addMembranes(this.membranes, this.resultPrice);
+    }
+
+    getRealAreaInput(membrane, index) {
+        if (membrane.membrane.real_area_calculation) {
+            return(
+                <div>
+                    Реальная площадь:
+                    <input type="number"
+                           name="real_area"
+                           value={membrane.real_area}
+                           className="count-input"
+                           onChange={e => this.handleChangeRealArea(e, index)}/> м²
+                </div>
+            );
+        }
+    }
+
     getMembranes() {
         return (this.membranes.map((membrane, index) => (
-            <tr key={membrane.membrane.item + index}>
+            <tr key={index + membrane.membrane.name}>
                 <th scope="row">
                     <div className="number-block">
                         <img className="del-button"
                              src="/public/remove.svg"
-                             onClick={() => this.removeMembraneFromList(membrane)}>
+                             onClick={() => this.removeMembraneFromList(membrane, index)}>
                         </img>
                         {index + 1}
                     </div>
@@ -108,12 +129,13 @@ export default class extends React.Component {
                 <td>
                     <div className="input-count">
                         <input type="number"
-                               name="name"
+                               name="count"
                                value={membrane.count}
                                className="сount-input"
                                onChange={e => this.handleChangeLength(e, index)}/> м
                     </div>
                     <div>({dimensionsFormat(membrane.square)}) м²</div>
+                    {this.getRealAreaInput(membrane, index)}
                 </td>
                 <td className="result-price-td">{priceFormat(getMembranePrice(membrane))}</td>
             </tr>

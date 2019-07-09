@@ -1,4 +1,5 @@
 import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../constans";
+import membrane from "../reducer/membrane";
 
 export const phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
@@ -153,7 +154,8 @@ const getServicesForNewHarpoon = services => {
 const getMembranesForNewHarpoon = membranes => {
     return membranes.map(membrane => ({
         membrane: membrane.membrane.id,
-        count: membrane.count
+        count: membrane.count,
+        real_area: membrane.real_area
     }));
 };
 
@@ -384,10 +386,18 @@ export function getPositionSumPriceNotInItem(inItem, index) {
 }
 
 export function getMembranePrice(membrane) {
-    if (membrane.price) {
-        return membrane.square * membrane.price;
+    if (membrane.membrane.real_area_calculation) {
+        if (membrane.price) {
+            return membrane.real_area * membrane.price;
+        } else {
+            return membrane.real_area * membrane.membrane.price;
+        }
     } else {
-        return membrane.square * membrane.membrane.price;
+        if (membrane.price) {
+            return membrane.square * membrane.price;
+        } else {
+            return membrane.square * membrane.membrane.price;
+        }
     }
 }
 

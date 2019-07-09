@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {getMembraneName, priceFormat} from '../../services/utils';
+import {getMembraneName, getMembranePrice, priceFormat} from '../../services/utils';
 import {getMembrane} from "../../AC/membranes";
 
 export default class extends React.Component {
@@ -11,9 +11,7 @@ export default class extends React.Component {
     };
 
     getMembranePositionSum = membrane => {
-        const membranePrice = Number(membrane.price || membrane.membrane.price);
-        const membraneSquare = Number(membrane.square);
-        return priceFormat(membranePrice * membraneSquare);
+        return getMembranePrice(membrane);
     };
 
     getServicePositionSum = service => {
@@ -22,15 +20,30 @@ export default class extends React.Component {
         return priceFormat(servicePrice * serviceCount);
     };
 
+    getHarpoonMembraneName(membrane, index) {
+        if (membrane.membrane.real_area_calculation) {
+            return (
+                <span>{index + 1}) {getMembraneName(membrane)}*{membrane.count} [{membrane.real_area}м²]
+                    = {this.getMembranePositionSum(membrane)} руб</span>
+            );
+        } else {
+            return (
+                <span>{index + 1}) {getMembraneName(membrane)}*{membrane.count} [{membrane.square}м²]
+                    = {this.getMembranePositionSum(membrane)} руб</span>
+            );
+        }
+    }
+
     getHarpoonName(harpoon) {
         const harpoonsList = harpoon.membranes.map((membrane, index) => (
             <div key={membrane.membrane.id + index + membrane.membrane.name}>
-                <span>{index+1}) {getMembraneName(membrane)}*{membrane.count} [{membrane.square}м²] = {this.getMembranePositionSum(membrane)} руб</span>
+                {this.getHarpoonMembraneName(membrane, index)}
             </div>
         ));
         const servicesList = harpoon.services.map(service => (
             <div key={service.service.id}>
-                <span>{service.service.name} [{service.count} {service.service.unit}] = {this.getServicePositionSum(service)} руб</span>
+                <span>{service.service.name} [{service.count} {service.service.unit}]
+                    = {this.getServicePositionSum(service)} руб</span>
             </div>
         ));
         return harpoonsList.concat(servicesList);
