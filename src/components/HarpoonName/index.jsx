@@ -11,7 +11,7 @@ export default class extends React.Component {
     };
 
     getMembranePositionSum = membrane => {
-        return getMembranePrice(membrane);
+        return priceFormat(getMembranePrice(membrane));
     };
 
     getServicePositionSum = service => {
