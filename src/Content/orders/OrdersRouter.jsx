@@ -61,6 +61,7 @@ class OrdersRouter extends React.Component {
                     {menu}
                 </div>
                 <Switch>
+                    <Route exact path='/' component={OrdersPage}/>
                     <Route exact path='/orders' component={OrdersPage}/>
                     <Route exact path='/orders/add_order' component={AddNewOrder}/>
                     <Route exact path='/orders/add_order/add_harpoon' component={AddOrEditHarpoon}/>
