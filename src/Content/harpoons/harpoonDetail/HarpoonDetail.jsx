@@ -86,12 +86,10 @@ class HarpoonDetail extends React.Component {
                     className="btn btn-primary btn-sm">Редактировать
             </button>
         );
-        if (UsersService.standardPermission()) {
+        if (this.harpoon.status === 0 ||
+            this.harpoon.status === 1 || 
+            this.harpoon.status === 2) {
             return (button)
-        } else {
-            if (this.harpoon.status === 0) {
-                return (button)
-            }
         }
     }
 
