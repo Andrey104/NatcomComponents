@@ -10,12 +10,15 @@ import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride'
 import {mapToArr} from '../../../../helpers';
 import {getAllSuppliers, getNextSuppliers} from '../../../../AC/suppliers';
 import styles from './styles.scss';
+import SupplierDetailModal from "../../supplierDetail/supplierDetailModal/supplierDetailModal";
 
 let cx = classNames.bind(styles);
 
 class SuppliersList extends React.Component {
+    selectedSupplierId;
     state = {
-        openAddSupplierDialog: false
+        openAddSupplierDialog: false,
+        supplierDetailModalIsOpen: false
     };
 
     componentWillMount = () => this.props.getAllSuppliers();
@@ -24,6 +27,11 @@ class SuppliersList extends React.Component {
 
     addSupplierState = () => {
         this.setState({openAddSupplierDialog: !this.state.openAddSupplierDialog});
+    };
+
+    handleSupplierClick = supplierId => {
+      this.selectedSupplierId = supplierId;
+      this.setState({supplierDetailModalIsOpen: true});
     };
 
     getBody(suppliers) {
@@ -38,7 +46,8 @@ class SuppliersList extends React.Component {
                 <SupplierCard key={supplier.id}
                               number={number++}
                               supplierForSupply={this.props.supplierForSupply}
-                              supplier={supplier}/>
+                              supplier={supplier}
+                              handleClick={this.handleSupplierClick}/>
             )
         );
     }
@@ -72,6 +81,7 @@ class SuppliersList extends React.Component {
         return (
             <div className="row">
                 {dialogWindow}
+                {this.state.supplierDetailModalIsOpen ? <SupplierDetailModal supplierId={this.selectedSupplierId}/> : null}
                 <div className={cx('col-12', this.getPageClasses())}>
                     <InfiniteScrollOverride
                         pageStart={1}

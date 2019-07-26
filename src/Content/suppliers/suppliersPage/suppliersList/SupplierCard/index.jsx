@@ -10,7 +10,7 @@ export default class extends React.Component {
         if (this.props.supplierForSupply) {
             this.props.supplierForSupply(supplier);
         } else {
-            history.push(`suppliers/${supplier.id}`);
+            this.props.handleClick(supplier.id)
         }
     };
 

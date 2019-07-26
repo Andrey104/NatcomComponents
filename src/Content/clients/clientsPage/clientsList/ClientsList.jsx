@@ -12,10 +12,16 @@ import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {mapToArr} from '../../../../helpers';
 import {ADD_NEW_CLIENT} from '../../../../constans';
 import styles from './styles.css';
+import ClientDetailModal from "../../clientDetail/clientDetailModal/ClientDetailModal";
 
 let cx = classNames.bind(styles);
 
 class ClientsList extends React.Component {
+    selectedClientId;
+    state = {
+      clientDetailModalIsOpen: false
+    };
+
 
     componentWillMount = () => this.props.getAllClients();
 
@@ -24,6 +30,13 @@ class ClientsList extends React.Component {
     addNewClient = client => this.props.addNewClient(client);
 
     closeDialog = () => this.props.closeModalWindow();
+
+    closeClientDetailModal = () => this.setState({clientDetailModalIsOpen: false});
+
+    clientHandleClick = clientId => {
+        this.selectedClientId = clientId;
+        this.setState({clientDetailModalIsOpen: true})
+    };
 
     getDialogWindow() {
         if (this.props.modal === ADD_NEW_CLIENT) {
@@ -58,7 +71,9 @@ class ClientsList extends React.Component {
         return (clients.map((client, index) => (
                 <ClientCard key={client.id}
                             addClient={this.props.addClient}
-                            client={client}/>
+                            client={client}
+                            handleClick={this.clientHandleClick}
+                            clientModal = {true}/>
             )
         ));
     }
@@ -79,6 +94,7 @@ class ClientsList extends React.Component {
         return (
             <div className="row">
                 {dialogWindow}
+                {this.state.clientDetailModalIsOpen ? <ClientDetailModal clientId = {this.selectedClientId} close = {this.closeClientDetailModal}/> : null}
                 <div className={cx('col-12', this.getPageClasses())}>
                     <InfiniteScrollOverride
                         pageStart={1}

@@ -8,14 +8,16 @@ import styles from './styles.css';
 import SuppliesList from "../../supplies/suppliesPage/suppliesList/SuppliesList";
 
 class SupplierDetail extends React.Component {
-
+    urlId;
     state = {
         openEditSupplierDialog: false,
     };
 
     componentWillMount = () => {
-        const supplierId = this.props.match.params.supplierId;
-        this.props.getSupplierDetail(supplierId);
+        console.log('1');
+        console.log(this.props.supplierId);
+        this.props.supplierId ? this.urlId = this.props.supplierId : this.urlId = this.props.match.params.supplierId;
+        this.props.getSupplierDetail(this.urlId);
     };
 
     editSupplierState = () => {
@@ -51,7 +53,6 @@ class SupplierDetail extends React.Component {
         return (
             <div>
                 {dialogWindow}
-
                 <table className="table table-bordered">
                     <tbody>
                     <tr>
