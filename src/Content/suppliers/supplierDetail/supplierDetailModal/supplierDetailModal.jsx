@@ -5,7 +5,9 @@ import SupplierDetail from "../SupplierDetail";
 class SupplierDetailModal extends React.Component {
     render() {
         return (
-            <SupplierDetail supplierId = {this.props.supplierId}/>
+            <div className="modal-body">
+                <SupplierDetail supplierId={this.props.supplierId}/>
+            </div>
         )
     }
 }

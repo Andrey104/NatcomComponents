@@ -13,9 +13,7 @@ class SupplierDetail extends React.Component {
         openEditSupplierDialog: false,
     };
 
-    componentWillMount = () => {
-        console.log('1');
-        console.log(this.props.supplierId);
+    componentDidMount() {
         this.props.supplierId ? this.urlId = this.props.supplierId : this.urlId = this.props.match.params.supplierId;
         this.props.getSupplierDetail(this.urlId);
     };
