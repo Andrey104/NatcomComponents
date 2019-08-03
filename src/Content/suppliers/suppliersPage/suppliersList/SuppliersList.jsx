@@ -34,6 +34,10 @@ class SuppliersList extends React.Component {
       this.setState({supplierDetailModalIsOpen: true});
     };
 
+    closeSupplierDetailModalWindow = () => {
+        this.setState({supplierDetailModalIsOpen: false})
+    };
+
     getBody(suppliers) {
         if (!suppliers.length) return (
             <tr>
@@ -70,7 +74,7 @@ class SuppliersList extends React.Component {
     getSupplierDetailModalWindow() {
         if (this.state.supplierDetailModalIsOpen) {
             return (
-                <SupplierDetailModal supplierId={this.selectedSupplierId}/>
+                <SupplierDetailModal supplierId={this.selectedSupplierId} close={this.closeSupplierDetailModalWindow}/>
             )
         }
     }

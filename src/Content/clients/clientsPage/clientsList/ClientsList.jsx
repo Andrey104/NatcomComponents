@@ -38,6 +38,14 @@ class ClientsList extends React.Component {
         this.setState({clientDetailModalIsOpen: true})
     };
 
+    getClientDetailModalWindow() {
+        if (this.state.clientDetailModalIsOpen) {
+            return (
+                <ClientDetailModal clientId={this.selectedClientId} close={this.closeClientDetailModal}/>
+            )
+        }
+    }
+
     getDialogWindow() {
         if (this.props.modal === ADD_NEW_CLIENT) {
             return (
@@ -81,48 +89,55 @@ class ClientsList extends React.Component {
     getPageClasses = () => this.props.addClient ? 'dialog' : '';
 
     render() {
+        let content;
         const {isLoading, clients, hasMoreClients} = this.props;
         if (isLoading && clients.length === 0) {
-            return (
+            content = (
                 <div className="pre-loader-container">
                     <Loader/>
                 </div>
             );
         }
-        const loader = hasMoreClients ? <Loader/> : false;
-        const dialogWindow = this.getDialogWindow();
-        return (
-            <div className="row">
-                {dialogWindow}
-                {this.state.clientDetailModalIsOpen ? <ClientDetailModal clientId = {this.selectedClientId} close = {this.closeClientDetailModal}/> : null}
-                <div className={cx('col-12', this.getPageClasses())}>
-                    <InfiniteScrollOverride
-                        pageStart={1}
-                        loadMore={this.loadClients}
-                        hasMore={hasMoreClients}
-                        useWindow={false}
-                        isDialog={this.props.addClient}>
-                        <div className="row">
-                            <div className="col-12">
-                                <table className="table table-hover table-bordered">
-                                    <thead className="thead-light">
-                                    <tr>
-                                        <th scope="col name-column">ФИО</th>
-                                        <th scope="col phone-column">Телефон</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+         else {
+            const loader = hasMoreClients ? <Loader/> : false;
+            content = (
+                    <div className={cx('col-12', this.getPageClasses())}>
+                        <InfiniteScrollOverride
+                            pageStart={1}
+                            loadMore={this.loadClients}
+                            hasMore={hasMoreClients}
+                            useWindow={false}
+                            isDialog={this.props.addClient}>
+                            <div className="row">
+                                <div className="col-12">
+                                    <table className="table table-hover table-bordered">
+                                        <thead className="thead-light">
+                                        <tr>
+                                            <th scope="col name-column">ФИО</th>
+                                            <th scope="col phone-column">Телефон</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
                                         {this.getBody(clients)}
-                                    </tbody>
-                                </table>
-                                {loader}
+                                        </tbody>
+                                    </table>
+                                    {loader}
+                                </div>
+                                {this.getAddClientButton()}
                             </div>
-                            {this.getAddClientButton()}
-                        </div>
-                    </InfiniteScrollOverride>
-                </div>
-            </div>
-        );
+                        </InfiniteScrollOverride>
+                    </div>
+            );
+        }
+        const dialogWindow = this.getDialogWindow();
+        const clientDetailModalWindow = this.getClientDetailModalWindow();
+         return (
+             <div className="row">
+                 {dialogWindow}
+                 {clientDetailModalWindow}
+                 {content}
+             </div>
+         );
     }
 }
 

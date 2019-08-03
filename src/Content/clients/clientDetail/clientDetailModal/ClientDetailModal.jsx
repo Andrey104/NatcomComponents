@@ -5,7 +5,9 @@ import ModalWindow from '../../../../components/ModalWindow/index';
 class ClientDetailModal extends React.Component {
     render() {
         return (
-            <ClientDetail clientId = {this.props.clientId}/>
+            <div className="modal-body">
+                <ClientDetail clientId = {this.props.clientId}/>
+            </div>
         )
     }
 }
