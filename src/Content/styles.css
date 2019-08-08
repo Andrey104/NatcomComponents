@@ -25,3 +25,8 @@
     color: red;
     content: ' *';
 }
+
+.modal-body{
+    overflow: scroll;
+    height: 80vh;
+}

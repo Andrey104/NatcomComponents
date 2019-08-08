@@ -21,9 +21,18 @@ class SuppliersList extends React.Component {
         supplierDetailModalIsOpen: false
     };
 
-    componentWillMount = () => this.props.getAllSuppliers();
+    componentDidUpdate(prevProps) {
+        if (this.props.text !== prevProps.text) this.props.getAllSuppliers(this.props.text);
+    }
 
-    loadSuppliers = page => this.props.getNextSuppliers(page);
+    componentDidMount() {
+        console.log('mount', this.props.supplierForSupplier);
+        this.props.getAllSuppliers(this.props.text);
+    };
+
+    loadSuppliers = page => {
+        this.props.getNextSuppliers(page, this.props.text);
+    };
 
     addSupplierState = () => {
         this.setState({openAddSupplierDialog: !this.state.openAddSupplierDialog});
@@ -97,7 +106,7 @@ class SuppliersList extends React.Component {
                         loadMore={this.loadSuppliers}
                         hasMore={hasMoreSuppliers}
                         useWindow={false}
-                        isDialog={this.props.supplierForSupply}
+                        isDialog={true}
                         className = 'scroll'>
                         <div className="row">
                             <div className="col-12">

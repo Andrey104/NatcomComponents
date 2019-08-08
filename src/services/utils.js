@@ -287,6 +287,17 @@ export function getUrlOrders(page, client, date) {
     return url_prefix + url;
 }
 
+export function getUrlSuppliers(page, text) {
+    let url_prefix = '';
+    let url = '';
+    if (text) url += `text=${text}&`;
+    if (page) url += `page=${page}&`;
+    if (url!== '') {
+        url = '?' + url.slice(0, url.length - 1);
+    }
+    return url_prefix + url;
+}
+
 export function getUrlSupplies(page, supplier) {
     let url_prefix = '';
     let url = '';
