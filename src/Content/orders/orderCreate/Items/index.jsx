@@ -55,7 +55,11 @@ export default class extends React.Component {
         var inputValue = (event.target.value);
         inputValue.replace(',', '.');
         // if (!isFinite(inputValue)) return;
-        this.items[index].count = Number(inputValue);
+        if (Number(inputValue) >= 0) {
+            this.items[index].count = Number(inputValue);
+        } else {
+            this.items[index].count = -Number(inputValue);
+        }
         this.getResultPrice();
         this.addItems(index);
     };
