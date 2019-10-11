@@ -10,20 +10,41 @@ import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride'
 import {mapToArr} from '../../../../helpers';
 import {getAllSuppliers, getNextSuppliers} from '../../../../AC/suppliers';
 import styles from './styles.scss';
+import SupplierDetailModal from "../../supplierDetail/supplierDetailModal/supplierDetailModal";
 
 let cx = classNames.bind(styles);
 
 class SuppliersList extends React.Component {
+    selectedSupplierId;
     state = {
-        openAddSupplierDialog: false
+        openAddSupplierDialog: false,
+        supplierDetailModalIsOpen: false
     };
 
-    componentWillMount = () => this.props.getAllSuppliers();
+    componentDidUpdate(prevProps) {
+        if (this.props.text !== prevProps.text) this.props.getAllSuppliers(this.props.text);
+    }
 
-    loadSuppliers = page => this.props.getNextSuppliers(page);
+    componentDidMount() {
+        console.log('mount', this.props.supplierForSupplier);
+        this.props.getAllSuppliers(this.props.text);
+    };
+
+    loadSuppliers = page => {
+        this.props.getNextSuppliers(page, this.props.text);
+    };
 
     addSupplierState = () => {
         this.setState({openAddSupplierDialog: !this.state.openAddSupplierDialog});
+    };
+
+    handleSupplierClick = supplierId => {
+      this.selectedSupplierId = supplierId;
+      this.setState({supplierDetailModalIsOpen: true});
+    };
+
+    closeSupplierDetailModalWindow = () => {
+        this.setState({supplierDetailModalIsOpen: false})
     };
 
     getBody(suppliers) {
@@ -38,7 +59,8 @@ class SuppliersList extends React.Component {
                 <SupplierCard key={supplier.id}
                               number={number++}
                               supplierForSupply={this.props.supplierForSupply}
-                              supplier={supplier}/>
+                              supplier={supplier}
+                              handleClick={this.handleSupplierClick}/>
             )
         );
     }
@@ -58,29 +80,34 @@ class SuppliersList extends React.Component {
 
     getPageClasses = () => this.props.supplierForSupply ? 'dialog' : '';
 
-    render() {
-        const {isLoading, suppliers, hasMoreSuppliers} = this.props;
-        if (isLoading || !suppliers) {
+    getSupplierDetailModalWindow() {
+        if (this.state.supplierDetailModalIsOpen) {
             return (
+                <SupplierDetailModal supplierId={this.selectedSupplierId} close={this.closeSupplierDetailModalWindow}/>
+            )
+        }
+    }
+
+    render() {
+        let content;
+        const {isLoading, suppliers, hasMoreSuppliers} = this.props;
+        const loader = hasMoreSuppliers ? <Loader/> : false;
+        if (isLoading || !suppliers) {
+            content = (
                 <div className="pre-loader-container">
                     <Loader/>
                 </div>
             );
-        }
-        const loader = hasMoreSuppliers ? <Loader/> : false;
-        const dialogWindow = this.getDialogWindow();
-        return (
-            <div className="row">
-                {dialogWindow}
+        } else {
+            content = (
                 <div className={cx('col-12', this.getPageClasses())}>
                     <InfiniteScrollOverride
                         pageStart={1}
                         loadMore={this.loadSuppliers}
                         hasMore={hasMoreSuppliers}
                         useWindow={false}
-                        isDialog={this.props.supplierForSupply}
+                        isDialog={true}
                         className = 'scroll'>
-
                         <div className="row">
                             <div className="col-12">
                                 <table className="table table-hover table-bordered">
@@ -101,6 +128,17 @@ class SuppliersList extends React.Component {
                         </div>
                     </InfiniteScrollOverride>
                 </div>
+            )
+        }
+
+
+        const dialogWindow = this.getDialogWindow();
+        const supplierDetailModalWindow = this.getSupplierDetailModalWindow();
+        return (
+            <div className="row">
+                {dialogWindow}
+                {supplierDetailModalWindow}
+                {content}
             </div>
         )
     }

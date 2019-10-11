@@ -2,10 +2,11 @@ import {
     ADD_NEW_SUPPLIER, GET_ALL_SUPPLIERS, GET_NEXT_SUPPLIERS,
     GET_SUPPLIER_DETAIL, EDIT_SUPPLIER
 } from "../constans";
+import {getUrlSuppliers} from "../services/utils";
 
-export function getAllSuppliers(params) {
+export function getAllSuppliers(text) {
     let callAPI = 'suppliers/';
-    callAPI += params ? params : '';
+    callAPI += getUrlSuppliers(null, text);
     return {
         type: GET_ALL_SUPPLIERS,
         requestType: 'GET',
@@ -13,11 +14,13 @@ export function getAllSuppliers(params) {
     }
 }
 
-export function getNextSuppliers(page) {
+export function getNextSuppliers(page, text) {
+    let callAPI = 'suppliers/';
+    callAPI += getUrlSuppliers(page, text);
     return {
         type: GET_NEXT_SUPPLIERS,
         requestType: 'GET',
-        callAPI: `suppliers/?page=${page}`
+        callAPI
     }
 }
 

@@ -15,7 +15,7 @@ class ClientDetail extends React.Component {
     urlId;
 
     componentWillMount = () => {
-        this.urlId = this.props.match.params.clientId;
+        this.props.clientId ? this.urlId = this.props.clientId : this.urlId = this.props.match.params.clientId;
         this.props.getClient(this.urlId);
     };
 
