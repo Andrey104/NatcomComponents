@@ -2,6 +2,7 @@ import React from 'react';
 
 import TableResultRow from '../../../../../components/TableResultRow/index';
 import PropTypes from 'prop-types';
+import {units} from "../../../../../constans";
 
 export default class extends React.Component {
 
@@ -13,6 +14,8 @@ export default class extends React.Component {
         removePositionFromList: PropTypes.func,
         positionsResultPrice: PropTypes.string,
         changePositionPrice: PropTypes.func,
+        changePositionCount: PropTypes.func,
+        changePositionUnit: PropTypes.func,
     };
 
 
@@ -42,6 +45,25 @@ export default class extends React.Component {
                                    value={position.price || ""}
                                    onChange={e => this.props.changePositionPrice(e, index)}/>руб
                         </div>
+                    </td>
+                    <td>
+                        <div className="input-count">
+                            <input type="number"
+                                   name="count"
+                                   className="count-input"
+                                   value={position.count || ""}
+                                   onChange={e => this.props.changePositionCount(e, index)}/>
+                        </div>
+                    </td>
+                    <td>
+                        <select className="form-control"
+                                name="unit"
+                                onChange={e => this.props.changePositionUnit(e, index)}
+                                defaultValue={position.unit || 0}>
+                            {units.map((unit, index) => (
+                                <option value={++index} key={index}>{unit}</option>
+                            ))}
+                        </select>
                     </td>
                 </tr>
             )
@@ -76,6 +98,8 @@ export default class extends React.Component {
                         <th scope="col">#</th>
                         <th scope="col">Название</th>
                         <th scope="col">Цена</th>
+                        <th scope="col">Кол-во</th>
+                        <th scope="col">Ед.из.</th>
                     </tr>
                     </thead>
                     {tableBody}

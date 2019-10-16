@@ -49,7 +49,7 @@ class OrderCreate extends React.Component {
                 client: orderSave.client,
                 items: orderSave.items,
                 harpoons: orderSave.harpoons,
-                customPositions: orderSave.customPositions,
+                custom_positions: orderSave.custom_positions,
                 openDialogWindow: false
             };
             if (this.currentUrl.indexOf('edit') !== -1) this.btnText = 'Изменить';
@@ -60,7 +60,7 @@ class OrderCreate extends React.Component {
                 date: Date(),
                 items: [],
                 harpoons: [],
-                customPositions: [],
+                custom_positions: [],
                 openDialogWindow: false,
                 returnChecked: false
             };
@@ -68,7 +68,7 @@ class OrderCreate extends React.Component {
     }
 
     updateCustomPositions = customPositions => {
-        this.setState({customPositions: customPositions});
+        this.setState({custom_positions: customPositions});
     };
 
     addClient = client => {
@@ -121,7 +121,7 @@ class OrderCreate extends React.Component {
             comment: this.comment,
             items: this.getItems(),
             source: 1,
-            customPositions: this.state.customPositions,
+            custom_positions: this.state.custom_positions,
             return_order: this.state.returnChecked
         };
 
@@ -159,6 +159,7 @@ class OrderCreate extends React.Component {
 
         return itemsArr;
     };
+
     // ----------------------------------------------------------------
 
     checkForm() {
@@ -241,8 +242,8 @@ class OrderCreate extends React.Component {
                                dialogWindowState={this.dialogWindowState}/>
                     </div>
                     {this.getHarpoonList()}
-                    <CustomPositions customPositions={this.state.customPositions}
-                                     update = {this.updateCustomPositions}/>
+                    <CustomPositions customPositions={this.state.custom_positions}
+                                     update={this.updateCustomPositions}/>
                     {this.getResultPrices()}
                 </div>
             );
@@ -253,11 +254,22 @@ class OrderCreate extends React.Component {
         return block;
     }
 
+    getCustomPositionsResultPrice() {
+        let resultPrice = 0;
+        if (this.state.custom_positions) {
+            for (const position of this.state.custom_positions) {
+                resultPrice += position.price * position.count;
+            }
+        }
+        return resultPrice
+    }
+
 
     getResultPrices() {
         return (
             <ResultPrices harpoonsResultPrice={this.harpoonsResultPrice}
                           itemsPrepayment={this.itemsPrepayment}
+                          customPositionsResultPrice={this.getCustomPositionsResultPrice()}
                           itemsResultPrice={this.itemsResultPrice}/>
         )
     }

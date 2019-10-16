@@ -16,11 +16,17 @@ class CustomPositions extends React.Component {
 
     resultPrice = 0;
 
+    componentDidMount() {
+        this.getResultPrice();
+    }
+
 
     getResultPrice() {
         this.resultPrice = 0;
-        for(const position of this.props.customPositions) {
-            this.resultPrice += position.price;
+        if (this.props.customPositions) {
+            for(const position of this.props.customPositions) {
+                this.resultPrice += position.price * position.count;
+            }
         }
     };
 
@@ -30,6 +36,24 @@ class CustomPositions extends React.Component {
         var inputValue = (event.target.value);
         inputValue.replace(',', '.');
         customPositions[index].price = Number(inputValue);
+        this.props.update(customPositions);
+        this.getResultPrice();
+    };
+
+    handleChangeCount = (event, index) => {
+        let customPositions = this.props.customPositions;
+        var inputValue = (event.target.value);
+        inputValue.replace(',', '.');
+        customPositions[index].count = Number(inputValue);
+        this.props.update(customPositions);
+        this.getResultPrice();
+    };
+
+    handleChangeUnit = (event, index) => {
+        let customPositions = this.props.customPositions;
+        var inputValue = (event.target.value);
+        inputValue.replace(',', '.');
+        customPositions[index].unit = Number(inputValue);
         this.props.update(customPositions);
         this.getResultPrice();
     };
@@ -54,7 +78,9 @@ class CustomPositions extends React.Component {
         let freePositions = this.props.customPositions;
         freePositions.push({
             name: "",
-            price: 0
+            price: 0,
+            count: 0,
+            unit: 0
         });
         this.props.update(freePositions);
     };
@@ -68,7 +94,9 @@ class CustomPositions extends React.Component {
                                          positionsResultPrice={this.resultPrice}
                                          removePositionFromList={this.removeCustomPositionFromList}
                                          editPosition={this.editCustomPosition}
-                                         changePositionPrice={this.handleChangePrice}/>
+                                         changePositionPrice={this.handleChangePrice}
+                                         changePositionCount={this.handleChangeCount}
+                                         changePositionUnit={this.handleChangeUnit}/>
                     <div className="">
                         <button type="button"
                                 onClick={this.createCustomPosition}
