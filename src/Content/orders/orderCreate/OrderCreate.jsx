@@ -7,7 +7,7 @@ import StocksSelect from '../../../components/StocksSelect';
 import DatePickerInput from '../../../components/datePickers/DatePickerInput';
 import Items from './Items';
 import HarpoonsList from './HarpoonsList';
-import FreePositions from './freePositions/freePositions';
+import CustomPositions from './customPositions/customPositions';
 import CommentField from '../../../components/CommentField';
 import ResultPrices from './ResultPrices';
 import {BaseApi} from '../../../services/base';
@@ -49,7 +49,7 @@ class OrderCreate extends React.Component {
                 client: orderSave.client,
                 items: orderSave.items,
                 harpoons: orderSave.harpoons,
-                freePositions: orderSave.freePositions,
+                custom_positions: orderSave.custom_positions,
                 openDialogWindow: false
             };
             if (this.currentUrl.indexOf('edit') !== -1) this.btnText = 'Изменить';
@@ -60,12 +60,16 @@ class OrderCreate extends React.Component {
                 date: Date(),
                 items: [],
                 harpoons: [],
-                freePositions: [],
+                custom_positions: [],
                 openDialogWindow: false,
                 returnChecked: false
             };
         }
     }
+
+    updateCustomPositions = customPositions => {
+        this.setState({custom_positions: customPositions});
+    };
 
     addClient = client => {
         this.setState({client});
@@ -106,6 +110,7 @@ class OrderCreate extends React.Component {
         this.props.handleSubmit(newOrder);
     };
 
+    // Получение заказа, перед отправкой на сервер ---------------
     getNewOrder = () => {
         const {stock} = this.state;
         const orderStock = stock ? stock.id : this.defaultStock.id;
@@ -116,8 +121,11 @@ class OrderCreate extends React.Component {
             comment: this.comment,
             items: this.getItems(),
             source: 1,
+            custom_positions: this.state.custom_positions,
             return_order: this.state.returnChecked
         };
+
+        // Если в данный момент заказ создается, а не редактируется
         if (this.currentUrl.indexOf('edit') === -1) {
             newOrder.harpoons = this.state.harpoons.map(harpoon => {
                 return getNewHarpoon(harpoon);
@@ -128,6 +136,7 @@ class OrderCreate extends React.Component {
         return newOrder;
     };
 
+    // Получаем товары и полотна
     getItems = () => {
         let itemsArr = [];
         if (this.state.returnChecked) {
@@ -150,6 +159,8 @@ class OrderCreate extends React.Component {
 
         return itemsArr;
     };
+
+    // ----------------------------------------------------------------
 
     checkForm() {
         const {items, date, harpoons} = this.state;
@@ -195,7 +206,7 @@ class OrderCreate extends React.Component {
     };
 
     getHarpoonList() {
-        if ((this.currentUrl.indexOf('edit') === -1)&&(!this.state.returnChecked)) {
+        if ((this.currentUrl.indexOf('edit') === -1) && (!this.state.returnChecked)) {
             return (
                 <div className="harpoons col-12">
                     <HarpoonsList harpoons={this.state.harpoons}
@@ -216,7 +227,7 @@ class OrderCreate extends React.Component {
     /* ------------------------------- */
 
 
-    getItemsAndHarpoonsBlock() {
+    getPositionsBlock() {
         let block;
         if (this.state.client) {
             block = (
@@ -227,11 +238,12 @@ class OrderCreate extends React.Component {
                                addItems={this.addItems}
                                items={this.state.items}
                                itemsResultPrice={this.itemsResultPrice}
-                               returnChecked = {this.state.returnChecked}
+                               returnChecked={this.state.returnChecked}
                                dialogWindowState={this.dialogWindowState}/>
                     </div>
                     {this.getHarpoonList()}
-                    {/*<FreePositions freePositions={this.state.freePositions}/>*/}
+                    <CustomPositions customPositions={this.state.custom_positions}
+                                     update={this.updateCustomPositions}/>
                     {this.getResultPrices()}
                 </div>
             );
@@ -242,15 +254,24 @@ class OrderCreate extends React.Component {
         return block;
     }
 
+    getCustomPositionsResultPrice() {
+        let resultPrice = 0;
+        if (this.state.custom_positions) {
+            for (const position of this.state.custom_positions) {
+                resultPrice += position.price * position.count;
+            }
+        }
+        return resultPrice
+    }
+
 
     getResultPrices() {
-        if (this.state.items.length || this.state.harpoons.length) {
-            return (
-                <ResultPrices harpoonsResultPrice={this.harpoonsResultPrice}
-                              itemsPrepayment={this.itemsPrepayment}
-                              itemsResultPrice={this.itemsResultPrice}/>
-            )
-        }
+        return (
+            <ResultPrices harpoonsResultPrice={this.harpoonsResultPrice}
+                          itemsPrepayment={this.itemsPrepayment}
+                          customPositionsResultPrice={this.getCustomPositionsResultPrice()}
+                          itemsResultPrice={this.itemsResultPrice}/>
+        )
     }
 
     returnCheckBoxChangeHandler = () => {
@@ -297,11 +318,11 @@ class OrderCreate extends React.Component {
                         <label>Дата выдачи</label>
                         <DatePickerInput selectDate={this.addDate}
                                          defaultDate={this.state.date}/>
-                            <input type="checkbox"
-                                   checked={this.state.returnChecked}
-                                   className="check-input"
-                                   onChange={this.returnCheckBoxChangeHandler}/>
-                            <label className="check-label">Возврат</label>
+                        <input type="checkbox"
+                               checked={this.state.returnChecked}
+                               className="check-input"
+                               onChange={this.returnCheckBoxChangeHandler}/>
+                        <label className="check-label">Возврат</label>
                     </div>
 
                 </div>
@@ -313,7 +334,7 @@ class OrderCreate extends React.Component {
                     </div>
                 </div>
                 {this.getReturnLabel()}
-                {this.getItemsAndHarpoonsBlock()}
+                {this.getPositionsBlock()}
                 <div className="row">
                     <div className="col-sm-12">
                         <button type="submit"
