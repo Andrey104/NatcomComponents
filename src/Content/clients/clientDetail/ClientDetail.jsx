@@ -34,14 +34,8 @@ class ClientDetail extends React.Component {
         }
     }
 
-    updateClient = () => {
-        console.log('---updateClient');
-        setTimeout( this.props.getClient, 100, this.urlId)
-       ;
-    };
-
     render() {
-        const {client} = this.props;
+        const {client, order} = this.props;
         if (client.id !== Number(this.urlId)) {
             return (
                 <div className="pre-loader-container">
@@ -62,8 +56,8 @@ class ClientDetail extends React.Component {
                 <div className="col-md-6">
                     <OrderClientCard
                         isClientsPage = {true}
-                        client={client}
-                        update={this.updateClient}/>
+                        order={order}
+                        client={client}/>
                 </div>
                 <div className="col-12">
                     <button type="button"

@@ -1,7 +1,12 @@
 import {OrderedMap, Record} from 'immutable';
 import {
-    GET_ALL_PAYMENTS, GET_NEXT_PAYMENTS, GET_PAYMENTS_SUM, SET_PAYMENT_FILTER_PARAMS, SET_PAYMENT_TYPE_FILTER_PARAMS,
-    START, SUCCESS
+    CLEAR_PAYMENT_ADD_DATA,
+    GET_ALL_PAYMENTS,
+    GET_NEXT_PAYMENTS,
+    GET_PAYMENTS_SUM, SET_PAYMENT_ADD_DATA,
+    SET_PAYMENT_FILTER_PARAMS,
+    START,
+    SUCCESS
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -11,10 +16,12 @@ const PaymentRecord = Record({
     client: undefined,
     payment_type: undefined,
     type: undefined,
-    sum: undefined
+    sum: undefined,
+    comment: undefined
 });
 
 const ReducerState = Record({
+    paymentAddData: undefined,
     isLoading: false,
     loaded: false,
     hasMorePayments: false,
@@ -71,6 +78,12 @@ export default (paymentState = defaultState, actionTypeResponse) => {
         case GET_PAYMENTS_SUM + SUCCESS:
             return paymentState.set('paymentStatistics', response.data)
                 .set('isLoading', false);
+
+        case SET_PAYMENT_ADD_DATA:
+            return paymentState.set('paymentAddData', data);
+
+        case CLEAR_PAYMENT_ADD_DATA:
+            return paymentState.set('paymentAddData', undefined);
     }
 
     return paymentState;
