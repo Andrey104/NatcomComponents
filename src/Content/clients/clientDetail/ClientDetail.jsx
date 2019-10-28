@@ -10,6 +10,7 @@ import {getPhoneWithMask, priceFormat} from '../../../services/utils';
 import {EDIT_CLIENT} from '../../../constans';
 import OrdersList from "../../orders/ordersPage/ordersList/OrdersList";
 import OrderClientCard from '../../../components/OrderClientCard'
+import './ClientDetail.css';
 
 class ClientDetail extends React.Component {
     urlId;
@@ -55,7 +56,7 @@ class ClientDetail extends React.Component {
                 </div>
                 <div className="col-md-6">
                     <OrderClientCard
-                        isClientsPage = {true}
+                        isClientsPage={true}
                         order={order}
                         client={client}/>
                 </div>
@@ -66,7 +67,9 @@ class ClientDetail extends React.Component {
                     </button>
                     {/*<CustomPrices clientId={client.id}/>*/}
                     <CreditInfo client={client}/>
-                    <OrdersList client={client}/>
+                    <div className="order-list-block">
+                        <OrdersList client={client}/>
+                    </div>
                 </div>
             </div>
         )
