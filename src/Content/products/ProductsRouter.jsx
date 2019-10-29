@@ -10,15 +10,15 @@ import EditProduct from './editProduct/EditProduct';
 import ComponentMenu from '../../components/ComponentMenu'
 import ProductDetail from './productDetail/ProductDetail';
 import {deleteProductsFromStore} from '../../AC/products';
-import styles from './styles.css';
 import MembranesPage from "../../components/addItemsDialog/membranesPage/MembranesPage";
 import ItemHistory from "../items/itemHistory/ItemHistory";
+import './styles.css'
 
 class ProductsRouter extends React.Component {
 
     getMenu() {
         let menu = (
-            <NavLink to='/products'>
+            <NavLink to='/products' className="products-menu">
                 <span>Товары</span>
             </NavLink>
         );
@@ -41,7 +41,9 @@ class ProductsRouter extends React.Component {
     render() {
         return (
             <div>
-                {this.getMenu()}
+                <div className="product-header-menu">
+                    {this.getMenu()}
+                </div>
                 <Switch>
                     <Route exact path='/products' component={ProductsPage}/>
                     <Route exact path='/products/add' component={EditProduct}/>
