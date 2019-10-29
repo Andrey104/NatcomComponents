@@ -124,6 +124,7 @@ class OrderDetail extends React.Component {
                 </div>
                 <div className="col-md-6">
                     <OrderClientCard client={order.client}
+                                     order={order}
                                      update={this.updateOrder}/>
                     <OrderPayments order={order}
                                    addBalancePay={this.openBalancePayDialog}

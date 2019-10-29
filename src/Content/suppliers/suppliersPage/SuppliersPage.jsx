@@ -4,25 +4,20 @@ import {connect} from 'react-redux';
 import SearchInput from '../../../components/SearchInput';
 import SuppliersList from './suppliersList/SuppliersList';
 import {getAllSuppliers} from '../../../AC/suppliers';
+import './styles.css';
 
 class SuppliersPage extends React.Component {
-    searchText;
-
-    searchSuppliers = text => {
-        this.searchText = text;
-        this.getFilterSuppliers();
+    state = {
+        searchText: ''
     };
 
-    getFilterSuppliers = () => {
-        let url = '';
-        if (this.searchText) url += `text=${this.searchText}&`;
-        if (url) {
-            url = '?' + url.slice(0, url.length - 1);
-        }
-        this.props.getAllSuppliers(url);
+    searchSuppliers = text => {
+        this.props.getAllSuppliers(text);
+        this.setState({searchText: text});
     };
 
     render() {
+        console.log('SupplierPage render:: ', this.props.supplierForSupply);
         return (
             <div>
                 <div className="row">
@@ -33,8 +28,8 @@ class SuppliersPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12">
-                        <SuppliersList/>
+                    <div className="col-12 suppliers-page-scroll">
+                        <SuppliersList supplierForSupply = {this.props.supplierForSupply} text={this.state.searchText}/>
                     </div>
                 </div>
             </div>

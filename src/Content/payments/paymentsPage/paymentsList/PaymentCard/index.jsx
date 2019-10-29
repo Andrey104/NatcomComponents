@@ -13,6 +13,7 @@ export default class extends React.Component {
                 <td>{getDate(payment.auto_date)}</td>
                 <td>{paymentTypes[payment.payment_type - 1]}</td>
                 <td>{priceFormat(payment.sum)}</td>
+                <td>{payment.comment}</td>
             </tr>
         )
     }

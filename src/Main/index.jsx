@@ -8,6 +8,7 @@ import Menu from '../Menu';
 import Content from '../Content';
 import {MOBILE_DISPLAY, PC_DISPLAY, TABLET_DISPLAY_WIGHT} from '../services/utils';
 import {getCurrentUser} from "../AC/currentUser";
+import Modals from "../Content/Modals/Modals";
 
 class Main extends React.Component {
 
@@ -71,6 +72,7 @@ class Main extends React.Component {
                          id='mainContent'
                          onClick={this.menuAutoClose.bind(this)}>
                         <Content/>
+                        <Modals/>
                     </div>
                 </div>
             </div>

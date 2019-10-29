@@ -10,12 +10,13 @@ import {getPhoneWithMask, priceFormat} from '../../../services/utils';
 import {EDIT_CLIENT} from '../../../constans';
 import OrdersList from "../../orders/ordersPage/ordersList/OrdersList";
 import OrderClientCard from '../../../components/OrderClientCard'
+import './ClientDetail.css';
 
 class ClientDetail extends React.Component {
     urlId;
 
     componentWillMount = () => {
-        this.urlId = this.props.match.params.clientId;
+        this.props.clientId ? this.urlId = this.props.clientId : this.urlId = this.props.match.params.clientId;
         this.props.getClient(this.urlId);
     };
 
@@ -34,14 +35,8 @@ class ClientDetail extends React.Component {
         }
     }
 
-    updateClient = () => {
-        console.log('---updateClient');
-        setTimeout( this.props.getClient, 100, this.urlId)
-       ;
-    };
-
     render() {
-        const {client} = this.props;
+        const {client, order} = this.props;
         if (client.id !== Number(this.urlId)) {
             return (
                 <div className="pre-loader-container">
@@ -61,9 +56,9 @@ class ClientDetail extends React.Component {
                 </div>
                 <div className="col-md-6">
                     <OrderClientCard
-                        isClientsPage = {true}
-                        client={client}
-                        update={this.updateClient}/>
+                        isClientsPage={true}
+                        order={order}
+                        client={client}/>
                 </div>
                 <div className="col-12">
                     <button type="button"
@@ -72,7 +67,9 @@ class ClientDetail extends React.Component {
                     </button>
                     {/*<CustomPrices clientId={client.id}/>*/}
                     <CreditInfo client={client}/>
-                    <OrdersList client={client}/>
+                    <div className="order-list-block">
+                        <OrdersList client={client}/>
+                    </div>
                 </div>
             </div>
         )

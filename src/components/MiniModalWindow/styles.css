@@ -1,0 +1,7 @@
+.open {
+    display: block !important;
+}
+
+.modal-min {
+    max-height: 50vh;
+}

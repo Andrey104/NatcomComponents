@@ -1,23 +1,24 @@
 import React from 'react';
-import ModalWindow from '../../../../../components/ModalWindow/';
+import MiniModalWindow from '../../../../../components/MiniModalWindow/';
 
 class EditFreePositionModal extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            freePositionName: ''
+            customPositionName: ''
         };
     }
 
     handleChangeName = (event) => {
-        this.setState({freePositionName: event.target.value})
+        this.setState({customPositionName: event.target.value})
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        if (this.state.freePositionName = "")
-        this.props.createFreePosition(this.state.freePositionName);
+        if (this.state.customPositionName !== "") {
+            this.props.createCustomPosition(this.state.customPositionName);
+        }
     };
 
     render(){
@@ -29,7 +30,7 @@ class EditFreePositionModal extends React.Component {
                         <input type="text"
                                name="first_name"
                                placeholder="Название"
-                               value={this.state.freePositionName}
+                               value={this.state.customPositionName}
                                onChange={this.handleChangeName}
                                className="form-control"
                                id="first_name"/>
@@ -49,4 +50,4 @@ class EditFreePositionModal extends React.Component {
         )
     }
 }
-export default ModalWindow(EditFreePositionModal);
+export default MiniModalWindow(EditFreePositionModal);

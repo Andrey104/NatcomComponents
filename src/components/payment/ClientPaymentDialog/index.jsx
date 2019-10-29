@@ -8,16 +8,21 @@ import {paymentTypes} from '../../../services/utils';
 
 class ClientPaymentDialog extends React.Component {
 
-    static propTypes = {
-        client: PropTypes.object
-    };
-
     constructor(props) {
         super(props);
+        let comment ="";
+
+        const {order} = this.props;
+
+        if (order) {
+            comment = "Оплата по заказу №" + order.id
+        }
+
         this.state = {
             sum: 0,
             paymentType: 1,
             openAddClientDialog: false,
+            comment: comment,
         };
     }
 
@@ -28,9 +33,10 @@ class ClientPaymentDialog extends React.Component {
         this.setState({[name]: value});
     };
 
-    selectedClient = client => {
-        this.client = client;
-        this.closeDialog();
+    handleChangeComment = event => {
+        this.setState({
+            comment: event.target.value
+        });
     };
 
     handleSubmit = event => {
@@ -38,9 +44,11 @@ class ClientPaymentDialog extends React.Component {
         const newPayment = {
             client: this.props.client.id,
             sum: this.state.sum,
-            payment_type: this.state.paymentType
+            payment_type: this.state.paymentType,
+            comment: this.state.comment
         };
-        this.props.addNewPayment(newPayment);
+
+        this.props.addNewPayment(newPayment, this.props.order);
         this.props.close();
     };
 
@@ -48,14 +56,18 @@ class ClientPaymentDialog extends React.Component {
         const {client} = this.props;
         if (client) {
             const {first_name, last_name} = client;
-            return <p>Клиент: {first_name} {last_name}</p>;
+            return (
+                <div>
+                    <p>Клиент:</p> <h4>{first_name} {last_name}</h4>
+                </div>
+            );
         }
     };
 
 
     getPaymentSelect() {
         return (
-            <div className="form-group">
+            <div>
                 <label>Способ оплаты</label>
                 <select className="form-control"
                         name="paymentType"
@@ -74,33 +86,49 @@ class ClientPaymentDialog extends React.Component {
         return (
             <div className="modal-body">
                 {this.getCurrentClient()}
+                <hr/>
                 <div className="row">
-                    <div className="col-6">
-                        <div className="form-group">
-                            <label htmlFor="sum">Сумма оплаты</label>
-                            <input type="text"
-                                   placeholder="Введите сумму"
-                                   name="sum"
-                                   value={this.state.sum}
-                                   onChange={this.handleChangePayment}
-                                   className="form-control"
-                                   id="sum"/>
-                        </div>
+                    <div className="col-md-6">
+                        <label htmlFor="sum">Сумма оплаты (руб)</label>
+                        <input type="text"
+                               placeholder="Введите сумму"
+                               name="sum"
+                               value={this.state.sum || ""}
+                               onChange={this.handleChangePayment}
+                               className="form-control"
+                               id="sum"/>
                     </div>
-                    <div className="col-6">
+                </div>
+                <br/>
+                <div className="row">
+                    <div className="col-md-6">
                         {this.getPaymentSelect()}
                     </div>
                 </div>
-                <div className="col-sm-12 text-right">
-                    <button type="submit"
-                            onClick={this.handleSubmit}
-                            className="btn btn-primary">Добавить оплату
-                    </button>
+                <br/>
+                <div className="row">
+                    <div className="col-md-6">
+                        <label htmlFor="sum">Комментарий</label>
+                        <textarea type="text"
+                               placeholder="Комментарий"
+                               name="comment"
+                               value={this.state.comment}
+                               onChange={this.handleChangeComment}
+                               className="form-control"/>
+                    </div>
+                </div>
+                <br/>
+                <div className="row">
+                    <div className="col-md-12">
+                        <button type="submit"
+                                onClick={this.handleSubmit}
+                                className="btn btn-primary">Добавить оплату
+                        </button>
+                    </div>
                 </div>
             </div>
         )
     }
 }
 
-export default connect(state => ({
-}), {addNewPayment})(DialogWindow(ClientPaymentDialog));
+export default connect(state => ({}), {addNewPayment})(DialogWindow(ClientPaymentDialog));

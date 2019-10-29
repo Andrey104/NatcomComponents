@@ -91,6 +91,7 @@ class OrdersList extends React.Component {
                         pageStart={1}
                         loadMore={this.loadOrders}
                         hasMore={hasMoreOrders}
+                        isDialog={true}
                         useWindow={false}>
                         <div className="row">
                             <div className="col-12">

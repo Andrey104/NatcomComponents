@@ -9,7 +9,7 @@ export default class extends React.Component {
         if (this.props.addClient) {
             this.props.addClient(client);
         } else {
-            history.push(`/clients/${client.id}`);
+            this.props.handleClick(client.id);
         }
     };
 

@@ -10,8 +10,8 @@ export default class extends React.Component {
     };
 
     getResultPrice = () => {
-        const {harpoonsResultPrice, itemsResultPrice} = this.props;
-        return harpoonsResultPrice + itemsResultPrice;
+        const {harpoonsResultPrice, itemsResultPrice, customPositionsResultPrice} = this.props;
+        return harpoonsResultPrice + itemsResultPrice + customPositionsResultPrice;
     };
 
     render() {

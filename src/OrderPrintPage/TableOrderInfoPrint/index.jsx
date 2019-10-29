@@ -5,7 +5,7 @@ import TableResultRow from '../../components/TableResultRow';
 import HarpoonPrintName from '../HarpoonPrintName';
 import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem, getArea} from '../../services/utils';
 import history from '../../history';
-import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../constans";
+import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../../constans";
 
 export default class extends React.Component {
     orderList;
@@ -68,10 +68,29 @@ export default class extends React.Component {
         }
     }
 
+    getCustomPositions(order) {
+        if (order.custom_positions) {
+            const orderListLength = this.orderList.length + 1;
+            const custom_positions = order.custom_positions.map((position, index) => (
+                <tr key={position.id + index}
+                    onClick={() => history.push(`/harpoons/${position.id}`)}>
+                    <th scope="row"><p className="font-weight-bold">{index + orderListLength}</p></th>
+                    <td><p className="font-weight-bold">ДОП</p></td>
+                    <td><p className="font-weight-bold">{position.name}</p></td>
+                    <td><p className="font-weight-bold">{countFormat(position.count)} {units[position.unit]}</p></td>
+                    <td><p className="font-weight-bold">{priceFormat(position.price)} руб</p></td>
+                    <td><p className="font-weight-bold">{priceFormat(position.price * position.count)} руб</p></td>
+                </tr>
+            ));
+            this.orderList = this.orderList.concat(custom_positions);
+        }
+    }
+
     getTable(order) {
         this.orderList = [];
         this.getItems(order);
         this.getHarpoons(order);
+        this.getCustomPositions(order);
     }
 
     render() {
