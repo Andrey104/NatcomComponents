@@ -69,7 +69,7 @@ class ItemList extends React.Component {
     }
 
     componentDidMount() {
-        this.load();
+        //this.load();
     };
 
     componentWillUnmount() {
