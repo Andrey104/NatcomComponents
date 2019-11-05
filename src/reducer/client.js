@@ -14,6 +14,7 @@ const ClientRecord = Record({
     email: undefined,
     group: undefined,
     id_from_shop: undefined,
+    orders_credit: undefined,
     balance: undefined
 });
 

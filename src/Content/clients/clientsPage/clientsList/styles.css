@@ -18,5 +18,10 @@
   width: 70%;
 }
 .phone-column{
-  width: 40%;
+  min-width: 15%;
+}
+
+.negative-balance {
+  width: 70%;
+  background-color: rgba(240,23,0,0.56);
 }
