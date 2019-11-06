@@ -120,6 +120,16 @@ export function priceFormat(price) {
     return formattedPrice;
 }
 
+export function priceFormatWithoutSpaces(price) {
+    let formattedPrice;
+    if (price){
+        formattedPrice = Number(price).toFixed(2);
+    } else {
+        formattedPrice = "0.00";
+    }
+    return formattedPrice;
+}
+
 export function countFormat(count) {
     let formattedCount;
     if (count){
