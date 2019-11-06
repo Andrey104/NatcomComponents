@@ -113,7 +113,7 @@ export const checkSubcategory = subcategory => {
 export function priceFormat(price) {
     let formattedPrice;
     if (price){
-        formattedPrice = Number(price).toFixed(2);
+        formattedPrice = Number(price).toFixed(2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
     } else {
         formattedPrice = "0.00";
     }

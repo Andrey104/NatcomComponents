@@ -115,6 +115,7 @@ class ClientsList extends React.Component {
                                         <tr>
                                             <th scope="col name-column">ФИО</th>
                                             <th scope="col phone-column">Телефон</th>
+                                            <th scope="col phone-column">Долг</th>
                                         </tr>
                                         </thead>
                                         <tbody>
