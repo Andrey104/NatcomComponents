@@ -76,7 +76,7 @@ export function rejectOrder(orderId) {
     const baseApi = new BaseApi();
     return dispath => {
         baseApi
-            .deleteRequest(`orders/${orderId}/`)
+            .post(`orders/${orderId}/reject/`)
             .then(() => {
                 dispath(closeModalWindow());
                 dispath(history.push(`/orders`));
