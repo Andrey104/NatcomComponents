@@ -37,7 +37,7 @@ class OrderClientCard extends React.Component {
         const {client, isClientsPage} = this.props;
         return (
             <div className="card">
-                <h1>{client.first_name} {client.last_name}</h1>
+                <div>{client.first_name} {client.last_name}</div>
                 <div>{getPhoneWithMask(client.phone1)}</div>
                 <div>Баланс: {priceFormat(client.balance)}</div>
                 <button onClick={this.handleBalanceTopUpClick}>Пополнить баланс</button>
