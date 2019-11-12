@@ -7,7 +7,6 @@ import Loader from '../Loader';
 import {getAllProducts} from '../../AC/products';
 import {mapToArr} from '../../helpers';
 import styles from './styles.scss';
-import ItemList from "../ItemList/ItemList";
 
 let cx = classNames.bind(styles);
 
@@ -40,7 +39,7 @@ class AddProductDialog extends React.Component {
 
     close = () => this.props.close();
 
-    /*getProducts(products) {
+    getProducts(products) {
         if (products.length > 0) {
             return products.map(product => (
                 <tr key={product.item}>
@@ -53,7 +52,7 @@ class AddProductDialog extends React.Component {
                 </tr>
             ))
         }
-    }*/
+    }
 
     render() {
         const {products, isLoading} = this.props;
@@ -62,8 +61,19 @@ class AddProductDialog extends React.Component {
         }
         return (
             <div>
-                <div className="modal-body">
-                            <ItemList selectMode={true}/>
+                <div className={cx('modal-body', 'content')}>
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Название</th>
+                            <th scope="col">Артикул</th>
+                            <th scope="col">Выбрать</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.getProducts(products)}
+                        </tbody>
+                    </table>
                 </div>
                 <div className="modal-footer">
                     <button type="button"

@@ -285,20 +285,6 @@ export function getUrlMembranes(filters, page, client) {
     return url_prefix + url;
 }
 
-export function getUrlProducts(filters, page, client) {
-    let url_prefix = '';
-    let url = '';
-    if (client) url += `client=${client.id}&`;
-    if (filters.searchText) url += `text=${filters.searchText}&`;
-    if (filters.category) url += `category=${filters.category}&`;
-    if (filters.subcategory) url += `subcategory=${filters.subcategory}&`;
-    if (page) url += `page=${page}&`;
-    if (url!== '') {
-        url = '?' + url.slice(0, url.length - 1);
-    }
-    return url_prefix + url;
-}
-
 export function getUrlOrders(page, client, date) {
     let url_prefix = '';
     let url = '';

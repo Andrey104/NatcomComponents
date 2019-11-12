@@ -56,8 +56,8 @@ class ProductDetail extends React.Component {
     getEditButtons() {
         if (UsersService.managerPermission()) {
             return (
-                <div className="product-buttons-container">
-                    <button className="edit-product-button" onClick={this.handleEditProduct}>Редактировать</button>
+                <div>
+                    <button onClick={this.handleEditProduct}>Редактировать</button>
                     <br/>
                     <br/>
                     <button onClick={this.handleEditProductServerAdmin}>Редактировать(Через SERVER ADMIN)</button>
@@ -80,6 +80,7 @@ class ProductDetail extends React.Component {
                 <div className="row">
                     <div className="col-8">
                         <h3>{product.name}</h3>
+                        {this.getEditButtons()}
                         <button onClick={this.handleProductHistory}>Движение</button>
                         <h5>Артикул {product.vendor_code}</h5>
                         <div>Единица измерения: {units[product.unit - 1]}</div>
@@ -91,10 +92,9 @@ class ProductDetail extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <h5 className="product-stocks-title">Остатки</h5>
+                    <h5>Остатки</h5>
                     <ItemStocks stocks={product.stocks}/>
                 </div>
-                {this.getEditButtons()}
                 <div className="row">
                     <ItemImages images={product.images}/>
                 </div>
