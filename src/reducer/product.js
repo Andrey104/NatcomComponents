@@ -28,7 +28,7 @@ const ProductRecord = Record({
 });
 
 const ReducerState = Record({
-    isLoading: true,
+    isLoading: false,
     loaded: false,
     hasMoreProducts: false,
     client: null,
@@ -53,13 +53,14 @@ export default (productState = defaultState, actionTypeResponse) => {
             return productState.set('isLoading', true);
         }
         case GET_ALL_PRODUCTS + SUCCESS: {
+            console.log(response.data);
             let nextPage, products = response.data.results;
             response.data.next === null ? nextPage = false : nextPage = true;
             products = arrToMap(products, ProductRecord);
+            let nextPageNumber = productState.get('nextPageNumber');
             return productState.set('products', products)
                 .set('hasMoreProducts', nextPage)
                 .set('loaded', true)
-                .set('nextPageNumber', 2)
                 .set('isLoading', false);
         }
         case GET_NEXT_PRODUCTS + SUCCESS: {
@@ -70,7 +71,6 @@ export default (productState = defaultState, actionTypeResponse) => {
             let nextPageNumber = productState.get('nextPageNumber');
             return productState.set('products', newProducts)
                 .set('hasMoreProducts', nextPage)
-                .set('nextPageNumber', nextPageNumber += 1)
                 .set('loaded', true);
         }
         case GET_PRODUCT + SUCCESS: {
