@@ -62,7 +62,7 @@ class AddPaymentDialog extends React.Component {
         order.payments.map(payment => {
             s = s + Number(payment.sum)
         });
-        return priceFormat(s)
+        return priceFormatWithoutSpaces(s)
     }
 
     handlePaymentOptionChange = (event) => {
