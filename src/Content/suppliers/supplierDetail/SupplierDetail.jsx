@@ -6,16 +6,25 @@ import Loader from '../../../components/Loader';
 import {editSupplier, getSupplierDetail} from '../../../AC/suppliers';
 import styles from './styles.css';
 import SuppliesList from "../../supplies/suppliesPage/suppliesList/SuppliesList";
+import SupplierContacts from "./supplierContacts/SupplierContacts";
+import AddNewContactModal from "../../../components/addNewContact/AddNewContactModal";
 
 class SupplierDetail extends React.Component {
     urlId;
+    isEdit = false;
+    contact;
     state = {
         openEditSupplierDialog: false,
+        openAddNewContactDialog: false
     };
 
-    componentDidMount() {
+    getSupplierInfo() {
         this.props.supplierId ? this.urlId = this.props.supplierId : this.urlId = this.props.match.params.supplierId;
         this.props.getSupplierDetail(this.urlId);
+    }
+
+    componentDidMount() {
+        this.getSupplierInfo()
     };
 
     editSupplierState = () => {
@@ -38,6 +47,30 @@ class SupplierDetail extends React.Component {
         return dialogWindow;
     }
 
+    getSuppliersContacts(contacts) {
+        return contacts.map((contact) => <SupplierContacts contact={contact} editContact = {this.addNewContactDialogIsOpen} />);
+    }
+
+    addNewContactDialogIsOpen = (isEdit, contact) => {
+        if (isEdit) {
+            this.isEdit = true;
+            this.contact = contact;
+        }
+        this.setState({openAddNewContactDialog: true});
+    };
+
+    addNewContactDialogClose = () => {
+      this.isEdit = false;
+      this.setState({openAddNewContactDialog: false})
+    };
+
+    getAddNewContactDialogWindow(supplierId) {
+        return <AddNewContactModal close = {this.addNewContactDialogClose}
+                                   isEdit={this.isEdit}
+                                   contact = {this.contact}
+                                   supplierId={supplierId}/>
+    }
+
     render() {
         const {supplier, isLoading} = this.props;
         if (isLoading || !supplier) {
@@ -48,9 +81,13 @@ class SupplierDetail extends React.Component {
             );
         }
         const dialogWindow = this.getDialogWindow();
+        const contacts = this.getSuppliersContacts(supplier.contacts, this.getAddNewContactDialogWindow);
+        const addNewContact = this.getAddNewContactDialogWindow(supplier.id);
         return (
             <div>
                 {dialogWindow}
+                {this.state.openAddNewContactDialog ? addNewContact : null}
+                <h1>{supplier.name}</h1>
                 <table className="table table-bordered">
                     <tbody>
                     <tr>
@@ -67,10 +104,25 @@ class SupplierDetail extends React.Component {
                     </tr>
                     </tbody>
                 </table>
-
                 <button type="button"
                         onClick={this.editSupplierState}
                         className="btn btn-primary btn-sm">Редактировать
+                </button>
+                <h2>Контакты: </h2>
+                <table className="table table-bordered">
+                    <tr className="thead-light">
+                        <th scope="col">Имя</th>
+                        <th scope="col">Номер телефона</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Комментарий</th>
+                    </tr>
+                    <tbody>
+                        {contacts}
+                    </tbody>
+                </table>
+                <button type="button"
+                        onClick={() => this.addNewContactDialogIsOpen(false)}
+                        className="btn btn-primary btn-sm">Добавить
                 </button>
                 <h3>Список поставок:</h3>
                 <SuppliesList supplierId={supplier.id}/>

@@ -26,7 +26,6 @@ class SuppliersList extends React.Component {
     }
 
     componentDidMount() {
-        console.log('mount', this.props.supplierForSupplier);
         this.props.getAllSuppliers(this.props.text);
     };
 

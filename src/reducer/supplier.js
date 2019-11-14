@@ -1,6 +1,6 @@
 import {
     ADD_NEW_SUPPLIER, EDIT_SUPPLIER, GET_ALL_SUPPLIERS,
-    GET_NEXT_SUPPLIERS, GET_SUPPLIER_DETAIL, SUCCESS, START, FAIL
+    GET_NEXT_SUPPLIERS, GET_SUPPLIER_DETAIL, SUCCESS, START, ADD_NEW_CONTACT , FAIL
 } from "../constans";
 import {OrderedMap, Record} from "immutable";
 import {arrToMap} from "../helpers";
@@ -9,7 +9,8 @@ const SupplierRecord = Record({
     id: undefined,
     name: undefined,
     address: undefined,
-    comment: undefined
+    comment: undefined,
+    contacts: undefined
 });
 
 const ReducerState = Record({
