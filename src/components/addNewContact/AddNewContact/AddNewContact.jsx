@@ -77,7 +77,7 @@ class AddNewContact extends React.Component {
                        onChange={this.handleChangeContactsComment}/>
                 <button type="button"
                         onClick={() => this.submitButtonClick(isEdit)}
-                        className="btn btn-primary btn-sm">{isEdit ? "Редактировать" : "Добавить"}
+                        className="btn btn-primary btn-sm">{isEdit ? "Сохранить" : "Добавить"}
                 </button>
                 {isEdit ? <button type="button"
                                   onClick={() => this.deleteButtonClick(supplierId, contact.id)}
