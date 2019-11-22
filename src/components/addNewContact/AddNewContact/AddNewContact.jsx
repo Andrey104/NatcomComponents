@@ -1,8 +1,9 @@
 import React from 'react';
 import './styles.css';
-import {getPhoneWithMask} from "../../../services/utils";
+import {getPhoneWithMask, getPhoneWithoutMask, phoneMask} from "../../../services/utils";
 import {connect} from 'react-redux';
-import {addNewContact, editContact, deleteContact} from "../../../AC/suppliers";
+import {addNewContact, editContact, deleteContact, getSupplierDetail} from "../../../AC/suppliers";
+import MaskedInput from "react-text-mask";
 
 class AddNewContact extends React.Component {
     constructor(props) {
@@ -10,10 +11,10 @@ class AddNewContact extends React.Component {
         let editContact;
         this.props.contact ? editContact = this.props.contact :
             editContact = {
-                name: "Имя",
-                phone: "Номер телефона",
-                email: "Email",
-                comment: "Комментарий"
+                name: null,
+                phone: null,
+                email: null,
+                comment: null
             };
         this.state = {
             name: editContact.name,
@@ -21,69 +22,64 @@ class AddNewContact extends React.Component {
             email: editContact.email,
             comment: editContact.comment
         }
-
-    }
-    state = {
-            name: "Имя",
-            phone: "Номер телефона",
-            email: "Email",
-            comment: "Комментарий"
-    };
-
-    componentDidMount() {
-        const {contact} = this.props;
-        contact ? this.setState({name: contact.name,
-                                       phone: contact.phone,
-                                       email: contact.email,
-                                       comment: contact.comment}) : null;
     }
 
-    handleChangeContactsName = event => {
-        this.setState({name: event.target.value})
-    };
-    handleChangeContactsPhone = event => {
-        this.setState({phone: event.target.value})
-    };
-    handleChangeContactsEmail = event => {
-        this.setState({email: event.target.value})
-    };
-    handleChangeContactsComment = event => {
-        this.setState({comment: event.target.value})
+    handleChangeInput = event => {
+        const {handleChangeNewSupplierContact} = this.props;
+        let name = event.target.name;
+        let value = event.target.value;
+        name === "phone" ? this.setState({[name]: getPhoneWithoutMask(value)}) : this.setState({[name]: value});
+        handleChangeNewSupplierContact(event);
     };
 
     submitButtonClick = (isEdit) => {
         isEdit ? this.props.editContact(this.props.supplierId, this.props.contact.id, this.state)
             : this.props.addNewContact(this.props.supplierId, this.state);
-        this.props.close();
+        this.props.close(false);
     };
 
     deleteButtonClick = (supplierId, contactId) => {
         this.props.deleteContact(supplierId, contactId);
-        this.props.close();
+        this.props.close(false);
     };
 
-    render() {
-        const {isEdit, supplierId, contact} = this.props;
-        return (
-            <div className="add-new-contact-container">
-                {isEdit ? <h1>Редактировать контакт</h1> : <h1>Добавить новый контакт</h1>}
-                <input className="form-control" placeholder="Имя" defaultValue={isEdit ? this.state.name : null}
-                       onChange={this.handleChangeContactsName}/>
-                <input className="form-control" placeholder="Email" defaultValue={isEdit ? this.state.email : null}
-                       onChange={this.handleChangeContactsEmail}/>
-                <input className="form-control" placeholder="Номер телефона" defaultValue={isEdit ? getPhoneWithMask(this.state.phone) : null}
-                       onChange={this.handleChangeContactsPhone}/>
-                <input className="form-control" placeholder="Комментарий" defaultValue={isEdit ? this.state.comment : null}
-                       onChange={this.handleChangeContactsComment}/>
+    getEditButtons(isEdit, supplierId, contact, newSupplier) {
+       return (
+            <div>
                 <button type="button"
-                        onClick={() => this.submitButtonClick(isEdit)}
+                        onClick={() => this.submitButtonClick(isEdit, newSupplier)}
                         className="btn btn-primary btn-sm">{isEdit ? "Сохранить" : "Добавить"}
                 </button>
                 {isEdit ? <button type="button"
                                   onClick={() => this.deleteButtonClick(supplierId, contact.id)}
                                   className="btn btn-danger btn-sm">Удалить
-                          </button>
-                : null}
+                    </button>
+                    : null}
+            </div>
+        )
+    }
+
+    render() {
+        console.log("Пожилой метан", this.state);
+        const {isEdit, supplierId, contact, newSupplier} = this.props;
+        let editButtons = this.getEditButtons(isEdit, supplierId, contact, newSupplier);
+        return (
+            <div className="add-new-contact-container">
+                <input className="form-control" name="name" placeholder="Имя" defaultValue={isEdit ? this.state.name : null}
+                       onChange={this.handleChangeInput}/>
+                <input className="form-control" name="email" placeholder="Email" defaultValue={isEdit ? this.state.email : null}
+                       onChange={this.handleChangeInput}/>
+                <MaskedInput type="text"
+                             name="phone"
+                             placeholder="Номер телефона"
+                             defaultValue={isEdit ? this.state.phone : null}
+                             mask={phoneMask}
+                             onChange={this.handleChangeInput}
+                             className="form-control"
+                             id="supplier_contact_phone"/>
+                <input className="form-control" name="comment" placeholder="Комментарий" defaultValue={isEdit ? this.state.comment : null}
+                       onChange={this.handleChangeInput} />
+                {editButtons}
             </div>
         )
     }
@@ -92,7 +88,8 @@ class AddNewContact extends React.Component {
 const mapDispatchToProps = {
   addNewContact,
   editContact,
-  deleteContact
+  deleteContact,
+    getSupplierDetail,
 };
 
 export default connect(null, mapDispatchToProps)(AddNewContact);

@@ -3,6 +3,8 @@ import {
     GET_SUPPLIER_DETAIL, EDIT_SUPPLIER, ADD_NEW_CONTACT, EDIT_CONTACT, DELETE_CONTACT
 } from "../constans";
 import {getUrlSuppliers} from "../services/utils";
+import {BaseApi} from "../services/base";
+import {getOrder} from "./orders";
 
 export function getAllSuppliers(text) {
     let callAPI = 'suppliers/';
@@ -34,28 +36,54 @@ export function addNewSupplier(data) {
 }
 
 export function addNewContact(supplierId, data) {
-    return {
-        type: ADD_NEW_CONTACT,
-        requestType: 'POST',
-        callAPI: `suppliers/${supplierId}/contacts/`,
-        data: data
+    const baseApi = new BaseApi();
+    return dispatch => {
+        baseApi
+            .post(`suppliers/${supplierId}/contacts/`, data)
+            .then(response => {
+                if (response.status === 201) {
+                    dispatch(getSupplierDetail(supplierId))
+                }
+            });
     }
 }
 
 export function editContact(supplierId, contactId, data) {
-    return {
-        type: EDIT_CONTACT,
-        requestType: 'PUT',
-        callAPI: `suppliers/${supplierId}/contacts/${contactId}/`,
-        data: data
+    const baseApi = new BaseApi();
+    return dispatch => {
+        baseApi
+            .put(`suppliers/${supplierId}/contacts/${contactId}/`, data)
+            .then(response => {
+                if (response.status === 200) {
+                    dispatch(getSupplierDetail(supplierId))
+                }
+            });
     }
 }
 
 export function deleteContact(supplierId, contactId) {
-    return {
-        type: DELETE_CONTACT,
-        requestType: 'DELETE',
-        callAPI: `suppliers/${supplierId}/contacts/${contactId}/`
+    const baseApi = new BaseApi();
+    return dispatch => {
+        baseApi
+            .deleteRequest(`suppliers/${supplierId}/contacts/${contactId}/`)
+            .then(response => {
+                if (response.status === 204) {
+                    dispatch(getSupplierDetail(supplierId))
+                }
+            });
+    }
+}
+
+export function addPaymentInOrder(data, orderId) {
+    const baseApi = new BaseApi();
+    return dispatch => {
+        baseApi
+            .post(`orders/${orderId}/pay/`, data)
+            .then(response => {
+                if (response.status === 201) {
+                    dispatch(getOrder(orderId));
+                }
+            });
     }
 }
 
