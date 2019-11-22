@@ -1,8 +1,13 @@
 import React from 'react';
 import './styles.css';
-import {getPhoneWithMask, getPhoneWithoutMask, phoneMask} from "../../../services/utils";
+import {getPhoneWithoutMask, phoneMask} from "../../../services/utils";
 import {connect} from 'react-redux';
-import {addNewContact, editContact, deleteContact, getSupplierDetail} from "../../../AC/suppliers";
+import {
+    addNewContact,
+    editContact,
+    deleteContact,
+    getSupplierDetail, openAddNewContactWindow
+} from "../../../AC/suppliers";
 import MaskedInput from "react-text-mask";
 
 class AddNewContact extends React.Component {
@@ -35,12 +40,12 @@ class AddNewContact extends React.Component {
     submitButtonClick = (isEdit) => {
         isEdit ? this.props.editContact(this.props.supplierId, this.props.contact.id, this.state)
             : this.props.addNewContact(this.props.supplierId, this.state);
-        this.props.close(false);
+        this.props.close();
     };
 
     deleteButtonClick = (supplierId, contactId) => {
         this.props.deleteContact(supplierId, contactId);
-        this.props.close(false);
+        this.props.close();
     };
 
     getEditButtons(isEdit, supplierId, contact, newSupplier) {
@@ -60,11 +65,11 @@ class AddNewContact extends React.Component {
     }
 
     render() {
-        console.log("Пожилой метан", this.state);
         const {isEdit, supplierId, contact, newSupplier} = this.props;
         let editButtons = this.getEditButtons(isEdit, supplierId, contact, newSupplier);
         return (
             <div className="add-new-contact-container">
+                {isEdit ? <h3>Редактировать контакт</h3> : <h3>Добавить новый контакт</h3>}
                 <input className="form-control" name="name" placeholder="Имя" defaultValue={isEdit ? this.state.name : null}
                        onChange={this.handleChangeInput}/>
                 <input className="form-control" name="email" placeholder="Email" defaultValue={isEdit ? this.state.email : null}
@@ -85,11 +90,12 @@ class AddNewContact extends React.Component {
     }
 }
 
-const mapDispatchToProps = {
-  addNewContact,
-  editContact,
-  deleteContact,
-    getSupplierDetail,
-};
+const mapDispatchToProps = {addNewContact, editContact, deleteContact, getSupplierDetail, openAddNewContactWindow};
 
-export default connect(null, mapDispatchToProps)(AddNewContact);
+const mapStateToProps = (state) => ({
+   contact: state.suppliers.contact,
+   isEdit: state.suppliers.isEdit,
+    supplierId: state.suppliers.supplier.id
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewContact);

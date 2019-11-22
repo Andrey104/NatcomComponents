@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import EditSupplier from './editSupplier/EditSupplier';
 import Loader from '../../../components/Loader';
-import {editSupplier, getSupplierDetail} from '../../../AC/suppliers';
+import {editSupplier, getSupplierDetail, openAddNewContactWindow} from '../../../AC/suppliers';
 import styles from './styles.css';
 import SuppliesList from "../../supplies/suppliesPage/suppliesList/SuppliesList";
 import SupplierContacts from "./supplierContacts/SupplierContacts";
@@ -10,8 +10,6 @@ import AddNewContactModal from "../../../components/addNewContact/AddNewContactM
 
 class SupplierDetail extends React.Component {
     urlId;
-    isEdit = false;
-    contact;
 
     state = {
         openEditSupplierDialog: false,
@@ -48,27 +46,24 @@ class SupplierDetail extends React.Component {
     }
 
     getSuppliersContacts(contacts) {
-        return contacts.map((contact) => <SupplierContacts contact={contact} editContact = {this.addNewContactDialogIsOpen} />)
+        return contacts.map((contact) => <SupplierContacts contact={contact} editContact = {this.openAddNewContactModalWindow} />)
     }
 
-    addNewContactDialogIsOpen = (isEdit, contact) => {
-        if (isEdit) {
-            this.isEdit = isEdit;
-            contact ? this.contact = contact : null;
-        }
-        this.setState({openAddNewContactDialog: !this.state.openAddNewContactDialog});
+    openAddNewContactModalWindow = (isOpen, isEdit, contact) => {
+        this.props.openAddNewContactWindow({isOpen, isEdit, contact})
+    };
+
+    closeAddNewContactModalWindow = () => {
+      this.props.openAddNewContactWindow({isOpen: false, isEdit: false});
     };
 
 
-    getAddNewContactDialogWindow(supplierId) {
-        return <AddNewContactModal close = {this.addNewContactDialogIsOpen}
-                                   isEdit={this.isEdit}
-                                   contact = {this.contact}
-                                   supplierId={supplierId}/>
+    getAddNewContactDialogWindow() {
+        return <AddNewContactModal contact = {this.contact} close={this.closeAddNewContactModalWindow}/>
     }
 
     render() {
-        const {supplier, isLoading} = this.props;
+        const {supplier, isLoading, openAddNewContact} = this.props;
         if (isLoading || !supplier) {
             return (
                 <div className={styles["pre-loader-container"]}>
@@ -82,7 +77,7 @@ class SupplierDetail extends React.Component {
         return (
             <div>
                 {dialogWindow}
-                {this.state.openAddNewContactDialog ? addNewContact : null}
+                {openAddNewContact ? addNewContact : null}
                 <h1>{supplier.name}</h1>
                 <table className="table table-bordered">
                     <tbody>
@@ -121,7 +116,7 @@ class SupplierDetail extends React.Component {
                     </div>
                     : <h3>У поставщика нет контактов</h3>}
                 <button type="button"
-                        onClick={() => this.addNewContactDialogIsOpen(false)}
+                        onClick={() => this.openAddNewContactModalWindow(true,false)}
                         className="btn btn-primary btn-sm">Добавить
                 </button>
                 <h3>Список поставок:</h3>
@@ -133,5 +128,6 @@ class SupplierDetail extends React.Component {
 
 export default connect((state) => ({
     supplier: state.suppliers.supplier,
-    isLoading: state.suppliers.isLoading
-}), {getSupplierDetail, editSupplier})(SupplierDetail);
+    isLoading: state.suppliers.isLoading,
+    openAddNewContact: state.suppliers.openAddNewContact
+}), {getSupplierDetail, editSupplier, openAddNewContactWindow})(SupplierDetail);

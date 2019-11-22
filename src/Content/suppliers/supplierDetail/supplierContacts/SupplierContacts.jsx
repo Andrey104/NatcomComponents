@@ -9,7 +9,7 @@ class SupplierContacts extends React.Component {
             <tr>
                 <td className="contact-name">
                     <button type="button"
-                            onClick={() => editContact(true, contact)}
+                            onClick={() => editContact(true, true, contact)}
                             className="btn btn-primary btn-sm">Редактировать
                     </button>
                     {contact.name}

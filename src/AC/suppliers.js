@@ -1,6 +1,9 @@
 import {
-    ADD_NEW_SUPPLIER, GET_ALL_SUPPLIERS, GET_NEXT_SUPPLIERS,
-    GET_SUPPLIER_DETAIL, EDIT_SUPPLIER, ADD_NEW_CONTACT, EDIT_CONTACT, DELETE_CONTACT
+    ADD_NEW_SUPPLIER,
+    GET_ALL_SUPPLIERS,
+    GET_NEXT_SUPPLIERS,
+    GET_SUPPLIER_DETAIL,
+    EDIT_SUPPLIER, OPEN_NEW_CONTACT_WINDOW
 } from "../constans";
 import {getUrlSuppliers} from "../services/utils";
 import {BaseApi} from "../services/base";
@@ -33,6 +36,13 @@ export function addNewSupplier(data) {
         callAPI: `suppliers/`,
         data: data
     }
+}
+
+export function openAddNewContactWindow(data) {
+    return {
+        type: OPEN_NEW_CONTACT_WINDOW,
+        data: data
+    };
 }
 
 export function addNewContact(supplierId, data) {
