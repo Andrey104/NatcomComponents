@@ -12,8 +12,7 @@ class SupplierDetail extends React.Component {
     urlId;
 
     state = {
-        openEditSupplierDialog: false,
-        openAddNewContactDialog: false
+        openEditSupplierDialog: false
     };
 
     getSupplierInfo() {
@@ -59,7 +58,7 @@ class SupplierDetail extends React.Component {
 
 
     getAddNewContactDialogWindow() {
-        return <AddNewContactModal contact = {this.contact} close={this.closeAddNewContactModalWindow}/>
+        return <AddNewContactModal contact = {this.contact} close={this.closeAddNewContactModalWindow} supplierId={this.props.supplier.id}/>
     }
 
     render() {

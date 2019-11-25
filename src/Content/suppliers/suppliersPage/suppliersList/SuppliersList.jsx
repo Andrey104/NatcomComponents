@@ -8,7 +8,7 @@ import AddButton from '../../../../components/AddButton/index';
 import Loader from '../../../../components/Loader/index';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../../../helpers';
-import {getAllSuppliers, getNextSuppliers} from '../../../../AC/suppliers';
+import {getAllSuppliers, getNextSuppliers, openAddNewContactWindow} from '../../../../AC/suppliers';
 import styles from './styles.scss';
 import SupplierDetailModal from "../../supplierDetail/supplierDetailModal/supplierDetailModal";
 
@@ -147,4 +147,4 @@ export default connect((state) => ({
     suppliers: mapToArr(state.suppliers.suppliers),
     isLoading: state.suppliers.isLoading,
     hasMoreSuppliers: state.suppliers.hasMoreSuppliers,
-}), {getAllSuppliers, getNextSuppliers})(SuppliersList);
+}), {getAllSuppliers, getNextSuppliers, openAddNewContactWindow})(SuppliersList);

@@ -30,11 +30,11 @@ class AddNewContact extends React.Component {
     }
 
     handleChangeInput = event => {
-        const {handleChangeNewSupplierContact} = this.props;
+        const {handleChangeNewSupplierContact, newSupplier} = this.props;
         let name = event.target.name;
         let value = event.target.value;
         name === "phone" ? this.setState({[name]: getPhoneWithoutMask(value)}) : this.setState({[name]: value});
-        handleChangeNewSupplierContact(event);
+        newSupplier ? handleChangeNewSupplierContact(event) : null;
     };
 
     submitButtonClick = (isEdit) => {
@@ -48,18 +48,19 @@ class AddNewContact extends React.Component {
         this.props.close();
     };
 
-    getEditButtons(isEdit, supplierId, contact, newSupplier) {
+    getEditButtons(isEdit, supplierId, contact) {
        return (
             <div>
                 <button type="button"
-                        onClick={() => this.submitButtonClick(isEdit, newSupplier)}
-                        className="btn btn-primary btn-sm">{isEdit ? "Сохранить" : "Добавить"}
+                         onClick={() => this.submitButtonClick(isEdit)}
+                         className="btn btn-primary btn-sm">{isEdit ? "Сохранить" : "Добавить"}
                 </button>
                 {isEdit ? <button type="button"
                                   onClick={() => this.deleteButtonClick(supplierId, contact.id)}
                                   className="btn btn-danger btn-sm">Удалить
                     </button>
                     : null}
+
             </div>
         )
     }
@@ -84,7 +85,7 @@ class AddNewContact extends React.Component {
                              id="supplier_contact_phone"/>
                 <input className="form-control" name="comment" placeholder="Комментарий" defaultValue={isEdit ? this.state.comment : null}
                        onChange={this.handleChangeInput} />
-                {editButtons}
+                {!newSupplier ? <div>{editButtons}</div> : null}
             </div>
         )
     }
@@ -95,7 +96,6 @@ const mapDispatchToProps = {addNewContact, editContact, deleteContact, getSuppli
 const mapStateToProps = (state) => ({
    contact: state.suppliers.contact,
    isEdit: state.suppliers.isEdit,
-    supplierId: state.suppliers.supplier.id
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNewContact);
