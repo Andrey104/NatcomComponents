@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import DialogWindow from '../../../../components/ModalWindow';
 import {BaseApi} from '../../../../services/base';
 import styles from './styles.scss';
+import {connect} from 'react-redux';
 
 let cx = classNames.bind(styles);
 
@@ -43,7 +44,6 @@ class EditSupplier extends React.Component {
             }, err => {
                 console.log(err);
             })
-
     };
 
     getFormValues() {
@@ -64,6 +64,7 @@ class EditSupplier extends React.Component {
     close = () => this.props.close();
 
     render() {
+        const {supplier} = this.props;
         return (
             <div>
                 <div className="modal-body">
@@ -101,4 +102,8 @@ class EditSupplier extends React.Component {
     }
 }
 
-export default DialogWindow(EditSupplier);
+const mapStateToProps = (state) => ({
+   supplier: state.suppliers.supplier
+});
+
+export default connect(mapStateToProps)(DialogWindow(EditSupplier));
