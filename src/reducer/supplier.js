@@ -1,6 +1,6 @@
 import {
     ADD_NEW_SUPPLIER, EDIT_SUPPLIER, GET_ALL_SUPPLIERS,
-    GET_NEXT_SUPPLIERS, GET_SUPPLIER_DETAIL, SUCCESS, START, FAIL
+    GET_NEXT_SUPPLIERS, GET_SUPPLIER_DETAIL, SUCCESS, START, OPEN_NEW_CONTACT_WINDOW , FAIL
 } from "../constans";
 import {OrderedMap, Record} from "immutable";
 import {arrToMap} from "../helpers";
@@ -9,7 +9,8 @@ const SupplierRecord = Record({
     id: undefined,
     name: undefined,
     address: undefined,
-    comment: undefined
+    comment: undefined,
+    contacts: undefined
 });
 
 const ReducerState = Record({
@@ -17,7 +18,10 @@ const ReducerState = Record({
     loaded: false,
     hasMoreSuppliers: false,
     supplier: null,
-    suppliers: new OrderedMap({})
+    suppliers: new OrderedMap({}),
+    openAddNewContact: false,
+    isEdit: false,
+    contact: {}
 });
 
 const defaultState = new ReducerState();
@@ -51,6 +55,12 @@ export default (suppliersState = defaultState, actionTypeResponse) => {
             arr = arrToMap(arr, SupplierRecord);
             arr = suppliersState.suppliers.concat(arr);
             return suppliersState.set('suppliers', arr);
+        }
+        case OPEN_NEW_CONTACT_WINDOW: {
+            return suppliersState
+                .set('openAddNewContact', data.isOpen)
+                .set('isEdit', data.isEdit)
+                .set('contact', data.contact)
         }
         case GET_SUPPLIER_DETAIL + START: {
             return suppliersState.set('isLoading', true);
