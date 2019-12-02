@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import DialogWindow from '../../../../../components/ModalWindow/index';
 import {addNewSupplier} from '../../../../../AC/suppliers';
 import './styles.css';
-import AddNewContact from "../../../../../components/addNewContact/AddNewContact/AddNewContact";
 import {getPhoneWithoutMask} from "../../../../../services/utils";
 
 class AddNewSupplier extends React.Component {
