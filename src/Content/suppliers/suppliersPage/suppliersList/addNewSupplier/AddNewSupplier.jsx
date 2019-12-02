@@ -103,7 +103,6 @@ class AddNewSupplier extends React.Component {
                                   onChange={this.handleChangeSupplierState}
                                   id="comment"/>
                     </div>
-                    <AddNewContact handleChangeNewSupplierContact={this.handleChangeNewContactState} newSupplier={true}/>
                 </div>
                 <div className="modal-footer">
                     <button type="button"
