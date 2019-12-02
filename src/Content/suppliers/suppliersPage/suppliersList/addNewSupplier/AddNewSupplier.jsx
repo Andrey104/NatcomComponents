@@ -10,40 +10,13 @@ class AddNewSupplier extends React.Component {
     state = {
         name: '',
         address: null,
-        comment: null,
-        contacts: []
+        comment: null
     };
 
     handleChangeSupplierState = event => {
         const name = event.target.name;
         const value = event.target.value;
         this.setState({[name]: value});
-    };
-
-    handleChangeNewContactState = event => {
-        console.log(event);
-        const name = event.target.name;
-        switch (name) {
-            case "name" : {
-                this.contact.name = event.target.value;
-                break;
-            }
-            case "email" : {
-                this.contact.email = event.target.value;
-                break;
-            }
-            case "phone": {
-                this.contact.phone = getPhoneWithoutMask(event.target.value);
-                break;
-            }
-            case "comment" : {
-                this.contact.comment = event.target.value;
-                break;
-            }
-            default : {
-                break;
-            }
-        }
     };
 
     handleSubmit = event => {
@@ -53,14 +26,7 @@ class AddNewSupplier extends React.Component {
         this.close();
     };
 
-    mapSupplierContactToState() {
-        let contactsArray;
-        this.contact.name ? contactsArray = this.state.contacts.push(this.contact) : contactsArray = [];
-        this.setState({contacts: contactsArray});
-    }
-
     getSupplier = () => {
-        this.mapSupplierContactToState();
         let newSupplier = this.state;
         if (newSupplier.address === '') newSupplier.address = null;
         if (newSupplier.comment === '') newSupplier.comment = null;
