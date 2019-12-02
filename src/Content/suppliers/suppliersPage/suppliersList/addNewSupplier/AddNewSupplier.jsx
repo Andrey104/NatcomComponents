@@ -7,9 +7,6 @@ import './styles.css';
 import {getPhoneWithoutMask} from "../../../../../services/utils";
 
 class AddNewSupplier extends React.Component {
-    contact = {
-
-    };
     state = {
         name: '',
         address: null,
