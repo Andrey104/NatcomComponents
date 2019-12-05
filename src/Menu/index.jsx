@@ -111,6 +111,15 @@ export default class extends React.Component {
                             Заказы
                         </NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink to='/payments'
+                                 onClick={onMenuClose}
+                                 activeClassName='active-item'
+                                 className="nav-link hovered">
+                            <img className='icon' src='/public/payment.svg'/>
+                            Оплаты
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         }
@@ -146,15 +155,6 @@ export default class extends React.Component {
                                  className="nav-link hovered">
                             <img className='icon' src='/public/supply.svg'/>
                             Поставки
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to='/payments'
-                                 onClick={onMenuClose}
-                                 activeClassName='active-item'
-                                 className="nav-link hovered">
-                            <img className='icon' src='/public/payment.svg'/>
-                            Оплаты
                         </NavLink>
                     </li>
                     <li className="nav-item">
