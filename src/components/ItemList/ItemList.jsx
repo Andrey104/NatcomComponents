@@ -8,7 +8,7 @@ import ProductCard from './ProductCard/index';
 import MembraneCard from './MembraneCard/index';
 import InfiniteScrollOverride from '../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../helpers';
-import {deleteProductsFromStore, getAllProducts, getNextProducts, setProductsClient} from '../../AC/products';
+import {deleteProductsFromStore, getAllProducts, getNextProducts, setProductsClient, setProductType} from '../../AC/products';
 import history from '../../history';
 import {getCurrentUser} from "../../AC/currentUser";
 import {UsersService} from "../../services/users.service";
@@ -104,7 +104,8 @@ class ItemList extends React.Component {
         }
     };
 
-    handleClick = item => () => {
+    handleClick = (item, type) => () => {
+        this.props.setProductType(type);
         if (this.props.selectMode) {
             this.props.handleSubmit(item);
         } else {
@@ -272,5 +273,6 @@ export default connect((state) => ({
     getAllMembranes,
     saveMembranesFilters,
     deleteMembranesFromStore,
-    deleteProductsFromStore
+    deleteProductsFromStore,
+    setProductType
 })(ItemList);

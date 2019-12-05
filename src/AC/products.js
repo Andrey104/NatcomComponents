@@ -4,7 +4,8 @@ import {
     GET_PRODUCT,
     DELETE_PRODUCTS_FROM_STORE,
     SAVE_PRODUCTS_FILTERS,
-    SET_PRODUCTS_CLIENT
+    SET_PRODUCTS_CLIENT,
+    SET_PRODUCT_TYPE
 } from '../constans';
 import {getUrl} from "../services/utils";
 
@@ -33,6 +34,13 @@ export function getProduct(productId) {
         type: GET_PRODUCT,
         requestType: 'GET',
         callAPI: `items/products/${productId}/`
+    }
+}
+
+export function setProductType(data) {
+    return {
+        type: SET_PRODUCT_TYPE,
+        data
     }
 }
 
