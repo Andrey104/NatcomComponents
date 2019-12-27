@@ -1,10 +1,7 @@
 import React from 'react';
-
 import {countFormat} from '../../../services/utils';
 
 export default class extends React.Component {
-
-
     getBody() {
         const {stocks} = this.props;
         return stocks.map(itemStock => (

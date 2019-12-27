@@ -75,7 +75,8 @@ export default (productState = defaultState, actionTypeResponse) => {
                 .set('loaded', true);
         }
         case GET_PRODUCT + SUCCESS: {
-            return productState.set('product', response.data);
+            return productState.set('product', response.data)
+                               .set('isLoading', false);
         }
         case SET_PRODUCT_TYPE: {
             return productState.set('productType', data);
