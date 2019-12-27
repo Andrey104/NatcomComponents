@@ -70,7 +70,7 @@ class CategoriesList extends React.Component {
                     <div className="row">
                         <div className="col-12">
                             <table className="table table-hover table-bordered">
-                                <thead className="thead-light">
+                                <thead className="thead">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Название</th>

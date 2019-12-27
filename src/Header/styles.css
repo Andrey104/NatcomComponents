@@ -2,7 +2,13 @@
     .navbar-brand {
         display: none;
     }
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
+
 .menu-icon-container {
     padding: 4px 25px 4px 15px;
     color: white;
@@ -13,8 +19,53 @@
 }
 
 .navbar {
-    background-color: #2a56c6;
+    background-color: #16244a;
     margin: 0;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     z-index: 20;
+    font-weight: 200;
 }
+
+.navbar-brand {
+    line-height: 1;
+    display: inline-block;
+    color: white;
+    text-decoration:none;
+    cursor: pointer;
+}
+
+.navbar-brand:after {
+    display: block;
+    content: "";
+    height: 2px;
+    width: 0;
+    background-color: white;
+    transition: width .3s ease-in-out;
+}
+
+.navbar-brand:hover:after,
+.navbar-brand:focus:after {
+    width: 100%;
+}
+
+.classic-button {
+    background-color: #274cac;
+    color: white;
+    font-weight: 300;
+    width: 150px;
+    border: none;
+    border-radius: 10px;
+    padding: 7px;
+    transition: 0.3s linear;
+}
+
+.classic-button:hover {
+    background-color: white;
+    color: black;
+    outline: none;
+}
+
+.page-title {
+    color: #16244a;
+}
+

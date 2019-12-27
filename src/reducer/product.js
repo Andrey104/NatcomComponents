@@ -6,7 +6,7 @@ import {
     DELETE_PRODUCTS_FROM_STORE,
     START, SUCCESS,
     SAVE_PRODUCTS_FILTERS,
-    SET_PRODUCTS_CLIENT
+    SET_PRODUCTS_CLIENT, SET_PRODUCT_TYPE
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -39,7 +39,8 @@ const ReducerState = Record({
     },
     nextPageNumber: null,
     product: {},
-    products: new OrderedMap({})
+    products: new OrderedMap({}),
+    productType: null
 });
 
 const defaultState = new ReducerState();
@@ -75,6 +76,9 @@ export default (productState = defaultState, actionTypeResponse) => {
         }
         case GET_PRODUCT + SUCCESS: {
             return productState.set('product', response.data);
+        }
+        case SET_PRODUCT_TYPE: {
+            return productState.set('productType', data);
         }
         case SAVE_PRODUCTS_FILTERS: {
             return productState.set('filters', data);
