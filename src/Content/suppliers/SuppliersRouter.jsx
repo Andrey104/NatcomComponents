@@ -12,7 +12,7 @@ class SuppliersRouter extends React.Component {
 
     getMenu() {
         let menu = (
-            <NavLink to='/suppliers'>
+            <NavLink className="page-title" to='/suppliers'>
                 <span>Поставщики</span>
             </NavLink>
         );

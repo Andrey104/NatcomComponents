@@ -8,7 +8,7 @@ export default class extends React.Component {
         const {item} = this.props;
         return (
             <div className="prices-container">
-                <h6>Цены</h6>
+                <h5>Цены</h5>
                 <div className="prices-names">
                     <div>Цена закупки</div>
                     <div>Цена стандартная</div>

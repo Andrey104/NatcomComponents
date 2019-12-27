@@ -10,7 +10,7 @@ import history from './history';
 ReactDOM.render((
     <Provider store={store}>
         <Router history={history}>
-            <Root/>
+            <Root />
         </Router>
     </Provider>),
         document.getElementById('root'));

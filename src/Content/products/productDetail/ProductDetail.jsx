@@ -7,7 +7,6 @@ import ItemPrices from '../../../components/itemDetail/ItemPrices';
 import MainImage from '../../../components/itemDetail/MainImage';
 import ItemStocks from '../../../components/itemDetail/ItemStocks';
 import ItemImages from '../../../components/itemDetail/ItemImages';
-import ItemImagesAdd from '../../../components/addNewItem/ItemImages';
 import {getProduct} from '../../../AC/products';
 import {checkSubcategory} from '../../../services/utils';
 import {units} from '../../../constans';
@@ -56,11 +55,16 @@ class ProductDetail extends React.Component {
     getEditButtons() {
         if (UsersService.managerPermission()) {
             return (
-                <div>
-                    <button onClick={this.handleEditProduct}>Редактировать</button>
-                    <br/>
-                    <br/>
-                    <button onClick={this.handleEditProductServerAdmin}>Редактировать(Через SERVER ADMIN)</button>
+                <div className="edit-buttons-container-for-item-page">
+                    <button className="edit-button-for-item-page" onClick={this.handleEditProduct}>
+                        <img src="../../../images/edit-button.png"/>Редактировать
+                    </button>
+                    <button className="edit-button-for-item-page" onClick={this.handleProductHistory}>
+                        <img src="../../../images/motion-button.png" />Движение
+                    </button>
+                    <button className="edit-button-for-item-page" onClick={this.handleEditProductServerAdmin}>
+                        <img src="../../../images/admin-edit.png"/>ADMIN
+                    </button>
                 </div>
             );
         }
@@ -76,27 +80,26 @@ class ProductDetail extends React.Component {
             );
         }
         return (
-            <div className="col-12">
-                <div className="row">
-                    <div className="col-8">
-                        <h3>{product.name}</h3>
+            <div className="item-page-container">
+                <div className="item-page-main-info">
+                    <div className="main-images-container">
+                        <div>
+                            <h3>{product.name}</h3>
+                            <h3>{this.itemType === "product" ? `${product.vendor_code} ${product.name} (${units[product.unit - 1]})` : null}</h3>
+                        </div>
+                        <h6>{`${product.category.name} > ${checkSubcategory(product.subcategory)}`}</h6>
+                        <MainImage mainImage={product.main_image} images={product.images}/>
+                        {product.images ? <ItemImages images={product.images} />
+                            : <h3>Нет изображений</h3>}
+                    </div>
+                    <div className="item-page-dop-info">
                         {this.getEditButtons()}
-                        <button onClick={this.handleProductHistory}>Движение</button>
-                        <h5>Артикул {product.vendor_code}</h5>
-                        <div>Единица измерения: {units[product.unit - 1]}</div>
                         <ItemPrices item={product}/>
-                        {this.getCategories(product)}
+                        <div className="item-stocks">
+                            <h4>Остатки</h4>
+                            <ItemStocks stocks={product.stocks}/>
+                        </div>
                     </div>
-                    <div className="col-4">
-                        <MainImage mainImage={product.main_image}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <h5>Остатки</h5>
-                    <ItemStocks stocks={product.stocks}/>
-                </div>
-                <div className="row">
-                    <ItemImages images={product.images}/>
                 </div>
             </div>
         )

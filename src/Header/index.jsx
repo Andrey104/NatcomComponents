@@ -23,7 +23,7 @@ class Header extends React.Component {
                     <img className='menu-icon' src = "/public/menu.svg"/>
                 </div>
                 <NavLink className="navbar-brand" to='/'>Все полотна</NavLink>
-                <button className="btn btn-primary"
+                <button className="classic-button"
                         onClick={this.handleNewOrderButtonClick}>Добавить заказ</button>
                 <div className="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul className="navbar-nav mr-auto">
