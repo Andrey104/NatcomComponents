@@ -120,7 +120,7 @@ export function priceFormat(price) {
     return formattedPrice;
 }
 
-export function priceFormatWithoutSpaces(price) {
+export function priceFormatWithoutSpacespriceFormatWithoutSpaces(price) {
     let formattedPrice;
     if (price){
         formattedPrice = Number(price).toFixed(2);
