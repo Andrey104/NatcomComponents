@@ -1,5 +1,40 @@
+.item-page {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.item-page-main-info {
+    display: flex;
+    width: 100%;
+}
+
+.item-page-header {
+    display: flex;
+    align-items: flex-start;
+}
+
+.item-page-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-page-images-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+}
+
+.item-page-edit-buttons-container {
+    display: flex;
+}
+
 .no-image-text {
-    margin: 20px auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-size: 20px;
 }
 
 .item-images-container {
@@ -59,15 +94,10 @@
     align-items: center;
 }
 
-.item-page-main-info {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
 .item-page-dop-info {
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .edit-buttons-container-for-item-page {
@@ -156,16 +186,12 @@ content: '';
     height: 100%;
 }
 
-.item-stocks {
-    margin-top: 30px;
-}
-
 .item-images-container button {
     width: 100px;
 }
 
 .item-stocks-table {
-    width: 715px;
+    width: 700px;
     table-layout: fixed;
     border-collapse: collapse;
 }
@@ -179,6 +205,7 @@ content: '';
 }
 
 .item-stocks-table thead {
+    text-align: center;
     border: 1.5px solid #243b77;
 }
 

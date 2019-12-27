@@ -6,7 +6,7 @@ import {
     DELETE_PRODUCTS_FROM_STORE,
     START, SUCCESS,
     SAVE_PRODUCTS_FILTERS,
-    SET_PRODUCTS_CLIENT
+    SET_PRODUCTS_CLIENT, SET_PRODUCT_TYPE
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -74,7 +74,8 @@ export default (productState = defaultState, actionTypeResponse) => {
                 .set('loaded', true);
         }
         case GET_PRODUCT + SUCCESS: {
-            return productState.set('product', response.data);
+            return productState.set('product', response.data)
+                               .set('isLoading', false);
         }
         case SAVE_PRODUCTS_FILTERS: {
             return productState.set('filters', data);

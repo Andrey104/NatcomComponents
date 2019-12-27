@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import history from '../../../history';
-
 import Loader from '../../../components/Loader';
 import ItemPrices from '../../../components/itemDetail/ItemPrices';
 import MainImage from '../../../components/itemDetail/MainImage';
@@ -34,37 +33,20 @@ class ProductDetail extends React.Component {
     };
 
     getCategories(product) {
-        return (
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">Категория</th>
-                    <th scope="col">Подкатегория</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{product.category.name}</td>
-                    <td>{checkSubcategory(product.subcategory)}</td>
-                </tr>
-                </tbody>
-            </table>
-        );
+        return <div>{`${product.category.name} > ${checkSubcategory(product.subcategory)}`}</div>;
     }
 
     getEditButtons() {
         if (UsersService.managerPermission()) {
             return (
-                <div className="edit-buttons-container-for-item-page">
-                    <button className="edit-button-for-item-page" onClick={this.handleEditProduct}>
-                        <img src="../../../images/edit-button.png"/>Редактировать
-                    </button>
-                    <button className="edit-button-for-item-page" onClick={this.handleProductHistory}>
-                        <img src="../../../images/motion-button.png" />Движение
-                    </button>
-                    <button className="edit-button-for-item-page" onClick={this.handleEditProductServerAdmin}>
-                        <img src="../../../images/admin-edit.png"/>ADMIN
-                    </button>
+                <div className="item-page-edit-buttons-container">
+                    <button onClick={this.handleEditProduct}>Редактировать</button>
+                    <br/>
+                    <br/>
+                    <button onClick={this.handleEditProductServerAdmin}>Редактировать(Через SERVER ADMIN)</button>
+                    <br/>
+                    <br/>
+                    <button onClick={this.handleProductHistory}>Движение</button>
                 </div>
             );
         }
@@ -80,25 +62,21 @@ class ProductDetail extends React.Component {
             );
         }
         return (
-            <div className="item-page-container">
-                <div className="item-page-main-info">
-                    <div className="main-images-container">
-                        <div>
-                            <h3>{product.name}</h3>
-                            <h3>{this.itemType === "product" ? `${product.vendor_code} ${product.name} (${units[product.unit - 1]})` : null}</h3>
-                        </div>
-                        <h6>{`${product.category.name} > ${checkSubcategory(product.subcategory)}`}</h6>
-                        <MainImage mainImage={product.main_image} images={product.images}/>
-                        {product.images ? <ItemImages images={product.images} />
-                            : <h3>Нет изображений</h3>}
+            <div className="item-page">
+                <div className="item-page-title">
+                    <h3>{`${product.name} ${product.vendor_code} ${units[product.unit - 1]}`}</h3>
+                    {this.getCategories(product)}
+                    <div className="item-page-images-container">
+                        <MainImage mainImage={product.main_image}/>
+                        <ItemImages images={product.images}/>
                     </div>
-                    <div className="item-page-dop-info">
-                        {this.getEditButtons()}
-                        <ItemPrices item={product}/>
-                        <div className="item-stocks">
-                            <h4>Остатки</h4>
-                            <ItemStocks stocks={product.stocks}/>
-                        </div>
+                </div>
+                <div className="item-page-dop-info">
+                    {this.getEditButtons()}
+                    <ItemPrices item={product}/>
+                    <div className="item-page-stocks">
+                        <h5>Остатки</h5>
+                        <ItemStocks stocks={product.stocks}/>
                     </div>
                 </div>
             </div>
