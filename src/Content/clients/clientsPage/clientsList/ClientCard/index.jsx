@@ -2,7 +2,7 @@ import React from 'react';
 
 import {getPhoneWithMask} from '../../../../../services/utils';
 import history from '../../../../../history';
-import '../styles.css';
+import './styles.css';
 import {priceFormat} from "../../../../../services/utils";
 
 export default class extends React.Component {

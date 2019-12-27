@@ -18,7 +18,7 @@ class ProductsRouter extends React.Component {
 
     getMenu() {
         let menu = (
-            <NavLink to='/products'>
+            <NavLink className="page-title" to='/products'>
                 <span>Товары</span>
             </NavLink>
         );
@@ -41,7 +41,9 @@ class ProductsRouter extends React.Component {
     render() {
         return (
             <div>
-                {this.getMenu()}
+                <div className="breadcrumbs">
+                    {this.getMenu()}
+                </div>
                 <Switch>
                     <Route exact path='/products' component={ProductsPage}/>
                     <Route exact path='/products/add' component={EditProduct}/>

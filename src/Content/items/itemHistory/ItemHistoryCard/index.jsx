@@ -38,11 +38,11 @@ export default class ItemHistoryCard extends React.Component {
             <tr onClick={handleClick(itemHistory)}
                 className={this.getItemHistoryCardStyles(itemHistory)}>
                 <td>{itemHistory.date}</td>
-                <td>{this.getHistoryType(itemHistory)}</td>
-                <td>{itemHistory.performer.first_name} {itemHistory.performer.last_name}</td>
-                <td>{countFormat(itemHistory.count)}</td>
-                <td>{countFormat(itemHistory.price)}</td>
-                <td>{priceFormat(itemHistory.sum)} р</td>
+                <td data-label="Тип: ">{this.getHistoryType(itemHistory)}</td>
+                <td data-label="Клиент/Поставщик: ">{itemHistory.performer.first_name} {itemHistory.performer.last_name}</td>
+                <td data-label="Количество: ">{countFormat(itemHistory.count)}</td>
+                <td data-label="Цена: ">{countFormat(itemHistory.price)}</td>
+                <td data-label="Сумма: ">{priceFormat(itemHistory.sum)} р</td>
             </tr>
         );
     }

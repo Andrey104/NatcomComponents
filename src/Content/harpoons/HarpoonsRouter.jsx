@@ -13,7 +13,7 @@ class MembranesRouter extends React.Component {
 
     getMenu() {
         let menu = (
-            <NavLink to='/harpoons'>
+            <NavLink className="page-title" to='/harpoons'>
                 <span>Гарпуны</span>
             </NavLink>
         );
