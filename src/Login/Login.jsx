@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import styles from './styles.css';
-import {baseUrl} from "../../services/base";
+import './Login.css';
+import {baseUrl} from "../services/base";
 
 
 export default class extends React.Component {
@@ -25,6 +25,8 @@ export default class extends React.Component {
         this.setState({password: event.target.value});
     };
 
+
+    // TODO: Вынести в action
     handleSubmit = event => {
         event.preventDefault();
         const user = {
@@ -46,10 +48,7 @@ export default class extends React.Component {
     };
 
     getDisabledState() {
-        if (!this.state.username || !this.state.password) {
-            return true;
-        }
-        return false;
+        return !this.state.username || !this.state.password;
     }
 
     render() {
@@ -57,7 +56,7 @@ export default class extends React.Component {
             <div className="container">
                 <form onSubmit={this.handleSubmit}
                       className='auth-form'>
-                    <img className='logo' src='/public/logo.jpg'/>
+                    <img className='logo' src='/public/logo.jpg' alt={'icon'}/>
                     <h4 className="text-center">Авторизация</h4>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Логин</label>
