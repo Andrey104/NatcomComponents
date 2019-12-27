@@ -2,7 +2,7 @@ import React from 'react';
 import NavLink from 'react-router-dom/es/NavLink';
 import history from '../history';
 
-import './styles.css';
+import './Header.css';
 import {UsersService} from "../services/users.service";
 import {saveOrderInfoInStore} from "../AC/orders";
 import connect from "react-redux/es/connect/connect";
@@ -15,23 +15,35 @@ class Header extends React.Component {
         history.push(`/orders/add_order`);
     };
 
+    getAddOrderButton = (mobile) => {
+        console.log(mobile);
+        if (!mobile) {
+            return(
+                <button className="classic-button"
+                        onClick={this.handleNewOrderButtonClick}>Добавить заказ
+                </button>
+            )
+        }
+    };
+
     render() {
-        const {onMenuOpen} = this.props;
+        const {onMenuOpen, mobile} = this.props;
         return (
             <nav className="row navbar navbar-expand-md navbar-dark">
-                <div onClick= {onMenuOpen} className="menu-icon-container">
-                    <img className='menu-icon' src = "/public/menu.svg"/>
+                <div onClick={onMenuOpen} className="menu-icon-container">
+                    <img className='menu-icon'
+                         src="/public/menu.svg"
+                         alt='menu'/>
                 </div>
                 <NavLink className="navbar-brand" to='/'>Все полотна</NavLink>
-                <button className="classic-button"
-                        onClick={this.handleNewOrderButtonClick}>Добавить заказ</button>
-                <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+                {this.getAddOrderButton(mobile)}
+                <div className="collapse navbar-collapse"
+                     id="navbarsExampleDefault">
                     <ul className="navbar-nav mr-auto">
                     </ul>
                 </div>
-                <div className='user-info'>{UsersService.getUserInfo()}</div>
             </nav>
-       )
+        )
     }
 }
 

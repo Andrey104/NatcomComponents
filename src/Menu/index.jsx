@@ -251,6 +251,7 @@ export default class extends React.Component {
                     'mobile-hidden': (mobile && !isOpen),
                 }
             )}>
+                <div className='user-info'>{UsersService.getUserInfo()}</div>
                 <div className={classNames({
                         'visible': mobile,
                         'hidden': !mobile,
