@@ -311,7 +311,7 @@ export function getUrlSuppliers(page, text) {
 export function getUrlSupplies(page, supplier) {
     let url_prefix = '';
     let url = '';
-    if (supplier) url += `supplier=${supplier}&`;
+    if (supplier) url += `supplier=${supplier}&`; //text
     if (page) url += `page=${page}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);

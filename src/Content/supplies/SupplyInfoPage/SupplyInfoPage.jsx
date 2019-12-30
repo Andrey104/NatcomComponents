@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Loader from '../../../components/Loader';
-import ItemCardInSupply from './ItemCardInSupply';
+import ItemCardInSupply from './ItemCardInSupply/ItemCardInSupply';
 import TableResultRow from '../../../components/TableResultRow';
 import {getSupply, fromDraft} from '../../../AC/supplies';
 import {priceFormat, getDate} from '../../../services/utils';
 import history from '../../../history';
 import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../../constans";
 
-export class SupplyDetail extends React.Component {
+export class SupplyInfoPage extends Component {
     urlId;
     resultSupplyPrice;
 
     componentWillMount = () => {
-        this.urlId = this.props.match.params.supplyId;
+    this.urlId = this.props.match.params.supplyId;
         this.props.getSupply(this.urlId);
     };
 
@@ -28,7 +28,7 @@ export class SupplyDetail extends React.Component {
                 <div className="text-right">
                     <button type="button"
                             onClick={() => this.props.fromDraft(supply.id)}
-                            className="btn btn-success btn-sm">Убрать из черновика
+                            className="btn btn-success btn-sm">Провести
                     </button>
                     <button type="button"
                             onClick={() => history.push(`/supplies/${this.urlId}/edit`)}
@@ -47,7 +47,7 @@ export class SupplyDetail extends React.Component {
         if (item.type === ITEM_MEMBRANE) {
             return inItem.count * inItem.purchase_price * item.width;
         }
-    }
+    };
 
     getItems() {
         const {items} = this.props.supply;
@@ -56,9 +56,8 @@ export class SupplyDetail extends React.Component {
             const itemPrice = this.getItemPrice(item);
             this.resultSupplyPrice += itemPrice;
             return (
-                <ItemCardInSupply key={item.item.item}
+                <ItemCardInSupply key={String(item.item.item) + String(index)}
                                   item={item}
-                                  itemPrice={itemPrice}
                                   number={++index}/>
             )
         });
@@ -68,19 +67,19 @@ export class SupplyDetail extends React.Component {
         return (
             <table className="table table-hover table-bordered">
                 <thead className="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Артикул</th>
-                    <th scope="col">Название</th>
-                    <th scope="col">Количество</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Итог</th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Количество</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Итог</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {this.getItems()}
-                <TableResultRow columnCount={6}
-                                resultPrice={this.resultSupplyPrice}/>
+                    {this.getItems()}
+                    <TableResultRow columnCount={6}
+                                    resultPrice={this.resultSupplyPrice}/>
                 </tbody>
             </table>
         )
@@ -98,7 +97,7 @@ export class SupplyDetail extends React.Component {
         return (
             <div>
                 <div>Поставщик: {supply.supplier.name}</div>
-                <div>Новер договора: {supply.document}</div>
+                <div>Номер договора: {supply.document}</div>
                 <div>Цена: {priceFormat(supply.cost)}</div>
                 <div>{this.getDraft(supply.draft)}</div>
                 <div>Дата: {getDate(supply.date)}</div>
@@ -114,4 +113,4 @@ export class SupplyDetail extends React.Component {
 export default connect((state) => ({
     supply: state.supplies.supply,
     isLoading: state.supplies.isLoading
-}), {getSupply, fromDraft})(SupplyDetail);
+}), {getSupply, fromDraft})(SupplyInfoPage);

@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Switch from 'react-router-dom/es/Switch';
 import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
 
 import ComponentMenu from '../../components/ComponentMenu/index';
-import SuppliesPage from './suppliesPage/SuppliesPage';
-import AddNewSupply from './addNewSupply/AddNewSupply';
-import SupplyDetail from './supplyDetail/SupplyDetail';
+import SuppliesMainPage from './SuppliesMainPage/SuppliesMainPage';
+import SupplyInfoPage from './SupplyInfoPage/SupplyInfoPage';
 import EditSupply from './editSupply/EditSupply';
+import AddNewSupply from "./addNewSupply/AddNewSupply";
 
-class SuppliesRouter extends React.Component {
+import {deleteSuppliesFromStore} from "../../AC/supplies";
+
+class SuppliesRouter extends Component {
 
     getMenu() {
         let menu = (
@@ -24,34 +26,34 @@ class SuppliesRouter extends React.Component {
             menu = (
                 <ComponentMenu menu={menu} name={'Новая поставка'}/>
             );
-        }
-        if (Number(urlId) === supply.id) {
-            const name = supply.document;
-            menu = (
-                <ComponentMenu menu={menu} name={name}/>
-            );
+        } else if (urlId && supply !== undefined) {
+            if (Number(urlId) === supply.id) {
+                menu = (
+                    <ComponentMenu menu={menu} name={'Поставка №' + supply.id + ' на ' + supply.date}/>
+                );
+            }
         }
         return menu;
     }
 
     render() {
-        const menu = this.getMenu();
         return (
             <div>
                 <div className="breadcrumbs">
-                    {menu}
+                    {this.getMenu()}
                 </div>
                 <Switch>
-                    <Route exact path='/supplies' component={SuppliesPage}/>
+                    <Route exact path='/supplies' component={SuppliesMainPage}/>
                     <Route exact path='/supplies/add_supply' component={AddNewSupply}/>
-                    <Route exact path='/supplies/:supplyId' component={SupplyDetail}/>
-                    <Route exact path='/supplies/:supplyId/edit' component={EditSupply}/>
+                    <Route exact path='/supplies/:supplyId(\d+)' component={SupplyInfoPage}/>
+                    <Route exact path='/supplies/:supplyId(\d+)/edit' component={EditSupply}/>
                 </Switch>
             </div>
         )
     }
+    componentWillUnmount = () => this.props.deleteSuppliesFromStore();
 }
 
 export default connect((state) => ({
     supply: state.supplies.supply,
-}))(SuppliesRouter);
+}), {deleteSuppliesFromStore})(SuppliesRouter);

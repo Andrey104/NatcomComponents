@@ -1,10 +1,18 @@
 import {
-    GET_ALL_SUPPLIES, GET_SUPPLY, GET_NEXT_SUPPLIES,
-    SUPPLY_FROM_DRAFT, SAVE_ORDER_INFO_IN_STORE, SAVE_SUPPLY_INFO_IN_STORE
+    GET_ALL_SUPPLIES,
+    GET_SUPPLY,
+    GET_NEXT_SUPPLIES,
+    SUPPLY_FROM_DRAFT,
+    SAVE_ORDER_INFO_IN_STORE,
+    DELETE_PRODUCTS_FROM_STORE,
+    DELETE_SUPPLIES_FROM_STORE,
+
+    SET_SUPPLIES_DATE, SET_ORDERS_DATE
+
 } from '../constans';
 import {BaseApi} from '../services/base';
 import history from '../history';
-import {getUrlSupplies} from "../services/utils";
+import {getUrlSuppliers, getUrlSupplies} from "../services/utils";
 
 export function getAllSupplies(params) {
     let callAPI = 'supplies/';
@@ -16,22 +24,26 @@ export function getAllSupplies(params) {
     }
 }
 
-export function getNextSupplies(page, supplier) {
+// export function getAllSupplies(supplier) {
+//     let callAPI = 'supplies/';
+//     callAPI += getUrlSupplies(null, supplier);
+//     return {
+//         type: GET_ALL_SUPPLIES,
+//         requestType: 'GET',
+//         callAPI
+//     }
+// }
+
+
+export function getNextSupplies(page, supplier, date) {
     let callAPI = 'supplies/';
-    callAPI += getUrlSupplies(page, supplier);
+    callAPI += getUrlSupplies(page, supplier, date);
     return {
         type: GET_NEXT_SUPPLIES,
         requestType: 'GET',
         callAPI
     }
 }
-
-// export function saveSupplyInfoInStore(supplyInfo) {
-//     return {
-//         type: SAVE_SUPPLY_INFO_IN_STORE,
-//         data: supplyInfo
-//     }
-// }
 
 export function getSupply(supplyId) {
     return {
@@ -68,3 +80,15 @@ export function editSupply(supplyId, supply) {
     }
 }
 
+export function deleteSuppliesFromStore() {
+    return {
+        type: DELETE_SUPPLIES_FROM_STORE
+    }
+}
+
+export function setSuppliesDate(date) {
+    return {
+        type: SET_SUPPLIES_DATE,
+        data: {date}
+    }
+}

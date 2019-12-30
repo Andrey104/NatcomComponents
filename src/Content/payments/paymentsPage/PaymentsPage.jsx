@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import PaymentsList from './paymentsList/PaymentsList';
-import SearchAndDateFilters from '../../../components/SearchAndDateFilters';
+import SearchAndDateFilters from '../../../components/SearchAndDateFilters/SearchAndDateFilters';
 import {getAllPayments, getPaymentsSum, setFilterParams, setTypeFilterParams} from '../../../AC/payments';
 import {getDateForServer, paymentTypes, priceFormat} from "../../../services/utils";
 

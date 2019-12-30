@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
-import SupplyCard from './SupplyCard/index';
+import SupplyCard from './SupplyCard/SupplyCard';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
 import {getAllSupplies, getNextSupplies} from '../../../../AC/supplies';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 
-class SuppliesList extends React.Component {
+class SuppliesList extends Component {
 
     componentWillMount = () => {
         const {supplierId} = this.props;
@@ -29,9 +29,8 @@ class SuppliesList extends React.Component {
                 <td colSpan='5'>Вы еще не добавили ни одной поставки</td>
             </tr>
         );
-        return supplies.map((supply, index) => (
+        return supplies.map((supply) => (
                 <SupplyCard key={supply.id}
-                            number={++index}
                             supply={supply}/>
             )
         );

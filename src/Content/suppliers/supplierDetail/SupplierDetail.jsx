@@ -4,7 +4,7 @@ import EditSupplier from './editSupplier/EditSupplier';
 import Loader from '../../../components/Loader';
 import {editSupplier, getSupplierDetail, openAddNewContactWindow} from '../../../AC/suppliers';
 import styles from './styles.css';
-import SuppliesList from "../../supplies/suppliesPage/suppliesList/SuppliesList";
+import SuppliesList from "../../supplies/SuppliesMainPage/suppliesList/SuppliesList";
 import SupplierContacts from "./supplierContacts/SupplierContacts";
 import AddNewContactModal from "../../../components/addNewContact/AddNewContactModal";
 
