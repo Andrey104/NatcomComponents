@@ -6,9 +6,9 @@ import {
     SUPPLY_FROM_DRAFT,
     START,
     SUCCESS,
-    SAVE_ORDER_INFO_IN_STORE,
     DELETE_SUPPLIES_FROM_STORE,
-    SET_SUPPLIES_DATE
+    SET_SUPPLIES_DATE,
+    SET_SUPPLIES_FILTER
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -34,6 +34,7 @@ const ReducerState = Record({
     nextPageNumber: null,
     supply: {},
     date: null,
+    text: null,
     supplies: new OrderedMap({})
 });
 
@@ -85,6 +86,10 @@ export default (supplyState = defaultState, actionTypeResponse) => {
         case SET_SUPPLIES_DATE: {
             const {date} = data;
             return supplyState.set('date', date);
+        }
+        case SET_SUPPLIES_FILTER: {     //
+            const {text} = data;
+            return supplyState.set('text', text)
         }
     }
 

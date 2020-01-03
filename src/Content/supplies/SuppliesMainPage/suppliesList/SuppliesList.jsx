@@ -16,9 +16,8 @@ class SuppliesList extends Component {
         supplierId === undefined? this.props.getAllSupplies() : this.props.getAllSupplies(`?supplier=${supplierId}`);
     };
 
-    loadSupplies = page => {
-        const {supplierId} = this.props;
-        this.props.getNextSupplies(this.props.nextPage, supplierId);
+    loadSupplies = () => {
+        this.props.getNextSupplies(this.props.nextPage, this.props.text, this.props.date);
     };
 
     addNewSupply = () => history.push(`/supplies/add_supply`);
@@ -84,6 +83,8 @@ class SuppliesList extends Component {
 
 export default connect((state) => ({
     supplies: mapToArr(state.supplies.supplies),
+    date: state.supplies.date,
+    text: state.supplies.text,//
     isLoading: state.supplies.isLoading,
     nextPage: state.supplies.nextPageNumber,
     hasMoreSupplies: state.supplies.hasMoreSupplies

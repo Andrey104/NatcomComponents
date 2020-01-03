@@ -6,8 +6,8 @@ import DatePickerInput from '../datePickers/DatePickerInput';
 import {getDateForServer} from '../../services/utils';
 
 export default class extends Component {
-    searchText;
-    date;
+    searchText = undefined;
+    date = undefined;
 
     setSearchText = text => {
         this.searchText = text;
@@ -30,6 +30,12 @@ export default class extends Component {
             this.props.setComponentsDate(getDateForServer(this.date));
         } else {
             this.props.setComponentsDate(null);
+        }
+
+        if (this.searchText) {
+            this.props.setComponentFilter(this.searchText);
+        } else {
+            this.props.setComponentFilter(null);
         }
         this.props.getAllComponents(url);
     };
