@@ -15,8 +15,30 @@
 }
 
 .name-column{
-  width: 70%;
+  font-weight: 300;
+  width: 40%;
 }
 .phone-column{
-  width: 40%;
+    font-weight: 300;
+  min-width: 30%;
+}
+
+.negative-balance {
+    font-weight: 300;
+  width: 30%;
+  background-color: rgba(240,23,0,0.56);
+}
+
+
+.thead {
+    background-color: #16244a;
+    color: white;
+}
+
+.thead tr th{
+    font-weight: 300;
+}
+
+.thead tr td {
+    cursor: pointer;
 }

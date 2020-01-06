@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import DialogWindow from '../../../../components/ModalWindow';
 import {addPaymentInOrder} from '../../../../AC/orders';
-import {priceFormat} from "../../../../services/utils";
+import {priceFormat, priceFormatWithoutSpaces} from "../../../../services/utils";
 import {ORDER_CONFIRM_STATUS} from "../../../../constans";
 
 class AddPaymentDialog extends React.Component {
@@ -62,7 +62,7 @@ class AddPaymentDialog extends React.Component {
         order.payments.map(payment => {
             s = s + Number(payment.sum)
         });
-        return priceFormat(s)
+        return priceFormatWithoutSpaces(s)
     }
 
     handlePaymentOptionChange = (event) => {
@@ -89,7 +89,7 @@ class AddPaymentDialog extends React.Component {
                 paySum = orderSum - nowPayment;
             }
         }
-        return priceFormat(paySum);
+        return priceFormatWithoutSpaces(paySum);
     }
 
     getAlert() {

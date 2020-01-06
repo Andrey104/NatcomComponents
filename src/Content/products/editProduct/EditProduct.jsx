@@ -1,8 +1,6 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import {connect} from 'react-redux';
-import history from '../../../history';
-
 import Loader from '../../../components/Loader';
 import ItemImages from '../../../components/addNewItem/ItemImages';
 import SelectCategories from '../../../components/SelectCategories';
@@ -14,46 +12,25 @@ import {getSubcategories, getCategoriesAndSubcategories, saveCategories} from '.
 import {units} from '../../../constans';
 import {mapToArr} from '../../../helpers';
 import styles from './styles.scss';
-import {getProduct} from "../../../AC/products";
+import {getProduct, setProductType} from "../../../AC/products";
 
 let cx = classNames.bind(styles);
 
 class EditProduct extends React.Component {
     urlId;
-
     baseApi = new BaseApi();
-    stocks = [];
-    prices = {
-        priceGood: undefined,
-        priceBest: undefined,
-        priceStandard: undefined,
-        priceIn: undefined
-    };
-
-
-    state = {
-        name: null,
-        unit: 1,
-        harpoon: false,
-        stocks: [],
-        prepayment: false,
-        images: [],
-        openAddStocksDialog: false,
-        category: null,
-        subcategory: null,
-        editMode: false
-    };
+    editMode;
 
     constructor(props) {
         super(props);
-        // this.setEditProduct(product);
+        this.state = props.product;
     }
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.props.getCategoriesAndSubcategories();
-
         this.urlId = this.props.match.params.productId;
         if (this.urlId) {
+            this.editMode = true;
             this.loadProduct(this.urlId);
         }
 
@@ -63,7 +40,7 @@ class EditProduct extends React.Component {
         this.baseApi
             .get(`items/products/${productId}/`)
             .then(response => {
-                this.setEditProduct(response.data);
+                this.setEditProduct(response.data)
             });
     }
 
@@ -77,36 +54,8 @@ class EditProduct extends React.Component {
     }
 
     setEditProduct(product) {
-        console.log(product);
-        this.setState({
-            name: product.name,
-            unit: product.unit,
-            harpoon: product.harpoon,
-            stocks: product.stocks,
-            prepayment: product.requires_prepayment,
-            images: product.images,
-            editMode: true
-        });
-        this.prices.priceGood = product.price_good;
-        this.prices.priceStandard = product.price_standard;
-        this.prices.priceBest = product.price_best;
-        this.prices.priceIn = product.price_in;
+        this.setState(product);
         this.setCategoryAndSubcategory(product.category, product.subcategory);
-        this.stocks = product.stocks;
-        console.log(this.state);
-
-        //     name: this.state.name,
-        //     unit: this.state.unit,
-        //     harpoon: this.state.harpoon,
-        //     requires_prepayment: this.state.prepayment,
-        //     price_good: this.prices.priceGood,
-        //     price_standard: this.prices.priceStandard,
-        //     price_best: this.prices.priceBest,
-        //     price_in: this.prices.priceIn,
-        //     category: this.category,
-        //     subcategory: this.subcategory,
-        //     stocks: this.stocks,
-        //     add_images: this.state.images
     }
 
     handleChangeProduct = event => {
@@ -121,7 +70,14 @@ class EditProduct extends React.Component {
         this.setState({[name]: value});
     };
 
-    selectPrices = prices => this.prices = prices;
+    selectPrices = prices => {
+        this.setState({
+            price_good: prices.priceGood,
+            price_standard: prices.priceStandard,
+            price_best: prices.priceBest,
+            price_in: prices.priceIn
+        });
+    };
 
     selectCategory = categoryId => {
         this.setState({
@@ -139,18 +95,19 @@ class EditProduct extends React.Component {
             openAddStocksDialog: !this.state.openAddStocksDialog,
             stocks
         });
-        this.stocks = stocks.map(stock => ({stock: stock.id}));
+        this.setState({stocks: stocks.map(stock => ({stock: stock.id}))});
     };
 
     addStocksState = () => this.setState({openAddStocksDialog: !this.state.openAddStocksDialog});
 
     addItemStocks = (value, index, state) => {
-        this.stocks[index][state] = Number(value);
+        const stocks = this.state.stocks[index][state] = Number(value);
+        this.setState({stocks: stocks})
     };
 
     handleProductImages = images => {
         this.setState({
-           images: images
+            images: images
         });
         console.log('state.images',this.state.images);
         console.log('images',images);
@@ -159,7 +116,8 @@ class EditProduct extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const newProduct = this.getNewProduct();
-        if (this.state.editMode) {
+        console.log("ФЕДОС СНОВА ОБОСРАЛСЯ" + this.state.price_best);
+        if (this.editMode) {
             this.baseApi
                 .put(`items/products/${this.urlId}/`, newProduct)
                 .then(response => {
@@ -176,51 +134,45 @@ class EditProduct extends React.Component {
 
     getNewProduct() {
         return {
+            price_good: this.state.price_good,
+            price_standard: this.state.price_standard,
+            price_best: this.state.price_standard,
+            price_in: this.state.price_in,
+            category: this.getDefaultCategory(),
+            subcategory: this.getDefaultSubcategory(),
             name: this.state.name,
             unit: this.state.unit,
             harpoon: this.state.harpoon,
-            requires_prepayment: this.state.prepayment,
-            price_good: this.prices.priceGood,
-            price_standard: this.prices.priceStandard,
-            price_best: this.prices.priceBest,
-            price_in: this.prices.priceIn,
-            category: this.getDefaultCategory(),
-            subcategory: this.getDefaultSubcategory(),
-            stocks: this.getStocks(this.stocks),
+            requires_prepayment: this.state.requires_prepayment,
+            stocks: this.getStocks(this.state.stocks),
             add_images: this.getImages(this.state.images)
         };
     }
 
     getStocks(stocks) {
-        var stocks = stocks.map(stock => ({
+        const stocksList = stocks.map(stock => ({
             stock: this.getStockID(stock),
             min_count: stock.min_count,
             desired_count: stock.desired_count
         }));
-        return stocks;
+        return stocksList;
     }
 
     getImages(images) {
-        var images = images.map(img => ({
+        const imagesList = images.map(img => ({
             image: img.id,
-            main: img.main
+            main: false
         }));
-        return images;
+        return imagesList;
     }
 
     getStockID(stock) {
         console.log(stock);
         if (stock.stock) {
-            if (stock.stock.id) {
-                return stock.stock.id;
-            } else {
-                return stock.stock
-            }
-        } else {
-            return stock.stock;
-        }
+            if (stock.stock.id) return stock.stock.id;
+            else return stock.stock
+        } else return stock.stock;
     }
-
 
     getDefaultValues() {
         const {categories, subcategories} = this.props;
@@ -268,7 +220,17 @@ class EditProduct extends React.Component {
         }
     }
 
+    getPrices() {
+        return{
+            priceGood: this.state.price_good,
+            priceStandard: this.state.price_standard,
+            priceBest: this.state.price_best,
+            priceIn: this.state.price_in
+        };
+    }
+
     getBody(categories, subcategories) {
+        console.log(this.state);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="row">
@@ -297,7 +259,7 @@ class EditProduct extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-6">
-                        <PricesList prices={this.prices}
+                        <PricesList prices={this.getPrices()}
                                     selectPricesList={this.selectPrices}/>
                     </div>
                 </div>
@@ -345,7 +307,8 @@ class EditProduct extends React.Component {
     }
 
     render() {
-        const {isLoading, categories, subcategories} = this.props;
+        const {isLoading, categories, subcategories, product} = this.props;
+        console.log("Ты в говне" + this.state);
         if (isLoading || categories.length === 0) {
             return (
                 <div className="pre-loader-container">
@@ -354,7 +317,7 @@ class EditProduct extends React.Component {
             );
         }
         const dialogWindow = this.getDialogWindow();
-        //this.getDefaultValues();
+        console.log(product.images);
         const body = this.getBody(categories, subcategories);
         return (
             <div>
@@ -366,9 +329,11 @@ class EditProduct extends React.Component {
 }
 
 
+
+
 export default connect((state) => ({
     categories: mapToArr(state.categories.entries),
     subcategories: mapToArr(state.categories.subcategories),
     product: state.products.product,
     isLoading: state.categories.isLoading
-}), {getCategoriesAndSubcategories, getSubcategories, getProduct, saveCategories})(EditProduct);
+}), {getCategoriesAndSubcategories, getSubcategories, getProduct, setProductType, saveCategories})(EditProduct);

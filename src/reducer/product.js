@@ -6,7 +6,7 @@ import {
     DELETE_PRODUCTS_FROM_STORE,
     START, SUCCESS,
     SAVE_PRODUCTS_FILTERS,
-    SET_PRODUCTS_CLIENT
+    SET_PRODUCTS_CLIENT, SET_PRODUCT_TYPE
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -28,7 +28,7 @@ const ProductRecord = Record({
 });
 
 const ReducerState = Record({
-    isLoading: false,
+    isLoading: true,
     loaded: false,
     hasMoreProducts: false,
     client: null,
@@ -39,7 +39,8 @@ const ReducerState = Record({
     },
     nextPageNumber: null,
     product: {},
-    products: new OrderedMap({})
+    products: new OrderedMap({}),
+    productType: null
 });
 
 const defaultState = new ReducerState();
@@ -53,14 +54,13 @@ export default (productState = defaultState, actionTypeResponse) => {
             return productState.set('isLoading', true);
         }
         case GET_ALL_PRODUCTS + SUCCESS: {
-            console.log(response.data);
             let nextPage, products = response.data.results;
             response.data.next === null ? nextPage = false : nextPage = true;
             products = arrToMap(products, ProductRecord);
-            let nextPageNumber = productState.get('nextPageNumber');
             return productState.set('products', products)
                 .set('hasMoreProducts', nextPage)
                 .set('loaded', true)
+                .set('nextPageNumber', 2)
                 .set('isLoading', false);
         }
         case GET_NEXT_PRODUCTS + SUCCESS: {
@@ -71,10 +71,15 @@ export default (productState = defaultState, actionTypeResponse) => {
             let nextPageNumber = productState.get('nextPageNumber');
             return productState.set('products', newProducts)
                 .set('hasMoreProducts', nextPage)
+                .set('nextPageNumber', nextPageNumber += 1)
                 .set('loaded', true);
         }
         case GET_PRODUCT + SUCCESS: {
-            return productState.set('product', response.data);
+            return productState.set('product', response.data)
+                               .set('isLoading', false);
+        }
+        case SET_PRODUCT_TYPE: {
+            return productState.set('productType', data);
         }
         case SAVE_PRODUCTS_FILTERS: {
             return productState.set('filters', data);

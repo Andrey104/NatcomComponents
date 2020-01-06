@@ -28,6 +28,7 @@ export function getNextMembranes(filters, page, client) {
 }
 
 export function getMembrane(membraneId) {
+    console.log("Улетело полотно в стор")
     return {
         type: GET_MEMBRANE,
         requestType: 'GET',

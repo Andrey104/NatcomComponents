@@ -1,13 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import history from '../../../history';
-
 import Loader from '../../../components/Loader';
 import ItemPrices from '../../../components/itemDetail/ItemPrices';
 import MainImage from '../../../components/itemDetail/MainImage';
 import ItemStocks from '../../../components/itemDetail/ItemStocks';
 import ItemImages from '../../../components/itemDetail/ItemImages';
-import ItemImagesAdd from '../../../components/addNewItem/ItemImages';
 import {getProduct} from '../../../AC/products';
 import {checkSubcategory} from '../../../services/utils';
 import {units} from '../../../constans';
@@ -35,32 +33,20 @@ class ProductDetail extends React.Component {
     };
 
     getCategories(product) {
-        return (
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">Категория</th>
-                    <th scope="col">Подкатегория</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{product.category.name}</td>
-                    <td>{checkSubcategory(product.subcategory)}</td>
-                </tr>
-                </tbody>
-            </table>
-        );
+        return <div>{`${product.category.name} > ${checkSubcategory(product.subcategory)}`}</div>;
     }
 
     getEditButtons() {
         if (UsersService.managerPermission()) {
             return (
-                <div className="product-buttons-container">
-                    <button className="edit-product-button" onClick={this.handleEditProduct}>Редактировать</button>
+                <div className="item-page-edit-buttons-container">
+                    <button onClick={this.handleEditProduct}>Редактировать</button>
                     <br/>
                     <br/>
                     <button onClick={this.handleEditProductServerAdmin}>Редактировать(Через SERVER ADMIN)</button>
+                    <br/>
+                    <br/>
+                    <button onClick={this.handleProductHistory}>Движение</button>
                 </div>
             );
         }
@@ -76,27 +62,22 @@ class ProductDetail extends React.Component {
             );
         }
         return (
-            <div className="col-12">
-                <div className="row">
-                    <div className="col-8">
-                        <h3>{product.name}</h3>
-                        <button onClick={this.handleProductHistory}>Движение</button>
-                        <h5>Артикул {product.vendor_code}</h5>
-                        <div>Единица измерения: {units[product.unit - 1]}</div>
-                        <ItemPrices item={product}/>
-                        {this.getCategories(product)}
-                    </div>
-                    <div className="col-4">
+            <div className="item-page">
+                <div className="item-page-title">
+                    <h3>{`${product.name} ${product.vendor_code} ${units[product.unit - 1]}`}</h3>
+                    {this.getCategories(product)}
+                    <div className="item-page-images-container">
                         <MainImage mainImage={product.main_image}/>
+                        <ItemImages images={product.images}/>
                     </div>
                 </div>
-                <div className="row">
-                    <h5 className="product-stocks-title">Остатки</h5>
-                    <ItemStocks stocks={product.stocks}/>
-                </div>
-                {this.getEditButtons()}
-                <div className="row">
-                    <ItemImages images={product.images}/>
+                <div className="item-page-dop-info">
+                    {this.getEditButtons()}
+                    <ItemPrices item={product}/>
+                    <div className="item-page-stocks">
+                        <h5>Остатки</h5>
+                        <ItemStocks stocks={product.stocks}/>
+                    </div>
                 </div>
             </div>
         )

@@ -22,7 +22,6 @@ class ClientsList extends React.Component {
       clientDetailModalIsOpen: false
     };
 
-
     componentWillMount = () => this.props.getAllClients();
 
     loadClients = page => this.props.getNextClients(page);
@@ -111,10 +110,11 @@ class ClientsList extends React.Component {
                             <div className="row">
                                 <div className="col-12">
                                     <table className="table table-hover table-bordered">
-                                        <thead className="thead-light">
+                                        <thead className="thead">
                                         <tr>
                                             <th scope="col name-column">ФИО</th>
                                             <th scope="col phone-column">Телефон</th>
+                                            <th scope="col phone-column">Долг</th>
                                         </tr>
                                         </thead>
                                         <tbody>

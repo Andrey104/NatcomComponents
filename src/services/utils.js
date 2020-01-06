@@ -113,6 +113,16 @@ export const checkSubcategory = subcategory => {
 export function priceFormat(price) {
     let formattedPrice;
     if (price){
+        formattedPrice = Number(price).toFixed(2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+    } else {
+        formattedPrice = "0.00";
+    }
+    return formattedPrice;
+}
+
+export function priceFormatWithoutSpacespriceFormatWithoutSpaces(price) {
+    let formattedPrice;
+    if (price){
         formattedPrice = Number(price).toFixed(2);
     } else {
         formattedPrice = "0.00";
@@ -268,20 +278,6 @@ export function getUrlMembranes(filters, page, client) {
     if (filters.color) url += `color=${filters.color}&`;
     if (filters.texture) url += `texture=${filters.texture}&`;
     if (filters.harpoon) url += `harpoon=True&`;
-    if (page) url += `page=${page}&`;
-    if (url!== '') {
-        url = '?' + url.slice(0, url.length - 1);
-    }
-    return url_prefix + url;
-}
-
-export function getUrlProducts(filters, page, client) {
-    let url_prefix = '';
-    let url = '';
-    if (client) url += `client=${client.id}&`;
-    if (filters.searchText) url += `text=${filters.searchText}&`;
-    if (filters.category) url += `category=${filters.category}&`;
-    if (filters.subcategory) url += `subcategory=${filters.subcategory}&`;
     if (page) url += `page=${page}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);

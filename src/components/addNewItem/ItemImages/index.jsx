@@ -98,9 +98,10 @@ export default class extends React.Component {
                         <img className="col-12"
                              src={img.url}/>
                         <div className="form-group form-check">
-                            <input type="checkbox"
+                            <input type="radio"
                                    className="form-check-input"
-                                   checked={this.state.productImages[index]}
+                                   // checked={this.state.productImages[index]}
+                                   value={uniqueKey}
                                    onChange={e => this.addMainImage(e, index)}
                                    id={img}/>
                             <label className="form-check-label"

@@ -21,13 +21,12 @@ import HarpoonsRouter from './harpoons/HarpoonsRouter';
 import TransferRequestsRouter from './transfers/transferRequests/TransferRequestsRouter';
 import Statistics from "./statistics/statistics/Statistics";
 import ItemHistory from "./items/itemHistory/ItemHistory";
-import './styles.css'
 
 export default class extends React.Component {
     render() {
         return (
             <div>
-                <div className='content-container'>
+                <div className='content-container container'>
                     <main>
                         <Switch className="main-page">
                             <Route exact path='/' component={OrdersRouter}/>

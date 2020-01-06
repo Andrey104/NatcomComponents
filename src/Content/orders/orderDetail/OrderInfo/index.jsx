@@ -46,7 +46,7 @@ export default class extends React.Component {
         const {order} = this.props;
         return (
             <div>
-                <h4>Заказ № {order.id}</h4>
+                <h4>№ {order.id}</h4>
                 <div>Статус: {this.getStatus()}</div>
                 <div>Склад: {order.stock.name}</div>
                 <div>Дата выдачи: {getDate(order.date)}</div>

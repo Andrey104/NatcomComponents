@@ -13,7 +13,7 @@ class ClientsRouter extends React.Component {
 
     getMenu() {
         let menu = (
-            <NavLink to='/clients'>
+            <NavLink className="page-title" to='/clients'>
                 <span>Клиенты</span>
             </NavLink>
         );

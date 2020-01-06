@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from './styles.css';
+import './Main.css';
 
-import Header from '../Header';
+import Header from '../Header/Header';
 import Menu from '../Menu';
 import Content from '../Content';
-import {MOBILE_DISPLAY, PC_DISPLAY, TABLET_DISPLAY_WIGHT} from '../services/utils';
+import {TABLET_DISPLAY_WIGHT} from '../services/utils';
 import {getCurrentUser} from "../AC/currentUser";
 import Modals from "../Content/Modals/Modals";
 
@@ -36,7 +36,8 @@ class Main extends React.Component {
     }
 
 
-    updateDimensions() {
+    updateDimensions = () => {
+
         if (window.screen.availWidth < TABLET_DISPLAY_WIGHT) {
             this.setState({
                 mobile: true,
@@ -49,12 +50,12 @@ class Main extends React.Component {
                 menuIsOpen: true
             })
         }
-    }
+    };
 
     componentDidMount() {
         this.props.getCurrentUser();
         this.updateDimensions();
-        window.addEventListener("resize", this.updateDimensions.bind(this));
+        window.addEventListener("resize", this.updateDimensions);
     }
 
     render() {
@@ -62,6 +63,7 @@ class Main extends React.Component {
             <div>
                 <div className='header'>
                     <Header history={this.props.history}
+                            mobile={this.state.mobile}
                             onMenuOpen={this.menuClick.bind(this)}/>
                 </div>
                 <div className='row main-row'>

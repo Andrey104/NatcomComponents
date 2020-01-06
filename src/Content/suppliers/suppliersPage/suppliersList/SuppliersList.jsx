@@ -8,7 +8,7 @@ import AddButton from '../../../../components/AddButton/index';
 import Loader from '../../../../components/Loader/index';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../../../helpers';
-import {getAllSuppliers, getNextSuppliers} from '../../../../AC/suppliers';
+import {getAllSuppliers, getNextSuppliers, openAddNewContactWindow} from '../../../../AC/suppliers';
 import styles from './styles.scss';
 import SupplierDetailModal from "../../supplierDetail/supplierDetailModal/supplierDetailModal";
 
@@ -26,7 +26,6 @@ class SuppliersList extends React.Component {
     }
 
     componentDidMount() {
-        console.log('mount', this.props.supplierForSupplier);
         this.props.getAllSuppliers(this.props.text);
     };
 
@@ -111,7 +110,7 @@ class SuppliersList extends React.Component {
                         <div className="row">
                             <div className="col-12">
                                 <table className="table table-hover table-bordered">
-                                    <thead className="thead-light">
+                                    <thead className="thead">
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Поставщик</th>
@@ -148,4 +147,4 @@ export default connect((state) => ({
     suppliers: mapToArr(state.suppliers.suppliers),
     isLoading: state.suppliers.isLoading,
     hasMoreSuppliers: state.suppliers.hasMoreSuppliers,
-}), {getAllSuppliers, getNextSuppliers})(SuppliersList);
+}), {getAllSuppliers, getNextSuppliers, openAddNewContactWindow})(SuppliersList);

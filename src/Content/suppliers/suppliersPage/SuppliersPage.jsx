@@ -17,7 +17,6 @@ class SuppliersPage extends React.Component {
     };
 
     render() {
-        console.log('SupplierPage render:: ', this.props.supplierForSupply);
         return (
             <div>
                 <div className="row">

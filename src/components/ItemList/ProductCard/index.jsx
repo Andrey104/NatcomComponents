@@ -20,7 +20,7 @@ export default class ProductCard extends React.Component {
             price = product.price_good
         }
         return (
-            <tr onClick={handleClick(product)}>
+            <tr onClick={handleClick(product, 0)}>
                 <td>{product.vendor_code}</td>
                 <td>{product.name}</td>
                 <td>{countFormat(product.stocks[0].count - product.stocks[0].reserve)} ({units[product.unit - 1]})</td>

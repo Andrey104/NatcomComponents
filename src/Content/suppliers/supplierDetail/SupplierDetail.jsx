@@ -1,21 +1,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
 import EditSupplier from './editSupplier/EditSupplier';
 import Loader from '../../../components/Loader';
-import {editSupplier, getSupplierDetail} from '../../../AC/suppliers';
+import {editSupplier, getSupplierDetail, openAddNewContactWindow} from '../../../AC/suppliers';
 import styles from './styles.css';
 import SuppliesList from "../../supplies/suppliesPage/suppliesList/SuppliesList";
+import SupplierContacts from "./supplierContacts/SupplierContacts";
+import AddNewContactModal from "../../../components/addNewContact/AddNewContactModal";
 
 class SupplierDetail extends React.Component {
     urlId;
+
     state = {
-        openEditSupplierDialog: false,
+        openEditSupplierDialog: false
     };
 
-    componentDidMount() {
+    getSupplierInfo() {
         this.props.supplierId ? this.urlId = this.props.supplierId : this.urlId = this.props.match.params.supplierId;
         this.props.getSupplierDetail(this.urlId);
+    }
+
+    componentDidMount() {
+        this.getSupplierInfo()
     };
 
     editSupplierState = () => {
@@ -38,8 +44,25 @@ class SupplierDetail extends React.Component {
         return dialogWindow;
     }
 
+    getSuppliersContacts(contacts) {
+        return contacts.map((contact) => <SupplierContacts contact={contact} editContact = {this.openAddNewContactModalWindow} />)
+    }
+
+    openAddNewContactModalWindow = (isOpen, isEdit, contact) => {
+        this.props.openAddNewContactWindow({isOpen, isEdit, contact})
+    };
+
+    closeAddNewContactModalWindow = () => {
+      this.props.openAddNewContactWindow({isOpen: false, isEdit: false});
+    };
+
+
+    getAddNewContactDialogWindow() {
+        return <AddNewContactModal contact = {this.contact} close={this.closeAddNewContactModalWindow} supplierId={this.props.supplier.id}/>
+    }
+
     render() {
-        const {supplier, isLoading} = this.props;
+        const {supplier, isLoading, openAddNewContact} = this.props;
         if (isLoading || !supplier) {
             return (
                 <div className={styles["pre-loader-container"]}>
@@ -48,9 +71,13 @@ class SupplierDetail extends React.Component {
             );
         }
         const dialogWindow = this.getDialogWindow();
+        const contacts = this.getSuppliersContacts(supplier.contacts);
+        const addNewContact = this.getAddNewContactDialogWindow(supplier.id);
         return (
             <div>
                 {dialogWindow}
+                {openAddNewContact ? addNewContact : null}
+                <h1>{supplier.name}</h1>
                 <table className="table table-bordered">
                     <tbody>
                     <tr>
@@ -67,10 +94,29 @@ class SupplierDetail extends React.Component {
                     </tr>
                     </tbody>
                 </table>
-
                 <button type="button"
                         onClick={this.editSupplierState}
                         className="btn btn-primary btn-sm">Редактировать
+                </button>
+                {supplier.contacts[0] ?
+                    <div>
+                        <h2>Контакты: </h2>
+                        <table className="table table-bordered">
+                            <tr className="thead-light">
+                                <th scope="col">Имя</th>
+                                <th scope="col">Номер телефона</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Комментарий</th>
+                            </tr>
+                            <tbody>
+                            {contacts}
+                            </tbody>
+                        </table>
+                    </div>
+                    : <h3>У поставщика нет контактов</h3>}
+                <button type="button"
+                        onClick={() => this.openAddNewContactModalWindow(true,false)}
+                        className="btn btn-primary btn-sm">Добавить
                 </button>
                 <h3>Список поставок:</h3>
                 <SuppliesList supplierId={supplier.id}/>
@@ -81,5 +127,6 @@ class SupplierDetail extends React.Component {
 
 export default connect((state) => ({
     supplier: state.suppliers.supplier,
-    isLoading: state.suppliers.isLoading
-}), {getSupplierDetail, editSupplier})(SupplierDetail);
+    isLoading: state.suppliers.isLoading,
+    openAddNewContact: state.suppliers.openAddNewContact
+}), {getSupplierDetail, editSupplier, openAddNewContactWindow})(SupplierDetail);

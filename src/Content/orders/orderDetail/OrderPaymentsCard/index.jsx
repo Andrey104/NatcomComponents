@@ -111,17 +111,15 @@ export default class extends React.Component {
         const history = this.getPaymentsHistory(order);
         return (
             <div className="card">
-                <h1>Список оплат</h1>
+                <h5>Список оплат</h5>
                 <div className="row">
                     <div className="col-md-6">
-                        <h6>Сумма:</h6>
-                        <span>{priceFormat(order.sum)}</span>
-                        <h6>Предоплата:</h6>
-                        <span>{priceFormat(order.prepayment)}</span>
+                        <h6>Сумма: {priceFormat(order.sum)}</h6>
+                        <h6>Предоплата: {priceFormat(order.prepayment)}</h6>
                     </div>
                     <div className="col-md-6">
-                        <span><h6>Внесено с баланса:</h6> {priceFormat(this.paymentSum)}</span>
-                        <span><h6>Осталось внести:</h6> {priceFormat(order.sum - this.paymentSum)}</span>
+                        <h6>Внесено с баланса: {priceFormat(this.paymentSum)}</h6>
+                        <h6>Осталось внести: {priceFormat(order.sum - this.paymentSum)}</h6>
                     </div>
                 </div>
                 {this.getPaymentStatus()}
