@@ -1,7 +1,14 @@
 import {OrderedMap, Record} from 'immutable';
 import {
-    GET_ALL_SUPPLIES, GET_NEXT_SUPPLIES, GET_SUPPLY,
-    SUPPLY_FROM_DRAFT, START, SUCCESS, SAVE_ORDER_INFO_IN_STORE
+    GET_ALL_SUPPLIES,
+    GET_NEXT_SUPPLIES,
+    GET_SUPPLY,
+    SUPPLY_FROM_DRAFT,
+    START,
+    SUCCESS,
+    DELETE_SUPPLIES_FROM_STORE,
+    SET_SUPPLIES_DATE,
+    SET_SUPPLIES_FILTER
 } from '../constans';
 import {arrToMap} from '../helpers';
 
@@ -26,6 +33,8 @@ const ReducerState = Record({
     hasMoreSupplies: false,
     nextPageNumber: null,
     supply: {},
+    date: null,
+    text: null,
     supplies: new OrderedMap({})
 });
 
@@ -56,7 +65,7 @@ export default (supplyState = defaultState, actionTypeResponse) => {
             return supplyState.update('supplies', supplies => supplies.concat(newSupplies))
                 .set('hasMoreSupplies', nextPage)
                 .set('nextPageNumber', nextPageNumber += 1)
-                .set('loaded', true);
+                .set('loaded', true)
         }
         case GET_SUPPLY + START: {
             return supplyState.set('isLoading', true);
@@ -70,6 +79,17 @@ export default (supplyState = defaultState, actionTypeResponse) => {
             let newSupply = supplyState.supply;
             newSupply.set('draft', false);
             return supplyState.set('supply', newSupply);
+        }
+        case DELETE_SUPPLIES_FROM_STORE : {
+            return defaultState;
+        }
+        case SET_SUPPLIES_DATE: {
+            const {date} = data;
+            return supplyState.set('date', date);
+        }
+        case SET_SUPPLIES_FILTER: {     //
+            const {text} = data;
+            return supplyState.set('text', text)
         }
     }
 

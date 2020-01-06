@@ -1,17 +1,16 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import AddSupplierDialog from './addSupplierDialog/AddSupplierDialog';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {OPEN_ADD_SUPPLIER} from '../../../../constans';
 
-class AddSupplier extends React.Component {
+class AddSupplier extends Component {
     supplier;
 
     constructor(props) {
         super(props);
         const {supplier} = this.props;
-        console.log(supplier);
         this.supplier = supplier;
     }
 

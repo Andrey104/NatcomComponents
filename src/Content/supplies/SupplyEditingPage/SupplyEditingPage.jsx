@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-import AddSupplier from './addSupplier/AddSupplier';
-import AddSupplyInfo from './AddSupplyInfo';
-import AddItems from './addItems/AddItems';
+import AddSupplier from './AddSupplier/AddSupplier';
+import AddSupplyInfo from './AddSupplyInfo/AddSupplyInfo';
+import AddItems from './AddItems/AddItems';
 import {getDateForServer} from '../../../services/utils';
 
-export default class extends React.Component {
+export default class extends Component {
     btnText = 'Добавить';
 
     constructor(props) {

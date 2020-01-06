@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import AssembliesList from './assembliesList/AssembliesList';
-import SearchAndDateFilters from '../../../components/SearchAndDateFilters';
+import SearchAndDateFilters from '../../../components/SearchAndDateFilters/SearchAndDateFilters';
 import {getAllAssemblies} from '../../../AC/assemblies';
 
 class AssembliesPage extends React.Component {

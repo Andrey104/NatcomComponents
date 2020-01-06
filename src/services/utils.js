@@ -308,11 +308,12 @@ export function getUrlSuppliers(page, text) {
     return url_prefix + url;
 }
 
-export function getUrlSupplies(page, supplier) {
+export function getUrlSupplies(page, text, date) {
     let url_prefix = '';
     let url = '';
-    if (supplier) url += `supplier=${supplier}&`;
     if (page) url += `page=${page}&`;
+    if (text) url += `text=${text}&`;
+    if (date) url += `date=${date}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
     }

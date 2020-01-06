@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import HarpoonsList from './harpoonsList/HarpoonsList';
-import SearchAndDateFilters from '../../../components/SearchAndDateFilters';
+import SearchAndDateFilters from '../../../components/SearchAndDateFilters/SearchAndDateFilters';
 import {getAllHarpoons} from '../../../AC/harpoons';
 
 class HarpoonsPage extends React.Component {

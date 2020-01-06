@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import AddItemsDialog from '../../../../components/addItemsDialog/AddItemsDialog';
-import ItemCardInSupply from './ItemCardInSupply/index';
+import ItemCardInSupply from './ItemCardInSupply/ItemCardInSupply';
 import TableResultRow from '../../../../components/TableResultRow/index';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {ITEM_MEMBRANE, ITEM_PRODUCT, OPEN_ADD_ITEMS} from '../../../../constans';
 
-class AddItems extends React.Component {
+class AddItems extends Component {
     resultPrice;
 
     constructor(props) {

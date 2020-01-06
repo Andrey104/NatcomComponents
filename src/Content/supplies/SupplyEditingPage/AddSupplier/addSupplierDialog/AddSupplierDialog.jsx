@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from "react-redux";
 import DialogWindow from '../../../../../components/ModalWindow/index';
 import SuppliersPage from '../../../../suppliers/suppliersPage/SuppliersPage';
 import {getAllSuppliers} from "../../../../../AC/suppliers";
 
-class AddSupplierDialog extends React.Component {
+class AddSupplierDialog extends Component {
 
     render() {
         return (

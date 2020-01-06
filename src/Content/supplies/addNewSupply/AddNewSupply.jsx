@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import SuppliesInfo from '../SupplyInfo';
+import SupplyEditingPage from '../SupplyEditingPage/SupplyEditingPage';
 import {addNewSupply} from '../../../AC/supplies';
 
-class AddNewSupply extends React.Component {
+class AddNewSupply extends Component {
 
     handleSubmit = supply => this.props.addNewSupply(supply);
 
     render() {
         return (
-            <SuppliesInfo handleSubmit={this.handleSubmit}/>
+            <SupplyEditingPage handleSubmit={this.handleSubmit}/>
         )
     }
 }

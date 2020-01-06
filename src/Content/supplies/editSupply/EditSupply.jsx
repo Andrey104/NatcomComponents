@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import SupplyInfo from '../SupplyInfo';
-import {editSupply} from '../../../AC/supplies';
+import SupplyEditingPage from '../SupplyEditingPage/SupplyEditingPage';
+import {editSupply, getSupply} from '../../../AC/supplies';
 
-class EditSupply extends React.Component {
+class EditSupply extends Component {
     editSupply = {};
 
     constructor(props) {
         super(props);
+
         const {supply} = this.props;
+
         this.editSupply.supplier = supply.supplier;
         this.editSupply.items = supply.items.map(supplyArr => ({
             item: supplyArr.item,
@@ -22,6 +24,13 @@ class EditSupply extends React.Component {
         this.editSupply.document = supply.document;
     }
 
+    // componentDidMount = () => {
+    //     this.urlId = this.props.match.params.supplyId;
+    //     if (this.urlId) {
+    //         this.props.getSupply(this.urlId);
+    //     }
+    // }
+
     handleSubmit = newSupply => {
         const {supply} = this.props;
         this.props.editSupply(supply.id, newSupply);
@@ -29,12 +38,12 @@ class EditSupply extends React.Component {
 
     render() {
         return (
-            <SupplyInfo supply={this.editSupply}
-                        handleSubmit={this.handleSubmit}/>
+            <SupplyEditingPage supply={this.editSupply}
+                               handleSubmit={this.handleSubmit}/>
         )
     }
 }
 
 export default connect(state => ({
     supply: state.supplies.supply
-}), {editSupply})(EditSupply);
+}), {editSupply, getSupply})(EditSupply);

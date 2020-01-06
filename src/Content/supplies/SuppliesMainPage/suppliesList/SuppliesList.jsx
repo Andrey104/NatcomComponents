@@ -1,24 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
-import SupplyCard from './SupplyCard/index';
+import SupplyCard from './SupplyCard/SupplyCard';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
 import {getAllSupplies, getNextSupplies} from '../../../../AC/supplies';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 
-class SuppliesList extends React.Component {
+class SuppliesList extends Component {
 
     componentWillMount = () => {
         const {supplierId} = this.props;
         supplierId === undefined? this.props.getAllSupplies() : this.props.getAllSupplies(`?supplier=${supplierId}`);
     };
 
-    loadSupplies = page => {
-        const {supplierId} = this.props;
-        this.props.getNextSupplies(this.props.nextPage, supplierId);
+    loadSupplies = () => {
+        this.props.getNextSupplies(this.props.nextPage, this.props.text, this.props.date);
     };
 
     addNewSupply = () => history.push(`/supplies/add_supply`);
@@ -29,9 +28,8 @@ class SuppliesList extends React.Component {
                 <td colSpan='5'>Вы еще не добавили ни одной поставки</td>
             </tr>
         );
-        return supplies.map((supply, index) => (
+        return supplies.map((supply) => (
                 <SupplyCard key={supply.id}
-                            number={++index}
                             supply={supply}/>
             )
         );
@@ -85,6 +83,8 @@ class SuppliesList extends React.Component {
 
 export default connect((state) => ({
     supplies: mapToArr(state.supplies.supplies),
+    date: state.supplies.date,
+    text: state.supplies.text,//
     isLoading: state.supplies.isLoading,
     nextPage: state.supplies.nextPageNumber,
     hasMoreSupplies: state.supplies.hasMoreSupplies

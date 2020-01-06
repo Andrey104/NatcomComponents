@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import {getItemName, priceFormat} from '../../../../../services/utils';
 
-export default class extends React.Component {
+export default class extends Component {
 
     handleChangeItemParam = (event, index, state) => {
         var value = (event.target.value);
@@ -14,7 +14,6 @@ export default class extends React.Component {
 
     render() {
         const {item, number, itemPrice} = this.props;
-        console.log(item);
         return (
             <tr>
                 <td>{number}</td>

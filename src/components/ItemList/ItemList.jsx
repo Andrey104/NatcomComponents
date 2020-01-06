@@ -242,7 +242,7 @@ class ItemList extends React.Component {
                             {this.getBody()}
                             </tbody>
                         </table>
-                        {/*{loader}*/}
+                        {loader}
                     </div>
                     {this.getAddButton()}
                 </div>
