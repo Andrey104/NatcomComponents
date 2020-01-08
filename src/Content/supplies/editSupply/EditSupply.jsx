@@ -3,44 +3,27 @@ import {connect} from 'react-redux';
 
 import SupplyEditingPage from '../SupplyEditingPage/SupplyEditingPage';
 import {editSupply, getSupply} from '../../../AC/supplies';
+import Loader from "../../../components/Loader";
 
 class EditSupply extends Component {
-    editSupply = {};
 
-    constructor(props) {
-        super(props);
-
-        const {supply} = this.props;
-
-        this.editSupply.supplier = supply.supplier;
-        this.editSupply.items = supply.items.map(supplyArr => ({
-            item: supplyArr.item,
-            count: Number(supplyArr.count),
-            purchasePrice: Number(supplyArr.purchase_price)
-        }));
-        this.editSupply.date = supply.date;
-        this.editSupply.comment = supply.comment;
-        this.editSupply.draft = supply.draft;
-        this.editSupply.document = supply.document;
-    }
-
-    // componentDidMount = () => {
-    //     this.urlId = this.props.match.params.supplyId;
-    //     if (this.urlId) {
-    //         this.props.getSupply(this.urlId);
-    //     }
-    // }
-
-    handleSubmit = newSupply => {
-        const {supply} = this.props;
-        this.props.editSupply(supply.id, newSupply);
+    componentDidMount () {
+        const urlId = this.props.match.params.supplyId
+        if (urlId) this.props.getSupply(urlId);
     };
 
+    handleSubmit = newSupply => this.props.editSupply(this.props.supply.id, newSupply);
+
     render() {
-        return (
-            <SupplyEditingPage supply={this.editSupply}
-                               handleSubmit={this.handleSubmit}/>
-        )
+        if (!Object.keys(this.props.supply).length) {
+            return (
+                <div className="pre-loader-container">
+                    <Loader />
+                </div>
+            );
+        }
+        return ( <SupplyEditingPage handleSubmit={this.handleSubmit}
+                                    supply={this.props.supply} />)
     }
 }
 

@@ -7,7 +7,6 @@ export default class extends Component {
     handleChangeItemParam = (event, index, state) => {
         var value = (event.target.value);
         value.replace(',', '.');
-        // if (!isFinite(value)) return;
         index--;
         this.props.handleChangeItemParam(value, index, state);
     };
@@ -21,9 +20,9 @@ export default class extends Component {
                 <td>{item.item.price_in} р</td>
                 <td>
                     <input type="number"
-                           value={item.purchasePrice || ''}
+                           value={item.purchase_price || ''}
                            className="form-control"
-                           onChange={e => this.handleChangeItemParam(e, number, 'purchasePrice')}/>
+                           onChange={e => this.handleChangeItemParam(e, number, 'purchase_price')}/>
                 </td>
                 <td>
                     <input type="number"

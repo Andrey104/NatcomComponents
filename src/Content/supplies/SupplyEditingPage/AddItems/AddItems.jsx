@@ -20,7 +20,7 @@ class AddItems extends Component {
         let newItem = {
             item,
             count: 0,
-            purchasePrice: 0
+            purchase_price: 0
         };
         var items = this.state.items;
         items.push(newItem);
@@ -64,10 +64,10 @@ class AddItems extends Component {
     getItemPrice(inItem) {
         let item = inItem.item;
         if (item.type === ITEM_PRODUCT) {
-            return inItem.count * inItem.purchasePrice;
+            return inItem.count * inItem.purchase_price;
         }
         if (item.type === ITEM_MEMBRANE) {
-            return inItem.count * inItem.purchasePrice * item.width;
+            return inItem.count * inItem.purchase_price * item.width;
         }
     }
 

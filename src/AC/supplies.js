@@ -21,16 +21,6 @@ export function getAllSupplies(params) {
     }
 }
 
-// export function getAllSupplies(supplier) {
-//     let callAPI = 'supplies/';
-//     callAPI += getUrlSupplies(null, supplier);
-//     return {
-//         type: GET_ALL_SUPPLIES,
-//         requestType: 'GET',
-//         callAPI
-//     }
-// }
-
 export function getNextSupplies(page, supplier, date) {
     let callAPI = 'supplies/';
     callAPI += getUrlSupplies(page, supplier, date);

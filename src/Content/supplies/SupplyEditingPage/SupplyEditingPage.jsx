@@ -38,7 +38,7 @@ export default class extends Component {
         newSupply.items = this.state.items.map(item => ({
                 item: item.item.item,
                 count: item.count,
-                purchase_price: item.purchasePrice
+                purchase_price: item.purchase_price
             }
         ));
         this.props.handleSubmit(newSupply);
@@ -50,7 +50,7 @@ export default class extends Component {
             return true;
         } else if (items.length) {
             for (const item of items) {
-                if (!item.count || !item.purchasePrice)
+                if (!item.count || !item.purchase_price)
                     return true;
             }
         }
