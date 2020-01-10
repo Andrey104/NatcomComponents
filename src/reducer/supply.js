@@ -27,6 +27,7 @@ const ReducerState = Record({
     isLoading: false,
     hasMoreSupplies: false,
     supply: {},
+    nextPageNumber: null,
     filter: {
         date: null,
         text: null,
@@ -46,10 +47,19 @@ export default (supplyState = defaultState, actionTypeResponse) => {
             return supplyState.set('isLoading', true);
         }
         case GET_SUPPLIES + SUCCESS: {
-            let nextPage, newSupplies;
+            let nextPage, newSupplies, nextPageNumber;
+
             response.data.next ? nextPage = true : nextPage = false;
             newSupplies = arrToMap(response.data.results, SupplyRecord);
-            return supplyState.update('supplies', supplies => supplies.concat(newSupplies))
+            nextPageNumber = 2;
+
+            if (!data.update) {
+                nextPageNumber = supplyState.get('nextPageNumber') + 1;
+                newSupplies = supplyState.supplies.merge(newSupplies);
+            }
+
+            return supplyState.set('supplies', newSupplies)
+                .set('nextPageNumber', nextPageNumber)
                 .set('hasMoreSupplies', nextPage)
                 .set('isLoading', false);
         }

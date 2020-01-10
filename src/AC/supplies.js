@@ -10,11 +10,12 @@ import history from '../history';
 import {getUrlSupplies} from "../services/utils";
 
 
-export function getSupplies(page, filter) {
+export function getSupplies(page, filter, update) {
     let callAPI = 'supplies/';
     callAPI += getUrlSupplies(page, filter);
     return {
         type: GET_SUPPLIES,
+        data: {update},
         requestType: 'GET',
         callAPI
     }
@@ -62,8 +63,11 @@ export function deleteSuppliesFromStore() {
 }
 
 export function setSuppliesFilter(filter) {
-    return {
-        type: SET_SUPPLIES_FILTER,
-        data: {filter}
+    return dispatch => {
+        dispatch({
+            type: SET_SUPPLIES_FILTER,
+            data: {filter}
+        });
+        dispatch(getSupplies(null, filter, true));
     }
 }

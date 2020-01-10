@@ -14,11 +14,13 @@ class SuppliesList extends Component {
     componentDidMount = () => {
         const {supplierId} = this.props;
         //supplierId ? this.props.getAllSupplies(`?supplier=${supplierId}`) : this.props.getAllSupplies();
-        this.props.getSupplies(null, this.props.filter)
+        this.props.getSupplies(null, this.props.filter, true);
     };
 
-    loadSupplies = (page) => {
-        this.props.getSupplies(page, this.props.filter);
+    loadSupplies = () => {
+        const {isLoading, nextPageNumber} = this.props;
+        if (isLoading) return;
+        this.props.getSupplies(nextPageNumber, this.props.filter, false);
     };
 
     addNewSupply = () => history.push(`/supplies/add_supply`);
@@ -84,5 +86,6 @@ export default connect((state) => ({
     supplies: mapToArr(state.supplies.supplies),
     filter: state.supplies.filter,
     isLoading: state.supplies.isLoading,
-    hasMoreSupplies: state.supplies.hasMoreSupplies
+    hasMoreSupplies: state.supplies.hasMoreSupplies,
+    nextPageNumber: state.supplies.nextPageNumber
 }), {getSupplies})(SuppliesList);

@@ -3,7 +3,6 @@ import NavLink from 'react-router-dom/es/NavLink';
 import history from '../history';
 
 import './Header.css';
-import {UsersService} from "../services/users.service";
 import {saveOrderInfoInStore} from "../AC/orders";
 import connect from "react-redux/es/connect/connect";
 import {mapToArr} from "../helpers";
@@ -16,7 +15,6 @@ class Header extends React.Component {
     };
 
     getAddOrderButton = (mobile) => {
-        console.log(mobile);
         if (!mobile) {
             return(
                 <button className="classic-button"

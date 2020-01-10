@@ -3,7 +3,6 @@ import {Debounce} from 'react-throttle';
 
 import SearchInput from '../SearchInput';
 import DatePickerInput from '../datePickers/DatePickerInput';
-import {getDateForServer} from '../../services/utils';
 
 export default class extends Component {
     searchText = undefined;
@@ -13,7 +12,7 @@ export default class extends Component {
         text : undefined,
         date : undefined,
         supplierId : undefined
-    }
+    };
 
     setSearchText = text => {
         this.searchText = text;
@@ -21,16 +20,14 @@ export default class extends Component {
     };
 
     setDate = date => {
-        this.date = date ? date : null;
+        this.date = date;
         this.setFilterParams();
     };
 
     setFilterParams = () => {
-        this.date ? this.filter.date = getDateForServer(this.date) : this.filter.date = null;
+        this.date ? this.filter.date = (this.date) : this.filter.date = null;
         this.searchText ? this.filter.text = this.searchText : this.filter.text = null;
-
         this.props.setFilter(this.filter)
-        this.props.getData(null, this.filter);
     };
 
     render() {
@@ -42,7 +39,7 @@ export default class extends Component {
                         <SearchInput search={this.setSearchText}/>
                     </div>
                     <div className="col-6">
-                        <DatePickerInput selectDate={this.setDate}/>
+                        <DatePickerInput setValue={this.setDate}/>
                     </div>
                 </div>
             </Debounce>

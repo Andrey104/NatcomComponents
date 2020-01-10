@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import SuppliesList from './suppliesList/SuppliesList';
 import SearchAndDateFilters from '../../../components/SearchAndDateFilters/SearchAndDateFilters';
-import {getSupplies, setSuppliesFilter} from '../../../AC/supplies';
+import {setSuppliesFilter} from '../../../AC/supplies';
 
 class SuppliesMainPage extends Component {
 
@@ -12,8 +12,7 @@ class SuppliesMainPage extends Component {
             <div>
                 <div className="row">
                     <div className="col-12">
-                        <SearchAndDateFilters getData = {this.props.getSupplies}
-                                              setFilter = {this.props.setSuppliesFilter}/>
+                        <SearchAndDateFilters setFilter = {this.props.setSuppliesFilter}/>
                     </div>
                     <div className="col-12">
                         <SuppliesList/>
@@ -24,4 +23,4 @@ class SuppliesMainPage extends Component {
     }
 }
 
-export default connect(null, {getSupplies, setSuppliesFilter})(SuppliesMainPage)
+export default connect(null, {setSuppliesFilter})(SuppliesMainPage)
