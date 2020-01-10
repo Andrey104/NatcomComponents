@@ -9,6 +9,12 @@ export default class extends Component {
     searchText = undefined;
     date = undefined;
 
+    filter = {
+        text : undefined,
+        date : undefined,
+        supplierId : undefined
+    }
+
     setSearchText = text => {
         this.searchText = text;
         this.setFilterParams();
@@ -20,26 +26,12 @@ export default class extends Component {
     };
 
     setFilterParams = () => {
-        let url = '';
-        if (this.searchText) url += `text=${this.searchText}&`;
-        if (this.date) url += `date=${getDateForServer(this.date)}&`;
-        if (url) {
-            url = '?' + url.slice(0, url.length - 1);
-        }
-        if (this.date) {
-            this.props.setComponentsDate(getDateForServer(this.date));
-        } else {
-            this.props.setComponentsDate(null);
-        }
+        this.date ? this.filter.date = getDateForServer(this.date) : this.filter.date = null;
+        this.searchText ? this.filter.text = this.searchText : this.filter.text = null;
 
-        if (this.searchText) {
-            this.props.setComponentFilter(this.searchText);
-        } else {
-            this.props.setComponentFilter(null);
-        }
-        this.props.getAllComponents(url);
+        this.props.setFilter(this.filter)
+        this.props.getData(null, this.filter);
     };
-
 
     render() {
         return (
