@@ -97,10 +97,10 @@ export class SupplyInfoPage extends Component {
         return (
             <div>
                 <div>Поставщик: {supply.supplier.name}</div>
-                <div>Номер договора: {supply.document}</div>
                 <div>Цена: {priceFormat(supply.cost)}</div>
                 <div>{this.getDraft(supply.draft)}</div>
-                <div>Дата: {getDate(supply.date)}</div>
+                <div>Дата поставки товара: {getDate(supply.date)}</div>
+                <div>Дата добавления в систему: {getDate(supply.auto_date)}</div>
                 <div>{this.getComment(supply.comment)}</div>
                 <div>Добавил: {supply.user.username}</div>
                 {this.getItemsTable()}

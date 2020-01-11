@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {getItemName, priceFormat} from '../../../../../services/utils';
 
 export default class extends Component {
@@ -33,7 +32,7 @@ export default class extends Component {
                 <td className="result-price-td">{priceFormat(itemPrice)} руб</td>
                 <td>
                     <button type="button"
-                            onClick={() => this.props.removeItemFromList(item)}
+                            onClick={() => this.props.removeItemFromList(number)}
                             className="btn btn-danger btn-sm">Удалить
                     </button>
                 </td>

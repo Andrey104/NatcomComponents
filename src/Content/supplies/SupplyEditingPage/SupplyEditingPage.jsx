@@ -4,23 +4,24 @@ import AddSupplier from './AddSupplier/AddSupplier';
 import AddSupplyInfo from './AddSupplyInfo/AddSupplyInfo';
 import AddItems from './AddItems/AddItems';
 import {getDateForServer} from '../../../services/utils';
+import {mapToObj} from "../../../helpers";
 
 export default class extends Component {
     btnText = 'Добавить';
 
     constructor(props) {
         super(props);
+
         const {supply} = this.props;
         this.state = {
             supplier: null,
-            document: '',
             comment: null,
             date: '',
             draft: false,
             items: []
         };
         if (supply) {
-            this.state = supply;
+            this.state = mapToObj(supply);
             this.btnText = 'Изменить';
         }
     }
