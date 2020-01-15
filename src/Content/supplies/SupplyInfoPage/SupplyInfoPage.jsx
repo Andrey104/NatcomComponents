@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Loader from '../../../components/Loader';
 import ItemCardInSupply from './ItemCardInSupply/ItemCardInSupply';
 import TableResultRow from '../../../components/TableResultRow';
-import {getSupply, fromDraft} from '../store/AC/supplies';
+import {getSupply, fromDraft} from '../store/actions/supplies';
 import {priceFormat, getDate} from '../../../services/utils';
 import history from '../../../history';
 import {ITEM_MEMBRANE, ITEM_PRODUCT} from "../../../constans";

@@ -103,7 +103,8 @@ class SuppliersList extends Component {
                         loadMore={this.loadSuppliers}
                         hasMore={hasMoreSuppliers}
                         useWindow={false}
-                        className = 'scroll'>
+                        isDialog={this.props.isDialog}
+                        className='scroll'>
                         <div className="row">
                             <div className="col-12">
                                 <table className="table table-hover table-bordered">

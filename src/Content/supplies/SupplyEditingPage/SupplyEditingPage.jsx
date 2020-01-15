@@ -33,7 +33,7 @@ export default class extends Component {
     selectedItems = items => this.setState({items});
 
     handleSubmit = () => {
-        const newSupply = this.state;
+        const newSupply = JSON.parse(JSON.stringify(this.state));
         newSupply.supplier = this.state.supplier.id;
         newSupply.date = getDateForServer(this.state.date);
         newSupply.items = this.state.items.map(item => ({

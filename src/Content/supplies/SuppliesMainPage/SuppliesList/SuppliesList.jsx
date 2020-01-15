@@ -5,7 +5,7 @@ import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
 import SupplyCard from './SupplyCard/SupplyCard';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
-import {getSupplies} from '../../store/AC/supplies';
+import {getSupplies} from '../../store/actions/supplies';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 

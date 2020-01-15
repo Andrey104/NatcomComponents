@@ -8,9 +8,7 @@ import './SuppliersMainPage.css';
 
 class SuppliersMainPage extends Component {
 
-    searchSuppliers = text => {
-        this.props.setSuppliersFilter(text);
-    };
+    searchSuppliers = text => this.props.setSuppliersFilter(text);
 
     render() {
         return (
@@ -24,7 +22,8 @@ class SuppliersMainPage extends Component {
                         </div>
                     </div>
                     <div className="col-12 suppliers-page-scroll">
-                        <SuppliersList supplierForSupply = {this.props.supplierForSupply}/>
+                        <SuppliersList supplierForSupply={this.props.supplierForSupply}
+                                       isDialog={this.props.isDialog}/>
                     </div>
                 </div>
             </div>

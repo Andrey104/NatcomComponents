@@ -41,7 +41,7 @@ export default (supplierState = defaultState, actionTypeResponse) => {
 
             if (!data.update) {
                 nextPageNumber = supplierState.get('nextPageNumber') + 1;
-                newSuppliers = supplierState.supplies.merge(newSuppliers);
+                newSuppliers = supplierState.suppliers.merge(newSuppliers);
             }
 
             return supplierState.set('suppliers', newSuppliers)

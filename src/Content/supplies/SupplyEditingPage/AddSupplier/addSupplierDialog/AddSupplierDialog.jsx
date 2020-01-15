@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import DialogWindow from '../../../../../components/ModalWindow/index';
-import SuppliersPage from '../../../../suppliers/SuppliersMainPage/SuppliersMainPage';
+import SuppliersMainPage from '../../../../suppliers/SuppliersMainPage/SuppliersMainPage';
 
 class AddSupplierDialog extends Component {
 
     render() {
         return (
             <div className='modal-body'>
-                <SuppliersPage supplierForSupply = {this.props.supplierForSupply}/>
+                <SuppliersMainPage supplierForSupply={this.props.supplierForSupply} isDialog={true}/>
             </div>
         )
     }

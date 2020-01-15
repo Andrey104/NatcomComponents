@@ -6,7 +6,6 @@ import {
 } from "../constans";
 import {getUrlSuppliers} from "../services/utils";
 import {BaseApi} from "../services/base";
-import {getOrder} from "./orders";
 import {SET_SUPPLIERS_FILTER, GET_SUPPLIERS, DELETE_SUPPLIERS_FROM_STORE} from "../Content/suppliers/store/constantsSupplier";
 
 export function getSuppliers(page, text, update) {

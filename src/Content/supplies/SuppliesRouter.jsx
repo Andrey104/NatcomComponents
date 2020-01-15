@@ -10,7 +10,7 @@ import SupplyInfoPage from './SupplyInfoPage/SupplyInfoPage';
 import EditSupply from './EditSupply/EditSupply';
 import AddNewSupply from "./AddNewSupply/AddNewSupply";
 
-import {deleteSuppliesFromStore} from "./store/AC/supplies";
+import {deleteSuppliesFromStore} from "./store/actions/supplies";
 
 class SuppliesRouter extends Component {
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import SuppliesList from './SuppliesList/SuppliesList';
 import SearchAndDateFilters from '../../../components/SearchAndDateFilters/SearchAndDateFilters';
-import {setSuppliesFilter} from '../store/AC/supplies';
+import {setSuppliesFilter} from '../store/actions/supplies';
 
 class SuppliesMainPage extends Component {
 
