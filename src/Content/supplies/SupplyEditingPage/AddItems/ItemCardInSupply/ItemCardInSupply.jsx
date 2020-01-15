@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-
 import {getItemName, priceFormat} from '../../../../../services/utils';
+//import PriceInput from '../../../../../components/PriceInput/PriceInput';
 
 export default class extends Component {
 
     handleChangeItemParam = (event, index, state) => {
-        var value = (event.target.value);
+        let value = (event.target.value);
         value.replace(',', '.');
-        // if (!isFinite(value)) return;
         index--;
         this.props.handleChangeItemParam(value, index, state);
     };
@@ -20,21 +19,37 @@ export default class extends Component {
                 <td>{getItemName(item)}</td>
                 <td>{item.item.price_in} р</td>
                 <td>
-                    <input type="number"
-                           value={item.purchasePrice || ''}
-                           className="form-control"
-                           onChange={e => this.handleChangeItemParam(e, number, 'purchasePrice')}/>
-                </td>
+                <input type="number"
+                       value={item.purchase_price || ''}
+                       className="form-control"
+                       step="0.01"
+                       onChange={e => this.handleChangeItemParam(e, number, 'purchase_price')}/>
+            </td>
                 <td>
                     <input type="number"
                            value={item.count || ''}
                            className="form-control"
+                           step="0.01"
                            onChange={e => this.handleChangeItemParam(e, number, 'count')}/>
                 </td>
+                {/*<td>*/}
+                {/*    <PriceInput value={item.purchase_price || ''}*/}
+                {/*                number={number}*/}
+                {/*                state={'purchase_price'}*/}
+                {/*                placeholder='Введите цену'*/}
+                {/*                handleChangeItemParam={this.props.handleChangeItemParam}/>*/}
+                {/*</td>*/}
+                {/*<td>*/}
+                {/*    <PriceInput value={item.count || ''}*/}
+                {/*                number={number}*/}
+                {/*                state={'count'}*/}
+                {/*                placeholder='Введите кол-во'*/}
+                {/*                handleChangeItemParam={this.props.handleChangeItemParam}/>*/}
+                {/*</td>*/}
                 <td className="result-price-td">{priceFormat(itemPrice)} руб</td>
                 <td>
                     <button type="button"
-                            onClick={() => this.props.removeItemFromList(item)}
+                            onClick={() => this.props.removeItemFromList(number)}
                             className="btn btn-danger btn-sm">Удалить
                     </button>
                 </td>

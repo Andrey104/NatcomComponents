@@ -1,8 +1,8 @@
 import React from 'react';
 import ModalWindow from '../../../../components/ModalWindow/index';
-import SupplierDetail from "../SupplierDetail";
+import SupplierDetail from "../SupplierInfoPage";
 
-class SupplierDetailModal extends React.Component {
+class SupplierInfoModalWindow extends React.Component {
     render() {
         return (
             <div className="modal-body">
@@ -12,5 +12,5 @@ class SupplierDetailModal extends React.Component {
     }
 }
 
-export default ModalWindow(SupplierDetailModal)
+export default ModalWindow(SupplierInfoModalWindow)
 

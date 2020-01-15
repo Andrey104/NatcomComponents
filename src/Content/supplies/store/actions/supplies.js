@@ -1,41 +1,20 @@
 import {
-    GET_ALL_SUPPLIES,
+    GET_SUPPLIES,
     GET_SUPPLY,
-    GET_NEXT_SUPPLIES,
     DELETE_SUPPLIES_FROM_STORE,
-    SET_SUPPLIES_FILTER,
-    SET_SUPPLIES_DATE
+    SET_SUPPLIES_FILTER
+} from '../constantsSupply';
 
-} from '../constans';
-import {BaseApi} from '../services/base';
-import history from '../history';
-import {getUrlSupplies} from "../services/utils";
+import {BaseApi} from '../../../../services/base';
+import history from '../../../../history';
+import {getUrlSupplies} from "../../../../services/utils";
 
-export function getAllSupplies(params) {
+export function getSupplies(page, filter, update) {
     let callAPI = 'supplies/';
-    callAPI += params ? params : '';
+    callAPI += getUrlSupplies(page, filter);
     return {
-        type: GET_ALL_SUPPLIES,
-        requestType: 'GET',
-        callAPI
-    }
-}
-
-// export function getAllSupplies(supplier) {
-//     let callAPI = 'supplies/';
-//     callAPI += getUrlSupplies(null, supplier);
-//     return {
-//         type: GET_ALL_SUPPLIES,
-//         requestType: 'GET',
-//         callAPI
-//     }
-// }
-
-export function getNextSupplies(page, supplier, date) {
-    let callAPI = 'supplies/';
-    callAPI += getUrlSupplies(page, supplier, date);
-    return {
-        type: GET_NEXT_SUPPLIES,
+        type: GET_SUPPLIES,
+        data: {update},
         requestType: 'GET',
         callAPI
     }
@@ -82,16 +61,12 @@ export function deleteSuppliesFromStore() {
     }
 }
 
-export function setSuppliesDate(date) {
-    return {
-        type: SET_SUPPLIES_DATE,
-        data: {date}
-    }
-}
-
-export function setSuppliesFilter(text) {
-    return {
-        type: SET_SUPPLIES_FILTER,
-        data: {text}
+export function setSuppliesFilter(filter) {
+    return dispatch => {
+        dispatch({
+            type: SET_SUPPLIES_FILTER,
+            data: {filter}
+        });
+        dispatch(getSupplies(null, filter, true));
     }
 }

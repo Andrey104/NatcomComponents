@@ -4,23 +4,24 @@ import AddSupplier from './AddSupplier/AddSupplier';
 import AddSupplyInfo from './AddSupplyInfo/AddSupplyInfo';
 import AddItems from './AddItems/AddItems';
 import {getDateForServer} from '../../../services/utils';
+import {mapToObj} from "../../../helpers";
 
 export default class extends Component {
     btnText = 'Добавить';
 
     constructor(props) {
         super(props);
+
         const {supply} = this.props;
         this.state = {
             supplier: null,
-            document: '',
             comment: null,
             date: '',
             draft: false,
             items: []
         };
         if (supply) {
-            this.state = supply;
+            this.state = mapToObj(supply);
             this.btnText = 'Изменить';
         }
     }
@@ -32,13 +33,13 @@ export default class extends Component {
     selectedItems = items => this.setState({items});
 
     handleSubmit = () => {
-        const newSupply = this.state;
+        const newSupply = JSON.parse(JSON.stringify(this.state));
         newSupply.supplier = this.state.supplier.id;
         newSupply.date = getDateForServer(this.state.date);
         newSupply.items = this.state.items.map(item => ({
                 item: item.item.item,
                 count: item.count,
-                purchase_price: item.purchasePrice
+                purchase_price: item.purchase_price
             }
         ));
         this.props.handleSubmit(newSupply);
@@ -50,7 +51,7 @@ export default class extends Component {
             return true;
         } else if (items.length) {
             for (const item of items) {
-                if (!item.count || !item.purchasePrice)
+                if (!item.count || !item.purchase_price)
                     return true;
             }
         }

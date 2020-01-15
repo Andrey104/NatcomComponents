@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import {mapToObj} from "../../../../helpers";
 import AddItemsDialog from '../../../../components/addItemsDialog/AddItemsDialog';
 import ItemCardInSupply from './ItemCardInSupply/ItemCardInSupply';
 import TableResultRow from '../../../../components/TableResultRow/index';
@@ -14,15 +15,15 @@ class AddItems extends Component {
         super(props);
         const {items} = this.props;
         this.state = {items};
-    }
+    };
 
-    selectedItems = item => {
+    selectedItems = (item) => {
         let newItem = {
-            item,
+            item: mapToObj(item),
             count: 0,
-            purchasePrice: 0
+            purchase_price: 0
         };
-        var items = this.state.items;
+        let items = this.state.items;
         items.push(newItem);
 
         this.setState({items: items});
@@ -40,9 +41,9 @@ class AddItems extends Component {
         });
     };
 
-    removeItemFromList = item => {
-        const newItems = this.state.items.filter(itemArr => (
-            itemArr.item.item !== item.item.item
+    removeItemFromList = itemIndex => {
+        const newItems = this.state.items.filter(item => (
+            this.state.items.indexOf(item) !== (itemIndex - 1)
         ));
         this.setState({items: newItems}, () => {
             this.props.selectedItems(this.state.items)
@@ -64,10 +65,10 @@ class AddItems extends Component {
     getItemPrice(inItem) {
         let item = inItem.item;
         if (item.type === ITEM_PRODUCT) {
-            return inItem.count * inItem.purchasePrice;
+            return inItem.count * inItem.purchase_price;
         }
         if (item.type === ITEM_MEMBRANE) {
-            return inItem.count * inItem.purchasePrice * item.width;
+            return inItem.count * inItem.purchase_price * item.width;
         }
     }
 

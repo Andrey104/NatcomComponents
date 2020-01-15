@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import SupplyEditingPage from '../SupplyEditingPage/SupplyEditingPage';
-import {addNewSupply} from '../../../AC/supplies';
+import {addNewSupply} from '../store/actions/supplies';
 
 class AddNewSupply extends Component {
 

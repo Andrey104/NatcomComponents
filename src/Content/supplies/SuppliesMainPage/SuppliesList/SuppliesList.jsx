@@ -5,19 +5,22 @@ import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
 import SupplyCard from './SupplyCard/SupplyCard';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
-import {getAllSupplies, getNextSupplies} from '../../../../AC/supplies';
+import {getSupplies} from '../../store/actions/supplies';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 
 class SuppliesList extends Component {
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         const {supplierId} = this.props;
-        supplierId === undefined? this.props.getAllSupplies() : this.props.getAllSupplies(`?supplier=${supplierId}`);
+        supplierId ? this.props.filter.supplierId = supplierId :  this.props.filter.supplierId = null;
+        this.props.getSupplies(null, this.props.filter, true);
     };
 
     loadSupplies = () => {
-        this.props.getNextSupplies(this.props.nextPage, this.props.text, this.props.date);
+        const {isLoading, nextPageNumber} = this.props;
+        if (isLoading) return;
+        this.props.getSupplies(nextPageNumber, this.props.filter, false);
     };
 
     addNewSupply = () => history.push(`/supplies/add_supply`);
@@ -37,22 +40,20 @@ class SuppliesList extends Component {
 
     render() {
         const {isLoading, supplies, hasMoreSupplies} = this.props;
-        if (isLoading && supplies.length === 0) {
+        if (isLoading && !supplies.length) {
             return (
                 <div className="pre-loader-container">
                     <Loader/>
                 </div>
             );
         }
-        const loader = hasMoreSupplies ? <Loader/> : false;
-        this.getBody(supplies);
+        const loader = hasMoreSupplies ? <Loader/> : null;
         return (
             <div className="row">
                 <div className="col-12">
                     <InfiniteScrollOverride
-                        pageStart={1}
-                        loadMore={this.loadSupplies}
                         hasMore={hasMoreSupplies}
+                        loadMore={this.loadSupplies}
                         useWindow={false}>
                         <div className="row">
                             <div className="col-12">
@@ -83,9 +84,8 @@ class SuppliesList extends Component {
 
 export default connect((state) => ({
     supplies: mapToArr(state.supplies.supplies),
-    date: state.supplies.date,
-    text: state.supplies.text,//
+    filter: state.supplies.filter,
     isLoading: state.supplies.isLoading,
-    nextPage: state.supplies.nextPageNumber,
-    hasMoreSupplies: state.supplies.hasMoreSupplies
-}), {getAllSupplies, getNextSupplies})(SuppliesList);
+    hasMoreSupplies: state.supplies.hasMoreSupplies,
+    nextPageNumber: state.supplies.nextPageNumber
+}), {getSupplies})(SuppliesList);

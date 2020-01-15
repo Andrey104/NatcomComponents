@@ -3,7 +3,7 @@ import './styles.css';
 
 import TableResultRow from '../../components/TableResultRow';
 import HarpoonPrintName from '../HarpoonPrintName';
-import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem, getArea} from '../../services/utils';
+import {priceFormat, countFormat, getUnit, getPositionSumPriceNotInItem} from '../../services/utils';
 import history from '../../history';
 import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../../constans";
 
@@ -22,7 +22,6 @@ export default class extends React.Component {
                         <div className="membrane-params">{item.texture.description} {item.color.description}</div>
                         <div className="membrane-name"> {item.name} </div>
                         <div className="membrane-params"> ({item.width}) </div>
-
                     </p>
                 </td>);
         }
@@ -32,9 +31,6 @@ export default class extends React.Component {
         if (order.items) {
             const orderListLength = this.orderList.length + 1;
             const items = order.items.map((item, index) => {
-                    const itemUrl = item.item.color
-                        ? `/membranes/${item.item.id}`
-                        : `/products/${item.item.id}`;
                     return (
                         <tr key={item.item.id + item.item.name + index}>
                             <th scope="row"><p className="font-weight-bold">{index + orderListLength}</p></th>

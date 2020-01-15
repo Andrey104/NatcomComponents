@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import {checkComment, checkAddress} from '../../../../../services/utils';
 import history from '../../../../../history';
-import styles from './styles.scss';
+import styles from './SupplierCard.scss';
 
-export default class extends React.Component {
+export default class SupplierCard extends Component {
 
     clickOnSupplierCard = supplier => () => {
         if (this.props.supplierForSupply) {

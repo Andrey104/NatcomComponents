@@ -1,9 +1,9 @@
 import {
-    ADD_NEW_SUPPLIER, EDIT_SUPPLIER, GET_ALL_SUPPLIERS,
-    GET_NEXT_SUPPLIERS, GET_SUPPLIER_DETAIL, SUCCESS, START, OPEN_NEW_CONTACT_WINDOW , FAIL
+    ADD_NEW_SUPPLIER, EDIT_SUPPLIER, GET_SUPPLIER_DETAIL, SUCCESS, START, OPEN_NEW_CONTACT_WINDOW
 } from "../constans";
 import {OrderedMap, Record} from "immutable";
 import {arrToMap} from "../helpers";
+import {DELETE_SUPPLIERS_FROM_STORE, GET_SUPPLIERS, SET_SUPPLIERS_FILTER} from "../Content/suppliers/store/constantsSupplier";
 
 const SupplierRecord = Record({
     id: undefined,
@@ -15,8 +15,9 @@ const SupplierRecord = Record({
 
 const ReducerState = Record({
     isLoading: false,
-    loaded: false,
+    text: null,
     hasMoreSuppliers: false,
+    nextPageNumber: null,
     supplier: null,
     suppliers: new OrderedMap({}),
     openAddNewContact: false,
@@ -26,52 +27,57 @@ const ReducerState = Record({
 
 const defaultState = new ReducerState();
 
-export default (suppliersState = defaultState, actionTypeResponse) => {
+export default (supplierState = defaultState, actionTypeResponse) => {
     const {type, response, data} = actionTypeResponse;
     switch (type) {
-        case GET_ALL_SUPPLIERS + START: {
-            return suppliersState.set('isLoading', true);
+        case GET_SUPPLIERS + START: {
+            return supplierState.set('isLoading', true);
         }
-        case GET_ALL_SUPPLIERS + SUCCESS: {
-            let nextPage, suppliers = response.data.results;
-            response.data.next === null ? nextPage = false : nextPage = true;
-            suppliers = arrToMap(suppliers, SupplierRecord);
-            return suppliersState.set('suppliers', suppliers)
-                .set('isLoading', false)
-                .set('hasMoreSuppliers', nextPage);
-        }
-        case GET_NEXT_SUPPLIERS + SUCCESS: {
-            let nextPage, newSuppliers;
-            response.data.next === null ? nextPage = false : nextPage = true;
+        case GET_SUPPLIERS + SUCCESS: {
+            let nextPage, newSuppliers, nextPageNumber;
+            response.data.next ? nextPage = true : nextPage = false;
             newSuppliers = arrToMap(response.data.results, SupplierRecord);
-            newSuppliers = suppliersState.suppliers.merge(newSuppliers);
-            return suppliersState.set('suppliers', newSuppliers)
+            nextPageNumber = 2;
+
+            if (!data.update) {
+                nextPageNumber = supplierState.get('nextPageNumber') + 1;
+                newSuppliers = supplierState.suppliers.merge(newSuppliers);
+            }
+
+            return supplierState.set('suppliers', newSuppliers)
+                .set('nextPageNumber', nextPageNumber)
                 .set('hasMoreSuppliers', nextPage)
-                .set('loaded', true);
+                .set('isLoading', false);
         }
         case ADD_NEW_SUPPLIER + SUCCESS: {
             let arr = [];
             arr.push(response.data);
             arr = arrToMap(arr, SupplierRecord);
-            arr = suppliersState.suppliers.concat(arr);
-            return suppliersState.set('suppliers', arr);
+            arr = supplierState.suppliers.concat(arr);
+            return supplierState.set('suppliers', arr);
         }
         case OPEN_NEW_CONTACT_WINDOW: {
-            return suppliersState
+            return supplierState
                 .set('openAddNewContact', data.isOpen)
                 .set('isEdit', data.isEdit)
                 .set('contact', data.contact)
         }
         case GET_SUPPLIER_DETAIL + START: {
-            return suppliersState.set('isLoading', true);
+            return supplierState.set('isLoading', true);
         }
         case GET_SUPPLIER_DETAIL + SUCCESS: {
-            return suppliersState.set('supplier', response.data)
+            return supplierState.set('supplier', response.data)
                 .set('isLoading', false);
         }
         case EDIT_SUPPLIER: {
-            return suppliersState.set('supplier', data);
+            return supplierState.set('supplier', data);
+        }
+        case DELETE_SUPPLIERS_FROM_STORE: {
+            return defaultState;
+        }
+        case SET_SUPPLIERS_FILTER: {
+            return supplierState.set('text', data);
         }
     }
-    return suppliersState;
+    return supplierState;
 }

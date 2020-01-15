@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Debounce} from 'react-throttle';
 
 import './styles.css';
 
-export default class extends React.Component {
+export default class extends Component {
 
     handleChangeInputText = event => {
         this.props.search(event.target.value);

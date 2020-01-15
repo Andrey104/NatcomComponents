@@ -1,7 +1,8 @@
 import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../constans";
-import membrane from "../reducer/membrane";
 
 export const phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+export const numberMask = "\^[0-9]\(.|,)\d{,2}";
 
 export const paymentTypes = ['Наличные', 'Карта', 'Терминал'];
 
@@ -308,12 +309,13 @@ export function getUrlSuppliers(page, text) {
     return url_prefix + url;
 }
 
-export function getUrlSupplies(page, text, date) {
+export function getUrlSupplies(page, filter) {
     let url_prefix = '';
     let url = '';
     if (page) url += `page=${page}&`;
-    if (text) url += `text=${text}&`;
-    if (date) url += `date=${date}&`;
+    if (filter.text) url += `text=${filter.text}&`;
+    if (filter.date) url += `date=${filter.date}&`;
+    if (filter.supplierId) url += `supplier=${filter.supplierId}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
     }
