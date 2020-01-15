@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import DialogWindow from '../../../../../components/ModalWindow/index';
 import {addNewSupplier} from '../../../../../AC/suppliers';
-import './styles.css';
-import {getPhoneWithoutMask} from "../../../../../services/utils";
+import './AddNewSupplier.css';
 
-class AddNewSupplier extends React.Component {
+class AddNewSupplier extends Component {
     state = {
         name: '',
         address: null,

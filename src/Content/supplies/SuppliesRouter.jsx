@@ -7,10 +7,10 @@ import {connect} from 'react-redux';
 import ComponentMenu from '../../components/ComponentMenu/index';
 import SuppliesMainPage from './SuppliesMainPage/SuppliesMainPage';
 import SupplyInfoPage from './SupplyInfoPage/SupplyInfoPage';
-import EditSupply from './editSupply/EditSupply';
-import AddNewSupply from "./addNewSupply/AddNewSupply";
+import EditSupply from './EditSupply/EditSupply';
+import AddNewSupply from "./AddNewSupply/AddNewSupply";
 
-import {deleteSuppliesFromStore} from "../../AC/supplies";
+import {deleteSuppliesFromStore} from "./store/AC/supplies";
 
 class SuppliesRouter extends Component {
 

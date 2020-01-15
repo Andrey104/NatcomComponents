@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import DialogWindow from '../../../../../components/ModalWindow/index';
-import SuppliersPage from '../../../../suppliers/suppliersPage/SuppliersPage';
-import {getAllSuppliers} from "../../../../../AC/suppliers";
+import SuppliersPage from '../../../../suppliers/SuppliersMainPage/SuppliersMainPage';
 
 class AddSupplierDialog extends Component {
 
@@ -15,4 +14,4 @@ class AddSupplierDialog extends Component {
     }
 }
 
-export default connect(null, {getAllSuppliers})(DialogWindow(AddSupplierDialog));
+export default connect(null, null)(DialogWindow(AddSupplierDialog));

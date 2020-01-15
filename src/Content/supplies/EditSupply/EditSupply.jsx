@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import SupplyEditingPage from '../SupplyEditingPage/SupplyEditingPage';
-import {editSupply, getSupply} from '../../../AC/supplies';
+import {editSupply, getSupply} from '../store/AC/supplies';
 import Loader from "../../../components/Loader";
 
 class EditSupply extends Component {

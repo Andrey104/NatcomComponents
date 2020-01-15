@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 
 import DialogWindow from '../../../../components/ModalWindow';
 import {BaseApi} from '../../../../services/base';
-import styles from './styles.scss';
+import styles from './EditSupplier.scss';
 import {connect} from 'react-redux';
 
 let cx = classNames.bind(styles);

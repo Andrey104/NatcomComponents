@@ -5,7 +5,7 @@ import Loader from '../../../../components/Loader/index';
 import AddButton from '../../../../components/AddButton/index';
 import SupplyCard from './SupplyCard/SupplyCard';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
-import {getSupplies} from '../../../../AC/supplies';
+import {getSupplies} from '../../store/AC/supplies';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 
@@ -13,7 +13,7 @@ class SuppliesList extends Component {
 
     componentDidMount = () => {
         const {supplierId} = this.props;
-        //supplierId ? this.props.getAllSupplies(`?supplier=${supplierId}`) : this.props.getAllSupplies();
+        supplierId ? this.props.filter.supplierId = supplierId :  this.props.filter.supplierId = null;
         this.props.getSupplies(null, this.props.filter, true);
     };
 

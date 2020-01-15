@@ -3,12 +3,11 @@ import {
     GET_SUPPLY,
     DELETE_SUPPLIES_FROM_STORE,
     SET_SUPPLIES_FILTER
-} from '../constans';
+} from '../constantsSupply';
 
-import {BaseApi} from '../services/base';
-import history from '../history';
-import {getUrlSupplies} from "../services/utils";
-
+import {BaseApi} from '../../../../services/base';
+import history from '../../../../history';
+import {getUrlSupplies} from "../../../../services/utils";
 
 export function getSupplies(page, filter, update) {
     let callAPI = 'supplies/';

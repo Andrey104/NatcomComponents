@@ -1,29 +1,20 @@
 import {
     ADD_NEW_SUPPLIER,
-    GET_ALL_SUPPLIERS,
-    GET_NEXT_SUPPLIERS,
     GET_SUPPLIER_DETAIL,
-    EDIT_SUPPLIER, OPEN_NEW_CONTACT_WINDOW
+    EDIT_SUPPLIER,
+    OPEN_NEW_CONTACT_WINDOW,
 } from "../constans";
 import {getUrlSuppliers} from "../services/utils";
 import {BaseApi} from "../services/base";
 import {getOrder} from "./orders";
+import {SET_SUPPLIERS_FILTER, GET_SUPPLIERS, DELETE_SUPPLIERS_FROM_STORE} from "../Content/suppliers/store/constantsSupplier";
 
-export function getAllSuppliers(text) {
-    let callAPI = 'suppliers/';
-    callAPI += getUrlSuppliers(null, text);
-    return {
-        type: GET_ALL_SUPPLIERS,
-        requestType: 'GET',
-        callAPI
-    }
-}
-
-export function getNextSuppliers(page, text) {
+export function getSuppliers(page, text, update) {
     let callAPI = 'suppliers/';
     callAPI += getUrlSuppliers(page, text);
     return {
-        type: GET_NEXT_SUPPLIERS,
+        type: GET_SUPPLIERS,
+        data: {update},
         requestType: 'GET',
         callAPI
     }
@@ -84,19 +75,6 @@ export function deleteContact(supplierId, contactId) {
     }
 }
 
-export function addPaymentInOrder(data, orderId) {
-    const baseApi = new BaseApi();
-    return dispatch => {
-        baseApi
-            .post(`orders/${orderId}/pay/`, data)
-            .then(response => {
-                if (response.status === 201) {
-                    dispatch(getOrder(orderId));
-                }
-            });
-    }
-}
-
 export function getSupplierDetail(supplierId) {
     return {
         type: GET_SUPPLIER_DETAIL,
@@ -109,5 +87,21 @@ export function editSupplier(data) {
     return {
         type: EDIT_SUPPLIER,
         data: data
+    }
+}
+
+export function deleteSuppliersFromStore() {
+    return {
+        type: DELETE_SUPPLIERS_FROM_STORE
+    }
+}
+
+export function setSuppliersFilter(filter) {
+    return dispatch => {
+        dispatch({
+            type: SET_SUPPLIERS_FILTER,
+            data: filter
+        });
+        dispatch(getSuppliers(null, filter, true));
     }
 }

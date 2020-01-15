@@ -41,9 +41,7 @@ class AddItems extends Component {
         });
     };
 
-    //TODO: Есть подозрение, что ниже написана хуйня - посмотреть. Но работает она, вроде, правильно
     removeItemFromList = itemIndex => {
-        console.log(itemIndex);
         const newItems = this.state.items.filter(item => (
             this.state.items.indexOf(item) !== (itemIndex - 1)
         ));

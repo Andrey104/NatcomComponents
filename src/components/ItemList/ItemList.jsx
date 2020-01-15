@@ -59,9 +59,9 @@ class ItemList extends React.Component {
                     this.props.saveMembranesFilters(this.filtersMembranes);
                 } else {
                     this.filtersProducts = {
-                        searchText: this.props.filtersProducts,
-                        category: this.props.filtersProducts,
-                        subcategory: this.props.filtersProducts
+                        searchText: this.props.filtersProducts.searchText,
+                        category: this.props.filtersProducts.category,
+                        subcategory: this.props.filtersProducts.subcategory
                     }
                 }
             }

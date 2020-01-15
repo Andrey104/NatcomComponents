@@ -6,7 +6,7 @@ import categories from './categories';
 import products from './product';
 import clients from './client';
 import customPrices from './customPrice';
-import supplies from './supply';
+import supplies from '../Content/supplies/store/reducer/supplies';
 import payments from './payment';
 import orders from './order';
 import users from './user';

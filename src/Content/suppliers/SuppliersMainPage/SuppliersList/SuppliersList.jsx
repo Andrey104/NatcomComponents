@@ -1,36 +1,35 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames/bind';
 
-import SupplierCard from './SupplierCard/index';
-import AddNewSupplier from './addNewSupplier/AddNewSupplier';
+import SupplierCard from './SupplierCard/SupplierCard';
+import AddNewSupplier from './AddNewSupplier/AddNewSupplier';
 import AddButton from '../../../../components/AddButton/index';
 import Loader from '../../../../components/Loader/index';
 import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../../../helpers';
-import {getAllSuppliers, getNextSuppliers, openAddNewContactWindow} from '../../../../AC/suppliers';
-import styles from './styles.scss';
-import SupplierDetailModal from "../../supplierDetail/supplierDetailModal/supplierDetailModal";
+import {getSuppliers, openAddNewContactWindow} from '../../../../AC/suppliers';
+import styles from './SupliersList.scss';
+import SupplierInfoModalWindow from "../../SupplierInfoPage/SupplierInfoModalWindow/SupplierInfoModalWindow";
 
 let cx = classNames.bind(styles);
 
-class SuppliersList extends React.Component {
+class SuppliersList extends Component {
     selectedSupplierId;
     state = {
         openAddSupplierDialog: false,
         supplierDetailModalIsOpen: false
     };
 
-    componentDidUpdate(prevProps) {
-        if (this.props.text !== prevProps.text) this.props.getAllSuppliers(this.props.text);
-    }
-
-    componentDidMount() {
-        this.props.getAllSuppliers(this.props.text);
+    componentDidMount = () => {
+        this.props.getSuppliers(null, this.props.filter, true);
     };
 
-    loadSuppliers = page => {
-        this.props.getNextSuppliers(page, this.props.text);
+    loadSuppliers = () => {
+        const {isLoading, nextPageNumber} = this.props;
+        if (isLoading) return;
+        this.props.getSuppliers(nextPageNumber, this.props.filter, false);
+        console.log(this.props);
     };
 
     addSupplierState = () => {
@@ -71,27 +70,27 @@ class SuppliersList extends React.Component {
                                            close={this.addSupplierState}/>
         }
         return dialogWindow;
-    }
+    };
 
-    getAddSupplierButton() {
+    getAddSupplierButton = () => {
         return this.props.supplierForSupply ? null : <AddButton openAdd={this.addSupplierState}/>
-    }
+    };
 
     getPageClasses = () => this.props.supplierForSupply ? 'dialog' : '';
 
     getSupplierDetailModalWindow() {
         if (this.state.supplierDetailModalIsOpen) {
             return (
-                <SupplierDetailModal supplierId={this.selectedSupplierId} close={this.closeSupplierDetailModalWindow}/>
+                <SupplierInfoModalWindow supplierId={this.selectedSupplierId} close={this.closeSupplierDetailModalWindow}/>
             )
         }
-    }
+    };
 
     render() {
         let content;
         const {isLoading, suppliers, hasMoreSuppliers} = this.props;
         const loader = hasMoreSuppliers ? <Loader/> : false;
-        if (isLoading || !suppliers) {
+        if (isLoading && !suppliers.length) {
             content = (
                 <div className="pre-loader-container">
                     <Loader/>
@@ -101,11 +100,9 @@ class SuppliersList extends React.Component {
             content = (
                 <div className={cx('col-12', this.getPageClasses())}>
                     <InfiniteScrollOverride
-                        pageStart={1}
                         loadMore={this.loadSuppliers}
                         hasMore={hasMoreSuppliers}
                         useWindow={false}
-                        isDialog={true}
                         className = 'scroll'>
                         <div className="row">
                             <div className="col-12">
@@ -130,7 +127,6 @@ class SuppliersList extends React.Component {
             )
         }
 
-
         const dialogWindow = this.getDialogWindow();
         const supplierDetailModalWindow = this.getSupplierDetailModalWindow();
         return (
@@ -147,4 +143,6 @@ export default connect((state) => ({
     suppliers: mapToArr(state.suppliers.suppliers),
     isLoading: state.suppliers.isLoading,
     hasMoreSuppliers: state.suppliers.hasMoreSuppliers,
-}), {getAllSuppliers, getNextSuppliers, openAddNewContactWindow})(SuppliersList);
+    filter: state.suppliers.text,
+    nextPageNumber: state.suppliers.nextPageNumber
+}), {openAddNewContactWindow, getSuppliers})(SuppliersList);

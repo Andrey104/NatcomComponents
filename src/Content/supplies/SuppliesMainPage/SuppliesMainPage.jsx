@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import SuppliesList from './suppliesList/SuppliesList';
+import SuppliesList from './SuppliesList/SuppliesList';
 import SearchAndDateFilters from '../../../components/SearchAndDateFilters/SearchAndDateFilters';
-import {setSuppliesFilter} from '../../../AC/supplies';
+import {setSuppliesFilter} from '../store/AC/supplies';
 
 class SuppliesMainPage extends Component {
 
@@ -12,7 +12,7 @@ class SuppliesMainPage extends Component {
             <div>
                 <div className="row">
                     <div className="col-12">
-                        <SearchAndDateFilters setFilter = {this.props.setSuppliesFilter}/>
+                        <SearchAndDateFilters setFilter={this.props.setSuppliesFilter}/>
                     </div>
                     <div className="col-12">
                         <SuppliesList/>

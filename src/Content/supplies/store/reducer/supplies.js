@@ -2,12 +2,11 @@ import {OrderedMap, Record} from 'immutable';
 import {
     GET_SUPPLIES,
     GET_SUPPLY,
-    START,
-    SUCCESS,
     DELETE_SUPPLIES_FROM_STORE,
     SET_SUPPLIES_FILTER
-} from '../constans';
-import {arrToMap, objToMap} from '../helpers';
+} from '../constantsSupply';
+import {START, SUCCESS} from '../../../../constans';
+import {arrToMap, objToMap} from '../../../../helpers';
 
 const SupplyRecord = Record({
     id: undefined,
@@ -37,7 +36,6 @@ const ReducerState = Record({
 const defaultState = new ReducerState();
 
 export default (supplyState = defaultState, actionTypeResponse) => {
-
     const {type, response, data} = actionTypeResponse;
 
     switch (type) {
@@ -74,6 +72,5 @@ export default (supplyState = defaultState, actionTypeResponse) => {
             return supplyState.set('filter', data.filter)
         }
     }
-
     return supplyState;
 }

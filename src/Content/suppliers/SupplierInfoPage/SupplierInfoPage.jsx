@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import EditSupplier from './editSupplier/EditSupplier';
+import EditSupplier from './EditSupplier/EditSupplier';
 import Loader from '../../../components/Loader';
 import {editSupplier, getSupplierDetail, openAddNewContactWindow} from '../../../AC/suppliers';
-import styles from './styles.css';
-import SuppliesList from "../../supplies/SuppliesMainPage/suppliesList/SuppliesList";
-import SupplierContacts from "./supplierContacts/SupplierContacts";
+import styles from './SupplierInfoPage.css';
+import SuppliesList from "../../supplies/SuppliesMainPage/SuppliesList/SuppliesList";
+import SupplierContacts from "./SupplierContacts/SupplierContacts";
 import AddNewContactModal from "../../../components/addNewContact/AddNewContactModal";
 
-class SupplierDetail extends React.Component {
+class SupplierInfoPage extends React.Component {
     urlId;
 
     state = {
@@ -129,4 +129,4 @@ export default connect((state) => ({
     supplier: state.suppliers.supplier,
     isLoading: state.suppliers.isLoading,
     openAddNewContact: state.suppliers.openAddNewContact
-}), {getSupplierDetail, editSupplier, openAddNewContactWindow})(SupplierDetail);
+}), {getSupplierDetail, editSupplier, openAddNewContactWindow})(SupplierInfoPage);

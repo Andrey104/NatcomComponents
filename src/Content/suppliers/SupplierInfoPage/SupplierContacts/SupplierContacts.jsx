@@ -1,6 +1,6 @@
 import React from 'react';
 import {getPhoneWithMask} from "../../../../services/utils";
-import './styles.css';
+import './SupplierContacts.css';
 
 class SupplierContacts extends React.Component {
     render() {

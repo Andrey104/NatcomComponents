@@ -1,7 +1,8 @@
 import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../constans";
-import membrane from "../reducer/membrane";
 
 export const phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+export const numberMask = "\^[0-9]\(.|,)\d{,2}";
 
 export const paymentTypes = ['Наличные', 'Карта', 'Терминал'];
 
