@@ -4,7 +4,6 @@ import {
     DELETE_SUPPLIES_FROM_STORE,
     SET_SUPPLIES_FILTER
 } from '../constantsSupply';
-
 import {BaseApi} from '../../../../services/base';
 import history from '../../../../history';
 import {getUrlSupplies} from "../../../../services/utils";
