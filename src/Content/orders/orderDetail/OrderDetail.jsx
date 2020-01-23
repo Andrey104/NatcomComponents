@@ -118,30 +118,26 @@ class OrderDetail extends React.Component {
         return (
             <div className="row">
                 {this.getBalancePayDialog()}
-                <div className="order-container">
-                    <div className="col-md-6">
-                        <button onClick={this.handlePrintButtonClick}>На печать</button>
-                        <OrderInfo order={order}/>
-                    </div>
-                    <div>
-                        <OrderClientCard client={order.client}
-                                         order={order}
-                                         update={this.updateOrder}/>
-                        <OrderPayments order={order}
-                                       addBalancePay={this.openBalancePayDialog}
-                                       returnBalancePay={this.openBalancePayReturnDialog}/>
-                    </div>
+                <div className="col-md-6">
+                    <button onClick={this.handlePrintButtonClick}>На печать</button>
+                    <OrderInfo order={order}/>
+                </div>
+                <div className="col-md-6">
+                    <OrderClientCard client={order.client}
+                                     order={order}
+                                     update={this.updateOrder}/>
+                    <OrderPayments order={order}
+                                   addBalancePay={this.openBalancePayDialog}
+                                   returnBalancePay={this.openBalancePayReturnDialog}/>
                 </div>
                 <div className="col-12">
                     <TableOrderInfo order={order}/>
                 </div>
                 <div className="col-12 text-right">
-                    <div className="order-buttons">
-                        <ChangeOrderStatus order={order}
+                    <ChangeOrderStatus order={order}
                                        update={this.updateOrder}/>
-                        <RejectOrder order={order}/>
-                        {this.getEditOrderBtn(order)}
-                    </div>
+                    <RejectOrder order={order}/>
+                    {this.getEditOrderBtn(order)}
                 </div>
             </div>
         )

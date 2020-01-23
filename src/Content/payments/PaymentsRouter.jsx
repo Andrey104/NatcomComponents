@@ -12,7 +12,7 @@ class PaymentsRouter extends React.Component {
 
     getMenu() {
         let menu = (
-            <NavLink to='/payments'>
+            <NavLink className="page-title" to='/payments'>
                 <span>Оплаты</span>
             </NavLink>
         );

@@ -50,7 +50,7 @@ export default class extends React.Component {
             );
         }
         return (
-            <tr onClick={handleClick(membrane)}>
+            <tr onClick={handleClick(membrane, 1)}>
                 <td>{membrane.vendor_code}</td>
                 <td>{membrane.texture.description} {membrane.color.description} {membrane.name} ({membrane.width})</td>
                 <td>{countFormat(membrane.stocks[0].count - membrane.stocks[0].reserve)}</td>

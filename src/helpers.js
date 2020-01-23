@@ -1,8 +1,11 @@
 import {OrderedMap} from 'immutable';
 
-//проверить Map/OrderMap
 export function arrToMap(arr, DataRecord = OrderedMap) {
     return arr.reduce((acc, item) => acc.set(item.id, new DataRecord(item)), new OrderedMap({}));
+}
+
+export function objToMap(obj, DataRecord) {
+    return new DataRecord(obj);
 }
 
 export function mapToArr(obj) {
@@ -11,5 +14,5 @@ export function mapToArr(obj) {
 
 export function mapToObj(obj) {
     if (obj === undefined) return undefined;
-    return obj.valueSeq().toObject();
+    return obj.toObject();
 }

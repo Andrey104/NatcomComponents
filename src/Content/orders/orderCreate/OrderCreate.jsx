@@ -304,7 +304,6 @@ class OrderCreate extends React.Component {
                     <div className="col-12 col-md-6">
                         <table className="table table-hover table-bordered">
                             <tbody>
-
                             <AddClient addClient={this.addClient}
                                        dialogWindowState={this.dialogWindowState}
                                        client={this.state.client}/>

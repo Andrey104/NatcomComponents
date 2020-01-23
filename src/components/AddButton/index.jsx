@@ -10,7 +10,7 @@ export default class extends React.Component {
                 <div className="add-button"
                      onClick={this.props.openAdd}>
                     <p className="plus">+</p>
-                </div>
+                </div>;
         return (
             <div>
                 {buttonBlock}

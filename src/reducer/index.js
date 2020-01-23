@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 
 import stocks from './stock';
-import suppliers from './supplier';
+import suppliers from '../Content/suppliers/store/reducers/suppliers';
 import categories from './categories';
 import products from './product';
 import clients from './client';
 import customPrices from './customPrice';
-import supplies from './supply';
+import supplies from '../Content/supplies/store/reducers/supplies';
 import payments from './payment';
 import orders from './order';
 import users from './user';

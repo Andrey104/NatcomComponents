@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from './styles.css';
+import styles from './Login.css';
 
 import Header from '../Header';
 import Menu from '../Menu';

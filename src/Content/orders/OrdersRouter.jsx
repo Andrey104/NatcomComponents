@@ -16,7 +16,7 @@ class OrdersRouter extends React.Component {
 
     getMenu() {
         let menu = (
-            <NavLink to='/orders'>
+            <NavLink className="page-title" to='/orders'>
                 <span>Заказы</span>
             </NavLink>
         );

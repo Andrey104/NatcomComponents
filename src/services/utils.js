@@ -1,7 +1,8 @@
 import {ITEM_MEMBRANE, ITEM_PRODUCT, units} from "../constans";
-import membrane from "../reducer/membrane";
 
 export const phoneMask = ['+', '7', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+export const numberMask = "\^[0-9]\(.|,)\d{,2}";
 
 export const paymentTypes = ['Наличные', 'Карта', 'Терминал'];
 
@@ -120,7 +121,7 @@ export function priceFormat(price) {
     return formattedPrice;
 }
 
-export function priceFormatWithoutSpaces(price) {
+export function priceFormatWithoutSpacespriceFormatWithoutSpaces(price) {
     let formattedPrice;
     if (price){
         formattedPrice = Number(price).toFixed(2);
@@ -285,20 +286,6 @@ export function getUrlMembranes(filters, page, client) {
     return url_prefix + url;
 }
 
-export function getUrlProducts(filters, page, client) {
-    let url_prefix = '';
-    let url = '';
-    if (client) url += `client=${client.id}&`;
-    if (filters.searchText) url += `text=${filters.searchText}&`;
-    if (filters.category) url += `category=${filters.category}&`;
-    if (filters.subcategory) url += `subcategory=${filters.subcategory}&`;
-    if (page) url += `page=${page}&`;
-    if (url!== '') {
-        url = '?' + url.slice(0, url.length - 1);
-    }
-    return url_prefix + url;
-}
-
 export function getUrlOrders(page, client, date) {
     let url_prefix = '';
     let url = '';
@@ -322,11 +309,13 @@ export function getUrlSuppliers(page, text) {
     return url_prefix + url;
 }
 
-export function getUrlSupplies(page, supplier) {
+export function getUrlSupplies(page, filter) {
     let url_prefix = '';
     let url = '';
-    if (supplier) url += `supplier=${supplier}&`;
     if (page) url += `page=${page}&`;
+    if (filter.text) url += `text=${filter.text}&`;
+    if (filter.date) url += `date=${filter.date}&`;
+    if (filter.supplierId) url += `supplier=${filter.supplierId}&`;
     if (url!== '') {
         url = '?' + url.slice(0, url.length - 1);
     }

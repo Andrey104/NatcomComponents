@@ -1,5 +1,5 @@
 import {BaseApi} from '../services/base';
-import {START, SUCCESS, FAIL} from '../constans';
+import {START, SUCCESS} from '../constans';
 
 export default store => next => action => {
     const {callAPI, requestType, type, data} = action;
@@ -18,27 +18,27 @@ export default store => next => action => {
         case 'GET': {
             baseApi
                 .get(callAPI)
-                .then(response => next({type: type + SUCCESS, response}));
+                .then(response => next({type: type + SUCCESS, response, data}));
             break;
         }
         case 'POST': {
             const {data} = action;
             baseApi
                 .post(callAPI, data)
-                .then(response => next({type: type + SUCCESS, response}));
+                .then(response => next({type: type + SUCCESS, response, data}));
             break;
         }
         case 'PUT': {
             const {data} = action;
             baseApi
                 .put(callAPI, data)
-                .then(response => next({type: type + SUCCESS, response}));
+                .then(response => next({type: type + SUCCESS, response, data}));
             break;
         }
         case 'DELETE': {
             baseApi
                 .deleteRequest(callAPI)
-                .then(response => next({type: type + SUCCESS, data}));
+                .then(response => next({type: type + SUCCESS, response, data}));
             break;
         }
     }

@@ -8,7 +8,7 @@ import ProductCard from './ProductCard/index';
 import MembraneCard from './MembraneCard/index';
 import InfiniteScrollOverride from '../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../helpers';
-import {deleteProductsFromStore, getAllProducts, getNextProducts, setProductsClient} from '../../AC/products';
+import {deleteProductsFromStore, getAllProducts, getNextProducts, setProductsClient, setProductType} from '../../AC/products';
 import history from '../../history';
 import {getCurrentUser} from "../../AC/currentUser";
 import {UsersService} from "../../services/users.service";
@@ -59,9 +59,9 @@ class ItemList extends React.Component {
                     this.props.saveMembranesFilters(this.filtersMembranes);
                 } else {
                     this.filtersProducts = {
-                        searchText: this.props.filtersProducts,
-                        category: this.props.filtersProducts,
-                        subcategory: this.props.filtersProducts
+                        searchText: this.props.filtersProducts.searchText,
+                        category: this.props.filtersProducts.category,
+                        subcategory: this.props.filtersProducts.subcategory
                     }
                 }
             }
@@ -69,7 +69,7 @@ class ItemList extends React.Component {
     }
 
     componentDidMount() {
-        //this.load();
+        this.load();
     };
 
     componentWillUnmount() {
@@ -104,7 +104,8 @@ class ItemList extends React.Component {
         }
     };
 
-    handleClick = item => () => {
+    handleClick = (item, type) => () => {
+        this.props.setProductType(type);
         if (this.props.selectMode) {
             this.props.handleSubmit(item);
         } else {
@@ -234,14 +235,14 @@ class ItemList extends React.Component {
                 <div className="row">
                     <div className="col-12">
                         <table className="table table-hover table-bordered">
-                            <thead className="thead-light">
+                            <thead className="thead">
                             {this.getTableHead()}
                             </thead>
                             <tbody>
                             {this.getBody()}
                             </tbody>
                         </table>
-                        {/*{loader}*/}
+                        {loader}
                     </div>
                     {this.getAddButton()}
                 </div>
@@ -272,5 +273,6 @@ export default connect((state) => ({
     getAllMembranes,
     saveMembranesFilters,
     deleteMembranesFromStore,
-    deleteProductsFromStore
+    deleteProductsFromStore,
+    setProductType
 })(ItemList);

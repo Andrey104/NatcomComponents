@@ -4,10 +4,10 @@ import React from 'react'
 
 import CategoriesPage from './categories/CategoriesPage';
 import StocksPage from './stocks/StocksPage';
-import SuppliersRouter from './suppliers/SuppliersRouter';
+import SuppliersRouter from './suppliers/components/SuppliersRouter';
 import ProductsRouter from './products/ProductsRouter';
 import ClientsRouter from './clients/ClientsRouter';
-import SuppliesRouter from './supplies/SuppliesRouter';
+import SuppliesRouter from './supplies/components/SuppliesRouter';
 import PaymentsRouter from './payments/PaymentsRouter';
 import OrdersRouter from './orders/OrdersRouter';
 import UsersPage from './users/UsersPage';
@@ -21,13 +21,12 @@ import HarpoonsRouter from './harpoons/HarpoonsRouter';
 import TransferRequestsRouter from './transfers/transferRequests/TransferRequestsRouter';
 import Statistics from "./statistics/statistics/Statistics";
 import ItemHistory from "./items/itemHistory/ItemHistory";
-import './styles.css'
 
 export default class extends React.Component {
     render() {
         return (
             <div>
-                <div className='content-container'>
+                <div className='content-container container'>
                     <main>
                         <Switch className="main-page">
                             <Route exact path='/' component={OrdersRouter}/>

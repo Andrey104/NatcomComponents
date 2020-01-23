@@ -5,6 +5,7 @@ import React from "react";
 import ItemHistoryCard from "./ItemHistoryCard/index";
 import history from '../../../history';
 import {ITEM_HISTORY_TYPE_ORDER, ITEM_HISTORY_TYPE_RETURN_ORDER, ITEM_HISTORY_TYPE_SUPPLY} from "../../../constans";
+import './ItemHistory.css';
 
 class ItemHistory extends React.Component {
 
@@ -24,11 +25,11 @@ class ItemHistory extends React.Component {
         return (
             <tr>
                 <th scope="col">Дата</th>
-                <th scope="col">Тип</th>
-                <th scope="col">Клиент/Поставщик</th>
-                <th scope="col">Кол-во</th>
-                <th scope="col">Цена</th>
-                <th scope="col">Сумма</th>
+                <th defaultValue="Тип" scope="col">Тип</th>
+                <th scope="col" data-label="Клиент/Поставщик: ">Клиент/Поставщик</th>
+                <th scope="col" data-label="Кол-во: ">Кол-во</th>
+                <th scope="col" data-label="Цена: ">Цена</th>
+                <th scope="col" data-label="Сумма: ">Сумма</th>
             </tr>
         );
     }
@@ -62,7 +63,7 @@ class ItemHistory extends React.Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="item-history-table-container">
                 <div className="col-12">
                     <table className="table table-hover table-bordered">
                         <thead className="thead-light">
