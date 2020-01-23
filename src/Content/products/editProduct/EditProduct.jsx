@@ -109,14 +109,11 @@ class EditProduct extends React.Component {
         this.setState({
             images: images
         });
-        console.log('state.images',this.state.images);
-        console.log('images',images);
     };
 
     handleSubmit = event => {
         event.preventDefault();
         const newProduct = this.getNewProduct();
-        console.log("ФЕДОС СНОВА ОБОСРАЛСЯ" + this.state.price_best);
         if (this.editMode) {
             this.baseApi
                 .put(`items/products/${this.urlId}/`, newProduct)
@@ -167,7 +164,6 @@ class EditProduct extends React.Component {
     }
 
     getStockID(stock) {
-        console.log(stock);
         if (stock.stock) {
             if (stock.stock.id) return stock.stock.id;
             else return stock.stock
@@ -230,7 +226,6 @@ class EditProduct extends React.Component {
     }
 
     getBody(categories, subcategories) {
-        console.log(this.state);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="row">
@@ -308,7 +303,6 @@ class EditProduct extends React.Component {
 
     render() {
         const {isLoading, categories, subcategories, product} = this.props;
-        console.log("Ты в говне" + this.state);
         if (isLoading || categories.length === 0) {
             return (
                 <div className="pre-loader-container">
@@ -317,7 +311,6 @@ class EditProduct extends React.Component {
             );
         }
         const dialogWindow = this.getDialogWindow();
-        console.log(product.images);
         const body = this.getBody(categories, subcategories);
         return (
             <div>
@@ -327,8 +320,6 @@ class EditProduct extends React.Component {
         )
     }
 }
-
-
 
 
 export default connect((state) => ({

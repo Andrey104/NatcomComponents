@@ -6,8 +6,8 @@ import {
     addNewContact,
     editContact,
     deleteContact,
-    getSupplierDetail, openAddNewContactWindow
-} from "../../../AC/suppliers";
+    getSupplier, openAddNewContactWindow
+} from "../../../Content/suppliers/store/actions/suppliers";
 import MaskedInput from "react-text-mask";
 
 class AddNewContact extends React.Component {
@@ -91,7 +91,7 @@ class AddNewContact extends React.Component {
     }
 }
 
-const mapDispatchToProps = {addNewContact, editContact, deleteContact, getSupplierDetail, openAddNewContactWindow};
+const mapDispatchToProps = {addNewContact, editContact, deleteContact, getSupplierDetail: getSupplier, openAddNewContactWindow};
 
 const mapStateToProps = (state) => ({
    contact: state.suppliers.contact,

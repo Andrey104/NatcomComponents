@@ -88,7 +88,7 @@ export default class extends React.Component {
     };
 
     getImages() {
-        console.log('getImages productImages', this.productImages);
+        //console.log('getImages productImages', this.productImages);
         if (this.state.productImages.length) {
             return this.state.productImages.map((img, index) => {
                 const uniqueKey = String(img.id) + String(img.url);
