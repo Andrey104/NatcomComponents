@@ -4,7 +4,7 @@ import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
 
-import ComponentMenu from '../../../components/ComponentMenu';
+import ComponentMenu from '../../../components/ComponentMenu/ComponentMenu';
 import SuppliersMainPage from './SuppliersMainPage/SuppliersMainPage';
 import SupplierInfoPage from './SupplierInfoPage/SupplierInfoPage';
 import EditSupplier from './EditSupplier/EditSupplier';

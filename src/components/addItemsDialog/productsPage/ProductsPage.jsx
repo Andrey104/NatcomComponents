@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 
 import ProductsFilters from '../../productsFilters/ProductsFilters';
 import ProductsList from './ProductsList';
-import {getAllProducts} from '../../../AC/products';
-import {getCategoriesAndSubcategories} from '../../../AC/categories';
+import {getAllProducts} from '../../../Content/products/store/actions/products';
+import {getCategoriesAndSubcategories} from '../../../Content/categories/store/actions/categories';
 import {mapToArr} from '../../../helpers';
 
 class ProductsPage extends React.Component {

@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import history from '../../../history';
-import Loader from '../../../components/Loader';
-import ItemPrices from '../../../components/itemDetail/ItemPrices';
-import MainImage from '../../../components/itemDetail/MainImage';
-import ItemStocks from '../../../components/itemDetail/ItemStocks';
-import ItemImages from '../../../components/itemDetail/ItemImages';
-import {getProduct} from '../../../AC/products';
-import {checkSubcategory} from '../../../services/utils';
-import {units} from '../../../constans';
+import history from '../../../../history';
+import Loader from '../../../../components/Loader';
+import ItemPrices from '../../../../components/itemDetail/ItemPrices';
+import MainImage from '../../../../components/itemDetail/MainImage';
+import ItemStocks from '../../../../components/itemDetail/ItemStocks';
+import ItemImages from '../../../../components/itemDetail/ItemImages';
+import {getProduct} from '../../store/actions/products';
+import {checkSubcategory} from '../../../../services/utils';
+import {units} from '../../../../constans';
 import './styles.css';
-import {UsersService} from "../../../services/users.service";
+import {UsersService} from "../../../../services/users.service";
 
 class ProductDetail extends React.Component {
     urlId;

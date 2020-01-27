@@ -1,19 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import Loader from '../../../components/Loader';
-import AddOrEditCategory from '../addOrEditCategory/AddOrEditCategory';
+import Loader from '../../../../components/Loader';
+import CategoryEditingPage from '../CategoryEditingPage/CategoryEditingPage';
 import {
     getSubcategories,
     editCategory,
     editSubcategory,
     addNewSubcategory
-} from '../../../AC/categories';
-import {openModalWindow, closeModalWindow} from '../../../AC/modal';
-import {mapToArr} from '../../../helpers';
-import {EDIT_CATEGORY, EDIT_SUBCATEGORY, ADD_SUBCATEGORY} from '../../../constans';
+} from '../../store/actions/categories';
+import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
+import {mapToArr} from '../../../../helpers';
+import {EDIT_CATEGORY, EDIT_SUBCATEGORY, ADD_SUBCATEGORY} from '../../store/constantsCategory';
 
-class CategoryDetail extends React.Component {
+class CategoryInfoPage extends Component {
     editSub;
 
     componentWillMount = () => {
@@ -47,23 +47,23 @@ class CategoryDetail extends React.Component {
         const {modal, category} = this.props;
         if (modal === EDIT_CATEGORY) {
             return (
-                <AddOrEditCategory header={'Редактирование категории'}
-                                   categoryName={category.name}
-                                   handleSubmit={this.editCategory}
-                                   close={this.closeDialog}/>
+                <CategoryEditingPage header={'Редактирование категории'}
+                                     categoryName={category.name}
+                                     handleSubmit={this.editCategory}
+                                     close={this.closeDialog}/>
             )
         } else if (modal === EDIT_SUBCATEGORY) {
             return (
-                <AddOrEditCategory header={'Редактирование подкатегории'}
-                                   categoryName={this.editSub.name}
-                                   handleSubmit={this.editSubcategory}
-                                   close={this.closeDialog}/>
+                <CategoryEditingPage header={'Редактирование подкатегории'}
+                                     categoryName={this.editSub.name}
+                                     handleSubmit={this.editSubcategory}
+                                     close={this.closeDialog}/>
             )
         } else if (modal === ADD_SUBCATEGORY) {
             return (
-                <AddOrEditCategory header={'Новая подкатегория'}
-                                   handleSubmit={this.addSubcategory}
-                                   close={this.closeDialog}/>
+                <CategoryEditingPage header={'Новая подкатегория'}
+                                     handleSubmit={this.addSubcategory}
+                                     close={this.closeDialog}/>
             )
         }
     }
@@ -94,8 +94,7 @@ class CategoryDetail extends React.Component {
     }
 
     render() {
-        const {category, isLoading} = this.props;
-        if (isLoading) {
+        if (this.props.isLoading) {
             return (
                 <div className="pre-loader-container">
                     <Loader/>
@@ -106,7 +105,6 @@ class CategoryDetail extends React.Component {
             <div>
                 <div className="col-12">
                     {this.getDialogWindow()}
-                    <h3>Категория: {category.name}</h3>
                     <h5>Список подкатегорий:</h5>
                     <table className="table table-bordered">
                         <thead className="thead-light">
@@ -136,7 +134,7 @@ class CategoryDetail extends React.Component {
 export default connect(state => ({
     category: state.categories.category,
     subcategories: mapToArr(state.categories.subcategories),
-    isLoading: state.categories.isLoadingSubcategories,
+    isLoading: state.categories.isLoading,
     modal: state.modal.modal
 }), {
     getSubcategories,
@@ -145,4 +143,4 @@ export default connect(state => ({
     openModalWindow,
     closeModalWindow,
     addNewSubcategory
-})(CategoryDetail);
+})(CategoryInfoPage);

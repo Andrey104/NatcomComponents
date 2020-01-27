@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import DialogWindow from '../ModalWindow';
 import Loader from '../Loader';
-import {getAllProducts} from '../../AC/products';
+import {getAllProducts} from '../../Content/products/store/actions/products';
 import {mapToArr} from '../../helpers';
 import styles from './styles.scss';
 

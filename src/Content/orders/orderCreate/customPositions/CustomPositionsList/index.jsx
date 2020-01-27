@@ -24,7 +24,7 @@ export default class extends React.Component {
                 <tr key={index}>
                     <th scope="row">
                         <div className="number-block">
-                            <img className="del-button"
+                            <img className="circle-button"
                                  src="/public/remove.svg"
                                  onClick={() => this.props.removePositionFromList(position, index)}>
                             </img>

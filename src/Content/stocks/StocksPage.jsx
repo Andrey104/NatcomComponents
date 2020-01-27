@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 import StocksList from './stocksList/StocksList';
 import StockDetail from './stockDetail/StockDetail';
-import ComponentMenu from '../../components/ComponentMenu'
+import ComponentMenu from '../../components/ComponentMenu/ComponentMenu'
 
 class StocksPage extends React.Component {
 

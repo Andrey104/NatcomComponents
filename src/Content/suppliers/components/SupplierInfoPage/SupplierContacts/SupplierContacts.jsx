@@ -8,15 +8,13 @@ export default class SupplierContacts extends Component {
         return (
             <tr>
                 <td className="contact-name">
-                    <button type="button"
-                            onClick={() => editContact(true, true, contact)}
-                            className="btn btn-primary btn-sm">Редактировать
-                    </button>
+                    <img onClick={() => editContact(true, true, contact)} src="/public/edit.svg"
+                         className="circle-button edit-button"/>
                     {contact.name}
                 </td>
-                <td>{getPhoneWithMask(contact.phone)}</td>
-                <td>{contact.email}</td>
-                <td>{contact.comment}</td>
+                <td data-label="Телефон: ">{getPhoneWithMask(contact.phone)}</td>
+                <td data-label="Email: ">{contact.email}</td>
+                <td data-label="Комментарий: ">{contact.comment}</td>
             </tr>
         )
     }

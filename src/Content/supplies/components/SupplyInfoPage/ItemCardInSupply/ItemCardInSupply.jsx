@@ -23,12 +23,12 @@ export default class ItemCardInSupply extends Component {
             : `/products/${item.item.id}`;
         return (
             <tr onClick={() => history.push(itemUrl)}>
-               <td>{number}</td>
-               <td>{getItemArticle(item)}</td>
-               <td>{getItemName(item)}</td>
-               <td>{countFormat(item.count)} {getArea(item)}</td>
-               <td>{priceFormat(item.purchase_price)}</td>
-               <td>{priceFormat(this.getItemPrice(item))}</td>
+               <td data-label="№ товара: ">{number}</td>
+               <td data-label="Артикул: ">{getItemArticle(item)}</td>
+               <td data-label="Название: ">{getItemName(item)}</td>
+               <td data-label="Количество: ">{countFormat(item.count)} {getArea(item)}</td>
+               <td data-label="Цена: ">{priceFormat(item.purchase_price)}</td>
+               <td data-label="Итог: ">{priceFormat(this.getItemPrice(item))}</td>
             </tr>
         )
     }

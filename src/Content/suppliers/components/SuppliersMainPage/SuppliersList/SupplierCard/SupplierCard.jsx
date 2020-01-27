@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-
 import {checkAddress} from '../../../../../../services/utils';
-import styles from './SupplierCard.scss';
 import history from "../../../../../../history";
 
 export default class SupplierCard extends Component {
@@ -19,17 +17,10 @@ export default class SupplierCard extends Component {
     render() {
         const {supplier, number} = this.props;
         return (
-            <tr onClick={this.clickOnCard(supplier)}
-                className={styles['suppliers-list__card']}>
-                <td className={styles['suppliers-list__card__td__id_fixed-width']}>
-                    {number}
-                </td>
-                <td className={styles['suppliers-list__card__td__name_fixed-width']}>
-                    {supplier.name}
-                </td>
-                <td className={styles['suppliers-list__card__td__address_fixed-width']}>
-                    {checkAddress(supplier.address)}
-                </td>
+            <tr onClick={this.clickOnCard(supplier)} className="hover-over-table">
+                <td data-label="№ поставщика: ">{number}</td>
+                <td data-label="Поставщик: ">{supplier.name}</td>
+                <td data-label="Адрес: ">{checkAddress(supplier.address)}</td>
             </tr>
         )
     }

@@ -14,7 +14,64 @@
     max-height: 56px;
 }
 
+.hover-over-table {
+    cursor: pointer;
+}
 
+.circle-button {
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    float: left;
+    font-weight: bolder;
+    background: silver;
+    border-radius: 50%;
+    width: 1em;
+}
+
+.edit-button {
+    padding: 3px;
+}
+
+@media screen and (max-width: 768px){
+    .mobile-table-container table {
+        border: 0;
+    }
+    .mobile-table-container table thead {
+        display: none;
+    }
+    .mobile-table-container table tr {
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 2px solid #ddd;
+    }
+    .mobile-table-container table td {
+        display: block;
+        position: relative;
+        text-align: left;
+        font-size: 15px;
+    }
+    .mobile-table-container table td:first-child {
+        background-color: #E9ECEF; /* TODO придумать цвета */
+    }
+    .mobile-table-container table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+    }
+    .mobile-table-container table td div {
+        display: inline-block;
+    }
+    .mobile-table-container table td input {
+        max-width: 35vw;
+        float: right;
+    }
+    .mobile-table-container table td img {
+        position: absolute;
+        min-width: 25px;
+        right: 10px;
+    }
+}
 
 
 

@@ -1,17 +1,17 @@
+import {SUCCESS} from '../../../../constans';
 import {
     GET_ALL_CATEGORIES,
     GET_SUBCATEGORIES,
-    REMOVE_SUBCATEGORIES_FROM_STORAGE,
+    REMOVE_SUBCATEGORIES_FROM_STORE,
     SAVE_CATEGORIES,
-    SUCCESS,
     SAVE_SUBCATEGORIES,
     SAVE_CATEGORY,
     EDIT_CATEGORY,
     EDIT_SUBCATEGORY
-} from '../constans';
-import {BaseApi} from '../services/base';
-import {closeModalWindow} from './modal';
-import history from '../history';
+} from '../constantsCategory';
+import {BaseApi} from '../../../../services/base';
+import {closeModalWindow} from '../../../../AC/modal';
+import history from '../../../../history';
 
 export function getAllCategories() {
     return {
@@ -114,9 +114,9 @@ export function saveCategories(categories, subcategories) {
     }
 }
 
-export function removeSubcategoriesFromStorage() {
+export function removeSubcategoriesFromStore() {
     return {
-        type: REMOVE_SUBCATEGORIES_FROM_STORAGE
+        type: REMOVE_SUBCATEGORIES_FROM_STORE
     }
 }
 

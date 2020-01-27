@@ -12,14 +12,6 @@ import {
 import {SUCCESS, START} from "../../../../constans";
 import {arrToMap, objToMap} from "../../../../helpers";
 
-const ContactRecord = Record ( {
-    id: undefined,
-    name: undefined,
-    phone: undefined,
-    email: undefined,
-    comment: undefined
-});
-
 const SupplierRecord = Record({
     id: undefined,
     name: undefined,
@@ -98,7 +90,7 @@ export default (supplierState = defaultState, actionTypeResponse) => {
             return defaultState;
         }
         case DELETE_SUPPLIER_FROM_STORE: {
-            return supplierState.set('supplier', null);
+            return supplierState.set('supplier', {});
         }
         case SET_SUPPLIERS_FILTER: {
             return supplierState.set('searchText', data);

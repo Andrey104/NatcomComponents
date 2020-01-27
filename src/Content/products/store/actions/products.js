@@ -6,8 +6,8 @@ import {
     SAVE_PRODUCTS_FILTERS,
     SET_PRODUCTS_CLIENT,
     SET_PRODUCT_TYPE
-} from '../constans';
-import {getUrl} from "../services/utils";
+} from '../../../../constans';
+import {getUrl} from "../../../../services/utils";
 
 export function getAllProducts(filters, client) {
     let callAPI = 'items/products/';

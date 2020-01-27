@@ -8,7 +8,7 @@ import ProductCard from './ProductCard/index';
 import MembraneCard from './MembraneCard/index';
 import InfiniteScrollOverride from '../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../helpers';
-import {deleteProductsFromStore, getAllProducts, getNextProducts, setProductsClient, setProductType} from '../../AC/products';
+import {deleteProductsFromStore, getAllProducts, getNextProducts, setProductsClient, setProductType} from '../../Content/products/store/actions/products';
 import history from '../../history';
 import {getCurrentUser} from "../../AC/currentUser";
 import {UsersService} from "../../services/users.service";

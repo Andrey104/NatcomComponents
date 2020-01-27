@@ -72,7 +72,7 @@ export class SupplyInfoPage extends Component {
                         <th scope="col">Артикул</th>
                         <th scope="col">Название</th>
                         <th scope="col">Количество</th>
-                        <th scope="col">Сумма</th>
+                        <th scope="col">Цена</th>
                         <th scope="col">Итог</th>
                     </tr>
                 </thead>
@@ -97,13 +97,15 @@ export class SupplyInfoPage extends Component {
         return (
             <div>
                 <div>Поставщик: {supply.supplier.name}</div>
-                <div>Цена: {priceFormat(supply.cost)}</div>
+                <div>Сумма: {priceFormat(supply.cost)}</div>
                 <div>{this.getDraft(supply.draft)}</div>
                 <div>Дата поставки товара: {getDate(supply.date)}</div>
                 <div>Дата добавления в систему: {getDate(supply.auto_date)}</div>
                 <div>{this.getComment(supply.comment)}</div>
                 <div>Добавил: {supply.user.username}</div>
-                {this.getItemsTable()}
+                <div className="mobile-table-container">
+                    {this.getItemsTable()}
+                </div>
                 {this.getButtonFromDraft(supply)}
             </div>
         )

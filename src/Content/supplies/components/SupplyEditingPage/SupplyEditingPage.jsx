@@ -24,7 +24,7 @@ export default class extends Component {
             this.state = mapToObj(supply);
             this.btnText = 'Изменить';
         }
-    }
+    };
 
     selectedSupplier = supplier => this.setState({supplier});
 
@@ -55,12 +55,10 @@ export default class extends Component {
 
     getDisabledState() {
         const {supplier, date, items} = this.state;
-        if (!supplier || !date || !items.length) {
-            return true;
-        } else if (items.length) {
+        if (!supplier || !date || !items.length) return true;
+        else if (items.length) {
             for (const item of items) {
-                if (!item.count || !item.purchase_price)
-                    return true;
+                if (!item.count || !item.purchase_price) return true;
             }
         }
         return false;
