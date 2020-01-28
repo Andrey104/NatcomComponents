@@ -7,8 +7,8 @@ import {
     START, SUCCESS,
     SAVE_PRODUCTS_FILTERS,
     SET_PRODUCTS_CLIENT, SET_PRODUCT_TYPE
-} from '../constans';
-import {arrToMap} from '../helpers';
+} from '../../../../constans';
+import {arrToMap} from '../../../../helpers';
 
 const ProductRecord = Record({
     id: undefined,

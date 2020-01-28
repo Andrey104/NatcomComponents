@@ -8,7 +8,7 @@ import AddFiles from './AddFiles/index';
 import Loader from '../../../components/Loader';
 import CommentField from '../../../components/CommentField';
 import ResultParameters from './ResultParameters';
-import {getAllProducts} from '../../../AC/products';
+import {getAllProducts} from '../../products/store/actions/products';
 import {deleteItemsFromStore} from '../../../AC/items';
 import {mapToArr} from '../../../helpers';
 import history from '../../../history';

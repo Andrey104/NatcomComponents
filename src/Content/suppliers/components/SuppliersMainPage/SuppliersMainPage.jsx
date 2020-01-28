@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import SearchInput from '../../../../components/SearchInput';
 import SuppliersList from './SuppliersList/SuppliersList';
 import {setSuppliersFilter} from '../../store/actions/suppliers';
-import './SuppliersMainPage.css';
 
 class SuppliersMainPage extends Component {
 
@@ -12,19 +11,17 @@ class SuppliersMainPage extends Component {
 
     render() {
         return (
-            <div>
-                <div className="row">
-                    <div className="col-12">
-                        <div className="row align-items-center">
-                            <div className="col-6">
-                                <SearchInput search={this.searchSuppliers}/>
-                            </div>
+            <div className="row">
+                <div className="col-12">
+                    <div className="row align-items-center">
+                        <div className="col-12">
+                            <SearchInput search={this.searchSuppliers}/>
                         </div>
                     </div>
-                    <div className="col-12 suppliers-page-scroll">
-                        <SuppliersList supplierForSupply={this.props.supplierForSupply}
-                                       isDialog={this.props.isDialog}/>
-                    </div>
+                </div>
+                <div className="col-12">
+                    <SuppliersList supplierForSupply={this.props.supplierForSupply}
+                                   isDialog={this.props.isDialog}/>
                 </div>
             </div>
         )

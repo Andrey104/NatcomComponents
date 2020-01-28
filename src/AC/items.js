@@ -1,6 +1,6 @@
 import {BaseApi} from '../services/base';
 import {deleteMembranesFromStore} from './membranes';
-import {deleteProductsFromStore} from './products';
+import {deleteProductsFromStore} from '../Content/products/store/actions/products';
 import {SAVE_ITEMS_INFO} from '../constans';
 import history from '../history';
 

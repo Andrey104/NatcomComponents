@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import classNames from 'classnames/bind';
 
 import SupplierCard from './SupplierCard/SupplierCard';
 import AddButton from '../../../../../components/AddButton';
@@ -8,10 +7,7 @@ import Loader from '../../../../../components/Loader';
 import InfiniteScrollOverride from '../../../../../services/InfiniteScrollOverride';
 import {mapToArr} from '../../../../../helpers';
 import {getSuppliers} from '../../../store/actions/suppliers';
-import styles from './SupliersList.scss';
 import history from "../../../../../history";
-
-let cx = classNames.bind(styles);
 
 class SuppliersList extends Component {
 
@@ -45,8 +41,6 @@ class SuppliersList extends Component {
         return this.props.supplierForSupply ? null : <AddButton openAdd={this.addNewSupplier}/>
     };
 
-    getPageClasses = () => this.props.supplierForSupply ? 'dialog' : '';
-
     render() {
         const {isLoading, suppliers, hasMoreSuppliers} = this.props;
         const loader = hasMoreSuppliers ? <Loader/> : false;
@@ -59,7 +53,7 @@ class SuppliersList extends Component {
         }
         return (
             <div className="row">
-                <div className={cx('col-12', this.getPageClasses())}>
+                <div className="col-12">
                     <InfiniteScrollOverride
                         loadMore={this.loadSuppliers}
                         hasMore={hasMoreSuppliers}
@@ -67,17 +61,17 @@ class SuppliersList extends Component {
                         isDialog={this.props.isDialog}
                         className='scroll'>
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-12 mobile-table-container">
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Поставщик</th>
-                                        <th scope="col">Адрес</th>
-                                    </tr>
+                                        <tr>
+                                            <th scope="col">№</th>
+                                            <th scope="col">Поставщик</th>
+                                            <th scope="col">Адрес</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    {this.getBody(suppliers)}
+                                        {this.getBody(suppliers)}
                                     </tbody>
                                 </table>
                                 {loader}

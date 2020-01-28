@@ -1,18 +1,18 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import {connect} from 'react-redux';
-import Loader from '../../../components/Loader';
-import ItemImages from '../../../components/addNewItem/ItemImages';
-import SelectCategories from '../../../components/SelectCategories';
-import AddStocksDialog from '../../../components/AddStocksDialog/AddStocksDialog';
-import ItemStocks from '../../../components/addNewItem/ItemStocks';
-import PricesList from '../../../components/addNewItem/PricesList';
-import {BaseApi} from '../../../services/base';
-import {getSubcategories, getCategoriesAndSubcategories, saveCategories} from '../../../AC/categories';
-import {units} from '../../../constans';
-import {mapToArr} from '../../../helpers';
+import Loader from '../../../../components/Loader';
+import ItemImages from '../../../../components/addNewItem/ItemImages';
+import SelectCategories from '../../../../components/SelectCategories';
+import AddStocksDialog from '../../../../components/AddStocksDialog/AddStocksDialog';
+import ItemStocks from '../../../../components/addNewItem/ItemStocks';
+import PricesList from '../../../../components/addNewItem/PricesList';
+import {BaseApi} from '../../../../services/base';
+import {getSubcategories, getCategoriesAndSubcategories, saveCategories} from '../../../categories/store/actions/categories';
+import {units} from '../../../../constans';
+import {mapToArr} from '../../../../helpers';
 import styles from './styles.scss';
-import {getProduct, setProductType} from "../../../AC/products";
+import {getProduct, setProductType} from "../../store/actions/products";
 
 let cx = classNames.bind(styles);
 

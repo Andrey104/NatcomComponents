@@ -6,7 +6,7 @@ import ItemPrices from '../itemDetail/ItemPrices';
 import MainImage from '../itemDetail/MainImage';
 import ItemStocks from '../itemDetail/ItemStocks';
 import ItemImages from '../itemDetail/ItemImages';
-import {getProduct} from '../../AC/products';
+import {getProduct} from '../../Content/products/store/actions/products';
 import {checkSubcategory} from '../../services/utils';
 import {units} from '../../constans';
 import './styles.css';

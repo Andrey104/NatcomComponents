@@ -2,8 +2,8 @@ import {combineReducers} from 'redux';
 
 import stocks from './stock';
 import suppliers from '../Content/suppliers/store/reducers/suppliers';
-import categories from './categories';
-import products from './product';
+import categories from '../Content/categories/store/reducers/categories';
+import products from '../Content/products/store/reducers/product';
 import clients from './client';
 import customPrices from './customPrice';
 import supplies from '../Content/supplies/store/reducers/supplies';

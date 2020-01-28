@@ -1,16 +1,16 @@
+import {START, SUCCESS} from '../../../../constans';
 import {
     GET_ALL_CATEGORIES,
     GET_SUBCATEGORIES,
     SAVE_CATEGORIES,
-    REMOVE_SUBCATEGORIES_FROM_STORAGE,
-    START, SUCCESS,
+    REMOVE_SUBCATEGORIES_FROM_STORE,
     SAVE_SUBCATEGORIES,
     SAVE_CATEGORY,
     EDIT_CATEGORY,
     EDIT_SUBCATEGORY
-} from '../constans';
+} from '../constantsCategory';
 import {OrderedMap, Record} from 'immutable';
-import {arrToMap} from '../helpers';
+import {arrToMap} from '../../../../helpers';
 
 const CategoryRecord = Record({
     id: undefined,
@@ -18,9 +18,7 @@ const CategoryRecord = Record({
 });
 
 const ReducerState = Record({
-    isLoading: true,
-    isLoadingSubcategories: true,
-    loaded: false,
+    isLoading: false,
     category: {},
     subcategories: new OrderedMap({}),
     entries: new OrderedMap({})
@@ -42,17 +40,16 @@ export default (categoryState = defaultState, actionTypeResponse) => {
                 .set('isLoading', false);
         }
         case GET_SUBCATEGORIES + START: {
-            return categoryState.set('isLoadingSubcategories', true);
+            return categoryState.set('isLoading', true);
         }
         case GET_SUBCATEGORIES + SUCCESS: {
             response.data.unshift({id: -1, name: 'Все'});
             const subcategoriesMap = arrToMap(response.data, CategoryRecord);
             return categoryState.set('subcategories', subcategoriesMap)
-                .set('isLoadingSubcategories', false);
+                .set('isLoading', false);
         }
         case SAVE_CATEGORY: {
-            return categoryState.set('category', data)
-                .set('isLoadingSubcategories', true);
+            return categoryState.set('category', data);
         }
         case EDIT_CATEGORY: {
             return categoryState.set('category', data);
@@ -67,7 +64,7 @@ export default (categoryState = defaultState, actionTypeResponse) => {
                 .set('subcategories', arrToMap(subcategories, CategoryRecord))
                 .set('isLoading', false);
         }
-        case REMOVE_SUBCATEGORIES_FROM_STORAGE: {
+        case REMOVE_SUBCATEGORIES_FROM_STORE: {
             return categoryState.set('subcategories', new OrderedMap({}));
         }
         case SAVE_SUBCATEGORIES: {

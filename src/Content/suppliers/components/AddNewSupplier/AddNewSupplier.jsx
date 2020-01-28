@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addNewSupplier} from '../../store/actions/suppliers';
+import {addNewSupplier, deleteSupplierFromStore} from '../../store/actions/suppliers';
 import SupplierEditingPage from "../SupplierEditingPage/SupplierEditingPage";
 
 class AddNewSupplier extends Component {
 
-    handleSubmit = supplier => {
-        this.props.addNewSupplier(supplier);
-        //history.replace('')
-    }
+    handleSubmit = supplier => this.props.addNewSupplier(supplier);
 
     render() {
-        return (
-                <SupplierEditingPage handleSubmit={this.handleSubmit}/>
-        )
+        return <SupplierEditingPage handleSubmit={this.handleSubmit}/>
     }
+
+    componentWillUnmount = () => this.props.deleteSupplierFromStore();
 }
 
-export default connect(null, {addNewSupplier})(AddNewSupplier);
+export default connect(null, {addNewSupplier, deleteSupplierFromStore})(AddNewSupplier);

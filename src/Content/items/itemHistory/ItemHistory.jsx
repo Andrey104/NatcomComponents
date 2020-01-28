@@ -1,14 +1,12 @@
 import {getAllItemHistory} from "../../../AC/itemHistory";
 import {mapToArr} from "../../../helpers";
 import connect from "react-redux/es/connect/connect";
-import React from "react";
+import React, {Component} from "react";
 import ItemHistoryCard from "./ItemHistoryCard/index";
 import history from '../../../history';
 import {ITEM_HISTORY_TYPE_ORDER, ITEM_HISTORY_TYPE_RETURN_ORDER, ITEM_HISTORY_TYPE_SUPPLY} from "../../../constans";
-import './ItemHistory.css';
 
-class ItemHistory extends React.Component {
-
+class ItemHistory extends Component {
     urlId;
 
     componentWillMount() {
@@ -63,25 +61,22 @@ class ItemHistory extends React.Component {
 
     render() {
         return (
-            <div className="item-history-table-container">
+            <div className="mobile-table-container">
                 <div className="col-12">
                     <table className="table table-hover table-bordered">
                         <thead className="thead-light">
-                        {this.getHistoryTableHead()}
+                            {this.getHistoryTableHead()}
                         </thead>
                         <tbody>
-                        {this.getHistoryTableBody(this.props.histories)}
+                            {this.getHistoryTableBody(this.props.histories)}
                         </tbody>
                     </table>
                 </div>
             </div>
-
         );
     }
 }
 
 export default connect((state) => ({
     histories: mapToArr(state.itemHistories.entries),
-}), {
-    getAllItemHistory
-})(ItemHistory);
+}), {getAllItemHistory})(ItemHistory);

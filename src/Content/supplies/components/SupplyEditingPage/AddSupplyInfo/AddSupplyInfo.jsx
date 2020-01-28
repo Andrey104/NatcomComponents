@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-
-import DatePicker from '../../../../../components/datePickers/DatePicker';
+import DatePickerInput from '../../../../../components/datePickers/DatePickerInput';
 import CommentField from '../../../../../components/CommentField';
 
 export default class extends Component {
@@ -11,7 +10,7 @@ export default class extends Component {
         this.draft = supply.draft;
         this.date = supply.date;
         this.comment = supply.comment;
-    }
+    };
 
     handleChangeSupplyDraft = event => this.props.handleChangeSupply(event.target.checked, 'draft');
 
@@ -25,7 +24,19 @@ export default class extends Component {
     render() {
         return (
             <div className="row">
-                <div className="col-6">
+                <div className="col-lg-6">
+                    <CommentField commentName={'поставке'}
+                                  comment={this.comment}
+                                  addComment={this.addComment}/>
+                </div>
+                <div className="col-lg-6">
+                    <div className="form-group">
+                        <label htmlFor="supply-date">Дата поставки</label>
+                        <DatePickerInput className="form-control"
+                                         value={this.date}
+                                         setValue={this.addDate}
+                                         id="supply-date"/>
+                    </div>
                     <div className="form-group form-check">
                         <input type="checkbox"
                                className="form-check-input"
@@ -35,13 +46,6 @@ export default class extends Component {
                         <label className="form-check-label"
                                htmlFor="draft">Сохранить как черновик</label>
                     </div>
-                    <CommentField commentName={'поставке'}
-                                  comment={this.comment}
-                                  addComment={this.addComment}/>
-                </div>
-                <div className="col-6">
-                    <DatePicker date={this.date}
-                                selectDate={this.addDate}/>
                 </div>
             </div>
         )

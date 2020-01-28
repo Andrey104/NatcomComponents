@@ -25,7 +25,8 @@ export default class extends React.Component {
                 <input type='date'
                        value={this.props.value || this.state.dateValue}
                        onChange={this.dateChangeHandler}
-                       className='form-control'/>
+                       className='form-control'
+                       id={this.props.id || null}/>
             </div>
         );
     }

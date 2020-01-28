@@ -4,7 +4,7 @@ import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
 
-import ComponentMenu from '../../../components/ComponentMenu';
+import ComponentMenu from '../../../components/ComponentMenu/ComponentMenu';
 import SuppliesMainPage from './SuppliesMainPage/SuppliesMainPage';
 import SupplyInfoPage from './SupplyInfoPage/SupplyInfoPage';
 import EditSupply from './EditSupply/EditSupply';
@@ -27,7 +27,7 @@ class SuppliesRouter extends Component {
         }
         else if (urlId && supply) {
             if (Number(urlId) === supply.id) {
-                menu = <ComponentMenu menu={menu} name={'Поставка №' + supply.id + ' на ' + supply.date}/>;
+                menu = <ComponentMenu menu={menu} name={'№' + supply.id + ' на ' + supply.date}/>;
             }
         }
         return menu;

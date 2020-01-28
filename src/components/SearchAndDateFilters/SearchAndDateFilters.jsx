@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Debounce} from 'react-throttle';
-
+import "./SearchAndDateFilters.css";
 import SearchInput from '../SearchInput';
 import DatePickerInput from '../datePickers/DatePickerInput';
 
@@ -25,11 +25,11 @@ export default class extends Component {
         return (
             <Debounce time="500"
                       handler="onChange">
-                <div className="row align-items-center">
-                    <div className="col-6">
+                <div className="row align-items-center search-and-date-filters">
+                    <div className="col-md-6">
                         <SearchInput search={this.setText}/>
                     </div>
-                    <div className="col-6">
+                    <div className="col-md-6">
                         <DatePickerInput setValue={this.setDate}/>
                     </div>
                 </div>

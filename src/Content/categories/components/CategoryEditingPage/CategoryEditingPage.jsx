@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
+import DialogWindow from '../../../../components/ModalWindow';
 
-import DialogWindow from '../../../components/ModalWindow';
-
-class AddOrEditCategory extends React.Component {
+class CategoryEditingPage extends Component {
     btnText = 'Добавить';
 
     constructor(props) {
@@ -14,7 +13,7 @@ class AddOrEditCategory extends React.Component {
             this.btnText = 'Изменить';
         }
         this.state = {name};
-    }
+    };
 
     handleChangeState = event => this.setState({name: event.target.value});
 
@@ -56,4 +55,4 @@ class AddOrEditCategory extends React.Component {
     }
 }
 
-export default DialogWindow(AddOrEditCategory);
+export default DialogWindow(CategoryEditingPage);

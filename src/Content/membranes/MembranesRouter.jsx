@@ -4,7 +4,7 @@ import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
 
-import ComponentMenu from '../../components/ComponentMenu';
+import ComponentMenu from '../../components/ComponentMenu/ComponentMenu';
 import MembranesPage from './membranesPage/MembranesPage';
 import AddNewMembrane from './addNewMembrane/AddNewMembrane';
 import MembraneDetail from './membraneDetail/MembraneDetail';
@@ -12,7 +12,7 @@ import {deleteMembranesFromStore} from '../../AC/membranes';
 import './styles.css';
 import ItemHistory from "../items/itemHistory/ItemHistory";
 //import ProductDetail from "../products/productDetail/ProductDetail";
-import EditProduct from "../products/editProduct/EditProduct";
+import EditProduct from "../products/components/editProduct/EditProduct";
 
 class MembranesRouter extends React.Component {
 

@@ -4,7 +4,7 @@ import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
 
-import ComponentMenu from '../../components/ComponentMenu';
+import ComponentMenu from '../../components/ComponentMenu/ComponentMenu';
 import HarpoonPage from './harpoonsPage/HarpoonsPage';
 import HarpoonDetail from './harpoonDetail/HarpoonDetail';
 import EditHarpoon from './editHarpoon/EditHarpoon';
