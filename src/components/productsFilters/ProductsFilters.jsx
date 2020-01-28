@@ -3,18 +3,18 @@ import {connect} from 'react-redux';
 
 import SearchInput from '../SearchInput';
 import SelectCategories from '../SelectCategories';
-import {saveProductsFilters} from '../../AC/products';
+import {saveProductsFilters} from '../../Content/products/store/actions/products';
 import {
     getCategoriesAndSubcategories,
     getFilterByCategories,
     getSubcategories,
     removeSubcategoriesFromStorage
 
-} from '../../AC/categories';
+} from '../../Content/categories/store/actions/categories';
 import {
     getAllProducts
 
-} from '../../AC/products';
+} from '../../Content/products/store/actions/products';
 import {mapToArr} from "../../helpers";
 
 class ProductsFilters extends React.Component {

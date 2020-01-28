@@ -80,9 +80,7 @@ export function addNewContact(supplierId, data) {
         baseApi
             .post(`suppliers/${supplierId}/contacts/`, data)
             .then(response => {
-                if (response.status === 201) {
-                    dispatch(getSupplier(supplierId))
-                }
+                if (response.status === 201) dispatch(getSupplier(supplierId))
             });
     }
 }
@@ -93,9 +91,7 @@ export function editContact(supplierId, contactId, data) {
         baseApi
             .put(`suppliers/${supplierId}/contacts/${contactId}/`, data)
             .then(response => {
-                if (response.status === 200) {
-                    dispatch(getSupplier(supplierId))
-                }
+                if (response.status === 200) dispatch(getSupplier(supplierId))
             });
     }
 }
@@ -106,9 +102,7 @@ export function deleteContact(supplierId, contactId) {
         baseApi
             .deleteRequest(`suppliers/${supplierId}/contacts/${contactId}/`)
             .then(response => {
-                if (response.status === 204) {
-                    dispatch(getSupplier(supplierId))
-                }
+                if (response.status === 204) dispatch(getSupplier(supplierId))
             });
     }
 }

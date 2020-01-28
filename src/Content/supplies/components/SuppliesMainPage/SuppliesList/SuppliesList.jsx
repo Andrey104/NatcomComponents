@@ -56,11 +56,11 @@ class SuppliesList extends Component {
                         loadMore={this.loadSupplies}
                         useWindow={false}>
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-12 mobile-table-container">
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead">
                                     <tr>
-                                        <th scope="col">ID</th>
+                                        <th scope="col">№</th>
                                         <th scope="col">Статус</th>
                                         <th scope="col">Поставщик</th>
                                         <th scope="col">Дата</th>

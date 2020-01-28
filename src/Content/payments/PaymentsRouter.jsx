@@ -4,7 +4,7 @@ import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
 
-import ComponentMenu from '../../components/ComponentMenu/index';
+import ComponentMenu from '../../components/ComponentMenu/ComponentMenu';
 import PaymentsPage from './paymentsPage/PaymentsPage';
 import AddNewPayment from './addNewPayment/AddNewPayment';
 

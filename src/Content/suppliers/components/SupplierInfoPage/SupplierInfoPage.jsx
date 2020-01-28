@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Loader from '../../../../components/Loader';
-import {getSupplier, openAddNewContactWindow} from '../../store/actions/suppliers';
+import {getSupplier, openAddNewContactWindow, deleteSupplierFromStore} from '../../store/actions/suppliers';
 import styles from './SupplierInfoPage.css';
 import SuppliesList from "../../../supplies/components/SuppliesMainPage/SuppliesList/SuppliesList";
 import SupplierContacts from "./SupplierContacts/SupplierContacts";
@@ -34,7 +34,7 @@ class SupplierInfoPage extends Component {
 
     render() {
         const {supplier, openAddNewContact} = this.props;
-        if (supplier.id !== Number(this.urlId)) {
+        if (supplier.id !== Number(this.urlId)) { //TODO: определить pre-loader-container стиль
             return (
                 <div className={styles["pre-loader-container"]}>
                     <Loader/>
@@ -49,7 +49,7 @@ class SupplierInfoPage extends Component {
                 <table className="table table-bordered">
                     <tbody>
                     <tr>
-                        <th scope="row" className='name-col'>Имя</th>
+                        <th scope="row">Имя</th>
                         <td>{supplier.name}</td>
                     </tr>
                     <tr>
@@ -67,33 +67,34 @@ class SupplierInfoPage extends Component {
                         className="btn btn-primary btn-sm">Редактировать
                 </button>
                 {supplier.contacts[0] ?
-                    <div>
-                        <h2>Контакты: </h2>
+                    <div className="mobile-table-container">
+                        <h4>Контакты:</h4>
                         <table className="table table-bordered">
-                            <tr className="thead-light">
+                            <thead className="thead-light">
                                 <th scope="col">Имя</th>
                                 <th scope="col">Номер телефона</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Комментарий</th>
-                            </tr>
+                            </thead>
                             <tbody>
-                            {contacts}
+                                {contacts}
                             </tbody>
                         </table>
                     </div>
-                    : <h3>У поставщика нет контактов</h3>}
+                    : <h4>У поставщика нет контактов</h4>}
                 <button type="button"
                         onClick={() => this.openAddNewContactModalWindow(true,false)}
                         className="btn btn-primary btn-sm">Добавить
                 </button>
-                <h3>Список поставок:</h3>
+                <h4>Список поставок:</h4>
                 <SuppliesList supplierId={supplier.id}/>
             </div>
         )
     }
+    componentWillUnmount = () => this.props.deleteSupplierFromStore();
 }
 
 export default connect((state) => ({
     supplier: state.suppliers.supplier,
     openAddNewContact: state.suppliers.openAddNewContact
-}), {getSupplier, openAddNewContactWindow})(SupplierInfoPage);
+}), {getSupplier, openAddNewContactWindow, deleteSupplierFromStore})(SupplierInfoPage);

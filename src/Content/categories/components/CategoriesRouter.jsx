@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Switch from 'react-router-dom/es/Switch';
 import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
 import {connect} from 'react-redux';
 
-import ComponentMenu from '../../components/ComponentMenu';
-import CategoriesList from './categoriesList/CategoriesList';
-import CategoryDetail from './categoryDetail/CategoryDetail';
-import '../styles.css';
+import ComponentMenu from '../../../components/ComponentMenu/ComponentMenu';
+import CategoriesList from './CategoriesList/CategoriesList';
+import CategoryInfoPage from './CategoryInfoPage/CategoryInfoPage';
+import '../../styles.css';
 
-class CategoriesPage extends React.Component {
+class CategoriesRouter extends Component {
 
     getMenu() {
         let menu = (
@@ -21,23 +21,20 @@ class CategoriesPage extends React.Component {
         const {category} = this.props;
         if (Number(urlId) === category.id) {
             const name = category.name;
-            menu = (
-                <ComponentMenu menu={menu} name={name}/>
-            );
+            menu = <ComponentMenu menu={menu} name={name}/>
         }
         return menu;
-    }
+    };
 
     render() {
-        const menu = this.getMenu();
         return (
             <div>
                 <div className="breadcrumbs">
-                    {menu}
+                    {this.getMenu()}
                 </div>
                 <Switch>
                     <Route exact path='/categories' component={CategoriesList}/>
-                    <Route exact path='/categories/:categoryId' component={CategoryDetail}/>
+                    <Route exact path='/categories/:categoryId(\d+)' component={CategoryInfoPage}/>
                 </Switch>
             </div>
         )
@@ -46,4 +43,4 @@ class CategoriesPage extends React.Component {
 
 export default connect((state) => ({
     category: state.categories.category,
-}))(CategoriesPage);
+}))(CategoriesRouter);

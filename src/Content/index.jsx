@@ -2,10 +2,10 @@ import Switch from "react-router-dom/es/Switch";
 import Route from "react-router-dom/es/Route";
 import React from 'react'
 
-import CategoriesPage from './categories/CategoriesPage';
+import CategoriesPage from './categories/components/CategoriesRouter';
 import StocksPage from './stocks/StocksPage';
 import SuppliersRouter from './suppliers/components/SuppliersRouter';
-import ProductsRouter from './products/ProductsRouter';
+import ProductsRouter from './products/components/ProductsRouter';
 import ClientsRouter from './clients/ClientsRouter';
 import SuppliesRouter from './supplies/components/SuppliesRouter';
 import PaymentsRouter from './payments/PaymentsRouter';

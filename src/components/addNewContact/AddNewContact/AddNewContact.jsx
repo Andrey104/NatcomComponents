@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './styles.css';
 import {getPhoneWithoutMask, phoneMask} from "../../../services/utils";
 import {connect} from 'react-redux';
@@ -6,11 +6,11 @@ import {
     addNewContact,
     editContact,
     deleteContact,
-    getSupplier, openAddNewContactWindow
+    openAddNewContactWindow
 } from "../../../Content/suppliers/store/actions/suppliers";
 import MaskedInput from "react-text-mask";
 
-class AddNewContact extends React.Component {
+class AddNewContact extends Component {
     constructor(props) {
         super(props);
         let editContact;
@@ -27,7 +27,7 @@ class AddNewContact extends React.Component {
             email: editContact.email,
             comment: editContact.comment
         }
-    }
+    };
 
     handleChangeInput = event => {
         const {handleChangeNewSupplierContact, newSupplier} = this.props;
@@ -48,11 +48,16 @@ class AddNewContact extends React.Component {
         this.props.close();
     };
 
+    getDisabledState = () => {
+        if (!this.state.name) return true
+    };
+
     getEditButtons(isEdit, supplierId, contact) {
        return (
             <div>
                 <button type="button"
                          onClick={() => this.submitButtonClick(isEdit)}
+                         disabled={this.getDisabledState()}
                          className="btn btn-primary btn-sm">{isEdit ? "Сохранить" : "Добавить"}
                 </button>
                 {isEdit ? <button type="button"
@@ -60,10 +65,9 @@ class AddNewContact extends React.Component {
                                   className="btn btn-danger btn-sm">Удалить
                     </button>
                     : null}
-
             </div>
         )
-    }
+    };
 
     render() {
         const {isEdit, supplierId, contact, newSupplier} = this.props;
@@ -91,11 +95,7 @@ class AddNewContact extends React.Component {
     }
 }
 
-const mapDispatchToProps = {addNewContact, editContact, deleteContact, getSupplierDetail: getSupplier, openAddNewContactWindow};
-
-const mapStateToProps = (state) => ({
-   contact: state.suppliers.contact,
-   isEdit: state.suppliers.isEdit,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddNewContact);
+export default connect(state => ({
+    contact: state.suppliers.contact,
+    isEdit: state.suppliers.isEdit,
+}), {addNewContact, editContact, deleteContact, openAddNewContactWindow})(AddNewContact);

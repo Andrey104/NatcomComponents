@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {Component} from 'react';
 
-export default class extends React.Component {
+export default class extends Component {
     render() {
         const {menu, name} = this.props;
         return (
             <span>
                 {menu}
-                <span>> </span>
+                <span>></span>
                 <span>{name}</span>
             </span>
         )

@@ -115,7 +115,7 @@ export default class extends React.Component {
             <tr key={index + membrane.membrane.name}>
                 <th scope="row">
                     <div className="number-block">
-                        <img className="del-button"
+                        <img className="circle-button"
                              src="/public/remove.svg"
                              onClick={() => this.removeMembraneFromList(membrane, index)}>
                         </img>

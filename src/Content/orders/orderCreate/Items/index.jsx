@@ -193,7 +193,7 @@ export default class extends React.Component {
                 <tr key={item.item.id + item.item.name + index}>
                     <th scope="row">
                         <div className="number-block">
-                            <img className="del-button"
+                            <img className="circle-button"
                                  src="/public/remove.svg"
                                  onClick={() => this.removeItemFromList(item, index)}>
                             </img>

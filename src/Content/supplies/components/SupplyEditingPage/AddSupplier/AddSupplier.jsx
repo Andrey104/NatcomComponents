@@ -10,9 +10,8 @@ class AddSupplier extends Component {
 
     constructor(props) {
         super(props);
-        const {supplier} = this.props;
-        this.supplier = supplier;
-    }
+        this.supplier = this.props.supplier;
+    };
 
     selectedSupplier = supplier => {
         this.supplier = supplier;
@@ -34,9 +33,7 @@ class AddSupplier extends Component {
     };
 
     getCurrentSupplier() {
-        if (this.supplier) {
-            return <h3>Поставщик: {this.supplier.name}</h3>
-        }
+        if (this.supplier) return <h4>Поставщик: {this.supplier.name}</h4>
     };
 
     render() {

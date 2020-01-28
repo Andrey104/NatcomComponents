@@ -4,7 +4,7 @@ import Route from "react-router-dom/es/Route";
 import NavLink from "react-router-dom/es/NavLink";
 import {connect} from "react-redux";
 
-import ComponentMenu from '../../components/ComponentMenu';
+import ComponentMenu from '../../components/ComponentMenu/ComponentMenu';
 import DriversList from './driversList/DriversList';
 import DriverDetail from './driverDetail/DriverDetail';
 import styles from './styles.scss';

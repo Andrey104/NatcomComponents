@@ -15,28 +15,30 @@ export default class extends Component {
         const {item, number, itemPrice} = this.props;
         return (
             <tr>
-                <td>{number}</td>
-                <td>{getItemName(item)}</td>
-                <td>{item.item.price_in} р</td>
-                <td>
-                <input type="number"
-                       value={item.purchase_price || ''}
-                       className="form-control"
-                       onChange={e => this.handleChangeItemParam(e, number, 'purchase_price')}/>
+                <td data-label="№ ">
+                    <div className="number-block">
+                        <img className="circle-button"
+                             src="/public/remove.svg"
+                             onClick={() => this.props.removeItemFromList(number)}>
+                        </img>
+                        {number}
+                    </div>
                 </td>
-                <td>
+                <td data-label="Название: ">{getItemName(item)}</td>
+                <td data-label="Цена пред. закупки: ">{item.item.price_in} р</td>
+                <td data-label="Цена закупки: ">
+                    <input type="number"
+                           value={item.purchase_price || ''}
+                           className="form-control"
+                           onChange={e => this.handleChangeItemParam(e, number, 'purchase_price')}/>
+                </td>
+                <td data-label="Кол-во: ">
                     <input type="number"
                            value={item.count || ''}
-                           className="form-control"
+                           className="form-control right"
                            onChange={e => this.handleChangeItemParam(e, number, 'count')}/>
                 </td>
-                <td className="result-price-td">{priceFormat(itemPrice)} руб</td>
-                <td>
-                    <button type="button"
-                            onClick={() => this.props.removeItemFromList(number)}
-                            className="btn btn-danger btn-sm">Удалить
-                    </button>
-                </td>
+                <td data-label="Итог: " className="result-price-td">{priceFormat(itemPrice)} руб</td>
             </tr>
         )
     }

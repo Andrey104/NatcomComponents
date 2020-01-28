@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import ProductsList from '../../../components/ItemList/ItemList';
-import ProductsFilters from '../../../components/productsFilters/ProductsFilters';
-import {getAllProducts} from '../../../AC/products';
-import {getAllCategories} from '../../../AC/categories';
-import {mapToArr} from '../../../helpers';
+import ProductsList from '../../../../components/ItemList/ItemList';
+import ProductsFilters from '../../../../components/productsFilters/ProductsFilters';
+import {getAllProducts} from '../../store/actions/products';
+import {getAllCategories} from '../../../categories/store/actions/categories';
+import {mapToArr} from '../../../../helpers';
 
 import styles from './styles.css';
 

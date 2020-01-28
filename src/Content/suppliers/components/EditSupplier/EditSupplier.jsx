@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {editSupplier, getSupplier} from '../../store/actions/suppliers';
+import {editSupplier, getSupplier, deleteSupplierFromStore} from '../../store/actions/suppliers';
 import SupplierEditingPage from "../SupplierEditingPage/SupplierEditingPage";
 import Loader from "../../../../components/Loader";
 
@@ -11,9 +11,7 @@ class EditSupplier extends Component {
         if (urlId) this.props.getSupplier(urlId);
     };
 
-    handleSubmit = supplier => {
-        this.props.editSupplier(this.props.supplier.id, supplier);
-    };
+    handleSubmit = supplier =>  this.props.editSupplier(this.props.supplier.id, supplier);
 
     render() {
         if (!Object.keys(this.props.supplier).length) {
@@ -28,8 +26,10 @@ class EditSupplier extends Component {
                                      handleSubmit={this.handleSubmit}/>
         )
     }
+
+    componentWillUnmount = () => this.props.deleteSupplierFromStore();
 }
 
 export default connect(state => ({
     supplier: state.suppliers.supplier
-}), {editSupplier, getSupplier})(EditSupplier);
+}), {editSupplier, getSupplier, deleteSupplierFromStore})(EditSupplier);

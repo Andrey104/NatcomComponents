@@ -92,23 +92,25 @@ class AddItems extends Component {
     getItemsTable() {
         if (this.state.items.length) {
             return (
-                <table className="table table-bordered">
-                    <thead className="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Пред. цена закупки</th>
-                        <th scope="col">Закупочная цена</th>
-                        <th scope="col">Количество</th>
-                        <th scope="col">Итог</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.getItems()}
-                    <TableResultRow columnCount={6}
-                                    resultPrice={this.resultPrice}/>
-                    </tbody>
-                </table>
+                <div className="mobile-table-container">
+                    <table className="table table-bordered">
+                        <thead className="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Пред. цена закупки</th>
+                            <th scope="col">Закупочная цена</th>
+                            <th scope="col">Количество</th>
+                            <th scope="col">Итог</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.getItems()}
+                        <TableResultRow columnCount={6}
+                                        resultPrice={this.resultPrice}/>
+                        </tbody>
+                    </table>
+                </div>
             )
         }
     }

@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import Loader from '../../../components/Loader';
-import AddButton from '../../../components/AddButton';
-import AddOrEditCategory from '../addOrEditCategory/AddOrEditCategory';
-import {getAllCategories, saveCategory, addNewCategory} from '../../../AC/categories';
-import {openModalWindow, closeModalWindow} from '../../../AC/modal';
-import {mapToArr} from '../../../helpers';
-import {ADD_NEW_CATEGORY} from '../../../constans';
+import Loader from '../../../../components/Loader';
+import AddButton from '../../../../components/AddButton';
+import CategoryEditingPage from '../CategoryEditingPage/CategoryEditingPage';
+import {getAllCategories, saveCategory, addNewCategory} from '../../store/actions/categories';
+import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
+import {mapToArr} from '../../../../helpers';
+import {ADD_NEW_CATEGORY} from '../../store/constantsCategory';
 
-class CategoriesList extends React.Component {
+class CategoriesList extends Component {
 
     componentWillMount = () => this.props.getAllCategories();
 
@@ -25,12 +25,12 @@ class CategoriesList extends React.Component {
     getDialogWindow() {
         if (this.props.modal === ADD_NEW_CATEGORY) {
             return (
-                <AddOrEditCategory header={'Новая категория'}
-                                   handleSubmit={this.addNewCategory}
-                                   close={this.closeDialog}/>
+                <CategoryEditingPage header={'Новая категория'}
+                                     handleSubmit={this.addNewCategory}
+                                     close={this.closeDialog}/>
             )
         }
-    }
+    };
 
     getBody(categories) {
         if (!categories.length) {
@@ -49,8 +49,8 @@ class CategoriesList extends React.Component {
                     <td>{category.name}</td>
                 </tr>
             )
-        ));
-    }
+        ))
+    };
 
     render() {
         const {isLoading, categories, hasMoreCategories} = this.props;
@@ -59,13 +59,12 @@ class CategoriesList extends React.Component {
                 <div className="pre-loader-container">
                     <Loader/>
                 </div>
-            );
+            )
         }
         const loader = hasMoreCategories ? <Loader/> : false;
-        const dialogWindow = this.getDialogWindow();
         return (
             <div className="row">
-                {dialogWindow}
+                {this.getDialogWindow()}
                 <div className="col-12">
                     <div className="row">
                         <div className="col-12">
