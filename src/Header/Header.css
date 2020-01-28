@@ -58,3 +58,13 @@
     color: #16244a;
 }
 
+.header-user-info{
+    color: white;
+}
+
+@media screen and (max-width: 768px){
+    .header-user-info {
+        display: none;
+    }
+}
+

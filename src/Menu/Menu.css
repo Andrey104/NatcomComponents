@@ -50,14 +50,26 @@
     background: #e9ecef;
 }
 .menu-header {
-    padding: 10px 5px 5px 0;
+    padding: 10px 0 0 0;
     border-bottom: 1px solid lightgrey;
+}
+.menu-header-logo {
+    padding: 0 2px 10px 2px;
+    border-bottom: 1px solid lightgrey;
+}
+.menu-header-logo-text {
+    display: flex;
+    align-items: center;
+    padding-left: 3px;
+}
+.menu-header-logo-icon img{
+    width: 40px;
 }
 .icon {
     height: 40px;
     width: 40px;
     float: left;
-    padding: 0px 5px 15px 5px;
+    padding: 0 5px 15px 5px;
     margin: 0;
 }
 .title {
@@ -76,6 +88,7 @@
     to {left: -250px; display: none}
 }
 
-.user-info{
-
+.menu-user-info {
+    color: black;
+    padding-top: 14px;
 }

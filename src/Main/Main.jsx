@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Main.css';
 
 import Header from '../Header/Header';
-import Menu from '../Menu';
+import Menu from '../Menu/Menu';
 import Content from '../Content';
 import {TABLET_DISPLAY_WIGHT} from '../services/utils';
 import {getCurrentUser} from "../AC/currentUser";
@@ -37,7 +37,6 @@ class Main extends React.Component {
 
 
     updateDimensions = () => {
-
         if (window.screen.availWidth < TABLET_DISPLAY_WIGHT) {
             this.setState({
                 mobile: true,
