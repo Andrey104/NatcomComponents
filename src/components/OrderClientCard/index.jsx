@@ -36,7 +36,7 @@ class OrderClientCard extends React.Component {
     render() {
         const {client, isClientsPage} = this.props;
         return (
-            <div className="card">
+            <div className="c-card">
                 <div>{client.first_name} {client.last_name}</div>
                 <div>{getPhoneWithMask(client.phone1)}</div>
                 <div>Баланс: {priceFormat(client.balance)}</div>

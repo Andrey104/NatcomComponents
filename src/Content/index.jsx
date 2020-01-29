@@ -19,7 +19,7 @@ import ServicesRouter from './services/ServicesRouter';
 import AssembliesRouter from './assemblies/AssembliesRouter';
 import HarpoonsRouter from './harpoons/HarpoonsRouter';
 import TransferRequestsRouter from './transfers/transferRequests/TransferRequestsRouter';
-import Statistics from "./statistics/statistics/Statistics";
+import Statistics from "./statistics/components/Statistics";
 import ItemHistory from "./items/itemHistory/ItemHistory";
 
 export default class extends React.Component {

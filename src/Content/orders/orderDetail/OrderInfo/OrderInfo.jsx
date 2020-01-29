@@ -1,13 +1,14 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import './OrderInfo.css'
 
 import {orderStatuses, getDate} from '../../../../services/utils';
 import {
     ORDER_ASSEMBLE_STATUS, ORDER_CONFIRM_STATUS, ORDER_DRAFT_STATUS, ORDER_FINAL_STATUS,
     ORDER_READY_STATUS
 } from "../../../../constans";
+import history from "../../../../history";
 
-export default class extends React.Component {
+class OrderInfo extends React.Component {
 
     getStatus() {
         const {order} = this.props;
@@ -42,10 +43,15 @@ export default class extends React.Component {
         return s;
     }
 
+    handlePrintButtonClick = () => {
+        history.push(`/print/${this.props.order.id}`);
+    };
+
     render() {
         const {order} = this.props;
         return (
-            <div>
+            <div className="c-card">
+                <button onClick={this.handlePrintButtonClick}>На печать</button>
                 <h4>№ {order.id}</h4>
                 <div>Статус: {this.getStatus()}</div>
                 <div>Склад: {order.stock.name}</div>
@@ -55,3 +61,4 @@ export default class extends React.Component {
         )
     }
 }
+export default OrderInfo

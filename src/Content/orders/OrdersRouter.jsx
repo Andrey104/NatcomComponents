@@ -57,8 +57,10 @@ class OrdersRouter extends React.Component {
         const menu = this.getMenu();
         return (
             <div>
-                <div className="breadcrumbs">
-                    {menu}
+                <div className=''>
+                    <div className="breadcrumbs">
+                        {menu}
+                    </div>
                 </div>
                 <Switch>
                     <Route exact path='/' component={OrdersPage}/>

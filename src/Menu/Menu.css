@@ -53,18 +53,7 @@
     padding: 10px 0 0 0;
     border-bottom: 1px solid lightgrey;
 }
-.menu-header-logo {
-    padding: 0 2px 10px 2px;
-    border-bottom: 1px solid lightgrey;
-}
-.menu-header-logo-text {
-    display: flex;
-    align-items: center;
-    padding-left: 3px;
-}
-.menu-header-logo-icon img{
-    width: 40px;
-}
+
 .icon {
     height: 40px;
     width: 40px;
@@ -90,5 +79,5 @@
 
 .menu-user-info {
     color: black;
-    padding-top: 14px;
+    padding-top: 10px;
 }

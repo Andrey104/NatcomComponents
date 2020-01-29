@@ -14,7 +14,6 @@ export default class extends React.Component {
     static propTypes = {
         order: PropTypes.object,
         addBalancePay: PropTypes.func,
-        returnBalancePay: PropTypes.func
     };
 
     constructor(props) {
@@ -90,19 +89,6 @@ export default class extends React.Component {
                 break;
             }
         }
-        // if (nowPay >= orderSum) {
-        //     alert = (
-        //         <div className="alert alert-success">Оплачено</div>
-        //     );
-        // } else {
-        //     if (nowPay >= prepayment) {
-        //         alert = (
-        //             <div className="alert alert-primary">Предоплата внесена</div>
-        //         );
-        //     } else {
-        //         alert = null;
-        //     }
-        // }
         return alert;
     }
 
@@ -110,7 +96,7 @@ export default class extends React.Component {
         const {order} = this.props;
         const history = this.getPaymentsHistory(order);
         return (
-            <div className="card">
+            <div className="c-card">
                 <h5>Список оплат</h5>
                 <div className="row">
                     <div className="col-md-6">

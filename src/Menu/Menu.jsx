@@ -3,13 +3,14 @@ import "./Menu.css"
 import classNames from 'classnames/bind';
 import React from 'react';
 import {UsersService} from "../services/users.service";
+import Logo from "./Logo/Logo";
+import UserInfo from "./UserInfo/UserInfo";
 
 
 class Menu extends React.Component {
 
     handlerDjangoAdminClick = () => {
-        //TODO: Fix it!
-        document.location.replace(`http://components.nextf.ru/admin/`);
+        document.location.replace('http://' + document.location.host + '/admin/');
     };
 
     render() {
@@ -258,33 +259,10 @@ class Menu extends React.Component {
                         'menu-header': true
                     }
                 )}>
-                    <NavLink className='nav-link' to='/'
-                             onClick={onMenuClose}>
-                        <div className="menu-header-logo row">
-                            <div className="col-3 menu-header-logo-icon">
-                                <img alt='logo-min' src='/public/logo-min.png'/>
-                            </div>
-                            <div className="col-9 menu-header-logo-text">
-                                <h5>Все полотна</h5>
-                            </div>
-                        </div>
-                        <div className='menu-user-info'>
-                            <div className="row">
-                                <div className="col-4">
-                                    <img alt='user-icon' src='/public/user-icon.png'/>
-                                </div>
-                                <div className='col-8'>
-                                    <div className="row">
-                                        {UsersService.getUserFirstName()}
-                                    </div>
-                                    <div className="row">
-                                        {UsersService.getUserType()}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </NavLink>
+                    <div className='nav-link'>
+                        <Logo/>
+                        <UserInfo/>
+                    </div>
                 </div>
                 {standardBlock}
                 {managerBlock}

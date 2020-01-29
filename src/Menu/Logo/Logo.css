@@ -1,0 +1,12 @@
+.logo {
+    padding: 0 2px 8px 2px;
+    border-bottom: 1px solid lightgrey;
+}
+.logo-text {
+    display: flex;
+    align-items: center;
+    padding-left: 3px;
+}
+.logo-icon img{
+    width: 40px;
+}

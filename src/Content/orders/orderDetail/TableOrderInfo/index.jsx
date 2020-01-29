@@ -91,26 +91,37 @@ export default class extends React.Component {
         const {order} = this.props;
         this.getTable(order);
         return (
-            <div className="col-12">
-                <h5>Содержимое заказа</h5>
-                <table className="table table-bordered table-hover">
-                    <thead className="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Артикул</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Количество</th>
-                        <th scope="col">Цена</th>
-                        <th scope="col">Стоимость</th>
+            <div className="c-card">
+                <div className="row">
+                    <div className='col-12'>
+                        <h5>Содержимое заказа</h5>
+                    </div>
+                </div>
+                <br/>
+                <div className="row">
+                    <div className='col-12'>
+                        <table className="table table-bordered table-hover">
+                            <thead className="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Артикул</th>
+                                <th scope="col">Название</th>
+                                <th scope="col">Количество</th>
+                                <th scope="col">Цена</th>
+                                <th scope="col">Стоимость</th>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.orderList}
-                    <TableResultRow columnCount={6}
-                                    resultPrice={order.sum}/>
-                    </tbody>
-                </table>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {this.orderList}
+                            <TableResultRow columnCount={6}
+                                            resultPrice={order.sum}/>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
             </div>
         )
     }
