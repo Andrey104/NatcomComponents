@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Loader from '../../../../components/Loader';
 import AddButton from '../../../../components/AddButton';
 import CategoryEditingPage from '../CategoryEditingPage/CategoryEditingPage';
-import {getAllCategories, saveCategory, addNewCategory} from '../../store/actions/categories';
+import {getAllCategories, addNewCategory} from '../../store/actions/categories';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {mapToArr} from '../../../../helpers';
 import {ADD_NEW_CATEGORY} from '../../store/constantsCategory';
@@ -17,10 +17,7 @@ class CategoriesList extends Component {
 
     closeDialog = () => this.props.closeModalWindow();
 
-    handleClick = category => () => {
-        this.props.saveCategory(category);
-        this.props.history.push(`/categories/${category.id}`);
-    };
+    handleClick = category => () => this.props.history.push(`/categories/${category.id}`);
 
     getDialogWindow() {
         if (this.props.modal === ADD_NEW_CATEGORY) {
@@ -68,7 +65,7 @@ class CategoriesList extends Component {
                 <div className="col-12">
                     <div className="row">
                         <div className="col-12">
-                            <table className="table table-hover table-bordered">
+                            <table className="table table-hover table-bordered hover-over-table">
                                 <thead className="thead">
                                 <tr>
                                     <th scope="col">#</th>
@@ -95,7 +92,6 @@ export default connect((state) => ({
     modal: state.modal.modal
 }), {
     getAllCategories,
-    saveCategory,
     addNewCategory,
     openModalWindow,
     closeModalWindow,

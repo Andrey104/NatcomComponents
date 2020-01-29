@@ -11,7 +11,7 @@ import {
 } from '../constans';
 import {getUrlPayments} from "../services/utils";
 import {openModalWindow} from "./modal";
-import {getClient} from "./clients";
+import {getClient} from "../Content/clients/store/actions/clients";
 import {getOrder} from "./orders";
 
 export function getAllPayments(date, searchText, paymentType) {

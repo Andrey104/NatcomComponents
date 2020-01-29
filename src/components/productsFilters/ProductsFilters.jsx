@@ -6,15 +6,10 @@ import SelectCategories from '../SelectCategories';
 import {saveProductsFilters} from '../../Content/products/store/actions/products';
 import {
     getCategoriesAndSubcategories,
-    getFilterByCategories,
     getSubcategories,
-    removeSubcategoriesFromStorage
-
+    deleteCategoriesFromStore
 } from '../../Content/categories/store/actions/categories';
-import {
-    getAllProducts
-
-} from '../../Content/products/store/actions/products';
+import {getAllProducts} from '../../Content/products/store/actions/products';
 import {mapToArr} from "../../helpers";
 
 class ProductsFilters extends React.Component {
@@ -43,7 +38,7 @@ class ProductsFilters extends React.Component {
 
     selectCategory = categoryId => {
         if (Number(categoryId) === -1) {
-            this.props.removeSubcategoriesFromStorage();
+            this.props.deleteCategoriesFromStore(); //TODO разобрать ф-ию
             this.category = null;
             this.subcategory = null;
             this.updateFilters()
@@ -107,8 +102,7 @@ export default connect(state => ({
     subcategories: mapToArr(state.categories.subcategories)
 }), {
     getSubcategories,
-    removeSubcategoriesFromStorage,
-    getFilterByCategories,
+    deleteCategoriesFromStore,
     saveProductsFilters,
     getAllProducts,
     getCategoriesAndSubcategories

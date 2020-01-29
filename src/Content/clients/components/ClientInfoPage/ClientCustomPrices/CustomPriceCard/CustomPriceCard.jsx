@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {priceFormat} from '../../../../../services/utils';
+import {priceFormat} from '../../../../../../services/utils';
 
 export default class extends React.Component {
     render() {

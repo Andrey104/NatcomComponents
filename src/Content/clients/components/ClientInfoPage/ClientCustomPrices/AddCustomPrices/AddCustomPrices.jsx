@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {addCustomPrices} from '../../../../../AC/customPrices';
+import {addCustomPrices} from '../../../../../../AC/customPrices';
 
 class AddCustomPrices extends React.Component {
     items = [];

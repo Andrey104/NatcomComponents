@@ -6,7 +6,7 @@ import CategoriesPage from './categories/components/CategoriesRouter';
 import StocksPage from './stocks/StocksPage';
 import SuppliersRouter from './suppliers/components/SuppliersRouter';
 import ProductsRouter from './products/components/ProductsRouter';
-import ClientsRouter from './clients/ClientsRouter';
+import ClientsRouter from './clients/components/ClientsRouter';
 import SuppliesRouter from './supplies/components/SuppliesRouter';
 import PaymentsRouter from './payments/PaymentsRouter';
 import OrdersRouter from './orders/OrdersRouter';

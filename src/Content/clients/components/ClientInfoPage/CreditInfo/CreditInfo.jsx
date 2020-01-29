@@ -1,15 +1,14 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getClientCredit} from "../../../AC/clients";
-import {priceFormat} from "../../../services/utils";
+import {getClientCredit} from "../../../store/actions/clients";
+import {priceFormat} from "../../../../../services/utils";
 
-
-class CreditInfo extends React.Component {
+class CreditInfo extends Component {
 
     componentWillMount() {
         const {client} = this.props;
         this.props.getClientCredit(client.id);
-    }
+    };
 
     render() {
         return (
@@ -17,8 +16,9 @@ class CreditInfo extends React.Component {
                 Долг по заказам: {priceFormat(this.props.credit)} руб
             </div>
         )
-    }
+    };
 }
-export default connect((state) => ({
+
+export default connect(state => ({
     credit: state.clients.credit,
 }), {getClientCredit})(CreditInfo);

@@ -2,18 +2,18 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames/bind';
 
-import Loader from '../../../../components/Loader';
-import AddCustomPrices from './addCustomPrices/AddCustomPrices';
-import AddItemsDialog from '../../../../components/addItemsDialog/AddItemsDialog';
-import CustomPriceCard from './CustomPriceCard';
-import EditCustomPrice from './editCustomPrice/EditCustomPrice';
-import {getCustomPrices, deleteCustomPrice, editCustomPrice} from '../../../../AC/customPrices';
-import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
-import {deleteItemsFromStore} from '../../../../AC/items';
-import {getUniqueElementsArr} from '../../../../services/utils';
-import {mapToArr} from '../../../../helpers';
-import {OPEN_ADD_ITEMS, EDIT_CUSTOM_PRICE} from '../../../../constans';
-import styles from './styles.scss';
+import Loader from '../../../../../components/Loader';
+import AddCustomPrices from './AddCustomPrices/AddCustomPrices';
+import AddItemsDialog from '../../../../../components/addItemsDialog/AddItemsDialog';
+import CustomPriceCard from './CustomPriceCard/CustomPriceCard';
+import EditCustomPrice from './EditCustomPrice/EditCustomPrice';
+import {getCustomPrices, deleteCustomPrice, editCustomPrice} from '../../../../../AC/customPrices';
+import {openModalWindow, closeModalWindow} from '../../../../../AC/modal';
+import {deleteItemsFromStore} from '../../../../../AC/items';
+import {getUniqueElementsArr} from '../../../../../services/utils';
+import {mapToArr} from '../../../../../helpers';
+import {OPEN_ADD_ITEMS, EDIT_CUSTOM_PRICE} from '../../../../../constans';
+import styles from './CustomPrices.scss';
 
 let cx = classNames.bind(styles);
 

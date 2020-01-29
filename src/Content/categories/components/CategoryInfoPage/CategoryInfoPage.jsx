@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Loader from '../../../../components/Loader';
 import CategoryEditingPage from '../CategoryEditingPage/CategoryEditingPage';
 import {
+    getCategory,
     getSubcategories,
     editCategory,
     editSubcategory,
@@ -12,18 +13,14 @@ import {
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {mapToArr} from '../../../../helpers';
 import {EDIT_CATEGORY, EDIT_SUBCATEGORY, ADD_SUBCATEGORY} from '../../store/constantsCategory';
+import './CategoryInfoPage.css';
 
 class CategoryInfoPage extends Component {
     editSub;
 
-    componentWillMount = () => {
-        const {category} = this.props;
-        this.props.getSubcategories(category.id);
-    };
-
-    editCategory = newCategory => {
-        const {category} = this.props;
-        this.props.editCategory(category.id, newCategory);
+    componentDidMount() {
+        this.props.getCategory(this.props.match.params.categoryId);
+        this.props.getSubcategories(this.props.match.params.categoryId);
     };
 
     addSubcategory = subcategory => {
@@ -34,6 +31,11 @@ class CategoryInfoPage extends Component {
     openEditSubcategoryDialog = sub => () => {
         this.editSub = sub;
         this.props.openModalWindow(EDIT_SUBCATEGORY);
+    };
+
+    editCategory = newCategory => {
+        const {category} = this.props;
+        this.props.editCategory(category.id, newCategory);
     };
 
     editSubcategory = subcategory => {
@@ -81,14 +83,12 @@ class CategoryInfoPage extends Component {
         }
         return subcategories.map((sub, index) => (
             <tr key={sub.id}>
-                <td>{++index}</td>
-                <td>{sub.name}</td>
-                <td>
-                    <button type="button"
-                            onClick={this.openEditSubcategoryDialog(sub)}
-                            className="btn btn-dark btn-sm">Редактировать
-                    </button>
+                <td className="table-cell-width-index">
+                    <img onClick={this.openEditSubcategoryDialog(sub)} src="/public/edit.svg"
+                         className="circle-button edit-button"/>
+                         {++index}
                 </td>
+                <td>{sub.name}</td>
             </tr>
         ))
     }
@@ -137,6 +137,7 @@ export default connect(state => ({
     isLoading: state.categories.isLoading,
     modal: state.modal.modal
 }), {
+    getCategory,
     getSubcategories,
     editCategory,
     editSubcategory,

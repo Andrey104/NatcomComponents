@@ -1,16 +1,17 @@
 import {START, SUCCESS} from '../../../../constans';
 import {
+    GET_CATEGORY,
     GET_ALL_CATEGORIES,
     GET_SUBCATEGORIES,
     SAVE_CATEGORIES,
-    REMOVE_SUBCATEGORIES_FROM_STORE,
+    DELETE_CATEGORIES_FROM_STORE,
     SAVE_SUBCATEGORIES,
     SAVE_CATEGORY,
     EDIT_CATEGORY,
     EDIT_SUBCATEGORY
 } from '../constantsCategory';
 import {OrderedMap, Record} from 'immutable';
-import {arrToMap} from '../../../../helpers';
+import {arrToMap, objToMap} from '../../../../helpers';
 
 const CategoryRecord = Record({
     id: undefined,
@@ -30,6 +31,13 @@ export default (categoryState = defaultState, actionTypeResponse) => {
     const {type, response, data} = actionTypeResponse;
 
     switch (type) {
+        case GET_CATEGORY + START: {
+            return categoryState.set('isLoading', true);
+        }
+        case GET_CATEGORY + SUCCESS: {
+            return categoryState.set('category', objToMap(response.data, CategoryRecord))
+                .set('isLoading', false);
+        }
         case GET_ALL_CATEGORIES + START: {
             return categoryState.set('isLoading', true);
         }
@@ -64,8 +72,8 @@ export default (categoryState = defaultState, actionTypeResponse) => {
                 .set('subcategories', arrToMap(subcategories, CategoryRecord))
                 .set('isLoading', false);
         }
-        case REMOVE_SUBCATEGORIES_FROM_STORE: {
-            return categoryState.set('subcategories', new OrderedMap({}));
+        case DELETE_CATEGORIES_FROM_STORE: {
+            return defaultState;
         }
         case SAVE_SUBCATEGORIES: {
             return categoryState.set('subcategories', arrToMap(data, CategoryRecord));

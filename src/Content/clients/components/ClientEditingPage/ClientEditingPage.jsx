@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MaskedInput from 'react-text-mask';
 
-import DialogWindow from '../../../components/ModalWindow/index';
-import {phoneMask, getPhoneWithoutMask, getPhoneWithMask} from '../../../services/utils';
+import {phoneMask, getPhoneWithoutMask, getPhoneWithMask} from '../../../../services/utils';
 
-class ClientInfo extends React.Component {
+export default class ClientEditingPage extends Component {
     btnText = 'Добавить';
 
     constructor(props) {
@@ -28,7 +27,7 @@ class ClientInfo extends React.Component {
                 email: ''
             };
         }
-    }
+    };
 
     handleChangeClientState = event => {
         const name = event.target.name;
@@ -48,7 +47,7 @@ class ClientInfo extends React.Component {
         newClient.phone1 = getPhoneWithoutMask(newClient.phone1);
         newClient.phone2 = newClient.phone2 ? getPhoneWithoutMask(newClient.phone2) : null;
         return newClient;
-    }
+    };
 
     getDisabledState() {
         if (!this.state.first_name || !this.state.last_name) {
@@ -61,7 +60,7 @@ class ClientInfo extends React.Component {
             }
         }
         return false;
-    }
+    };
 
     render() {
         return (
@@ -124,10 +123,6 @@ class ClientInfo extends React.Component {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button type="button"
-                            onClick={this.props.close}
-                            className="btn btn-secondary">Закрыть
-                    </button>
                     <button type="submit"
                             onClick={this.handleSubmit}
                             disabled={this.getDisabledState()}
@@ -138,5 +133,3 @@ class ClientInfo extends React.Component {
         )
     }
 }
-
-export default DialogWindow(ClientInfo);

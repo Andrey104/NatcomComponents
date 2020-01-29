@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DialogWindow from '../../../../../components/ModalWindow';
+import DialogWindow from '../../../../../../components/ModalWindow';
 
 class EditCustomPrice extends React.Component {
 

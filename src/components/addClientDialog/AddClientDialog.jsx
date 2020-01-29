@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 
 import DialogWindow from '../ModalWindow';
 import SearchInput from '../SearchInput';
-import ClientsList from '../../Content/clients/clientsPage/clientsList/ClientsList';
-import {getAllClients} from '../../AC/clients';
+import ClientsList from '../../Content/clients/components/ClientsMainPage/ClientsList/ClientsList';
+import {getClients} from '../../Content/clients/store/actions/clients';
 
 class AddClientDialog extends React.Component {
 
-    searchClients = search => this.props.getAllClients(`?text=${search}`);
+    searchClients = search => this.props.getClients(null, search, true); //TODO проверить косячок
 
     render() {
         return (
@@ -20,4 +20,4 @@ class AddClientDialog extends React.Component {
     }
 }
 
-export default DialogWindow(connect(null, {getAllClients})(AddClientDialog));
+export default DialogWindow(connect(null, {getClients})(AddClientDialog));

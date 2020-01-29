@@ -18,7 +18,7 @@ export default class SupplierCard extends Component {
         const {supplier, number} = this.props;
         return (
             <tr onClick={this.clickOnCard(supplier)} className="hover-over-table">
-                <td data-label="№ поставщика: ">{number}</td>
+                <td className="non-display-item">{number}</td>
                 <td data-label="Поставщик: ">{supplier.name}</td>
                 <td data-label="Адрес: ">{checkAddress(supplier.address)}</td>
             </tr>

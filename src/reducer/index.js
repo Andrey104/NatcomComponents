@@ -4,7 +4,7 @@ import stocks from './stock';
 import suppliers from '../Content/suppliers/store/reducers/suppliers';
 import categories from '../Content/categories/store/reducers/categories';
 import products from '../Content/products/store/reducers/product';
-import clients from './client';
+import clients from '../Content/clients/store/reducers/client';
 import customPrices from './customPrice';
 import supplies from '../Content/supplies/store/reducers/supplies';
 import payments from './payment';

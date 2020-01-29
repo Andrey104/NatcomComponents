@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import AddClientDialog from '../../../../components/addClientDialog/AddClientDialog';
-import ClientInfo from '../../../clients/clientInfo/ClientInfo';
-import {addNewClient} from '../../../../AC/clients';
+import ClientInfo from '../../../clients/components/ClientEditingPage/ClientEditingPage';
+import {addNewClient} from '../../../clients/store/actions/clients';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
-import {ADD_NEW_CLIENT, OPEN_ADD_CLIENT} from '../../../../constans';
+import {OPEN_ADD_CLIENT} from '../../../../constans';
+import {ADD_NEW_CLIENT} from '../../../clients/store/constantsClient';
 import './styles.css';
 
 class AddClient extends React.Component {
