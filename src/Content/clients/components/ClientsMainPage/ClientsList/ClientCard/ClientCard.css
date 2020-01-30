@@ -1,0 +1,19 @@
+.name-column {
+    width: 70%;
+}
+.phone-column{
+     width: 40%;
+ }
+
+@media screen and (max-width: 768px){
+    .mobile-table-container .name-column {
+        background-color: #E9ECEF;
+        width: auto;
+    }
+    .mobile-table-container .phone-column{
+        width: auto;
+    }
+    .mobile-table-container.negative-balance {
+        width: auto;
+    }
+}

@@ -1,8 +1,9 @@
 import {SUCCESS} from '../../../../constans';
 import {
+    GET_CATEGORY,
     GET_ALL_CATEGORIES,
     GET_SUBCATEGORIES,
-    REMOVE_SUBCATEGORIES_FROM_STORE,
+    DELETE_CATEGORIES_FROM_STORE,
     SAVE_CATEGORIES,
     SAVE_SUBCATEGORIES,
     SAVE_CATEGORY,
@@ -12,6 +13,14 @@ import {
 import {BaseApi} from '../../../../services/base';
 import {closeModalWindow} from '../../../../AC/modal';
 import history from '../../../../history';
+
+export function getCategory(categoryId) {
+    return {
+        type: GET_CATEGORY,
+        requestType: 'GET',
+        callAPI: `categories/${categoryId}/`
+    }
+}
 
 export function getAllCategories() {
     return {
@@ -114,9 +123,9 @@ export function saveCategories(categories, subcategories) {
     }
 }
 
-export function removeSubcategoriesFromStore() {
+export function deleteCategoriesFromStore() {
     return {
-        type: REMOVE_SUBCATEGORIES_FROM_STORE
+        type: DELETE_CATEGORIES_FROM_STORE
     }
 }
 

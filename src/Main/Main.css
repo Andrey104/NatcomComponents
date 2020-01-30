@@ -83,6 +83,15 @@ body {
         min-width: 25px;
         right: 10px;
     }
+    .mobile-table-container table .non-display-item {
+        display: none;
+    }
+}
+
+@media screen and (max-width:320px){
+    .component-menu {
+        font-size: 20px;
+    }
 }
 
 .c-card {

@@ -65,7 +65,7 @@ class SuppliersList extends Component {
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead">
                                         <tr>
-                                            <th scope="col">№</th>
+                                            <th scope="col" className="non-display-item">№</th>
                                             <th scope="col">Поставщик</th>
                                             <th scope="col">Адрес</th>
                                         </tr>

@@ -34,7 +34,7 @@ class SupplierInfoPage extends Component {
 
     render() {
         const {supplier, openAddNewContact} = this.props;
-        if (supplier.id !== Number(this.urlId)) { //TODO: определить pre-loader-container стиль
+        if (supplier.id !== Number(this.urlId)) {
             return (
                 <div className={styles["pre-loader-container"]}>
                     <Loader/>

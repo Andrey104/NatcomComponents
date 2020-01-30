@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import AddSupplierDialog from './addSupplierDialog/AddSupplierDialog';
 import {openModalWindow, closeModalWindow} from '../../../../../AC/modal';
 import {OPEN_ADD_SUPPLIER} from '../../../../../constans';

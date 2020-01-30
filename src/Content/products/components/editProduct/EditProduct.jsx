@@ -8,7 +8,7 @@ import AddStocksDialog from '../../../../components/AddStocksDialog/AddStocksDia
 import ItemStocks from '../../../../components/addNewItem/ItemStocks';
 import PricesList from '../../../../components/addNewItem/PricesList';
 import {BaseApi} from '../../../../services/base';
-import {getSubcategories, getCategoriesAndSubcategories, saveCategories} from '../../../categories/store/actions/categories';
+import {getSubcategories, getCategoriesAndSubcategories} from '../../../categories/store/actions/categories';
 import {units} from '../../../../constans';
 import {mapToArr} from '../../../../helpers';
 import styles from './styles.scss';
@@ -327,4 +327,4 @@ export default connect((state) => ({
     subcategories: mapToArr(state.categories.subcategories),
     product: state.products.product,
     isLoading: state.categories.isLoading
-}), {getCategoriesAndSubcategories, getSubcategories, getProduct, setProductType, saveCategories})(EditProduct);
+}), {getCategoriesAndSubcategories, getSubcategories, getProduct, setProductType})(EditProduct);

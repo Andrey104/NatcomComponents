@@ -6,7 +6,7 @@ import CategoriesPage from './categories/components/CategoriesRouter';
 import StocksPage from './stocks/StocksPage';
 import SuppliersRouter from './suppliers/components/SuppliersRouter';
 import ProductsRouter from './products/components/ProductsRouter';
-import ClientsRouter from './clients/ClientsRouter';
+import ClientsRouter from './clients/components/ClientsRouter';
 import SuppliesRouter from './supplies/components/SuppliesRouter';
 import PaymentsRouter from './payments/PaymentsRouter';
 import OrdersRouter from './orders/OrdersRouter';
@@ -41,7 +41,9 @@ export default class extends React.Component {
                             <Route exact path='/products/:productId' component={ProductsRouter}/>
                             <Route exact path='/products/:productId/edit' component={ProductsRouter}/>
                             <Route exact path='/clients' component={ClientsRouter}/>
+                            <Route exact path='/clients/add_client' component={ClientsRouter}/>
                             <Route exact path='/clients/:clientId' component={ClientsRouter}/>
+                            <Route exact path='/clients/:clientId/edit' component={ClientsRouter}/>
                             <Route exact path='/supplies/' component={SuppliesRouter}/>
                             <Route exact path='/supplies/add_supply' component={SuppliesRouter}/>
                             <Route exact path='/supplies/:supplyId' component={SuppliesRouter}/>

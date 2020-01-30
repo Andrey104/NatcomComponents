@@ -1,0 +1,45 @@
+.main-page {
+  height: calc(100vh - 100px);
+  overflow: auto;
+}
+
+.dialog {
+  /*height: 400px;*/
+  height: 70%;
+  /*overflow: auto;*/
+  /*margin-right: 1px;*/
+}
+
+.pre-loader-container {
+  margin-top: calc(50vh - 85px);
+}
+
+.name-column{
+  font-weight: 300;
+  width: 40%;
+}
+
+.phone-column{
+    font-weight: 300;
+  min-width: 30%;
+}
+
+.negative-balance {
+    font-weight: 300;
+  width: 30%;
+  background-color: rgba(240,23,0,0.56);
+}
+
+
+.thead {
+    background-color: #16244a;
+    color: white;
+}
+
+.thead tr th{
+    font-weight: 300;
+}
+
+.thead tr td {
+    cursor: pointer;
+}

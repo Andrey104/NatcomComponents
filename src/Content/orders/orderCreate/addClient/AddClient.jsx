@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import AddClientDialog from '../../../../components/addClientDialog/AddClientDialog';
-import ClientInfo from '../../../clients/clientInfo/ClientInfo';
-import {addNewClient} from '../../../../AC/clients';
+import AddNewClientModalWindow from '../../../clients/components/AddNewClient/AddNewClientModalWindow/AddNewClientModalWindow';
+import {addNewClient} from '../../../clients/store/actions/clients';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
-import {ADD_NEW_CLIENT, OPEN_ADD_CLIENT} from '../../../../constans';
+import {OPEN_ADD_CLIENT} from '../../../../constans';
+import {ADD_NEW_CLIENT} from '../../../clients/store/constantsClient';
 import './styles.css';
 
 class AddClient extends React.Component {
@@ -37,9 +38,10 @@ class AddClient extends React.Component {
             )
         } else if (modal === ADD_NEW_CLIENT) {
             return (
-                <ClientInfo header={'Новый клиент'}
-                            handleSubmit={this.addNewClient}
-                            close={this.closeDialog}/>
+                <AddNewClientModalWindow header={'Новый клиент'}
+                                         handleSubmit={this.addNewClient}
+                                         addClient={this.selectClient}
+                                         close={this.closeDialog}/>
             )
         }
     }

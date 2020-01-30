@@ -4,7 +4,7 @@ export default class extends Component {
     render() {
         const {menu, name} = this.props;
         return (
-            <span>
+            <span className="component-menu">
                 {menu}
                 <span>></span>
                 <span>{name}</span>
