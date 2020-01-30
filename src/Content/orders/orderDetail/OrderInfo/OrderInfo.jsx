@@ -1,5 +1,4 @@
 import React from 'react';
-import './OrderInfo.css'
 
 import {orderStatuses, getDate} from '../../../../services/utils';
 import {
@@ -51,12 +50,29 @@ class OrderInfo extends React.Component {
         const {order} = this.props;
         return (
             <div className="c-card">
-                <button onClick={this.handlePrintButtonClick}>На печать</button>
-                <h4>№ {order.id}</h4>
+
+                <div className="row">
+                    <div className="col-6">
+                        <h4>№ {order.id}</h4>
+                    </div>
+                    <div className="col-6">
+                        <button className="btn btn-primary float-right" onClick={this.handlePrintButtonClick}>На печать</button>
+                    </div>
+                </div>
+
                 <div>Статус: {this.getStatus()}</div>
-                <div>Склад: {order.stock.name}</div>
-                <div>Дата выдачи: {getDate(order.date)}</div>
-                <div>Комментарий: {order.comment}</div>
+
+                <div className="row">
+                    <div className="col-md-6">
+                        <div><span className="font-weight-bold">Склад:</span> {order.stock.name}</div>
+                    </div>
+                    <div className="col-md-6">
+                        <div><span className="font-weight-bold">Дата выдачи:</span> {getDate(order.date)}</div>
+                    </div>
+                </div>
+
+
+                <div><span className="font-weight-bold">Комментарий:</span> {order.comment}</div>
             </div>
         )
     }

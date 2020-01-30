@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {getDate, priceFormat, userTypes} from '../../../../services/utils';
-import './styles.css';
 import {
     ORDER_PAYMENT_FULL_STATUS, ORDER_PAYMENT_NO_PAYMENT_STATUS,
     ORDER_PAYMENT_PREPAYMENT_STATUS
 } from "../../../../constans";
 
-export default class extends React.Component {
+class OrderPaymentCard extends React.Component {
     paymentSum;
 
     static propTypes = {
@@ -53,7 +52,7 @@ export default class extends React.Component {
         if (this.state.historyIsVisible) {
             history = (
                 <div>
-                    <h6>История</h6>
+                    <h5>История</h5>
                     {paymentsInfo}
                 </div>
             );
@@ -63,12 +62,13 @@ export default class extends React.Component {
         return history;
     }
 
-    getPaymentStatus() {
+    getPaymentStatus(order) {
         let alert = null;
-        const {order} = this.props;
-        const orderSum = Number(order.sum);
-        const nowPay = Number(this.paymentSum);
-        const prepayment = Number(order.prepayment);
+
+        // const orderSum = Number(order.sum);
+        // const nowPay = Number(this.paymentSum);
+        // const prepayment = Number(order.prepayment);
+
         switch (order.payment_status) {
             case (ORDER_PAYMENT_NO_PAYMENT_STATUS): {
                 alert = (
@@ -94,11 +94,19 @@ export default class extends React.Component {
 
     render() {
         const {order} = this.props;
+
         const history = this.getPaymentsHistory(order);
+        const paymentStatus = this.getPaymentStatus(order);
+
         return (
             <div className="c-card">
-                <h5>Список оплат</h5>
                 <div className="row">
+                    <div className="col-12">
+                        <h5>Список оплат</h5>
+                    </div>
+                </div>
+
+                <div className="row padding-row">
                     <div className="col-md-6">
                         <h6>Сумма: {priceFormat(order.sum)}</h6>
                         <h6>Предоплата: {priceFormat(order.prepayment)}</h6>
@@ -108,11 +116,33 @@ export default class extends React.Component {
                         <h6>Осталось внести: {priceFormat(order.sum - this.paymentSum)}</h6>
                     </div>
                 </div>
-                {this.getPaymentStatus()}
-                <button onClick={this.props.addBalancePay}>Оплатить с баланса клиента</button>
-                <button onClick={this.historySwitch}>История списаний</button>
-                {history}
+
+                <div className="row">
+                    <div className="col-12">
+                        {paymentStatus}
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-6">
+                        <button className="btn btn-sm btn-primary" onClick={this.props.addBalancePay}>Оплатить с
+                            баланса клиента
+                        </button>
+                    </div>
+                    <div className="col-md-6">
+                        <button className="btn btn-sm btn-primary" onClick={this.historySwitch}>История списаний
+                        </button>
+                    </div>
+                </div>
+
+                <div className="row padding-row">
+                    <div className="col-12">
+                        {history}
+                    </div>
+                </div>
             </div>
         )
     }
 }
+
+export default OrderPaymentCard
