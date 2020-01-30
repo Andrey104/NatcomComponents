@@ -66,7 +66,7 @@ export default (clientState = defaultState, actionTypeResponse) => {
             return clientState.set('credit', response.data);
         }
         case SET_CLIENTS_FILTER: {
-            return clientState.set('filter', data.filter);
+            return clientState.set('filter', data);
         }
         case DELETE_CLIENTS_FROM_STORE: {
             return defaultState;

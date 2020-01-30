@@ -22,7 +22,10 @@ class ClientsRouter extends Component {
         );
         const urlId = this.props.match.params.clientId;
         const {client} = this.props;
-        if (urlId && client !== undefined) {
+        if (this.props.match.url.indexOf('add_client') !== -1) {
+            menu = <ComponentMenu menu={menu} name={'Новый клиент'}/>;
+        }
+        else if (urlId && client) {
             if (Number(urlId) === client.id) {
                 const name = client.first_name + ' ' + client.last_name;
                 menu = <ComponentMenu menu={menu} name={name}/>;

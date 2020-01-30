@@ -65,70 +65,66 @@ export default class ClientEditingPage extends Component {
     render() {
         return (
             <div>
-                <div className="modal-body">
-                    <div className="form-group">
-                        <label htmlFor="first_name"
-                               className="required-area">Имя</label>
-                        <input type="text"
-                               name="first_name"
-                               placeholder="Введите имя клиента"
-                               value={this.state.first_name}
-                               onChange={this.handleChangeClientState}
-                               className="form-control"
-                               id="first_name"/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="last_name"
-                               className="required-area">Фамилия</label>
-                        <input type="text"
-                               name="last_name"
-                               placeholder="Введите фамилию клиента"
-                               value={this.state.last_name}
-                               onChange={this.handleChangeClientState}
-                               className="form-control"
-                               id="last_name"/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="phone1"
-                               className="required-area">Основной телефон</label>
-                        <MaskedInput type="text"
-                                     name="phone1"
-                                     placeholder="Введите телефон клиента"
-                                     value={this.state.phone1}
-                                     mask={phoneMask}
-                                     onChange={this.handleChangeClientState}
-                                     className="form-control"
-                                     id="phone1"/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="phone2">Второй телефон</label>
-                        <MaskedInput type="text"
-                                     name="phone2"
-                                     placeholder="Введите телефон клиента"
-                                     value={this.state.phone2}
-                                     mask={phoneMask}
-                                     onChange={this.handleChangeClientState}
-                                     className="form-control"
-                                     id="phone2"/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input type="text"
-                               name="email"
-                               placeholder="Введите email клиента"
-                               value={this.state.email}
-                               onChange={this.handleChangeClientState}
-                               className="form-control"
-                               id="email"/>
-                    </div>
+                <div className="form-group">
+                    <label htmlFor="first_name"
+                           className="required-area">Имя</label>
+                    <input type="text"
+                           name="first_name"
+                           placeholder="Введите имя клиента"
+                           value={this.state.first_name}
+                           onChange={this.handleChangeClientState}
+                           className="form-control"
+                           id="first_name"/>
                 </div>
-                <div className="modal-footer">
-                    <button type="submit"
-                            onClick={this.handleSubmit}
-                            disabled={this.getDisabledState()}
-                            className="btn btn-primary">{this.btnText}
-                    </button>
+                <div className="form-group">
+                    <label htmlFor="last_name"
+                           className="required-area">Фамилия</label>
+                    <input type="text"
+                           name="last_name"
+                           placeholder="Введите фамилию клиента"
+                           value={this.state.last_name}
+                           onChange={this.handleChangeClientState}
+                           className="form-control"
+                           id="last_name"/>
                 </div>
+                <div className="form-group">
+                    <label htmlFor="phone1"
+                           className="required-area">Основной телефон</label>
+                    <MaskedInput type="text"
+                                 name="phone1"
+                                 placeholder="Введите телефон клиента"
+                                 value={this.state.phone1}
+                                 mask={phoneMask}
+                                 onChange={this.handleChangeClientState}
+                                 className="form-control"
+                                 id="phone1"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="phone2">Второй телефон</label>
+                    <MaskedInput type="text"
+                                 name="phone2"
+                                 placeholder="Введите телефон клиента"
+                                 value={this.state.phone2}
+                                 mask={phoneMask}
+                                 onChange={this.handleChangeClientState}
+                                 className="form-control"
+                                 id="phone2"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input type="text"
+                           name="email"
+                           placeholder="Введите email клиента"
+                           value={this.state.email}
+                           onChange={this.handleChangeClientState}
+                           className="form-control"
+                           id="email"/>
+                </div>
+                <button type="submit"
+                        onClick={this.handleSubmit}
+                        disabled={this.getDisabledState()}
+                        className="btn btn-primary">{this.btnText}
+                </button>
             </div>
         )
     }

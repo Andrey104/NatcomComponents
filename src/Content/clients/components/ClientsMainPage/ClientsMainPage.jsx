@@ -20,7 +20,7 @@ class ClientsMainPage extends Component {
                     </div>
                 </div>
                 <div className="col-12">
-                    <ClientsList/>
+                    <ClientsList isDialog={this.props.isDialog} addClient={this.props.addClient}/>
                 </div>
             </div>
         )

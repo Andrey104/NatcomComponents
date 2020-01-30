@@ -5,11 +5,19 @@ import ClientEditingPage from "../ClientEditingPage/ClientEditingPage";
 
 class AddNewClient extends Component {
 
-    handleSubmit = client => this.props.addNewClient(client);
+    handleSubmit = client => {
+        if (this.props.addClient) {
+            this.props.addNewClient(client, false);
+            this.props.addClient(client);
+        }
+
+        else this.props.addNewClient(client);
+    };
 
     render() {
         return <ClientEditingPage handleSubmit={this.handleSubmit}/>
-    }
+    };
+
     componentWillUnmount = () => this.props.deleteClientFromStore();
 }
 

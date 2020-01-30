@@ -1,23 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import DialogWindow from '../ModalWindow';
-import SearchInput from '../SearchInput';
-import ClientsList from '../../Content/clients/components/ClientsMainPage/ClientsList/ClientsList';
-import {getClients} from '../../Content/clients/store/actions/clients';
+import ClientsMainPage from "../../Content/clients/components/ClientsMainPage/ClientsMainPage";
+import {deleteClientsFromStore} from '../../Content/clients/store/actions/clients';
 
-class AddClientDialog extends React.Component {
-
-    searchClients = search => this.props.getClients(null, search, true); //TODO проверить косячок
+class AddClientDialog extends Component {
 
     render() {
         return (
             <div className="modal-body">
-                <SearchInput search={this.searchClients}/>
-                <ClientsList addClient={this.props.addClient}/>
+                <ClientsMainPage addClient={this.props.addClient}
+                                 isDialog={true}/>
             </div>
         )
-    }
+    };
+    componentWillUnmount = () => this.props.deleteClientsFromStore();
 }
 
-export default DialogWindow(connect(null, {getClients})(AddClientDialog));
+export default DialogWindow(connect(null, {deleteClientsFromStore})(AddClientDialog));

@@ -19,7 +19,6 @@ class ClientInfoPage extends Component {
     };
 
     render() {
-        console.log(this.urlId)
         const {client, order} = this.props;
         if (client.id !== Number(this.urlId)) {
             return (

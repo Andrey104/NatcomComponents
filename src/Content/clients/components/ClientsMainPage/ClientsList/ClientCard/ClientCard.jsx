@@ -3,7 +3,7 @@ import {getPhoneWithMask, priceFormat} from '../../../../../../services/utils';
 import history from '../../../../../../history';
 import './ClientCard.css';
 
-export default class extends Component {
+export default class ClientCard extends Component {
 
     handleClick = clientId => history.push(`/clients/${clientId}`);
 

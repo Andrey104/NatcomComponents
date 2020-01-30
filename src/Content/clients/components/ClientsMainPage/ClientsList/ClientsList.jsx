@@ -7,6 +7,8 @@ import AddButton from '../../../../../components/AddButton';
 import ClientCard from './ClientCard/ClientCard';
 import InfiniteScrollOverride from '../../../../../services/InfiniteScrollOverride';
 import {getClients} from '../../../store/actions/clients';
+import {openModalWindow} from "../../../../../AC/modal";
+import {ADD_NEW_CLIENT} from "../../../store/constantsClient";
 import {mapToArr} from '../../../../../helpers';
 import './ClientsList.css';
 
@@ -37,8 +39,10 @@ class ClientsList extends Component {
         );
     };
 
-    getAddClientButton = () => { //TODO разобраться (кнопка добавления клиента)
-        return this.props.addClient ? null : <AddButton openAdd={this.addNewClient}/>
+    getAddClientButton = () => {
+        return this.props.addClient
+            ? <AddButton openAdd={() => this.props.openModalWindow(ADD_NEW_CLIENT)}/>
+            : <AddButton openAdd={this.addNewClient}/>
     };
 
     render() {
@@ -61,7 +65,7 @@ class ClientsList extends Component {
                         isDialog={this.props.isDialog}
                         className="scroll">
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-12 mobile-table-container">
                                 <table className="table table-hover table-bordered">
                                     <thead className="thead">
                                         <tr>
@@ -92,4 +96,4 @@ export default connect((state) => ({
     isLoading: state.clients.isLoading,
     hasMoreClients: state.clients.hasMoreClients,
     nextPageNumber: state.clients.nextPageNumber
-}), {getClients})(ClientsList);
+}), {getClients, openModalWindow})(ClientsList);
