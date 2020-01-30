@@ -6,6 +6,7 @@ import './Header.css';
 import {saveOrderInfoInStore} from "../AC/orders";
 import connect from "react-redux/es/connect/connect";
 import {mapToArr} from "../helpers";
+import {UsersService} from "../services/users.service";
 
 class Header extends React.Component {
 
@@ -40,6 +41,7 @@ class Header extends React.Component {
                     <ul className="navbar-nav mr-auto">
                     </ul>
                 </div>
+                <div className='header-user-info'>{UsersService.getUserInfo()}</div>
             </nav>
         )
     }

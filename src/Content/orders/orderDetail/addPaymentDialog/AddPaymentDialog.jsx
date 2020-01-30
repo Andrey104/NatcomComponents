@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 import DialogWindow from '../../../../components/ModalWindow';
 import {addPaymentInOrder} from '../../../../AC/orders';
-import {priceFormat, priceFormatWithoutSpaces} from "../../../../services/utils";
+import {
+    priceFormat, priceFormatWithoutSpaces,
+} from "../../../../services/utils";
 import {ORDER_CONFIRM_STATUS} from "../../../../constans";
 
 class AddPaymentDialog extends React.Component {
@@ -27,9 +29,6 @@ class AddPaymentDialog extends React.Component {
         this.state = {
             selectedPaymentOption: "ALL",
         };
-        const orderSum = this.props.order.sum;
-        const prepayment = this.props.order.prepayment;
-        const nowPayment = this.getNowPayment();
     }
 
     getSubmitDisable() {

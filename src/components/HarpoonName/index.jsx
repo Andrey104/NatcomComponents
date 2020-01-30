@@ -51,6 +51,6 @@ export default class extends React.Component {
 
     render() {
         const {harpoon} = this.props;
-        return <td>{this.getHarpoonName(harpoon)}</td>
+        return <td data-label="Название: ">{this.getHarpoonName(harpoon)}</td>
     }
 }

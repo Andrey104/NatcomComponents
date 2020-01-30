@@ -1,18 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import OrderInfo from './OrderInfo';
+import OrderInfo from './OrderInfo/OrderInfo';
 import OrderClientCard from '../../../components/OrderClientCard'
-import TableOrderInfo from './TableOrderInfo';
+import TableOrderInfo from './TableOrderInfo/TableOrderInfo';
 import ChangeOrderStatus from './changeOrderStatus/ChangeOrderStatus';
-import OrderPayments from './OrderPaymentsCard';
+import OrderPayments from './OrderPaymentsCard/OrderPaymentCard';
 import RejectOrder from './rejectOrder/RejectOrder';
 import Loader from '../../../components/Loader';
 import {getOrder, saveOrderInfoInStore} from '../../../AC/orders';
 import {getItemsInfo} from '../../../AC/items';
 import {getItemsInfoParams} from '../../../services/utils';
 import history from '../../../history';
-import './styles.css';
 import AddPaymentDialog from "./addPaymentDialog/AddPaymentDialog";
 
 class OrderDetail extends React.Component {
@@ -22,7 +21,6 @@ class OrderDetail extends React.Component {
         super(props);
         this.state = {
             balancePayDialogIsOpen: false,
-            balancePayReturnDialogIsOpen: false,
         };
     }
 
@@ -68,17 +66,6 @@ class OrderDetail extends React.Component {
         });
     };
 
-    openBalancePayReturnDialog = () => {
-        this.setState({
-            balancePayReturnDialogIsOpen: true
-        });
-    };
-
-    closeBalancePayReturnDialog = () => {
-        this.setState({
-            balancePayReturnDialogIsOpen: false
-        });
-    };
 
     getBalancePayDialog() {
         if (this.state.balancePayDialogIsOpen) {
@@ -91,20 +78,6 @@ class OrderDetail extends React.Component {
         }
     }
 
-    getBalancePayReturnDialog() {
-        if (this.state.balancePayDialogIsOpen) {
-            return (
-                <AddPaymentDialog header={'Списать с баланса клиента'}
-                                  order={this.props.order}
-                                  update={this.updateOrder}
-                                  close={this.closeBalancePayDialog}/>
-            )
-        }
-    }
-
-    handlePrintButtonClick = () => {
-        history.push(`/print/${this.props.order.id}`);
-    };
 
     render() {
         const {order} = this.props;
@@ -119,7 +92,6 @@ class OrderDetail extends React.Component {
             <div className="row">
                 {this.getBalancePayDialog()}
                 <div className="col-md-6">
-                    <button onClick={this.handlePrintButtonClick}>На печать</button>
                     <OrderInfo order={order}/>
                 </div>
                 <div className="col-md-6">
@@ -127,17 +99,20 @@ class OrderDetail extends React.Component {
                                      order={order}
                                      update={this.updateOrder}/>
                     <OrderPayments order={order}
-                                   addBalancePay={this.openBalancePayDialog}
-                                   returnBalancePay={this.openBalancePayReturnDialog}/>
+                                   addBalancePay={this.openBalancePayDialog}/>
                 </div>
                 <div className="col-12">
-                    <TableOrderInfo order={order}/>
-                </div>
-                <div className="col-12 text-right">
-                    <ChangeOrderStatus order={order}
-                                       update={this.updateOrder}/>
-                    <RejectOrder order={order}/>
-                    {this.getEditOrderBtn(order)}
+                    <div className="c-card">
+                        <TableOrderInfo order={order}/>
+                        <div className="row">
+                            <div className="col-12 text-right">
+                                <ChangeOrderStatus order={order}
+                                                   update={this.updateOrder}/>
+                                <RejectOrder order={order}/>
+                                {this.getEditOrderBtn(order)}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

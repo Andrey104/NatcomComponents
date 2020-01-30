@@ -58,7 +58,7 @@ export function setFilterParams(date, searchText, paymentType) {
 }
 
 export function getPaymentsSum(date, paymentType) {
-    let callAPI = 'statistics/external_payments/sum';
+    let callAPI = 'components/external_payments/sum';
     callAPI += getUrlPayments(date, null, paymentType);
     return {
         type: GET_PAYMENTS_SUM,

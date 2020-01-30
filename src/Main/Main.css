@@ -1,8 +1,12 @@
+body {
+    background-color: #edeef0;
+}
 .main-container {
     padding: 0;
     margin: 0;
     max-height: calc(100vh - 56px);
     overflow: auto;
+    background-color: #edeef0;
 }
 
 .main-row {
@@ -33,44 +37,65 @@
     padding: 3px;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .mobile-table-container table {
         border: 0;
     }
+
     .mobile-table-container table thead {
         display: none;
     }
+
     .mobile-table-container table tr {
         margin-bottom: 10px;
         display: flex;
         flex-direction: column;
         border-bottom: 2px solid #ddd;
     }
+
     .mobile-table-container table td {
         display: block;
         position: relative;
         text-align: left;
         font-size: 15px;
     }
+
     .mobile-table-container table td:first-child {
         background-color: #E9ECEF; /* TODO придумать цвета */
     }
+
     .mobile-table-container table td:before {
         content: attr(data-label);
         font-weight: bold;
     }
+
     .mobile-table-container table td div {
         display: inline-block;
     }
+
     .mobile-table-container table td input {
         max-width: 35vw;
         float: right;
     }
+
     .mobile-table-container table td img {
         position: absolute;
         min-width: 25px;
         right: 10px;
     }
+}
+
+.c-card {
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 5px;
+}
+
+.btn-primary {
+    background-color: #5181b8;
+    border-color: #5181b8;
 }
 
 

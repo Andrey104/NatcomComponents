@@ -1,8 +1,15 @@
 export class UsersService {
     static getUserInfo() {
+        let typeStr = this.getUserType();
+        let name = this.getUserFirstName();
+        return name + ' (' + typeStr + ')';
+    }
+    static getUserFirstName() {
+        return(localStorage.getItem('user_first_name'));
+    }
+    static getUserType() {
         let type = localStorage.getItem('user_type');
         let typeStr = '';
-        let name = localStorage.getItem('user_first_name');
         switch (type) {
             case '0':
                 // Продавец
@@ -35,7 +42,7 @@ export class UsersService {
             default:
                 typeStr = 'Системный аккаунт';
         }
-        return name + '(' + typeStr + ')';
+        return typeStr;
     }
     static standardPermission() {
         let type = localStorage.getItem('user_type');

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Orders.css';
 import Switch from 'react-router-dom/es/Switch';
 import Route from 'react-router-dom/es/Route';
 import NavLink from 'react-router-dom/es/NavLink';
@@ -57,8 +58,10 @@ class OrdersRouter extends React.Component {
         const menu = this.getMenu();
         return (
             <div>
-                <div className="breadcrumbs">
-                    {menu}
+                <div className='c-card'>
+                    <div className="breadcrumbs">
+                        {menu}
+                    </div>
                 </div>
                 <Switch>
                     <Route exact path='/' component={OrdersPage}/>

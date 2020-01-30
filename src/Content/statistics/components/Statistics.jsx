@@ -35,10 +35,6 @@ class Statistics extends React.Component {
             <div className="container">
                 <ComponentHeader
                     name={'Статистика'}/>
-                <div className="alert alert-warning" role="alert">
-                    <h4 className="alert-heading">Тестовая версия!</h4>
-                    <p>Данные могут обновляться медленно!</p>
-                </div>
                 <div className="row">
                     <div className="col-12">
                         <h5>Дата:</h5>
@@ -55,8 +51,7 @@ class Statistics extends React.Component {
                                 <div className="row">
                                     <div className="col-12">
                                         <p>Сумма: {priceFormat(this.props.sum)}</p>
-                                        <p>Прибыль: {priceFormat(this.props.profit)} (Приблизительная от слова
-                                            "совсем")</p>
+                                        <p>Прибыль (упрощенный расчет): {priceFormat(this.props.profit)}</p>
                                     </div>
                                 </div>
                             </div>

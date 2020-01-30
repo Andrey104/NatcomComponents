@@ -36,16 +36,44 @@ class OrderClientCard extends React.Component {
     render() {
         const {client, isClientsPage} = this.props;
         return (
-            <div className="card">
-                <div>{client.first_name} {client.last_name}</div>
-                <div>{getPhoneWithMask(client.phone1)}</div>
-                <div>Баланс: {priceFormat(client.balance)}</div>
-                <button onClick={this.handleBalanceTopUpClick}>Пополнить баланс</button>
-                {!isClientsPage ? <button onClick={this.handleAboutClientClick}>На страницу клиента</button> : null}
+            <div className="c-card">
+                <h5>{client.first_name} {client.last_name}</h5>
+
+
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="row">
+                            <div className="col-12">
+                                <div>{getPhoneWithMask(client.phone1)}</div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12">
+                                {!isClientsPage ? <button className="btn btn-sm btn-primary"
+                                                          onClick={this.handleAboutClientClick}>На страницу
+                                    клиента</button> : null}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="row">
+                            <div className="col-12">
+                                <div>Баланс: {priceFormat(client.balance)}</div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12">
+                                <button className="btn btn-sm btn-primary"
+                                        onClick={this.handleBalanceTopUpClick}>Пополнить баланс
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         )
     }
 }
 
-export default connect((state) => ({
-}), {openPaymentAddClientModal})(OrderClientCard);
+export default connect((state) => ({}), {openPaymentAddClientModal})(OrderClientCard);

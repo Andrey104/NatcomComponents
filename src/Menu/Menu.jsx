@@ -1,15 +1,16 @@
 import NavLink from "react-router-dom/es/NavLink";
-import styles from "./styles.css"
+import "./Menu.css"
 import classNames from 'classnames/bind';
 import React from 'react';
-import {PC_DISPLAY} from "../services/utils";
 import {UsersService} from "../services/users.service";
-import history from '../history';
+import Logo from "./Logo/Logo";
+import UserInfo from "./UserInfo/UserInfo";
 
-export default class extends React.Component {
 
-    handlerDjangoAdminClick = ()  =>{
-        document.location.replace(`http://components.nextf.ru/admin/`);
+class Menu extends React.Component {
+
+    handlerDjangoAdminClick = () => {
+        document.location.replace('http://' + document.location.host + '/admin/');
     };
 
     render() {
@@ -38,13 +39,14 @@ export default class extends React.Component {
                             <img className='icon' src='/public/stock.svg'/>
                             Настройка складов
                         </NavLink>
-                    </li><li className="nav-item">
-                    <div onClick={this.handlerDjangoAdminClick}
+                    </li>
+                    <li className="nav-item">
+                        <div onClick={this.handlerDjangoAdminClick}
                              className="nav-link hovered">
-                        <img className='icon' src='/public/stock.svg'/>
-                        Админка сервера
-                    </div>
-                </li>
+                            <img className='icon' src='/public/stock.svg'/>
+                            Админка сервера
+                        </div>
+                    </li>
                     <li className="nav-item">
                         <NavLink to='/services'
                                  onClick={onMenuClose}
@@ -59,7 +61,7 @@ export default class extends React.Component {
         }
 
         let standardBlock = null;
-        if (UsersService.standardPermission()){
+        if (UsersService.standardPermission()) {
             standardBlock = <div className='standard-menu'>
                 <ul className="nav flex-column">
                     <h4 className='title'>Основное</h4>
@@ -126,7 +128,7 @@ export default class extends React.Component {
 
         let managerBlock = null;
         if (UsersService.managerPermission()) {
-            managerBlock =  <div className='manager-menu'>
+            managerBlock = <div className='manager-menu'>
                 <ul className="nav flex-column">
                     <h4 className='title'>Менеджер</h4>
 
@@ -251,17 +253,16 @@ export default class extends React.Component {
                     'mobile-hidden': (mobile && !isOpen),
                 }
             )}>
-                <div className='user-info'>{UsersService.getUserInfo()}</div>
                 <div className={classNames({
                         'visible': mobile,
                         'hidden': !mobile,
                         'menu-header': true
                     }
                 )}>
-                    <NavLink className='nav-link' to='/'
-                             onClick={onMenuClose}>
-                        <h6>Все полотна</h6>
-                    </NavLink>
+                    <div className='nav-link'>
+                        <Logo/>
+                        <UserInfo/>
+                    </div>
                 </div>
                 {standardBlock}
                 {managerBlock}
@@ -272,3 +273,5 @@ export default class extends React.Component {
         )
     }
 }
+
+export default Menu;
