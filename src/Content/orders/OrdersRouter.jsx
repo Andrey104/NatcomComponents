@@ -7,11 +7,11 @@ import {connect} from 'react-redux';
 
 import ComponentMenu from '../../components/ComponentMenu/ComponentMenu';
 import OrdersPage from './ordersPage/OrdersPage';
-import AddNewOrder from './addNewOrder/AddNewOrder';
 import AddOrEditHarpoon from './orderCreate/addOrEditHarpoon/AddOrEditHarpoon';
 import OrderDetail from './orderDetail/OrderDetail';
 import EditOrder from './editOrder/EditOrder';
 import {orderStatuses} from '../../services/utils';
+import OrderCreate from "./orderCreate/OrderCreate";
 
 class OrdersRouter extends React.Component {
 
@@ -66,7 +66,7 @@ class OrdersRouter extends React.Component {
                 <Switch>
                     <Route exact path='/' component={OrdersPage}/>
                     <Route exact path='/orders' component={OrdersPage}/>
-                    <Route exact path='/orders/add_order' component={AddNewOrder}/>
+                    <Route exact path='/orders/add_order' component={OrderCreate}/>
                     <Route exact path='/orders/add_order/add_harpoon' component={AddOrEditHarpoon}/>
                     <Route exact path='/orders/:orderId' component={OrderDetail}/>
                     <Route exact path='/orders/:orderId/edit' component={EditOrder}/>

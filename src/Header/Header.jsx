@@ -3,7 +3,7 @@ import NavLink from 'react-router-dom/es/NavLink';
 import history from '../history';
 
 import './Header.css';
-import {saveOrderInfoInStore} from "../AC/orders";
+import {saveOrderInfoInStore} from "../Content/orders/store/actions/orders";
 import connect from "react-redux/es/connect/connect";
 import {mapToArr} from "../helpers";
 import {UsersService} from "../services/users.service";

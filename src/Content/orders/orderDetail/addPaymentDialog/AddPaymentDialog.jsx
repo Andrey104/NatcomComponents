@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import DialogWindow from '../../../../components/ModalWindow';
-import {addPaymentInOrder} from '../../../../AC/orders';
+import {addPaymentInOrder} from '../../store/actions/orders';
 import {
     priceFormat, priceFormatWithoutSpaces,
 } from "../../../../services/utils";

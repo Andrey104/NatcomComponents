@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import HarpoonInfo from '../../../harpoons/harpoonInfo/HarpoonInfo';
 import {saveHarpoonInOrder} from '../../../../AC/harpoons';
-import {editOrderHarpoon} from '../../../../AC/orders';
+import {editOrderHarpoon} from '../../store/actions/orders';
 import history from '../../../../history';
 
 class AddOrEditHarpoon extends React.Component {

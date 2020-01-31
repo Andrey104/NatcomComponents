@@ -11,7 +11,7 @@ import CustomPositions from './customPositions/customPositions';
 import CommentField from '../../../components/CommentField';
 import ResultPrices from './ResultPrices';
 import {BaseApi} from '../../../services/base';
-import {saveOrderInfoInStore} from '../../../AC/orders';
+import {addNewOrder, saveOrderInfoInStore} from '../store/actions/orders';
 import {saveHarpoon} from '../../../AC/harpoons';
 import {deleteItemsFromStore} from '../../../AC/items';
 import {
@@ -22,6 +22,8 @@ import {
 } from '../../../services/utils';
 import history from '../../../history';
 import './styles.css';
+import {mapToArr} from "../../../helpers";
+import {getAllStocks} from "../../../AC/stocks";
 
 class OrderCreate extends React.Component {
     baseApi = new BaseApi();
@@ -67,6 +69,10 @@ class OrderCreate extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.props.getAllStocks();
+    }
+
     updateCustomPositions = customPositions => {
         this.setState({custom_positions: customPositions});
     };
@@ -107,7 +113,7 @@ class OrderCreate extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const newOrder = this.getNewOrder();
-        this.props.handleSubmit(newOrder);
+        this.props.addNewOrder(newOrder);
     };
 
     // Получение заказа, перед отправкой на сервер ---------------
@@ -167,12 +173,6 @@ class OrderCreate extends React.Component {
         if ((!items.length && !harpoons.length) || !date) {
             return true;
         } else if (items.length) {
-            // for (const item of items) {
-            //     if (item.count && !item.error) {
-            //         if (item.count === 0) return true;
-            //     } else
-            //         return true;
-            // }
         }
         return false;
     }
@@ -373,4 +373,5 @@ class OrderCreate extends React.Component {
 
 export default connect((state) => ({
     orderSave: state.orders.orderSave,
-}), {saveOrderInfoInStore, saveHarpoon, deleteItemsFromStore})(OrderCreate);
+    stocks: mapToArr(state.stocks.stocks)
+}), {saveOrderInfoInStore, saveHarpoon, deleteItemsFromStore, getAllStocks, addNewOrder})(OrderCreate);

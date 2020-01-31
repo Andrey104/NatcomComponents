@@ -8,7 +8,7 @@ import ProductsFilters from "../productsFilters/ProductsFilters";
 import ItemsList from "../ItemList/ItemList";
 
 import './styles.css';
-import {setItemDialogState} from "../../AC/orders";
+import {setItemDialogState} from "../../Content/orders/store/actions/orders";
 import connect from "react-redux/es/connect/connect";
 
 class AddItemsDialog extends React.Component {

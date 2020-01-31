@@ -8,7 +8,7 @@ import ChangeOrderStatus from './changeOrderStatus/ChangeOrderStatus';
 import OrderPayments from './OrderPaymentsCard/OrderPaymentCard';
 import RejectOrder from './rejectOrder/RejectOrder';
 import Loader from '../../../components/Loader';
-import {getOrder, saveOrderInfoInStore} from '../../../AC/orders';
+import {getOrder, saveOrderInfoInStore} from '../store/actions/orders';
 import {getItemsInfo} from '../../../AC/items';
 import {getItemsInfoParams} from '../../../services/utils';
 import history from '../../../history';

@@ -8,7 +8,7 @@ import clients from '../Content/clients/store/reducers/client';
 import customPrices from './customPrice';
 import supplies from '../Content/supplies/store/reducers/supplies';
 import payments from './payment';
-import orders from './order';
+import orders from '../Content/orders/store/reducres/order';
 import users from './user';
 import membranes from './membrane';
 import drivers from './driver';

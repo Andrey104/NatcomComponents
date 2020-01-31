@@ -9,7 +9,7 @@ import InfiniteScrollOverride from '../../../../services/InfiniteScrollOverride'
 import {
     getAllOrders, getNextOrders, incrementOrdersPage, resetPage, saveOrderInfoInStore,
     setOrdersDate
-} from '../../../../AC/orders';
+} from '../../store/actions/orders';
 import {mapToArr} from '../../../../helpers';
 import history from '../../../../history';
 

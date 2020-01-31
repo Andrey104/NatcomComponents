@@ -6,7 +6,7 @@ import OrdersList from './ordersList/OrdersList';
 import OrderStatusSelect from './OrderStatusSelect';
 import DatePickerInput from '../../../components/datePickers/DatePickerInput';
 import {getDateForServer} from '../../../services/utils';
-import {getAllOrders, setOrdersDate} from '../../../AC/orders';
+import {getAllOrders, setOrdersDate} from '../store/actions/orders';
 
 class OrdersPage extends React.Component {
     searchText;

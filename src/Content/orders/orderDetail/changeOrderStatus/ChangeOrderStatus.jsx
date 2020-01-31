@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import AddPaymentDialog from '../addPaymentDialog/AddPaymentDialog';
-import {changeOrderStatus} from '../../../../AC/orders';
+import {changeOrderStatus} from '../../store/actions/orders';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {ADD_PAYMENT_IN_ORDER} from '../../../../constans';
 import history from '../../../../history';

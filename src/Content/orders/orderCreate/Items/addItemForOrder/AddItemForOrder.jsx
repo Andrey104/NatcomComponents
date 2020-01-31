@@ -6,7 +6,7 @@ import styles from './styles.css';
 import ProductsFilters from "../../../../../components/productsFilters/ProductsFilters";
 import ItemsList from "../../../../../components/ItemList/ItemList";
 import connect from "react-redux/es/connect/connect";
-import {setItemDialogState} from "../../../../../AC/orders";
+import {setItemDialogState} from "../../../store/actions/orders";
 
 class AddItemForOrder extends React.Component {
     stockId;

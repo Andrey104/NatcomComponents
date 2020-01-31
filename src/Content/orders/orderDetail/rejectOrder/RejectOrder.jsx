@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import ConfirmDialog from '../../../../components/confirmDialog/ConfirmDialog';
-import {rejectOrder} from '../../../../AC/orders';
+import {rejectOrder} from '../../store/actions/orders';
 import {openModalWindow, closeModalWindow} from '../../../../AC/modal';
 import {REJECT_ORDER} from '../../../../constans';
 

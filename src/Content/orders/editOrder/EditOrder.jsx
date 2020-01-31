@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import OrderInfo from '../orderCreate/OrderCreate';
 import Loader from '../../../components/Loader';
 import {getAllStocks} from '../../../AC/stocks';
-import {saveOrderInfoInStore, editOrder} from '../../../AC/orders';
+import {saveOrderInfoInStore, editOrder} from '../store/actions/orders';
 import {mapToArr} from '../../../helpers';
 
 class EditOrder extends React.Component {

@@ -5,11 +5,11 @@ import {
     SAVE_ORDER_INFO_IN_STORE,
     EDIT_HARPOON_IN_ORDER,
     SET_ITEM_DIALOG_STATE, RESET_ORDERS_PAGE, SET_ORDERS_DATE
-} from '../constans';
-import {BaseApi} from '../services/base';
-import {closeModalWindow} from './modal';
-import history from '../history';
-import {displayError, getUrlOrders} from "../services/utils";
+} from '../../../../constans';
+import {BaseApi} from '../../../../services/base';
+import {closeModalWindow} from '../../../../AC/modal';
+import history from '../../../../history';
+import {displayError, getUrlOrders} from "../../../../services/utils";
 
 export function getAllOrders(params) {
     let callAPI = 'orders/';

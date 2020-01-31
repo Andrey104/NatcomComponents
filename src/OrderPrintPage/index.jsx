@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import {getPhoneWithMask, priceFormat} from "../services/utils";
 import ClientPaymentDialog from '../components/payment/ClientPaymentDialog/index'
 import PropTypes from 'prop-types';
-import {getOrder} from "../AC/orders";
+import {getOrder} from "../Content/orders/store/actions/orders";
 import connect from "react-redux/es/connect/connect";
 import history from '../history';
 import OrderInfoPrint from './OrderInfoPrint'
